@@ -5,10 +5,10 @@ export default function Home() {
 
     return (
         <div>
-            <Link href="/">
-                <Logo />
+            <Logo />
+            <Link href="/login">
+                <h1>hi</h1>
             </Link>
-            <h1>hi</h1>
         </div>
     )
 }
