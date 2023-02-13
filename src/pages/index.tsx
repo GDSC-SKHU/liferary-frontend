@@ -1,14 +1,11 @@
-import Logo from "@/components/Logo";
-import Link from "next/link";
+import MainBody from "@/components/Main/MainBody";
+import Nav from "@/components/Nav/Nav";
 
 export default function Home() {
-
     return (
-        <div>
-            <Link href="/">
-                <Logo />
-            </Link>
-            <h1>hi</h1>
-        </div>
+        <>
+            <Nav />
+            <MainBody />
+        </>
     )
 }
