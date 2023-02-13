@@ -8,8 +8,14 @@ export default function Satisfy() {
                     <StyledH2>How was our service?</StyledH2>
                 </StyledDiv>
                 <Container2>
-                    <StyledBtn>Excellent</StyledBtn>
-                    <StyledBtn>Bad</StyledBtn>
+                    <StyledArticle>
+                        <StyledBtn />
+                        <StyledSpan>Good</StyledSpan>
+                    </StyledArticle>
+                    <StyledArticle>
+                        <StyledBtn />
+                        <StyledSpan>Bad</StyledSpan>
+                    </StyledArticle>
                 </Container2>
             </Container>
         </>
@@ -46,8 +52,21 @@ box-shadow: 2px 2px 5px #333333;
     }
 `;
 
+const StyledArticle = styled.article`
+text-align: center;
+`;
+
 const StyledBtn = styled.button`
-width: 
+width: 10vw;
+height: 20vh;
+margin-top: 1vh;
+`;
+
+const StyledSpan = styled.span`
+color: #4285F4;
+font-weight: 600;
+font-size: large;
+text-align: center;
 `;
 
 const StyledDiv = styled.div`
