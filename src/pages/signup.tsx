@@ -1,4 +1,3 @@
-import Logo from "@/components/Logo";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -14,7 +13,6 @@ export default function Signup() {
                     <StyledBtn>Login here</StyledBtn>
                 </Link>
             </Container>
-            <Logo />
             <Container2>
                 <StyledForm>
                     <h2>SIGN UP</h2>
@@ -37,7 +35,9 @@ export default function Signup() {
                             <StyledInput2 type="password" />
                         </StyledDiv2>
                     </div>
-                    <Submit>Sign up</Submit>
+                    <Link href="/login">
+                        <Submit>Sign up</Submit>
+                    </Link>
                 </StyledForm>
             </Container2>
         </div>
@@ -62,7 +62,6 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 `;
-
 
 const StyledP = styled.p`
 line-height: 200%;
@@ -90,7 +89,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 
-margin-top: 8vh;
+margin-top: 20vh;
 
 color: #72a4f7;
 `;

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Card from "./Card";
-import Category from "./Category";
+import List from "../List";
 
-export default function Main() {
+export default function MainBody() {
     return (
         <>
             <Container>
@@ -19,21 +19,21 @@ export default function Main() {
                     </StyledDiv>
                     <StyledDiv2>
                         <StyledP2>food</StyledP2>
-                        <Category title="cook" />
-                        <Category title="baking" />
-                        <Category title="menu" />
+                        <List title="cook" />
+                        <List title="baking" />
+                        <List title="menu" />
                         <StyledP2>health</StyledP2>
-                        <Category title="exercise" />
-                        <Category title="hospital" />
+                        <List title="exercise" />
+                        <List title="hospital" />
                         <StyledP2>nonsense</StyledP2>
-                        <Category title="laugh" />
-                        <Category title="happy" />
+                        <List title="laugh" />
+                        <List title="happy" />
                         <StyledBtn>click here!</StyledBtn>
                         <div>
                             <StyledP2>life</StyledP2>
-                            <Category title="tips" />
-                            <Category title="house" />
-                            <Link href="/Category">
+                            <List title="tips" />
+                            <List title="house" />
+                            <Link href="/category">
                                 <StyledSpan>Full View</StyledSpan>
                             </Link>
                         </div>
@@ -44,6 +44,16 @@ export default function Main() {
         </>
     )
 }
+
+const Container = styled.div`
+width: 100%;
+height: 70vh;
+margin-top: 4vh;
+padding-left: 14vw;
+
+background-color: #72a4f7;
+color: white;
+`;
 
 const StyledBtn = styled.button`
 float: right;
@@ -121,16 +131,6 @@ background-color: white;
 color: #72a4f7;
 border-radius: 5px;
 box-shadow: 5px 5px 20px #444444;
-`;
-
-const Container = styled.div`
-width: 100%;
-height: 70vh;
-margin-top: 3vh;
-padding-left: 14vw;
-
-background-color: #72a4f7;
-color: white;
 `;
 
 const StyledP = styled.p`

@@ -1,4 +1,4 @@
-import Logo from "@/components/Logo";
+import Logo from "@/components/Nav/Logo";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -71,7 +71,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 
-margin-top: 15vh;
+margin-top: 18vh;
 
 color: #72a4f7;
 `;
