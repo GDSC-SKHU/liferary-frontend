@@ -7,6 +7,7 @@ let TOKEN =
 const instance = axios.create({
   baseURL: 'http://api-liferary.duckdns.org',
   headers: {
+    'Content-Type': 'application/json',
     Authorization: 'Bearer ' + TOKEN,
   },
 });

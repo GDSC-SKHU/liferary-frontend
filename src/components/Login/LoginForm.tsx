@@ -28,7 +28,7 @@ const LoginForm = () => {
     } else {
       axios // login 링크
         .post(
-          'http://api-liferary.duckdns.org',
+          '/login',
           {
             email: emailData,
             password: pwData,
@@ -37,8 +37,8 @@ const LoginForm = () => {
         )
         .then((res) => {
           console.log(res.data);
-          console.log(res.data.data.accessToken);
-          localStorage.setItem('accessToken', res.data.data.accessToken);
+          // console.log(res.data.data.accessToken);
+          // localStorage.setItem('accessToken', res.data.data.accessToken);
 
           router.push('/');
         })
