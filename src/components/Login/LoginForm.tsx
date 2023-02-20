@@ -1,25 +1,74 @@
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-export default function LoginForm() {
+const LoginForm = () => {
+  const router = useRouter();
+
+  const [emailData, setEmailData] = useState<string>('');
+
+  const [pwData, setPwData] = useState<string>('');
+
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmailData(e.target.value);
+  };
+
+  const onChangePw = (e: ChangeEvent<HTMLInputElement>) => {
+    setPwData(e.target.value);
+  };
+
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (emailData === '' || pwData === '') {
+      alert('Please check your e-mail and password.');
+    }
+    axios // login 링크
+      .post('http://api-liferary.duckdns.org/api/member/login', {
+        email: emailData,
+        password: pwData,
+      })
+      .then((res) => {
+        console.log(res.data);
+
+        // console.log(res.data.data.accessToken);
+        // localStorage.setItem('accessToken', res.data.data.accessToken);
+
+        router.push('/');
+      })
+      // 자꾸 이게 뜨네..
+      .catch((e) => {
+        console.log(e);
+        alert('Please enter the correct e-mail or password.');
+      });
+  };
+
   return (
     <>
-      <StyledForm>
+      <StyledForm onSubmit={onSubmit}>
         <h2>LOGIN</h2>
         <div>
           <StyledDiv>
             <span>Username</span>
-            <StyledInput type="text" />
+            <StyledInput
+              type="text"
+              value={emailData}
+              onChange={onChangeEmail}
+            />
           </StyledDiv>
           <StyledDiv>
             <span>Password</span>
-            <StyledInput type="password" />
+            <StyledInput type="password" value={pwData} onChange={onChangePw} />
           </StyledDiv>
         </div>
-        <Submit>Login</Submit>
+        <Submit type="submit">Login</Submit>
       </StyledForm>
     </>
   );
-}
+};
+
+export default LoginForm;
 
 const StyledForm = styled.form`
   display: flex;

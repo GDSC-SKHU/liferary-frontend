@@ -1,39 +1,102 @@
-import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-export default function SignupForm() {
+const SignupForm = () => {
+  const router = useRouter();
+
+  const [email, setEmail] = useState<string>('');
+
+  const [username, setUserName] = useState<string>('');
+
+  const [pw, setPw] = useState<string>('');
+
+  // password 재입력
+  const [rpw, setRpw] = useState<string>('');
+
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  };
+
+  const onChangePw = (e: ChangeEvent<HTMLInputElement>) => {
+    setPw(e.target.value);
+  };
+
+  const onChangeRPw = (e: ChangeEvent<HTMLInputElement>) => {
+    setRpw(e.target.value);
+  };
+
+  const errorAlert = () => {
+    if (pw != rpw) {
+      return alert('Passwords do not match');
+    } else {
+    }
+  };
+
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios // signup 링크
+      .post('http://api-liferary.duckdns.org/api/member/sign-up', {
+        email: email,
+        nickname: username,
+        password: pw,
+        checkedPassword: rpw,
+      })
+      .then((res) => {
+        console.log(res.data);
+        router.push('/login');
+      })
+      .catch((error) => {
+        console.log(error);
+        errorAlert();
+      });
+  };
+
   return (
     <>
       <Container2>
-        <StyledForm>
+        <StyledForm onSubmit={onSubmit}>
           <h2>SIGN UP</h2>
           <div>
             <StyledDiv>
               <span>email</span>
-              <StyledInput type="text" />
+              <StyledInput type="text" value={email} onChange={onChangeEmail} />
             </StyledDiv>
             <StyledDiv>
               <span>Username</span>
-              <StyledInput type="text" />
+              <StyledInput
+                type="text"
+                value={username}
+                onChange={onChangeName}
+              />
             </StyledDiv>
             <StyledDiv>
               <span>Password</span>
-              <StyledInput type="password" />
+              <StyledInput type="password" value={pw} onChange={onChangePw} />
             </StyledDiv>
             <StyledDiv2>
               <StyledP2>Repeat</StyledP2>
               <span>Password</span>
-              <StyledInput2 type="password" />
+              <StyledInput2
+                type="password"
+                value={rpw}
+                onChange={onChangeRPw}
+              />
             </StyledDiv2>
           </div>
-          <Link href="/login">
-            <Submit>Sign up</Submit>
-          </Link>
+          <Submit type="submit">Sign up</Submit>
         </StyledForm>
       </Container2>
     </>
   );
-}
+};
+
+export default SignupForm;
 
 const Container2 = styled.div`
   display: flex;
