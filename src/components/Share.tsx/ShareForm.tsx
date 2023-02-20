@@ -1,27 +1,13 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const ShareForm = () => {
-  axios
-    .get(`http://api-liferary.duckdns.org/api/main/${id}`, {
-      headers: {
-        Authorization:
-          'Bearer ' +
-          (typeof window !== 'undefined'
-            ? localStorage.getItem('accessToken')
-            : ''),
-      },
-      // const id: number = res.data.data.id;
-    })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((res) => {
-      console.log(res.data);
-    });
-
   const router = useRouter();
+  console.log(router.query.id);
+  const { id } = router.query;
+  let ready = router.isReady;
 
   const title = router.query.title;
   const content = router.query.content;
@@ -29,8 +15,40 @@ const ShareForm = () => {
   const category = router.query.category;
   const video = router.query.video;
 
+  const [view, setView] = useState();
+
+  useEffect(() => {
+    console.log(ready);
+    const getView = () => {
+      const TOKEN =
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpdUBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjc2OTU2NzgyfQ.S3_1YQdWwSjGOITJQeRRFAL7E0HA2JcSenH_dHO04PU';
+      axios
+        .get(`http://api-liferary.duckdns.org/api/main/${id}`, {
+          headers: {
+            Authorization:
+              `Bearer ${TOKEN}` +
+              (typeof window !== 'undefined'
+                ? localStorage.getItem('accessToken')
+                : ''),
+          },
+          // const id: number = res.data.data.id;
+        })
+        .then((data) => {
+          console.log(TOKEN);
+          setView(data.data);
+        })
+        .catch((e) => {
+          alert('Failed to look up');
+          console.log(TOKEN);
+          console.log(e);
+        });
+    };
+    ready ? getView() : null;
+  }, [ready]);
+
   return (
     <>
+      {view !== undefined ? <p>{JSON.stringify(view)}</p> : <p>Loading...</p>}
       <Container>
         <StyledDiv>
           <StyledH2>{title}</StyledH2>
