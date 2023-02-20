@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from "react";
-import styled from "styled-components";
+import React, { PropsWithChildren } from 'react';
+import styled from 'styled-components';
 
 interface ModalDefaultType {
   onClickToggleModal: () => void;
@@ -28,6 +28,7 @@ const ModalContainer = styled.div`
   position: fixed;
   top: 5rem;
   left: 5rem;
+  cursor: default;
 `;
 
 const DialogBox = styled.dialog`
