@@ -7,7 +7,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:path*', // path 주소 ex) 8080
+        source: '/:path*', // path 주소
         destination: 'http://api-liferary.duckdns.org/:path*',
       },
     ];

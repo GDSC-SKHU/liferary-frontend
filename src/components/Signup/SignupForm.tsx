@@ -31,14 +31,21 @@ const SignupForm = () => {
     setRpw(e.target.value);
   };
 
+  const errorAlert = () => {
+    if (pw != rpw) {
+      return alert('Passwords do not match');
+    } else {
+    }
+  };
+
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios // signup 링크
-      .post('/signup', {
+      .post('http://api-liferary.duckdns.org/api/member/sign-up', {
         email: email,
-        username: username,
+        nickname: username,
         password: pw,
-        rpw: rpw,
+        checkedPassword: rpw,
       })
       .then((res) => {
         console.log(res.data);
@@ -46,6 +53,7 @@ const SignupForm = () => {
       })
       .catch((error) => {
         console.log(error);
+        errorAlert();
       });
   };
 

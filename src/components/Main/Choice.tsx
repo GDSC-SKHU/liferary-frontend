@@ -7,9 +7,9 @@ const Choice = () => {
   const [isHide, setIsHide] = useState<boolean>(false);
 
   useEffect(() => {
-    if ('Token') setIsHide(false);
+    if (localStorage.getItem('accessToken')) setIsHide(false);
     else setIsHide(true);
-  }, ['Token']);
+  }, []);
 
   // useEffect(() => {
   //   if (sessionStorage.getItem('Token')) {

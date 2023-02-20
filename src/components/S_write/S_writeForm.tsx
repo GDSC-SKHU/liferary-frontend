@@ -1,34 +1,25 @@
 import axios from 'axios';
-import router from 'next/router';
-import { ChangeEvent, FormEvent, SetStateAction, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import CreateStudy from './CreateStudy';
 
 const S_write = () => {
-  // const [write, setWrite] = useState<string>('');
+  // const { fullToken } = useToken();
 
-  // const handleTitle = (e: { target: { value: SetStateAction<string> } }) => {
-  //   setWrite(e.target.value);
-  // };
+  const router = useRouter();
 
-  // const handleContent = (e: { target: { value: SetStateAction<string> } }) => {
-  //   setWrite(e.target.value);
-  // };
+  const [title, setTitle] = useState<string>('');
 
-  // const handleSubmit = (e: any) => {
-  //   console.log(write);
-  //   router.push('/share');
-  // };
+  const [content, setContent] = useState<string>('');
 
-  const [title, setTitle] = useState<string>('merong');
+  const [category, setCategory] = useState<string>('');
 
-  const [content, setContent] = useState<string>('merong2');
+  const [name, setName] = useState<string>('');
 
-  const [category, setCategory] = useState<string>('merong');
+  const [video, setVideo] = useState<string>('');
 
-  const [name, setName] = useState<string>('merong2');
-
-  const [video, setVideo] = useState<string>('merong2');
+  // console.log(fullToken);
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -50,7 +41,27 @@ const S_write = () => {
     setVideo(e.target.value);
   };
 
+  const errorAlert = () => {
+    if (title.length == 0) {
+      return alert('Please enter your title.');
+    }
+    if (name.length == 0) {
+      return alert('Please enter your name.');
+    }
+    if (category.length == 0) {
+      return alert('Please enter your category.');
+    }
+    if (content.length == 0) {
+      return alert('Please enter your content.');
+    }
+    if (video.length == 0) {
+      return alert('Please enter your video.');
+    }
+  };
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     console.log({
       title: title,
       author: name,
@@ -61,7 +72,7 @@ const S_write = () => {
 
     axios
       .post(
-        'http://api-liferary.duckdns.org/api/main/new',
+        '/api/main/new',
         {
           title: title,
           author: name,
@@ -83,24 +94,25 @@ const S_write = () => {
       .then((res) => {
         console.log(res.data);
         console.log(res.data.data.accessToken);
-        setTitle('');
-        setContent('');
+        // setTitle('');
+        // setContent('');
+        alert('sucess write!');
 
-        // router.push({
-        //   pathname: '/share',
-        //   query: {
-        //     title: title,
-        //     content: content,
-        //     name: name,
-        //     category: category,
-        //     video: video,
-        //   },
-        // });
+        router.push({
+          pathname: '/share',
+          query: {
+            title: title,
+            content: content,
+            name: name,
+            category: category,
+            video: video,
+          },
+        });
       })
-      // const id: number = res.data.data.id;
 
       .catch((e) => {
         console.log(e);
+        errorAlert();
       });
   };
 
@@ -111,26 +123,31 @@ const S_write = () => {
           type="text"
           placeholder="Please enter your title"
           onChange={onChangeTitle}
+          value={title}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
           onChange={onChangeContent}
+          value={content}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
           onChange={onChangeCategory}
+          value={category}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
           onChange={onChangeName}
+          value={name}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
           onChange={onChangeVideo}
+          value={video}
         />
         <ImgInput type="file" accept="image/*" />
         <BtnContainer>

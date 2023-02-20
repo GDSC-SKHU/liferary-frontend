@@ -1,11 +1,9 @@
-import instance from '@/libs/api';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 const LoginForm = () => {
-  instance;
   const router = useRouter();
 
   const [emailData, setEmailData] = useState<string>('');
@@ -20,33 +18,30 @@ const LoginForm = () => {
     setPwData(e.target.value);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (emailData === '' || pwData === '') {
       alert('Please check your e-mail and password.');
-    } else {
-      axios // login 링크
-        .post(
-          '/login',
-          {
-            email: emailData,
-            password: pwData,
-          },
-          { withCredentials: true }
-        )
-        .then((res) => {
-          console.log(res.data);
-          // console.log(res.data.data.accessToken);
-          // localStorage.setItem('accessToken', res.data.data.accessToken);
-
-          router.push('/');
-        })
-        .catch((e) => {
-          console.log(e);
-          alert('Please enter the correct e-mail or password.');
-        });
     }
+    axios // login 링크
+      .post('http://api-liferary.duckdns.org/api/member/login', {
+        email: emailData,
+        password: pwData,
+      })
+      .then((res) => {
+        console.log(res.data);
+
+        // console.log(res.data.data.accessToken);
+        // localStorage.setItem('accessToken', res.data.data.accessToken);
+
+        router.push('/');
+      })
+      // 자꾸 이게 뜨네..
+      .catch((e) => {
+        console.log(e);
+        alert('Please enter the correct e-mail or password.');
+      });
   };
 
   return (
