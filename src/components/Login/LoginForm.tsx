@@ -31,13 +31,10 @@ const LoginForm = () => {
       })
       .then((res) => {
         console.log(res.data);
-
-        // console.log(res.data.data.accessToken);
-        // localStorage.setItem('accessToken', res.data.data.accessToken);
+        localStorage.setItem('accessToken', res.data.accessToken);
 
         router.push('/');
       })
-      // 자꾸 이게 뜨네..
       .catch((e) => {
         console.log(e);
         alert('Please enter the correct e-mail or password.');

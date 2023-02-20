@@ -71,24 +71,13 @@ const S_write = () => {
     });
 
     axios
-      .post(
-        '/api/main/new',
-        {
-          title: title,
-          author: name,
-          category: category,
-          context: content,
-          video: video,
-        },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-            withCredentials: true,
-          },
-        }
-      )
+      .post('http://api-liferary.duckdns.org/api/main/new', {
+        title: title,
+        author: name,
+        category: category,
+        context: content,
+        video: video,
+      })
       // post를 보냈을 때 return 값을 저장할 친구를 생성하는 코드 짜자
 
       .then((res) => {
@@ -96,7 +85,7 @@ const S_write = () => {
         console.log(res.data.data.accessToken);
         // setTitle('');
         // setContent('');
-        alert('sucess write!');
+        alert('success write!');
 
         router.push({
           pathname: '/share',
@@ -122,32 +111,32 @@ const S_write = () => {
         <StyledInput
           type="text"
           placeholder="Please enter your title"
-          onChange={onChangeTitle}
           value={title}
+          onChange={onChangeTitle}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
-          onChange={onChangeContent}
           value={content}
+          onChange={onChangeContent}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
-          onChange={onChangeCategory}
           value={category}
+          onChange={onChangeCategory}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
-          onChange={onChangeName}
           value={name}
+          onChange={onChangeName}
         />
         <StyledInput2
           type="text"
           placeholder="Write your tips contents"
-          onChange={onChangeVideo}
           value={video}
+          onChange={onChangeVideo}
         />
         <ImgInput type="file" accept="image/*" />
         <BtnContainer>
