@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CreateStudy from './CreateStudy';
+import useToken from '@/hooks/useToken';
 
 const S_write = () => {
-  // const { fullToken } = useToken();
+  const { allToken } = useToken();
 
   const router = useRouter();
 
@@ -19,7 +20,7 @@ const S_write = () => {
 
   const [video, setVideo] = useState<string>('');
 
-  // console.log(fullToken);
+  // console.log(allToken);
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -59,7 +60,7 @@ const S_write = () => {
     }
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     console.log({
@@ -71,20 +72,27 @@ const S_write = () => {
     });
 
     axios
-      .post('http://api-liferary.duckdns.org/api/main/new', {
-        title: title,
-        author: name,
-        category: category,
-        context: content,
-        video: video,
-      })
+      .post(
+        'http://api-liferary.duckdns.org/api/main/new',
+        {
+          title: title,
+          author: name,
+          category: category,
+          context: content,
+          video: video,
+        },
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: allToken,
+          },
+        }
+      )
       // post를 보냈을 때 return 값을 저장할 친구를 생성하는 코드 짜자
 
       .then((res) => {
         console.log(res.data);
-        console.log(res.data.data.accessToken);
-        // setTitle('');
-        // setContent('');
+        console.log(res.data.accessToken);
         alert('success write!');
 
         router.push({
@@ -120,19 +128,19 @@ const S_write = () => {
           value={content}
           onChange={onChangeContent}
         />
-        <StyledInput2
+        <StyledInput
           type="text"
           placeholder="Write your tips contents"
           value={category}
           onChange={onChangeCategory}
         />
-        <StyledInput2
+        <StyledInput
           type="text"
           placeholder="Write your tips contents"
           value={name}
           onChange={onChangeName}
         />
-        <StyledInput2
+        <StyledInput
           type="text"
           placeholder="Write your tips contents"
           value={video}
