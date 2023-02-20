@@ -91,7 +91,7 @@ const S_write = () => {
       // post를 보냈을 때 return 값을 저장할 친구를 생성하는 코드 짜자
 
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         console.log(res.data.accessToken);
         alert('success write!');
 
