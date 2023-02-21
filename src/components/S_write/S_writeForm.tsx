@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CreateStudy from './CreateStudy';
 import useToken from '@/hooks/useToken';
+import CategoryBtn from './CategoryBtn';
 
 const S_write = () => {
   const { allToken } = useToken();
@@ -118,6 +119,28 @@ const S_write = () => {
   return (
     <>
       <StyledForm onSubmit={onSubmit}>
+        <Category>
+          <div>
+            <Test>
+              <StyledSpan>Category: </StyledSpan>
+            </Test>
+            <StyledInput3
+              type="text"
+              placeholder="Enter here!"
+              value={category}
+              onChange={onChangeCategory}
+            />
+          </div>
+          <div>
+            <StyledSpan>Name: </StyledSpan>
+            <StyledInput3
+              type="text"
+              placeholder="Enter here!"
+              value={name}
+              onChange={onChangeName}
+            />
+          </div>
+        </Category>
         <StyledInput
           type="text"
           placeholder="Please enter your title"
@@ -133,22 +156,9 @@ const S_write = () => {
         <StyledInput
           type="text"
           placeholder="Write your tips contents"
-          value={category}
-          onChange={onChangeCategory}
-        />
-        <StyledInput
-          type="text"
-          placeholder="Write your tips contents"
-          value={name}
-          onChange={onChangeName}
-        />
-        <StyledInput
-          type="text"
-          placeholder="Write your tips contents"
           value={video}
           onChange={onChangeVideo}
         />
-        <ImgInput type="file" accept="image/*" />
         <BtnContainer>
           <CreateStudy />
           <Submit>youtube</Submit>
@@ -160,6 +170,44 @@ const S_write = () => {
 };
 
 export default S_write;
+
+const Test = styled.div`
+  float: left;
+`;
+
+const StyledInput3 = styled.input`
+  width: fit-content;
+  height: 6vh;
+  margin-top: 3vh;
+  padding: 0 6px;
+
+  outline: none;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+
+  &:focus {
+    border: 2px solid #4285f4;
+  }
+
+  ::placeholder {
+    color: #bebebe;
+    font-weight: 600;
+    font-size: large;
+  }
+`;
+
+const Category = styled.div`
+  float: left;
+  margin-top: 1rem;
+`;
+
+const StyledSpan = styled.span`
+  margin-left: 3vw;
+
+  color: #4285f4;
+  font-weight: 600;
+  font-size: large;
+`;
 
 const StyledForm = styled.form`
   display: flex;
@@ -212,11 +260,6 @@ const StyledInput2 = styled.input`
   }
 `;
 
-const ImgInput = styled.input`
-  float: right;
-  margin-top: 3vh;
-`;
-
 const BtnContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -225,6 +268,7 @@ const BtnContainer = styled.div`
 `;
 
 const Submit = styled.button`
+  margin-bottom: 1rem;
   padding: 3px 10px;
 
   background-color: #72a4f7;
