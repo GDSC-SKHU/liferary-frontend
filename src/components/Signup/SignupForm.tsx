@@ -114,6 +114,10 @@ const StyledForm = styled.form`
   margin-top: 20vh;
 
   color: #72a4f7;
+
+  @media (max-width: 800px) {
+    margin-top: 21vh;
+  }
 `;
 
 const StyledDiv = styled.div`

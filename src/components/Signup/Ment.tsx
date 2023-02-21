@@ -27,6 +27,10 @@ const Container = styled.div`
 
   background-color: #72a4f7;
   color: white;
+
+  @media (max-width: 800px) {
+    padding-left: 10vw;
+  }
 `;
 
 const StyledP = styled.p`

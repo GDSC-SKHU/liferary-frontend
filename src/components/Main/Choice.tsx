@@ -45,8 +45,8 @@ const Choice = () => {
             <List title="laugh" />
             <List title="happy" />
             <StyledBtn>click here!</StyledBtn>
+            <StyledP2>life</StyledP2>
             <div>
-              <StyledP2>life</StyledP2>
               <List title="tips" />
               <List title="house" />
               <Link href="/category">
@@ -103,6 +103,10 @@ const StyledBtn = styled.button`
   border: none;
   border-radius: 5px;
   font-weight: 500;
+
+  @media (max-width: 800px) {
+    font-size: 0.7em;
+  }
 `;
 
 const StyledSpan = styled.span`
@@ -112,6 +116,10 @@ const StyledSpan = styled.span`
   border-bottom: 2px solid #4285f4;
   font-size: large;
   font-weight: 700;
+
+  @media (max-width: 800px) {
+    font-size: 1em;
+  }
 `;
 
 const StyledP2 = styled.p`

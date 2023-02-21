@@ -76,6 +76,10 @@ const StyledForm = styled.form`
   margin-top: 18vh;
 
   color: #72a4f7;
+
+  @media (max-width: 800px) {
+    margin-top: 23vh;
+  }
 `;
 
 const StyledDiv = styled.div`
