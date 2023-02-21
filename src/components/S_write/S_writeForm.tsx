@@ -83,6 +83,8 @@ const S_write = () => {
         },
         {
           headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
             withCredentials: true,
             Authorization: allToken,
           },
@@ -92,7 +94,7 @@ const S_write = () => {
 
       .then((res) => {
         // console.log(res.data);
-        console.log(res.data.accessToken);
+        // console.log(res.data.accessToken);
         alert('success write!');
 
         router.push({
