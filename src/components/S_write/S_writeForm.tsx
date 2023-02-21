@@ -4,7 +4,6 @@ import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import CreateStudy from './CreateStudy';
 import useToken from '@/hooks/useToken';
-import CategoryBtn from './CategoryBtn';
 
 const S_write = () => {
   const { allToken } = useToken();
@@ -118,12 +117,10 @@ const S_write = () => {
 
   return (
     <>
-      <StyledForm onSubmit={onSubmit}>
-        <Category>
+      <form onSubmit={onSubmit}>
+        <StyledDiv>
           <div>
-            <Test>
-              <StyledSpan>Category: </StyledSpan>
-            </Test>
+            <StyledSpan>Category: </StyledSpan>
             <StyledInput3
               type="text"
               placeholder="Enter here!"
@@ -140,44 +137,44 @@ const S_write = () => {
               onChange={onChangeName}
             />
           </div>
-        </Category>
-        <StyledInput
-          type="text"
-          placeholder="Please enter your title"
-          value={title}
-          onChange={onChangeTitle}
-        />
-        <StyledInput2
-          type="text"
-          placeholder="Write your tips contents"
-          value={content}
-          onChange={onChangeContent}
-        />
-        <StyledInput
-          type="text"
-          placeholder="Write your tips contents"
-          value={video}
-          onChange={onChangeVideo}
-        />
-        <BtnContainer>
-          <CreateStudy />
-          <Submit>youtube</Submit>
-          <Submit type="submit">registration</Submit>
-        </BtnContainer>
-      </StyledForm>
+        </StyledDiv>
+        <Container>
+          <StyledInput
+            type="text"
+            placeholder="Please enter your title"
+            value={title}
+            onChange={onChangeTitle}
+          />
+          <StyledInput2
+            type="text"
+            placeholder="Write your tips contents"
+            value={content}
+            onChange={onChangeContent}
+          />
+          <StyledInput
+            type="text"
+            placeholder="Youtube link here!"
+            value={video}
+            onChange={onChangeVideo}
+          />
+          <BtnContainer>
+            <CreateStudy />
+            <Submit type="submit">registration</Submit>
+          </BtnContainer>
+        </Container>
+      </form>
     </>
   );
 };
 
 export default S_write;
 
-const Test = styled.div`
-  float: left;
+const StyledDiv = styled.div`
+  width: 50vw;
 `;
 
 const StyledInput3 = styled.input`
-  width: fit-content;
-  height: 6vh;
+  height: 5vh;
   margin-top: 3vh;
   padding: 0 6px;
 
@@ -196,11 +193,6 @@ const StyledInput3 = styled.input`
   }
 `;
 
-const Category = styled.div`
-  float: left;
-  margin-top: 1rem;
-`;
-
 const StyledSpan = styled.span`
   margin-left: 3vw;
 
@@ -209,7 +201,7 @@ const StyledSpan = styled.span`
   font-size: large;
 `;
 
-const StyledForm = styled.form`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -221,7 +213,7 @@ const StyledForm = styled.form`
 const StyledInput = styled.input`
   width: 40vw;
   height: 6vh;
-  margin-top: 3vh;
+  margin-top: 2vh;
   padding: 0 6px;
 
   outline: none;
@@ -264,7 +256,7 @@ const BtnContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 40vw;
-  margin-top: 5vh;
+  margin-top: 3vh;
 `;
 
 const Submit = styled.button`
