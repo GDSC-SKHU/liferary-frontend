@@ -4,11 +4,11 @@ type approval = string | null;
 type account = string | null;
 
 const useToken = () => {
-  const [approval, setApproval] = useState<approval>('');
+  const [approval, setApproval] = useState<approval>('Bearer');
   const [token, setToken] = useState<account>('');
 
   useEffect(() => {
-    setApproval(localStorage.getItem('approvalType'));
+    // setApproval(localStorage.getItem('approvalType'));
     setToken(localStorage.getItem('accessToken'));
   }, []);
 
@@ -17,7 +17,6 @@ const useToken = () => {
   const Tokens = [approval + ' ' + token];
   const allToken = Tokens.join();
 
-  return { token };
   return { allToken };
 };
 

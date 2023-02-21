@@ -25,11 +25,10 @@ const ShareForm = () => {
       axios
         .get(`http://api-liferary.duckdns.org/api/main/${id}`, {
           headers: {
-            Authorization:
-              `Bearer ${TOKEN}` +
-              (typeof window !== 'undefined'
-                ? localStorage.getItem('accessToken')
-                : ''),
+            Authorization: `Bearer ${TOKEN}`,
+            // + (typeof window !== 'undefined'
+            //   ? localStorage.getItem('accessToken')
+            //   : ''),
           },
           // const id: number = res.data.data.id;
         })

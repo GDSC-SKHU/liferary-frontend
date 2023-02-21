@@ -83,8 +83,8 @@ const S_write = () => {
         },
         {
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': true,
+            crossDomain: true,
+            credentials: 'include',
             withCredentials: true,
             Authorization: allToken,
           },
