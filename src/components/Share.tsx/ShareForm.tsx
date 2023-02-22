@@ -15,55 +15,120 @@ const ShareForm = () => {
   const category = router.query.category;
   const video = router.query.video;
 
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const date = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  const modifiedDate =
+    month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
+
+  console.log(modifiedDate);
+
   const [view, setView] = useState();
 
   useEffect(() => {
     console.log(ready);
     const getView = () => {
-      const TOKEN =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpdUBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjc2OTU2NzgyfQ.S3_1YQdWwSjGOITJQeRRFAL7E0HA2JcSenH_dHO04PU';
+      const TOKEN = localStorage.getItem('accessToken');
       axios
-        .get(`http://api-liferary.duckdns.org/api/main/${id}`, {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-            // + (typeof window !== 'undefined'
-            //   ? localStorage.getItem('accessToken')
-            //   : ''),
-          },
+        .get(
+          `http://api-liferary.duckdns.org/api/main/${id}`,
+          {
+            params: {
+              id: id,
+              title: title,
+              nickname: name,
+              category: category,
+              context: content,
+              video: video,
+              modifiedDate: modifiedDate,
+            },
+            headers: {
+              withCredentials: true,
+              Authorization: `Bearer ${TOKEN}`,
+            },
+          }
           // const id: number = res.data.data.id;
-        })
+        )
         .then((data) => {
           console.log(TOKEN);
           setView(data.data);
         })
         .catch((e) => {
-          alert('Failed to look up');
+          // alert('Failed to look up');
           console.log(TOKEN);
           console.log(e);
         });
     };
     ready ? getView() : null;
-  }, [ready]);
+  }, [id, ready]);
 
   return (
-    <>
-      {view !== undefined ? <p>{JSON.stringify(view)}</p> : <p>Loading...</p>}
+    <div>
+      <Category>
+        <p>write time: {modifiedDate}</p>
+        <StyledSpan>Category: </StyledSpan>
+        <StyledBox>
+          <StyledName>{category}</StyledName>
+        </StyledBox>
+      </Category>
+      <div>
+        <StyledSpan>Username: </StyledSpan>
+        <StyledBox>
+          <StyledName>{name}</StyledName>
+        </StyledBox>
+      </div>
       <Container>
         <StyledDiv>
           <StyledH2>{title}</StyledH2>
         </StyledDiv>
         <StyledDiv2>
-          <StyledSpan>{content}</StyledSpan>
-          <StyledSpan>{name}</StyledSpan>
-          <StyledSpan>{category}</StyledSpan>
-          <StyledSpan>{video}</StyledSpan>
+          <StyledP>{content}</StyledP>
+          <StyledP>{video}</StyledP>
         </StyledDiv2>
       </Container>
-    </>
+    </div>
   );
 };
 
 export default ShareForm;
+
+const Category = styled.div`
+  margin-top: 2rem;
+`;
+
+const StyledSpan = styled.span`
+  margin-left: 3vw;
+
+  color: #4285f4;
+
+  font-weight: 600;
+  font-size: large;
+`;
+
+const StyledBox = styled.div`
+  display: inline-block;
+
+  margin: 5px 5px 5px 0.3vw;
+  padding: 1px 7px;
+
+  background-color: #2a75f3;
+  color: white;
+  border-radius: 5px;
+
+  font-weight: 600;
+  font-size: large;
+  text-align: center;
+`;
+
+const StyledName = styled.p`
+  @media (max-width: 800px) {
+    font-size: 0.7em;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -82,6 +147,7 @@ const StyledDiv = styled.div`
 
   background-color: #72a4f7;
   border-radius: 10px;
+
   text-align: center;
 
   @media (max-width: 800px) {
@@ -105,21 +171,23 @@ const StyledDiv2 = styled.div`
   @media (max-width: 800px) {
     width: 30vw;
     height: auto;
+
     padding: 3px;
   }
 `;
 
-const StyledH2 = styled.h2`
+const StyledP = styled.p`
+  color: #4285f4;
+
+  font-weight: 500;
+  font-size: 1.4rem;
+
   @media (max-width: 800px) {
     font-size: medium;
   }
 `;
 
-const StyledSpan = styled.span`
-  color: #4285f4;
-  font-weight: 500;
-  font-size: 1.4rem;
-
+const StyledH2 = styled.h2`
   @media (max-width: 800px) {
     font-size: medium;
   }
