@@ -87,7 +87,10 @@ const ShareForm = () => {
         </StyledDiv>
         <StyledDiv2>
           <StyledP>{content}</StyledP>
-          <StyledP>{video}</StyledP>
+          <Container2>
+            <StyledTitle>youtube link: </StyledTitle>
+            <StyledSpan2>{video}</StyledSpan2>
+          </Container2>
         </StyledDiv2>
       </Container>
     </div>
@@ -139,6 +142,13 @@ const Container = styled.div`
   color: white;
 `;
 
+const Container2 = styled.div`
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+
+  border-bottom: 3px solid #72a4f7;
+`;
+
 const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
@@ -159,7 +169,6 @@ const StyledDiv = styled.div`
 
 const StyledDiv2 = styled.div`
   width: 40vw;
-  height: 40vh;
 
   margin-bottom: 1rem;
 
@@ -177,7 +186,33 @@ const StyledDiv2 = styled.div`
 `;
 
 const StyledP = styled.p`
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+
   color: #4285f4;
+  border-bottom: 3px solid #72a4f7;
+
+  font-weight: 500;
+  font-size: 1.4rem;
+
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
+const StyledSpan2 = styled.span`
+  color: #4285f4;
+
+  font-weight: 500;
+  font-size: 1.4rem;
+
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
+const StyledTitle = styled.span`
+  color: #666666;
 
   font-weight: 500;
   font-size: 1.4rem;
