@@ -129,7 +129,7 @@ const S_write = () => {
             />
           </div>
           <div>
-            <StyledSpan>Name: </StyledSpan>
+            <StyledSpan>Username: </StyledSpan>
             <StyledInput3
               type="text"
               placeholder="Enter here!"
@@ -153,7 +153,7 @@ const S_write = () => {
           />
           <StyledInput
             type="text"
-            placeholder="Youtube link here!"
+            placeholder="Input youtube link here!"
             value={video}
             onChange={onChangeVideo}
           />
@@ -201,7 +201,7 @@ const StyledSpan = styled.span`
   font-size: large;
 `;
 
-const Container = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -88,12 +88,13 @@ const StyledDiv = styled.div`
 
 const StyledInput = styled.input`
   width: 15vw;
+
   float: right;
   margin-left: 1rem;
 
-  outline: none;
   border: none;
   border-bottom: 1px solid #72a4f7;
+  outline: none;
 
   &:focus {
     border-bottom: 2px solid #72a4f7;
