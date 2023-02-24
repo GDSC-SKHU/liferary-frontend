@@ -25,7 +25,7 @@ const LoginForm = () => {
       alert('Please check your e-mail and password.');
     }
     axios // login 링크
-      .post('http://api-liferary.duckdns.org/api/member/login', {
+      .post('/api/member/login', {
         email: emailData,
         password: pwData,
       })
