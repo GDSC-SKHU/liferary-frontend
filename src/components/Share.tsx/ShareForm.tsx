@@ -19,7 +19,6 @@ const ShareForm = () => {
   const { id } = router.query;
 
   console.log(router.query.id); // undefined
-  // let ready = router.isReady;
 
   const [view, setView] = useState<IPost | never>();
   // const now = new Date();
@@ -35,33 +34,29 @@ const ShareForm = () => {
   // console.log(modifiedDate);
 
   useEffect(() => {
-    // console.log(ready); //true
-    const getView = () => {
-      const TOKEN = localStorage.getItem('accessToken');
+    const TOKEN = localStorage.getItem('accessToken');
 
-      axios
-        .get(
-          `/api/main/${id}`,
-          {
-            headers: {
-              withCredentials: true,
-              Authorization: `Bearer ${TOKEN}`,
-            },
-          }
-          // const id: number = res.data.data.id;
-        )
-        .then((data) => {
-          console.log(TOKEN);
-          setView(data.data);
-        })
-        .catch((e) => {
-          // alert('Failed to look up');
-          console.log(TOKEN);
-          console.log(e);
-        });
-    };
-    // ready ? getView() : null;
-  }, [id]);
+    axios
+      .get(
+        `/api/main/${id}`,
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+        // const id: number = res.data.data.id;
+      )
+      .then((data) => {
+        console.log(TOKEN);
+        setView(data.data);
+      })
+      .catch((e) => {
+        // alert('Failed to look up');
+        console.log(TOKEN);
+        console.log(e);
+      });
+  }, []);
 
   return (
     <div>
