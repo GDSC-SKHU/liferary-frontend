@@ -1,9 +1,12 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export default function CreteStudy() {
   return (
     <>
-      <Submit>create study</Submit>
+      <Link href="/st_write">
+        <Submit>create study</Submit>
+      </Link>
     </>
   );
 }

@@ -15,9 +15,11 @@ interface IPost {
 
 const ShareForm = () => {
   const router = useRouter();
-  console.log(router.query.id);
+
   const { id } = router.query;
-  let ready = router.isReady;
+
+  console.log(router.query.id); // undefined
+  // let ready = router.isReady;
 
   const [view, setView] = useState<IPost | never>();
   // const now = new Date();
@@ -33,13 +35,13 @@ const ShareForm = () => {
   // console.log(modifiedDate);
 
   useEffect(() => {
-    console.log(ready);
+    // console.log(ready); //true
     const getView = () => {
       const TOKEN = localStorage.getItem('accessToken');
 
       axios
         .get(
-          `http://api-liferary.duckdns.org/api/main/${id}`,
+          `/api/main/${id}`,
           {
             headers: {
               withCredentials: true,
@@ -58,8 +60,8 @@ const ShareForm = () => {
           console.log(e);
         });
     };
-    ready ? getView() : null;
-  }, [id, ready]);
+    // ready ? getView() : null;
+  }, [id]);
 
   return (
     <div>

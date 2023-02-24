@@ -41,7 +41,7 @@ const SignupForm = () => {
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios // signup 링크
-      .post('http://api-liferary.duckdns.org/api/member/sign-up', {
+      .post('/api/member/sign-up', {
         email: email,
         nickname: username,
         password: pw,

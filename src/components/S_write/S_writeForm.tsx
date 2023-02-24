@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import CreateStudy from './CreateStudy';
 import useToken from '@/hooks/useToken';
 
 const S_write = () => {
@@ -63,6 +62,9 @@ const S_write = () => {
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // const TOKEN = localStorage.getItem('accessToken');
+    // console.log(TOKEN);
+
     console.log({
       title: title,
       author: name,
@@ -73,7 +75,7 @@ const S_write = () => {
 
     axios
       .post(
-        'http://api-liferary.duckdns.org/api/main/new',
+        '/api/main/new',
         {
           title: title,
           author: name,
@@ -83,8 +85,8 @@ const S_write = () => {
         },
         {
           headers: {
-            crossDomain: true,
-            credentials: 'include',
+            // crossDomain: true,
+            // credentials: 'include',
             withCredentials: true,
             Authorization: allToken,
           },
@@ -149,7 +151,6 @@ const S_write = () => {
             onChange={onChangeVideo}
           />
           <BtnContainer>
-            <CreateStudy />
             <Submit type="submit">registration</Submit>
           </BtnContainer>
         </Container>
@@ -244,13 +245,12 @@ const StyledInput2 = styled.input`
 `;
 
 const BtnContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
   width: 40vw;
-  margin-top: 3vh;
 `;
 
 const Submit = styled.button`
+  float: right;
+  margin-top: 3vh;
   margin-bottom: 1rem;
   padding: 3px 10px;
 

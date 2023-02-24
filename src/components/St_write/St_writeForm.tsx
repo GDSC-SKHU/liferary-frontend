@@ -1,4 +1,4 @@
-export default function StudyForm() {
+const St_writeForm = () => {
   return (
     <div>
       <form>
@@ -6,4 +6,6 @@ export default function StudyForm() {
       </form>
     </div>
   );
-}
+};
+
+export default St_writeForm;

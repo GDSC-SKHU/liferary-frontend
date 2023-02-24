@@ -64,6 +64,10 @@ const Title = styled.button`
   font-size: 120%;
   box-shadow: 0 4px 4px -2px #444444;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   @media (max-width: 800px) {
     height: 5vh;
 

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export default function Comment() {
@@ -5,7 +6,9 @@ export default function Comment() {
     <Container>
       <div>
         <StyledH2>Share your feelings</StyledH2>
-        <StyledInput type="text" placeholder="Share your feelings" />
+        <Link href="/c_list">
+          <StyledInput type="text" placeholder="Share your feelings" />
+        </Link>
         <StyledBtn>Enter</StyledBtn>
       </div>
     </Container>
