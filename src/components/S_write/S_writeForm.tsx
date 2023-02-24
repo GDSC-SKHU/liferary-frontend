@@ -97,16 +97,7 @@ const S_write = () => {
         // console.log(res.data.accessToken);
         alert('success write!');
 
-        router.push({
-          pathname: '/share',
-          query: {
-            title: title,
-            content: content,
-            name: name,
-            category: category,
-            video: video,
-          },
-        });
+        router.push('/share');
       })
 
       .catch((e) => {
@@ -129,7 +120,7 @@ const S_write = () => {
             />
           </div>
           <div>
-            <StyledSpan>Username: </StyledSpan>
+            <StyledSpan>Writer: </StyledSpan>
             <StyledInput3
               type="text"
               placeholder="Enter here!"

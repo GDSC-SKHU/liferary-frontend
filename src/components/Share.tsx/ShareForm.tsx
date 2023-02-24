@@ -3,49 +3,44 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+interface IPost {
+  id: string;
+  title: string;
+  author: string;
+  context: string;
+  category: string;
+  createdDate: string;
+  video: string;
+}
+
 const ShareForm = () => {
   const router = useRouter();
   console.log(router.query.id);
   const { id } = router.query;
   let ready = router.isReady;
 
-  const title = router.query.title;
-  const content = router.query.content;
-  const name = router.query.name;
-  const category = router.query.category;
-  const video = router.query.video;
+  const [view, setView] = useState<IPost | never>();
+  // const now = new Date();
+  // const year = now.getFullYear();
+  // const month = now.getMonth();
+  // const date = now.getDate();
+  // const hours = now.getHours();
+  // const minutes = now.getMinutes();
 
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const date = now.getDate();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
+  // const modifiedDate =
+  //   month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
 
-  const modifiedDate =
-    month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
-
-  console.log(modifiedDate);
-
-  const [view, setView] = useState();
+  // console.log(modifiedDate);
 
   useEffect(() => {
     console.log(ready);
     const getView = () => {
       const TOKEN = localStorage.getItem('accessToken');
+
       axios
         .get(
           `http://api-liferary.duckdns.org/api/main/${id}`,
           {
-            params: {
-              id: id,
-              title: title,
-              nickname: name,
-              category: category,
-              context: content,
-              video: video,
-              modifiedDate: modifiedDate,
-            },
             headers: {
               withCredentials: true,
               Authorization: `Bearer ${TOKEN}`,
@@ -69,27 +64,27 @@ const ShareForm = () => {
   return (
     <div>
       <Category>
-        <p>write time: {modifiedDate}</p>
+        <p>write time: {view?.createdDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{category}</StyledName>
+          <StyledName>{view?.category}</StyledName>
         </StyledBox>
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
-          <StyledName>{name}</StyledName>
+          <StyledName>{view?.author}</StyledName>
         </StyledBox>
       </div>
       <Container>
         <StyledDiv>
-          <StyledH2>{title}</StyledH2>
+          <StyledH2>{view?.title}</StyledH2>
         </StyledDiv>
         <StyledDiv2>
-          <StyledP>{content}</StyledP>
+          <StyledP>{view?.context}</StyledP>
           <Container2>
             <StyledTitle>youtube link: </StyledTitle>
-            <StyledSpan2>{video}</StyledSpan2>
+            <StyledSpan2>{view?.video}</StyledSpan2>
           </Container2>
         </StyledDiv2>
       </Container>
