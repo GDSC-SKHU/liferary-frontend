@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function Satisfy() {
+  const [count, setCount] = useState<number>(0);
+
+  console.log(count);
+
+  if (count < 0) {
+    setCount(0);
+  }
+
   return (
     <>
       <Container>
@@ -9,11 +18,11 @@ export default function Satisfy() {
         </StyledDiv>
         <Container2>
           <StyledArticle>
-            <StyledBtn />
+            <StyledBtn onClick={() => setCount((prev) => prev + 1)} />
             <StyledSpan>Good</StyledSpan>
           </StyledArticle>
           <StyledArticle>
-            <StyledBtn />
+            <StyledBtn onClick={() => setCount((prev) => prev - 1)} />
             <StyledSpan>Bad</StyledSpan>
           </StyledArticle>
         </Container2>
