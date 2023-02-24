@@ -17,21 +17,20 @@ const ShareForm = () => {
   const router = useRouter();
 
   const { id } = router.query;
-
-  console.log(router.query.id); // undefined
+  console.log(router.query.id);
+  const nickname = router.query.nickname;
+  // const modifiedDate = router.query.modifiedDate;
 
   const [view, setView] = useState<IPost | never>();
-  // const now = new Date();
-  // const year = now.getFullYear();
-  // const month = now.getMonth();
-  // const date = now.getDate();
-  // const hours = now.getHours();
-  // const minutes = now.getMinutes();
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const date = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
 
-  // const modifiedDate =
-  //   month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
-
-  // console.log(modifiedDate);
+  const modifiedDate =
+    month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
 
   useEffect(() => {
     const TOKEN = localStorage.getItem('accessToken');
@@ -61,16 +60,16 @@ const ShareForm = () => {
   return (
     <div>
       <Category>
-        <p>write time: {view?.createdDate}</p>
+        <p>write time: {modifiedDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.category}</StyledName>
+          <StyledName>??</StyledName>
         </StyledBox>
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.author}</StyledName>
+          <StyledName>{nickname}</StyledName>
         </StyledBox>
       </div>
       <Container>

@@ -101,7 +101,12 @@ const S_write = () => {
 
         router.push({
           pathname: '/share',
-          query: { id: res.data.id },
+          query: {
+            id: res.data.id,
+            nickname: res.data.nickname,
+            title: res.data.title,
+            modifiedDate: res.data.modifiedDate,
+          },
         });
       })
       .catch((e) => {
@@ -129,7 +134,7 @@ const S_write = () => {
               type="text"
               placeholder="Enter here!"
               value={name}
-              onChange={onChangeName}
+              onChange={onChangeName} // 전역변수관리(로그인 할 때 user 정보를 recoil 등등으로 저장하기?) 보낼 때만 변수 받아오기!
             />
           </div>
         </StyledDiv>
