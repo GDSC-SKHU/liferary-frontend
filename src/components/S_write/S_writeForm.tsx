@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import useToken from '@/hooks/useToken';
@@ -101,7 +101,9 @@ const S_write = () => {
 
         router.push({
           pathname: '/share',
-          query: { id: res.data.id },
+          query: {
+            id: res.data.id,
+          },
         });
       })
       .catch((e) => {
@@ -129,7 +131,7 @@ const S_write = () => {
               type="text"
               placeholder="Enter here!"
               value={name}
-              onChange={onChangeName}
+              onChange={onChangeName} // 전역변수관리(로그인 할 때 user 정보를 recoil 등등으로 저장하기?) 보낼 때만 변수 받아오기!
             />
           </div>
         </StyledDiv>

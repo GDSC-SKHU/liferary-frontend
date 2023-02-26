@@ -1,58 +1,74 @@
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-interface IPost {
+interface IView {
   id: string;
   title: string;
-  author: string;
-  context: string;
+  nickname: string;
   category: string;
-  createdDate: string;
+  context: string;
   video: string;
+  modifiedDate: string;
 }
 
 const ShareForm = () => {
+  // const [nickname, setNickname] = useState();
+
   const router = useRouter();
 
   const { id } = router.query;
+  console.log(router.query.id);
 
-  console.log(router.query.id); // undefined
+  // const modifiedDate = router.query.modifiedDate;
 
-  const [view, setView] = useState<IPost | never>();
-  // const now = new Date();
-  // const year = now.getFullYear();
-  // const month = now.getMonth();
-  // const date = now.getDate();
-  // const hours = now.getHours();
-  // const minutes = now.getMinutes();
+  const [view, setView] = useState<IView>();
 
-  // const modifiedDate =
-  //   month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const date = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
 
-  // console.log(modifiedDate);
+  const modifiedDate =
+    month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
+
+  const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const TOKEN = localStorage.getItem('accessToken');
+    axios
+      .delete(`/api/main/${id}`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then(() => {
+        router.push('/');
+      })
+      .catch((e) => console.log(e));
+  };
 
   useEffect(() => {
     const TOKEN = localStorage.getItem('accessToken');
 
     axios
-      .get(
-        `/api/main/${id}`,
-        {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        }
-        // const id: number = res.data.data.id;
-      )
-      .then((data) => {
+      .get(`/api/main/${id}`, {
+        headers: {
+          withCredentials: true,
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then((res) => {
         console.log(TOKEN);
-        setView(data.data);
+        console.log(res.data);
+        console.log(res.data.nickname);
+
+        setView(res.data.data);
       })
       .catch((e) => {
-        // alert('Failed to look up');
+        alert('Failed to look up');
         console.log(TOKEN);
         console.log(e);
       });
@@ -61,29 +77,33 @@ const ShareForm = () => {
   return (
     <div>
       <Category>
-        <p>write time: {view?.createdDate}</p>
+        <p>write time: {modifiedDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.category}</StyledName>
+          <StyledName>{view?.title}</StyledName>
         </StyledBox>
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.author}</StyledName>
+          <StyledName>??</StyledName>
         </StyledBox>
       </div>
       <Container>
         <StyledDiv>
-          <StyledH2>{view?.title}</StyledH2>
+          <StyledH2>?</StyledH2>
         </StyledDiv>
         <StyledDiv2>
-          <StyledP>{view?.context}</StyledP>
+          <StyledP>?</StyledP>
           <Container2>
             <StyledTitle>youtube link: </StyledTitle>
-            <StyledSpan2>{view?.video}</StyledSpan2>
+            <StyledSpan2>?</StyledSpan2>
           </Container2>
         </StyledDiv2>
+        <Link href="/s_edit">
+          <button onClick={onClickDelete}>Update</button>
+        </Link>
+        <button onClick={onClickDelete}>delete</button>
       </Container>
     </div>
   );
@@ -181,7 +201,7 @@ const StyledP = styled.p`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
-  color: #4285f4;
+  color: #666666;
   border-bottom: 3px solid #72a4f7;
 
   font-weight: 500;
@@ -193,7 +213,7 @@ const StyledP = styled.p`
 `;
 
 const StyledSpan2 = styled.span`
-  color: #4285f4;
+  color: #666666;
 
   font-weight: 500;
   font-size: 1.4rem;
@@ -204,7 +224,7 @@ const StyledSpan2 = styled.span`
 `;
 
 const StyledTitle = styled.span`
-  color: #666666;
+  color: #4285f4;
 
   font-weight: 500;
   font-size: 1.4rem;

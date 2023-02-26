@@ -7,9 +7,9 @@ export default function Card() {
         <Item />
         <Item />
         <Item />
+        <Title></Title> {/* 최신순으로 띄울 수 있게 */}
         <Title>How to join GDSC</Title>
-        <Title>How to join GDSC</Title>
-        <Title>How to join GDSC</Title>
+        <Title>How to join GDSCCCCCCCCCCCCCCC</Title>
       </StyledGrid>
       <StyledGrid>
         <Item />
