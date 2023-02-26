@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import useToken from '@/hooks/useToken';
@@ -103,9 +103,6 @@ const S_write = () => {
           pathname: '/share',
           query: {
             id: res.data.id,
-            nickname: res.data.nickname,
-            title: res.data.title,
-            modifiedDate: res.data.modifiedDate,
           },
         });
       })

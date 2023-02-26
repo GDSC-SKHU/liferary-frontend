@@ -1,16 +1,13 @@
-import router from 'next/router';
 import styled from 'styled-components';
 
 export default function Card() {
-  const title = router.query.title;
-
   return (
     <Container>
       <StyledGrid>
         <Item />
         <Item />
         <Item />
-        <Title>{title}</Title> {/* 최신순으로 띄울 수 있게 */}
+        <Title></Title> {/* 최신순으로 띄울 수 있게 */}
         <Title>How to join GDSC</Title>
         <Title>How to join GDSCCCCCCCCCCCCCCC</Title>
       </StyledGrid>
