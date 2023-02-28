@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useToken from '@/hooks/useToken';
 
@@ -13,13 +13,15 @@ const S_write = () => {
 
   const [content, setContent] = useState<string>('');
 
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>('programming');
 
   const [name, setName] = useState<string>('');
 
   const [video, setVideo] = useState<string>('');
 
-  // console.log(allToken);
+  const [imgFile, setImgFile] = useState<File | null>();
+
+  const [preview, setPreview] = useState<string | null>('');
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -41,6 +43,29 @@ const S_write = () => {
     setVideo(e.target.value);
   };
 
+  const onChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files !== null) {
+      const file = event.target.files[0];
+      if (file && file.type.substring(0, 5) === 'image') {
+        setImgFile(file);
+      } else {
+        setImgFile(null);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (imgFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(imgFile);
+    } else {
+      setPreview(null);
+    }
+  }, [imgFile]);
+
   const errorAlert = () => {
     if (title.length == 0) {
       return alert('Please enter your title.');
@@ -54,12 +79,9 @@ const S_write = () => {
     if (content.length == 0) {
       return alert('Please enter your content.');
     }
-    if (video.length == 0) {
-      return alert('Please enter your video.');
-    }
   };
 
-  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // const TOKEN = localStorage.getItem('accessToken');
@@ -70,8 +92,20 @@ const S_write = () => {
       author: name,
       category: category,
       context: content,
+      images: [imgFile],
       video: video,
     });
+
+    let dataSet = {
+      title: title,
+      author: name,
+      category: category,
+      context: content,
+      video: video,
+    };
+
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(dataSet));
 
     axios
       .post(
@@ -81,24 +115,23 @@ const S_write = () => {
           author: name,
           category: category,
           context: content,
+          images: [imgFile],
           video: video,
         },
         {
           headers: {
             // crossDomain: true,
             // credentials: 'include',
+            'Content-Type': 'multipart/form-data',
             withCredentials: true,
             Authorization: allToken,
           },
+          // data: formData,
         }
       )
       // post를 보냈을 때 return 값(id)을 저장할 친구를 생성하는 코드 짜자
 
       .then((res) => {
-        console.log(res.data.id);
-        // console.log(res.data.accessToken);
-        alert('success write!');
-
         router.push({
           pathname: '/share',
           query: {
@@ -110,6 +143,7 @@ const S_write = () => {
         console.log(e);
         errorAlert();
       });
+    console.log('제출 폼 입니다.', onSubmit);
   };
 
   return (
@@ -153,6 +187,14 @@ const S_write = () => {
             placeholder="Input youtube link here!"
             value={video}
             onChange={onChangeVideo}
+          />
+          <input
+            id="input-file"
+            accept="image/*"
+            type="file"
+            placeholder="Input file here!"
+            onChange={onChangeImg}
+            // onChange={handleChangeFile}
           />
           <BtnContainer>
             <Submit type="submit">registration</Submit>
@@ -203,7 +245,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: white;
+  /* color: white; */
 `;
 
 const StyledInput = styled.input`
@@ -272,3 +314,6 @@ const Submit = styled.button`
     border: 1px solid #72a4f7;
   }
 `;
+function async(file: string) {
+  throw new Error('Function not implemented.');
+}

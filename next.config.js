@@ -4,6 +4,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  api: {
+    bodyParser: false,
+  },
   async rewrites() {
     return [
       {
