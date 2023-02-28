@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -10,6 +9,7 @@ interface IView {
   nickname: string;
   category: string;
   context: string;
+  images: [string];
   video: string;
   modifiedDate: string;
 }
@@ -18,7 +18,6 @@ const ShareForm = () => {
   // const [nickname, setNickname] = useState();
 
   const router = useRouter();
-
   const { id } = router.query;
   console.log(router.query.id);
 
@@ -48,6 +47,10 @@ const ShareForm = () => {
         router.push('/');
       })
       .catch((e) => console.log(e));
+  };
+
+  const onClickUpdateRouter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    router.push(`/s_edit`);
   };
 
   useEffect(() => {
@@ -86,23 +89,21 @@ const ShareForm = () => {
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
-          <StyledName>??</StyledName>
+          <StyledName>{view?.nickname}</StyledName>
         </StyledBox>
       </div>
       <Container>
         <StyledDiv>
-          <StyledH2>?</StyledH2>
+          <StyledH2></StyledH2>
         </StyledDiv>
         <StyledDiv2>
-          <StyledP>?</StyledP>
+          <StyledP></StyledP>
           <Container2>
             <StyledTitle>youtube link: </StyledTitle>
-            <StyledSpan2>?</StyledSpan2>
+            <StyledSpan2></StyledSpan2>
           </Container2>
         </StyledDiv2>
-        <Link href="/s_edit">
-          <button onClick={onClickDelete}>Update</button>
-        </Link>
+        <button onClick={onClickUpdateRouter}>Update</button>
         <button onClick={onClickDelete}>delete</button>
       </Container>
     </div>

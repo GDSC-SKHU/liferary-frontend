@@ -1,4 +1,3 @@
-import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -9,14 +8,15 @@ interface IUpdate {
   title: string;
   category: string;
   context: string;
+  images: [string];
   video: string;
 }
 
 const S_editForm = () => {
   const router = useRouter();
   const { id } = router.query;
+  console.log(router.query.id);
   let ready = router.isReady;
-  const { user } = useUser();
 
   const [updateData, setUpdateData] = useState<IUpdate>();
 
@@ -25,6 +25,8 @@ const S_editForm = () => {
   const [updateCategory, setUpdateCategory] = useState<string>('');
 
   const [updateContext, setUpdateContext] = useState<string>('');
+
+  const [updateImage, setUpdateImage] = useState<string>('');
 
   const [updateVideo, setUpdateVideo] = useState<string>('');
 
@@ -47,23 +49,20 @@ const S_editForm = () => {
     if (ready) {
       console.log(updateData?.title);
 
-      const getUpdateData = () => {
-        const TOKEN = localStorage.getItem('accessToken');
-        axios
-          .get(`/api/main/${id}`, {
-            headers: {
-              Authorization: `Bearer ${TOKEN}`,
-            },
-          })
-          .then((data) => {
-            console.log(data.data);
-            setUpdateData(data.data);
-          })
-          .catch((e) => {
-            alert(e);
-          });
-      };
-      getUpdateData();
+      const TOKEN = localStorage.getItem('accessToken');
+      axios
+        .get(`api/main/${id}`, {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then((data) => {
+          console.log(data.data);
+          setUpdateData(data.data);
+        })
+        .catch((e) => {
+          alert(e);
+        });
     }
   }, []);
 
@@ -76,6 +75,9 @@ const S_editForm = () => {
   const onChangeUpdateContext = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdateContext(e.currentTarget.value);
   };
+  const onChangeUpdateImage = (e: ChangeEvent<HTMLInputElement>) => {
+    setUpdateImage(e.currentTarget.value);
+  };
   const onChangeUpdateVideo = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdateVideo(e.currentTarget.value);
   };
@@ -86,7 +88,7 @@ const S_editForm = () => {
     const TOKEN = localStorage.getItem('accessToken');
     axios
       .patch(
-        `/api/main/${id}`,
+        `api/main/${id}`,
         {
           id: id,
           title: updateTitle,
@@ -101,7 +103,7 @@ const S_editForm = () => {
         }
       )
       .then(() => {
-        router.push(`/api/main/${id}`);
+        router.push(`api/main/${id}`);
       })
       .catch((e) => {
         errorAlert();
@@ -139,6 +141,12 @@ const S_editForm = () => {
           placeholder="Input youtube link here!"
           value={updateVideo}
           onChange={onChangeUpdateVideo}
+        />
+        <StyledInput
+          type="text"
+          placeholder="Input image here!"
+          value={updateImage}
+          onChange={onChangeUpdateImage}
         />
         <BtnContainer>
           <Submit type="submit">registration</Submit>
@@ -187,8 +195,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  color: white;
 `;
 
 const StyledInput = styled.input`
@@ -257,6 +263,3 @@ const Submit = styled.button`
     border: 1px solid #72a4f7;
   }
 `;
-function userRouter() {
-  throw new Error('Function not implemented.');
-}
