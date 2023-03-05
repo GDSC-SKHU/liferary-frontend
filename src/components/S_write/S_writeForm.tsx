@@ -125,7 +125,6 @@ const S_write = () => {
         console.log(e);
         errorAlert();
       });
-    console.log("제출 폼 입니다.", onSubmit);
   };
 
   return (

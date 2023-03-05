@@ -98,7 +98,7 @@ const ShareForm = () => {
       </div>
       {view !== undefined ? (
         <Container>
-          {user?.email === view.id ? (
+          {user?.nickname === view.nickname ? (
             <div>
               <StyledDiv>
                 <StyledH2>{view.title}</StyledH2>

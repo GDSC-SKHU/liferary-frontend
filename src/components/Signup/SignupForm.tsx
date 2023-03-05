@@ -15,8 +15,6 @@ const SignupForm = () => {
   // password 재입력
   const [rpw, setRpw] = useState<string>("");
 
-  const firebase: boolean = false;
-
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -48,7 +46,6 @@ const SignupForm = () => {
         nickname: username,
         password: pw,
         checkedPassword: rpw,
-        firebaseAuth: firebase,
       })
       .then((res) => {
         console.log(res.data);
