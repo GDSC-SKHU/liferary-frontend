@@ -1,8 +1,8 @@
-import useUser from "@/hooks/useUser";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
+import useUser from '@/hooks/useUser';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 interface IView {
   id: string;
@@ -55,6 +55,7 @@ const ShareForm = () => {
   useEffect(() => {
     console.log(ready);
     const getView = () => {
+
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
