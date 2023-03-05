@@ -126,7 +126,6 @@ const S_write = () => {
             withCredentials: true,
             Authorization: allToken,
           },
-          // data: formData,
         }
       )
       // post를 보냈을 때 return 값(id)을 저장할 친구를 생성하는 코드 짜자
@@ -143,7 +142,6 @@ const S_write = () => {
         console.log(e);
         errorAlert();
       });
-    console.log('제출 폼 입니다.', onSubmit);
   };
 
   return (
@@ -314,6 +312,3 @@ const Submit = styled.button`
     border: 1px solid #72a4f7;
   }
 `;
-function async(file: string) {
-  throw new Error('Function not implemented.');
-}

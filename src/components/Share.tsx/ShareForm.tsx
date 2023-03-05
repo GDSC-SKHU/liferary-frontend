@@ -1,3 +1,4 @@
+import useUser from '@/hooks/useUser';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -15,15 +16,13 @@ interface IView {
 }
 
 const ShareForm = () => {
-  // const [nickname, setNickname] = useState();
-
   const router = useRouter();
   const { id } = router.query;
   console.log(router.query.id);
+  let ready = router.isReady;
+  const { user } = useUser();
 
-  // const modifiedDate = router.query.modifiedDate;
-
-  const [view, setView] = useState<IView>();
+  const [view, setView] = useState<IView | never>();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -50,32 +49,36 @@ const ShareForm = () => {
   };
 
   const onClickUpdateRouter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    router.push(`/s_edit`);
+    router.push(`/api/main/${id}`);
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem('accessToken');
+    console.log(ready);
+    const getView = () => {
+      const TOKEN = localStorage.getItem('accessToken');
 
-    axios
-      .get(`/api/main/${id}`, {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then((res) => {
-        console.log(TOKEN);
-        console.log(res.data);
-        console.log(res.data.nickname);
+      axios
+        .get(`/api/main/${id}`, {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then((data) => {
+          console.log(TOKEN);
+          console.log(data.data);
+          console.log(data.data.nickname);
 
-        setView(res.data.data);
-      })
-      .catch((e) => {
-        alert('Failed to look up');
-        console.log(TOKEN);
-        console.log(e);
-      });
-  }, []);
+          setView(data.data);
+        })
+        .catch((e) => {
+          alert('Failed to look up');
+          console.log(TOKEN);
+          console.log(e);
+        });
+    };
+    ready ? getView() : null;
+  }, [id, ready]);
 
   return (
     <div>
@@ -83,7 +86,7 @@ const ShareForm = () => {
         <p>write time: {modifiedDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.title}</StyledName>
+          <StyledName>{view?.category}</StyledName>
         </StyledBox>
       </Category>
       <div>
@@ -92,20 +95,33 @@ const ShareForm = () => {
           <StyledName>{view?.nickname}</StyledName>
         </StyledBox>
       </div>
-      <Container>
-        <StyledDiv>
-          <StyledH2></StyledH2>
-        </StyledDiv>
-        <StyledDiv2>
-          <StyledP></StyledP>
-          <Container2>
-            <StyledTitle>youtube link: </StyledTitle>
-            <StyledSpan2></StyledSpan2>
-          </Container2>
-        </StyledDiv2>
-        <button onClick={onClickUpdateRouter}>Update</button>
-        <button onClick={onClickDelete}>delete</button>
-      </Container>
+      {view !== undefined ? (
+        <Container>
+          {user?.email === view.id ? (
+            <div>
+              <StyledDiv>
+                <StyledH2>{view.title}</StyledH2>
+              </StyledDiv>
+              <button onClick={onClickUpdateRouter}>Update</button>
+              <button onClick={onClickDelete}>delete</button>
+            </div>
+          ) : (
+            <StyledDiv>
+              <StyledH2>{view.title}</StyledH2>
+            </StyledDiv>
+          )}
+          <StyledDiv2>
+            <StyledP>{view.context}</StyledP>
+            <Container2>
+              <StyledTitle>youtube link: </StyledTitle>
+              <StyledSpan2>{view.video}</StyledSpan2>
+            </Container2>
+          </StyledDiv2>
+          {/* {view.images} */}
+        </Container>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
