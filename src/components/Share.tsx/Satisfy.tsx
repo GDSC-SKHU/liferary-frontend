@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
 export default function Satisfy() {
   const [count, setCount] = useState<number>(0);
@@ -48,7 +48,7 @@ const StyledDiv = styled.div`
 
   margin-bottom: 1rem;
 
-  background-color: #a0c3fd;
+  background-color: var(--color-light);
   border-radius: 5px;
   text-align: center;
 
@@ -68,7 +68,7 @@ const Container2 = styled.div`
   height: 30vh;
 
   background-color: white;
-  color: #4285f4;
+  color: var(--color-main);
   border-radius: 10px;
   box-shadow: 2px 2px 5px #333333;
 
@@ -89,7 +89,7 @@ const StyledBtn = styled.button`
 `;
 
 const StyledSpan = styled.span`
-  color: #4285f4;
+  color: var(--color-main);
   font-weight: 600;
   font-size: large;
   text-align: center;

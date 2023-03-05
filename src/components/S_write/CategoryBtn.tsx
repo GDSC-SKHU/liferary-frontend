@@ -1,7 +1,7 @@
-import { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import Modal from './Modal';
-import Element from '../Category/Element';
+import { useCallback, useState } from "react";
+import styled from "styled-components";
+import Modal from "./Modal";
+import Element from "../Category/Element";
 
 export default function CategoryBtn() {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export default function CategoryBtn() {
 const StyledBtn = styled.button`
   background-color: white;
   color: #bebebe;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
   font-weight: 600;
   font-size: large;
@@ -39,7 +39,7 @@ const StyledBtn = styled.button`
 
 const ModalContainer = styled.div`
   width: 50vw;
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
 `;
 
 const StyledDeleteBtn = styled.button`

@@ -1,7 +1,8 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import useUser from "@/hooks/useUser";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 interface IView {
   id: string;
@@ -9,19 +10,17 @@ interface IView {
   nickname: string;
   category: string;
   context: string;
-  images: [string];
+  images: string[];
   video: string;
   modifiedDate: string;
 }
 
 const ShareForm = () => {
-  // const [nickname, setNickname] = useState();
-
   const router = useRouter();
-  const { id } = router.query;
+  const [id, setId] = useState(router.query.id);
   console.log(router.query.id);
-
-  // const modifiedDate = router.query.modifiedDate;
+  const { user } = useUser();
+  let ready = router.isReady;
 
   const [view, setView] = useState<IView>();
 
@@ -33,10 +32,10 @@ const ShareForm = () => {
   const minutes = now.getMinutes();
 
   const modifiedDate =
-    month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
+    month + "/" + date + "/" + year + " " + hours + ":" + minutes;
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const TOKEN = localStorage.getItem('accessToken');
+    const TOKEN = localStorage.getItem("accessToken");
     axios
       .delete(`/api/main/${id}`, {
         headers: {
@@ -44,38 +43,42 @@ const ShareForm = () => {
         },
       })
       .then(() => {
-        router.push('/');
+        router.push("/");
       })
       .catch((e) => console.log(e));
   };
 
   const onClickUpdateRouter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    router.push(`/s_edit`);
+    router.push(`/api/main/${id}`);
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem('accessToken');
+    console.log(ready);
+    const getView = () => {
+      const TOKEN = localStorage.getItem("accessToken");
 
-    axios
-      .get(`/api/main/${id}`, {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then((res) => {
-        console.log(TOKEN);
-        console.log(res.data);
-        console.log(res.data.nickname);
+      axios
+        .get(`/api/main/${id}`, {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then((data) => {
+          console.log(TOKEN);
+          console.log(data.data);
+          console.log(data.data.nickname);
 
-        setView(res.data.data);
-      })
-      .catch((e) => {
-        alert('Failed to look up');
-        console.log(TOKEN);
-        console.log(e);
-      });
-  }, []);
+          setView(data.data);
+        })
+        .catch((e) => {
+          alert("Failed to look up");
+          console.log(TOKEN);
+          console.log(e);
+        });
+    };
+    ready ? getView() : null;
+  }, [id, ready]);
 
   return (
     <div>
@@ -83,7 +86,7 @@ const ShareForm = () => {
         <p>write time: {modifiedDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.title}</StyledName>
+          <StyledName>{view?.category}</StyledName>
         </StyledBox>
       </Category>
       <div>
@@ -92,20 +95,33 @@ const ShareForm = () => {
           <StyledName>{view?.nickname}</StyledName>
         </StyledBox>
       </div>
-      <Container>
-        <StyledDiv>
-          <StyledH2></StyledH2>
-        </StyledDiv>
-        <StyledDiv2>
-          <StyledP></StyledP>
-          <Container2>
-            <StyledTitle>youtube link: </StyledTitle>
-            <StyledSpan2></StyledSpan2>
-          </Container2>
-        </StyledDiv2>
-        <button onClick={onClickUpdateRouter}>Update</button>
-        <button onClick={onClickDelete}>delete</button>
-      </Container>
+      {view !== undefined ? (
+        <Container>
+          {user?.email === view.id ? (
+            <div>
+              <StyledDiv>
+                <StyledH2>{view.title}</StyledH2>
+              </StyledDiv>
+              <button onClick={onClickUpdateRouter}>Update</button>
+              <button onClick={onClickDelete}>delete</button>
+            </div>
+          ) : (
+            <StyledDiv>
+              <StyledH2>{view.title}</StyledH2>
+            </StyledDiv>
+          )}
+          <StyledDiv2>
+            <StyledP>{view.context}</StyledP>
+            <Container2>
+              <StyledTitle>youtube link: </StyledTitle>
+              <StyledSpan2>{view.video}</StyledSpan2>
+            </Container2>
+          </StyledDiv2>
+          {/* {view.images} */}
+        </Container>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
@@ -119,7 +135,7 @@ const Category = styled.div`
 const StyledSpan = styled.span`
   margin-left: 3vw;
 
-  color: #4285f4;
+  color: var(--color-main);
 
   font-weight: 600;
   font-size: large;
@@ -131,7 +147,7 @@ const StyledBox = styled.div`
   margin: 5px 5px 5px 0.3vw;
   padding: 1px 7px;
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
   border-radius: 5px;
 
@@ -159,7 +175,7 @@ const Container2 = styled.div`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
-  border-bottom: 3px solid #72a4f7;
+  border-bottom: 3px solid var(--color-normal);
 `;
 
 const StyledDiv = styled.div`
@@ -168,7 +184,7 @@ const StyledDiv = styled.div`
 
   margin-bottom: 1rem;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   border-radius: 10px;
 
   text-align: center;
@@ -203,7 +219,7 @@ const StyledP = styled.p`
   padding-bottom: 1rem;
 
   color: #666666;
-  border-bottom: 3px solid #72a4f7;
+  border-bottom: 3px solid var(--color-normal);
 
   font-weight: 500;
   font-size: 1.4rem;
@@ -225,7 +241,7 @@ const StyledSpan2 = styled.span`
 `;
 
 const StyledTitle = styled.span`
-  color: #4285f4;
+  color: var(--color-main);
 
   font-weight: 500;
   font-size: 1.4rem;

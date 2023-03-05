@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function Introduce() {
   return (
@@ -9,7 +9,7 @@ export default function Introduce() {
         <StyledP>If you don't have an id,</StyledP>
         <StyledP>please sign up first.</StyledP>
         <StyledP>Thank you.</StyledP>
-        <Link href={'/signup'}>
+        <Link href={"/signup"}>
           <StyledBtn>Sign up here</StyledBtn>
         </Link>
       </Container>
@@ -25,7 +25,7 @@ const Container = styled.div`
   padding-top: 37vh;
   padding-left: 12vw;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
 
   @media (max-width: 800px) {
@@ -40,7 +40,7 @@ const StyledP = styled.p`
 const StyledBtn = styled.button`
   margin-left: 10vw;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
   border: 1px solid white;
   border-radius: 7px;
@@ -49,6 +49,6 @@ const StyledBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: #72a4f7;
+    color: var(--color-normal);
   }
 `;

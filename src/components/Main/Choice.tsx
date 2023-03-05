@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import List from '../List';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import List from "../List";
 
 const Choice = () => {
   const [isHide, setIsHide] = useState<boolean>(false);
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) setIsHide(false);
+    if (localStorage.getItem("accessToken")) setIsHide(false);
     else setIsHide(true);
   }, []);
 
@@ -69,18 +69,18 @@ const WriteBtn = styled.button<{ isHide: boolean }>`
   float: right;
   margin-top: 4.5vh;
   margin-right: 5vw;
-  display: ${({ isHide }) => (isHide ? 'none' : 'block')};
+  display: ${({ isHide }) => (isHide ? "none" : "block")};
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid #2a75f3;
+  border: 1px solid var(--color-deep);
   border-radius: 10px;
   font-weight: 600;
   font-size: large;
 
   &:hover {
     background-color: white;
-    color: #2a75f3;
+    color: var(--color-deep);
   }
 `;
 
@@ -90,7 +90,7 @@ const Container = styled.div`
   margin-top: 4vh;
   padding-left: 14vw;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
 `;
 
@@ -98,7 +98,7 @@ const StyledBtn = styled.button`
   float: right;
   margin-top: 5vh;
 
-  background-color: #a0c3fd;
+  background-color: var(--color-light);
   color: white;
   border: none;
   border-radius: 5px;
@@ -112,8 +112,8 @@ const StyledBtn = styled.button`
 const StyledSpan = styled.span`
   float: right;
 
-  color: #4285f4;
-  border-bottom: 2px solid #4285f4;
+  color: var(--color-main);
+  border-bottom: 2px solid var(--color-main);
   font-size: large;
   font-weight: 700;
 
@@ -123,7 +123,7 @@ const StyledSpan = styled.span`
 `;
 
 const StyledP2 = styled.p`
-  color: #4285f4;
+  color: var(--color-main);
   font-weight: 700;
   font-size: small;
 `;
@@ -152,7 +152,7 @@ const StyledDiv = styled.div`
 
   margin-bottom: 1rem;
 
-  background-color: #a0c3fd;
+  background-color: var(--color-light);
   border-radius: 10px;
   text-align: center;
 
@@ -175,7 +175,7 @@ const StyledDiv2 = styled.div`
   padding: 0.5rem 1rem;
 
   background-color: white;
-  color: #72a4f7;
+  color: var(--color-normal);
   border-radius: 5px;
   box-shadow: 5px 5px 20px #444444;
 `;

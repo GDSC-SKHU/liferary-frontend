@@ -10,8 +10,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:path*', // path 주소
-        destination: 'http://api-liferary.duckdns.org/:path*',
+        source: "/:path*", // path 주소
+        destination: "http://api-liferary.duckdns.org/:path*",
+        // destination: "http://localhost:8080/:path*",
       },
     ];
   },

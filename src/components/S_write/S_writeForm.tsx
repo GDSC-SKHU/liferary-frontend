@@ -1,27 +1,23 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import useToken from '@/hooks/useToken';
+import axios from "axios";
+import { useRouter } from "next/router";
+import { ChangeEvent, FormEvent, useState } from "react";
+import styled from "styled-components";
+import useToken from "@/hooks/useToken";
 
 const S_write = () => {
   const { allToken } = useToken();
 
   const router = useRouter();
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
 
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>("");
 
-  const [category, setCategory] = useState<string>('programming');
+  const [category, setCategory] = useState<string>("programming");
 
-  const [name, setName] = useState<string>('');
+  const [video, setVideo] = useState<string>("");
 
-  const [video, setVideo] = useState<string>('');
-
-  const [imgFile, setImgFile] = useState<File | null>();
-
-  const [preview, setPreview] = useState<string | null>('');
+  const [imgFile, setImgFile] = useState<FileList | null>(null);
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -35,49 +31,38 @@ const S_write = () => {
     setCategory(e.target.value);
   };
 
-  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-
   const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
     setVideo(e.target.value);
   };
 
   const onChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files !== null) {
-      const file = event.target.files[0];
-      if (file && file.type.substring(0, 5) === 'image') {
-        setImgFile(file);
-      } else {
-        setImgFile(null);
-      }
+    if (event.target.files) {
+      const file = event.target.files;
+      setImgFile(file);
     }
   };
 
-  useEffect(() => {
-    if (imgFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(imgFile);
-    } else {
-      setPreview(null);
-    }
-  }, [imgFile]);
+  // useEffect(() => {
+  //   if (imgFile) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreview(reader.result as string);
+  //     };
+  //     reader.readAsDataURL(imgFile);
+  //   } else {
+  //     setPreview(null);
+  //   }
+  // }, [imgFile]);
 
   const errorAlert = () => {
     if (title.length == 0) {
-      return alert('Please enter your title.');
-    }
-    if (name.length == 0) {
-      return alert('Please enter your name.');
+      return alert("Please enter your title.");
     }
     if (category.length == 0) {
-      return alert('Please enter your category.');
+      return alert("Please enter your category.");
     }
     if (content.length == 0) {
-      return alert('Please enter your content.');
+      return alert("Please enter your content.");
     }
   };
 
@@ -89,40 +74,37 @@ const S_write = () => {
 
     console.log({
       title: title,
-      author: name,
       category: category,
       context: content,
-      images: [imgFile],
+      images: imgFile,
       video: video,
     });
 
     let dataSet = {
       title: title,
-      author: name,
       category: category,
       context: content,
       video: video,
     };
 
     const formData = new FormData();
-    formData.append('data', JSON.stringify(dataSet));
+    formData.append("data", JSON.stringify(dataSet));
 
     axios
       .post(
-        '/api/main/new',
+        "/api/main",
         {
           title: title,
-          author: name,
           category: category,
           context: content,
-          images: [imgFile],
+          images: imgFile,
           video: video,
         },
         {
           headers: {
             // crossDomain: true,
             // credentials: 'include',
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
             withCredentials: true,
             Authorization: allToken,
           },
@@ -132,8 +114,9 @@ const S_write = () => {
       // post를 보냈을 때 return 값(id)을 저장할 친구를 생성하는 코드 짜자
 
       .then((res) => {
+        alert("Success write!");
         router.push({
-          pathname: '/share',
+          pathname: "/share",
           query: {
             id: res.data.id,
           },
@@ -143,7 +126,7 @@ const S_write = () => {
         console.log(e);
         errorAlert();
       });
-    console.log('제출 폼 입니다.', onSubmit);
+    console.log("제출 폼 입니다.", onSubmit);
   };
 
   return (
@@ -157,15 +140,6 @@ const S_write = () => {
               placeholder="Enter here!"
               value={category}
               onChange={onChangeCategory}
-            />
-          </div>
-          <div>
-            <StyledSpan>Writer: </StyledSpan>
-            <StyledInput3
-              type="text"
-              placeholder="Enter here!"
-              value={name}
-              onChange={onChangeName} // 전역변수관리(로그인 할 때 user 정보를 recoil 등등으로 저장하기?) 보낼 때만 변수 받아오기!
             />
           </div>
         </StyledDiv>
@@ -194,6 +168,7 @@ const S_write = () => {
             type="file"
             placeholder="Input file here!"
             onChange={onChangeImg}
+            multiple
             // onChange={handleChangeFile}
           />
           <BtnContainer>
@@ -217,11 +192,11 @@ const StyledInput3 = styled.input`
   padding: 0 6px;
 
   outline: none;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 
   ::placeholder {
@@ -234,7 +209,7 @@ const StyledInput3 = styled.input`
 const StyledSpan = styled.span`
   margin-left: 3vw;
 
-  color: #4285f4;
+  color: var(--color-main);
   font-weight: 600;
   font-size: large;
 `;
@@ -255,11 +230,11 @@ const StyledInput = styled.input`
   padding: 0 6px;
 
   outline: none;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 
   ::placeholder {
@@ -276,11 +251,11 @@ const StyledInput2 = styled.input`
   padding: 0 6px;
 
   outline: none;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 
   ::placeholder {
@@ -300,9 +275,9 @@ const Submit = styled.button`
   margin-bottom: 1rem;
   padding: 3px 10px;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
-  border: 1px solid #72a4f7;
+  border: 1px solid var(--color-normal);
   border-radius: 10px;
   font-weight: 600;
   font-size: large;
@@ -310,10 +285,7 @@ const Submit = styled.button`
 
   &:hover {
     background-color: white;
-    color: #72a4f7;
-    border: 1px solid #72a4f7;
+    color: var(--color-normal);
+    border: 1px solid var(--color-normal);
   }
 `;
-function async(file: string) {
-  throw new Error('Function not implemented.');
-}

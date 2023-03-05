@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default function Card() {
   return (
@@ -56,9 +56,9 @@ const Item = styled.div`
 const Title = styled.button`
   margin: 10px 30px;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
-  border: 1px solid #72a4f7;
+  border: 1px solid var(--color-normal);
   border-radius: 10px;
 
   font-size: 120%;
