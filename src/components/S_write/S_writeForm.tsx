@@ -108,7 +108,6 @@ const S_write = () => {
             withCredentials: true,
             Authorization: allToken,
           },
-          // data: formData,
         }
       )
       // post를 보냈을 때 return 값(id)을 저장할 친구를 생성하는 코드 짜자
