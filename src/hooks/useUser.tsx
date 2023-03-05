@@ -12,7 +12,7 @@ const useUser = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/info`, {
+      .get(`/api/member/info`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
