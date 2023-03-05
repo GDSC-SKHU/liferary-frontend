@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default function Study() {
   return (
@@ -23,8 +23,8 @@ const StyledH2 = styled.h2`
   margin-bottom: 1rem;
   padding: 10px;
 
-  color: #4285f4;
-  border-bottom: 1px solid #4285f4;
+  color: var(--color-main);
+  border-bottom: 1px solid var(--color-main);
   font-weight: 600;
 `;
 

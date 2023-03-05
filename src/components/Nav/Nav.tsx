@@ -1,21 +1,75 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from "next/link";
+import styled from "styled-components";
+import { auth } from "../Login/GoogleLogin";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+interface UserInfo {
+  email: string;
+  nickname: string;
+  firebaseAuth: boolean;
+}
 
 export default function Nav() {
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  useEffect(() => {
+    Object.keys(window.localStorage).includes("userInfo") &&
+      setUserInfo(
+        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
+      );
+    console.log(userInfo);
+  }, []);
+  const handleLogout = () => {
+    console.log(localStorage.getItem("userInfo"));
+    if (
+      JSON.parse(localStorage.getItem("userInfo") || "").firebaseAuth === true
+    ) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userInfo");
+      auth.signOut();
+    } else {
+      axios
+        .post(
+          "/api/member/logout",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              RefreshToken: localStorage.getItem("refreshToken"),
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status == 200) {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            localStorage.removeItem("userInfo");
+          }
+        });
+    }
+    alert("Success Logout!");
+  };
+
   return (
     <>
       <Container>
-        <Link href={'/'}>
+        <Link href={"/"}>
           <StyledImg src="/Logo.svg" />
         </Link>
         <Search placeholder="Liferary" />
-        <StyledSpan>Welcome!</StyledSpan>
+        <StyledSpan>
+          {userInfo && "Welcome! " + userInfo?.nickname + "님"}
+        </StyledSpan>
         <UserContainer>
           <Link href="/user_info">
             <StyledImg2 src="/Pro.svg" alt="" />
           </Link>
-          <Link href="/login">
-            <LoginBtn>Login</LoginBtn>
+          <Link style={{ textDecoration: "none" }} href="/login">
+            {userInfo ? (
+              <LoginBtn onClick={handleLogout}>Logout</LoginBtn>
+            ) : (
+              <LoginBtn>Login</LoginBtn>
+            )}
           </Link>
         </UserContainer>
       </Container>
@@ -32,7 +86,7 @@ const Container = styled.div`
 const StyledSpan = styled.span`
   margin-top: 3vh;
 
-  color: #72a4f7;
+  color: var(--color-normal);
   font-weight: 600;
 `;
 
@@ -58,7 +112,7 @@ const Search = styled.input`
 
   outline: none;
   background-color: white;
-  border: 2px solid #72a4f7;
+  border: 2px solid var(--color-normal);
   border-radius: 2rem;
   box-shadow: 2px 2px 5px;
 `;
@@ -78,13 +132,13 @@ const UserContainer = styled.div`
 const LoginBtn = styled.button`
   margin-right: 2.86vw;
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid #2a75f3;
+  border: 1px solid var(--color-deep);
   border-radius: 10px;
 
   &:hover {
     background-color: white;
-    color: #2a75f3;
+    color: var(--color-deep);
   }
 `;

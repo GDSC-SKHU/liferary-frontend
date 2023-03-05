@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function Comment() {
   return (
@@ -29,8 +29,8 @@ const StyledH2 = styled.h2`
   margin-bottom: 1rem;
   padding: 10px;
 
-  color: #4285f4;
-  border-bottom: 1px solid #4285f4;
+  color: var(--color-main);
+  border-bottom: 1px solid var(--color-main);
   font-weight: 600;
 `;
 
@@ -39,7 +39,7 @@ const StyledInput = styled.input`
   padding: 3px 7px;
 
   background-color: white;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 2rem;
 
   font-size: large;
@@ -47,7 +47,7 @@ const StyledInput = styled.input`
   box-shadow: 2px 2px 5px #444444;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 `;
 
@@ -56,9 +56,9 @@ const StyledBtn = styled.button`
   margin-left: 10px;
   padding: 3px 5px;
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid #2a75f3;
+  border: 1px solid var(--color-deep);
   border-radius: 5px;
 
   font-weight: 600;
@@ -67,6 +67,6 @@ const StyledBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: #2a75f3;
+    color: var(--color-deep);
   }
 `;

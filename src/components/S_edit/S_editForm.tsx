@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import axios from "axios";
+import { useRouter } from "next/router";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import styled from "styled-components";
 
 interface IUpdate {
   id: string;
@@ -20,28 +20,28 @@ const S_editForm = () => {
 
   const [updateData, setUpdateData] = useState<IUpdate>();
 
-  const [updateTitle, setUpdateTitle] = useState<string>('');
+  const [updateTitle, setUpdateTitle] = useState<string>("");
 
-  const [updateCategory, setUpdateCategory] = useState<string>('');
+  const [updateCategory, setUpdateCategory] = useState<string>("");
 
-  const [updateContext, setUpdateContext] = useState<string>('');
+  const [updateContext, setUpdateContext] = useState<string>("");
 
-  const [updateImage, setUpdateImage] = useState<string>('');
+  const [updateImage, setUpdateImage] = useState<string>("");
 
-  const [updateVideo, setUpdateVideo] = useState<string>('');
+  const [updateVideo, setUpdateVideo] = useState<string>("");
 
   const errorAlert = () => {
     if (updateTitle.length == 0) {
-      return alert('제목을 입력해 주세요');
+      return alert("제목을 입력해 주세요");
     }
     if (updateCategory.length == 0) {
-      return alert('태그를 입력해 주세요');
+      return alert("태그를 입력해 주세요");
     }
     if (updateContext.length == 0) {
-      return alert('내용을 입력해 주세요');
+      return alert("내용을 입력해 주세요");
     }
     if (updateVideo.length == 0) {
-      return alert('내용을 입력해 주세요');
+      return alert("내용을 입력해 주세요");
     }
   };
 
@@ -49,7 +49,7 @@ const S_editForm = () => {
     if (ready) {
       console.log(updateData?.title);
 
-      const TOKEN = localStorage.getItem('accessToken');
+      const TOKEN = localStorage.getItem("accessToken");
       axios
         .get(`api/main/${id}`, {
           headers: {
@@ -85,7 +85,7 @@ const S_editForm = () => {
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const TOKEN = localStorage.getItem('accessToken');
+    const TOKEN = localStorage.getItem("accessToken");
     axios
       .patch(
         `api/main/${id}`,
@@ -168,11 +168,11 @@ const StyledInput3 = styled.input`
   padding: 0 6px;
 
   outline: none;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 
   ::placeholder {
@@ -185,7 +185,7 @@ const StyledInput3 = styled.input`
 const StyledSpan = styled.span`
   margin-left: 3vw;
 
-  color: #4285f4;
+  color: var(--color-main);
   font-weight: 600;
   font-size: large;
 `;
@@ -204,11 +204,11 @@ const StyledInput = styled.input`
   padding: 0 6px;
 
   outline: none;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 
   ::placeholder {
@@ -225,11 +225,11 @@ const StyledInput2 = styled.input`
   padding: 0 6px;
 
   outline: none;
-  border: 1px solid #4285f4;
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   &:focus {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--color-main);
   }
 
   ::placeholder {
@@ -249,9 +249,9 @@ const Submit = styled.button`
   margin-bottom: 1rem;
   padding: 3px 10px;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
-  border: 1px solid #72a4f7;
+  border: 1px solid var(--color-normal);
   border-radius: 10px;
   font-weight: 600;
   font-size: large;
@@ -259,7 +259,7 @@ const Submit = styled.button`
 
   &:hover {
     background-color: white;
-    color: #72a4f7;
-    border: 1px solid #72a4f7;
+    color: var(--color-normal);
+    border: 1px solid var(--color-normal);
   }
 `;

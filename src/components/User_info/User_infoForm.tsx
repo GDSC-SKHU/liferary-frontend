@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default function User_infoForm() {
   return (
@@ -43,20 +43,20 @@ const StyledDiv = styled.div`
 const StyledP = styled.p`
   margin-top: 1.5rem;
 
-  color: #4285f4;
+  color: var(--color-main);
   opacity: 0.5;
 
   font-weight: 600;
 `;
 
 const StyledH2 = styled.h2`
-  color: #4285f4;
+  color: var(--color-main);
 `;
 const StyledH3 = styled.h3`
-  color: #4285f4;
+  color: var(--color-main);
 `;
 const StyledH4 = styled.h4`
-  color: #4285f4;
+  color: var(--color-main);
 `;
 
 const StyledDiv2 = styled.div`

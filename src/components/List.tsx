@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface Props {
   title: string;
@@ -23,7 +23,7 @@ const Container = styled.div`
   margin-top: 5px;
   padding: 1px 3px;
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
   border-radius: 5px;
   font-weight: 600;

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface IUser {
-  id: string;
   email: string;
   nickname: string;
+  firebaseAuth: boolean;
 }
 
 const useUser = () => {
@@ -14,12 +14,12 @@ const useUser = () => {
     axios
       .get(`/api/info`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       })
       .then((data) => setUser(data.data))
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.error(err);
       });
   }, []);
   return { user };

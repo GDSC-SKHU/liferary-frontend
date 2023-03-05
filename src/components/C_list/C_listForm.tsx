@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function C_listForm() {
   return (
@@ -68,7 +68,7 @@ const TitleContainer = styled.div`
   margin-top: 3vh;
   padding: 0 20px;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
   border-radius: 10px;
   opacity: 0.5;
@@ -79,7 +79,7 @@ const TitleContainer = styled.div`
 const StyledSpan = styled.span`
   padding: 3px 15px;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   border-radius: 1rem;
   opacity: 0.5;
 `;
@@ -95,8 +95,8 @@ const ContentContainer = styled.div`
   padding: 1.5em 20px;
 
   color: white;
-  /* border-top: 1px solid #72a4f7; */
-  border-bottom: 1px solid #72a4f7;
+  /* border-top: 1px solid var(--color-normal); */
+  border-bottom: 1px solid var(--color-normal);
 
   white-space: nowrap;
   overflow: hidden;
@@ -110,9 +110,9 @@ const WriteBtn = styled.button`
   margin-left: 15vw;
   padding: 3px 10px;
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid #2a75f3;
+  border: 1px solid var(--color-deep);
   border-radius: 10px;
 
   font-weight: 600;
@@ -120,6 +120,6 @@ const WriteBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: #2a75f3;
+    color: var(--color-deep);
   }
 `;

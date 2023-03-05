@@ -1,19 +1,21 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { ChangeEvent, useState } from 'react';
-import styled from 'styled-components';
+import axios from "axios";
+import { useRouter } from "next/router";
+import { ChangeEvent, useState } from "react";
+import styled from "styled-components";
 
 const SignupForm = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
 
-  const [username, setUserName] = useState<string>('');
+  const [username, setUserName] = useState<string>("");
 
-  const [pw, setPw] = useState<string>('');
+  const [pw, setPw] = useState<string>("");
 
   // password 재입력
-  const [rpw, setRpw] = useState<string>('');
+  const [rpw, setRpw] = useState<string>("");
+
+  const firebase: boolean = false;
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -33,7 +35,7 @@ const SignupForm = () => {
 
   const errorAlert = () => {
     if (pw != rpw) {
-      return alert('Passwords do not match');
+      return alert("Passwords do not match");
     } else {
     }
   };
@@ -41,15 +43,16 @@ const SignupForm = () => {
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios // signup 링크
-      .post('/api/member/sign-up', {
+      .post("/api/member/join", {
         email: email,
         nickname: username,
         password: pw,
         checkedPassword: rpw,
+        firebaseAuth: firebase,
       })
       .then((res) => {
         console.log(res.data);
-        router.push('/login');
+        router.push("/login");
       })
       .catch((error) => {
         console.log(error);
@@ -113,7 +116,7 @@ const StyledForm = styled.form`
 
   margin-top: 20vh;
 
-  color: #72a4f7;
+  color: var(--color-normal);
 
   @media (max-width: 800px) {
     margin-top: 21vh;
@@ -135,10 +138,10 @@ const StyledInput = styled.input`
 
   outline: none;
   border: none;
-  border-bottom: 1px solid #72a4f7;
+  border-bottom: 1px solid var(--color-normal);
 
   &:focus {
-    border-bottom: 2px solid #72a4f7;
+    border-bottom: 2px solid var(--color-normal);
   }
 `;
 
@@ -149,10 +152,10 @@ const StyledInput2 = styled.input`
 
   outline: none;
   border: none;
-  border-bottom: 1px solid #72a4f7;
+  border-bottom: 1px solid var(--color-normal);
 
   &:focus {
-    border-bottom: 2px solid #72a4f7;
+    border-bottom: 2px solid var(--color-normal);
   }
 `;
 
@@ -160,15 +163,15 @@ const Submit = styled.button`
   padding: 3px 7vw;
   margin-top: 3rem;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
-  border: 1px solid #72a4f7;
+  border: 1px solid var(--color-normal);
   border-radius: 7px;
 
   cursor: pointer;
 
   &:hover {
-    color: #72a4f7;
+    color: var(--color-normal);
     background-color: white;
   }
 `;

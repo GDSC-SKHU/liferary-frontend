@@ -10,19 +10,19 @@ interface IView {
   nickname: string;
   category: string;
   context: string;
-  images: [string];
+  images: string[];
   video: string;
   modifiedDate: string;
 }
 
 const ShareForm = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const [id, setId] = useState(router.query.id);
   console.log(router.query.id);
-  let ready = router.isReady;
   const { user } = useUser();
+  let ready = router.isReady;
 
-  const [view, setView] = useState<IView | never>();
+  const [view, setView] = useState<IView>();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -32,10 +32,10 @@ const ShareForm = () => {
   const minutes = now.getMinutes();
 
   const modifiedDate =
-    month + '/' + date + '/' + year + ' ' + hours + ':' + minutes;
+    month + "/" + date + "/" + year + " " + hours + ":" + minutes;
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const TOKEN = localStorage.getItem('accessToken');
+    const TOKEN = localStorage.getItem("accessToken");
     axios
       .delete(`/api/main/${id}`, {
         headers: {
@@ -43,7 +43,7 @@ const ShareForm = () => {
         },
       })
       .then(() => {
-        router.push('/');
+        router.push("/");
       })
       .catch((e) => console.log(e));
   };
@@ -55,7 +55,8 @@ const ShareForm = () => {
   useEffect(() => {
     console.log(ready);
     const getView = () => {
-      const TOKEN = localStorage.getItem('accessToken');
+
+      const TOKEN = localStorage.getItem("accessToken");
 
       axios
         .get(`/api/main/${id}`, {
@@ -72,7 +73,7 @@ const ShareForm = () => {
           setView(data.data);
         })
         .catch((e) => {
-          alert('Failed to look up');
+          alert("Failed to look up");
           console.log(TOKEN);
           console.log(e);
         });
@@ -135,7 +136,7 @@ const Category = styled.div`
 const StyledSpan = styled.span`
   margin-left: 3vw;
 
-  color: #4285f4;
+  color: var(--color-main);
 
   font-weight: 600;
   font-size: large;
@@ -147,7 +148,7 @@ const StyledBox = styled.div`
   margin: 5px 5px 5px 0.3vw;
   padding: 1px 7px;
 
-  background-color: #2a75f3;
+  background-color: var(--color-deep);
   color: white;
   border-radius: 5px;
 
@@ -175,7 +176,7 @@ const Container2 = styled.div`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
-  border-bottom: 3px solid #72a4f7;
+  border-bottom: 3px solid var(--color-normal);
 `;
 
 const StyledDiv = styled.div`
@@ -184,7 +185,7 @@ const StyledDiv = styled.div`
 
   margin-bottom: 1rem;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   border-radius: 10px;
 
   text-align: center;
@@ -219,7 +220,7 @@ const StyledP = styled.p`
   padding-bottom: 1rem;
 
   color: #666666;
-  border-bottom: 3px solid #72a4f7;
+  border-bottom: 3px solid var(--color-normal);
 
   font-weight: 500;
   font-size: 1.4rem;
@@ -241,7 +242,7 @@ const StyledSpan2 = styled.span`
 `;
 
 const StyledTitle = styled.span`
-  color: #4285f4;
+  color: var(--color-main);
 
   font-weight: 500;
   font-size: 1.4rem;

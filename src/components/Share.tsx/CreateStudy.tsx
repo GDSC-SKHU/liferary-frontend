@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function CreteStudy() {
   return (
@@ -15,9 +15,9 @@ const Submit = styled.button`
   margin-bottom: 1rem;
   padding: 3px 10px;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
-  border: 1px solid #72a4f7;
+  border: 1px solid var(--color-normal);
   border-radius: 10px;
   font-weight: 600;
   font-size: large;
@@ -25,7 +25,7 @@ const Submit = styled.button`
 
   &:hover {
     background-color: white;
-    color: #72a4f7;
-    border: 1px solid #72a4f7;
+    color: var(--color-normal);
+    border: 1px solid var(--color-normal);
   }
 `;
