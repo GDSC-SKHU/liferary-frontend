@@ -8,14 +8,13 @@ interface IUpdate {
   title: string;
   category: string;
   context: string;
-  images: [string];
+  images: string[];
   video: string;
 }
 
 const S_editForm = () => {
   const router = useRouter();
-  const { id } = router.query;
-  console.log(router.query.id);
+  const [id, setId] = useState(router.query.id);
   let ready = router.isReady;
 
   const [updateData, setUpdateData] = useState<IUpdate>();
@@ -26,22 +25,22 @@ const S_editForm = () => {
 
   const [updateContext, setUpdateContext] = useState<string>("");
 
-  const [updateImage, setUpdateImage] = useState<string>("");
+  const [updateImg, setUpdateImg] = useState<FileList | null>(null);
 
   const [updateVideo, setUpdateVideo] = useState<string>("");
 
   const errorAlert = () => {
     if (updateTitle.length == 0) {
-      return alert("제목을 입력해 주세요");
+      return alert("Please enter your title.");
     }
     if (updateCategory.length == 0) {
-      return alert("태그를 입력해 주세요");
+      return alert("Please enter your category.");
     }
     if (updateContext.length == 0) {
-      return alert("내용을 입력해 주세요");
+      return alert("Please enter your content.");
     }
     if (updateVideo.length == 0) {
-      return alert("내용을 입력해 주세요");
+      return alert("Please enter your video link.");
     }
   };
 
@@ -49,20 +48,23 @@ const S_editForm = () => {
     if (ready) {
       console.log(updateData?.title);
 
-      const TOKEN = localStorage.getItem("accessToken");
-      axios
-        .get(`api/main/${id}`, {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
-        .then((data) => {
-          console.log(data.data);
-          setUpdateData(data.data);
-        })
-        .catch((e) => {
-          alert(e);
-        });
+      const getUpdateData = () => {
+        const TOKEN = localStorage.getItem("accessToken");
+        axios
+          .get(`/api/main/${id}`, {
+            headers: {
+              Authorization: `Bearer ${TOKEN}`,
+            },
+          })
+          .then((data) => {
+            console.log(data.data);
+            setUpdateData(data.data);
+          })
+          .catch((e) => {
+            alert(e);
+          });
+      };
+      getUpdateData;
     }
   }, []);
 
@@ -75,8 +77,11 @@ const S_editForm = () => {
   const onChangeUpdateContext = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdateContext(e.currentTarget.value);
   };
-  const onChangeUpdateImage = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateImage(e.currentTarget.value);
+  const onChangeUpdateImg = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files) {
+      const file = e.currentTarget.files;
+      setUpdateImg(file);
+    }
   };
   const onChangeUpdateVideo = (e: ChangeEvent<HTMLInputElement>) => {
     setUpdateVideo(e.currentTarget.value);
@@ -85,74 +90,98 @@ const S_editForm = () => {
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    let dataSet = {
+      title: updateTitle,
+      category: updateCategory,
+      context: updateContext,
+      video: updateVideo,
+    };
+
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(dataSet));
+
     const TOKEN = localStorage.getItem("accessToken");
     axios
       .patch(
-        `api/main/${id}`,
+        `/api/main/${id}`,
         {
-          id: id,
           title: updateTitle,
           category: updateCategory,
           context: updateContext,
+          images: updateImg,
           video: updateVideo,
         },
         {
           headers: {
+            "Content-Type": "multipart/form-data",
+            withCredentials: true,
             Authorization: `Bearer ${TOKEN}`,
           },
         }
       )
-      .then(() => {
-        router.push(`api/main/${id}`);
+      .then((res) => {
+        alert("Success patch!");
+        router.push({
+          pathname: "/share",
+          query: {
+            id: res.data.id,
+          },
+        });
       })
       .catch((e) => {
+        console.log(e);
         errorAlert();
       });
   };
 
   return (
-    <form onSubmit={onClickUpdate}>
-      <StyledDiv>
-        <div>
-          <StyledSpan>Category: </StyledSpan>
-          <StyledInput3
+    <>
+      <form onSubmit={onClickUpdate}>
+        <StyledDiv>
+          <div>
+            <StyledSpan>Category: </StyledSpan>
+            <StyledInput3
+              type="text"
+              placeholder="Enter here!"
+              value={updateCategory}
+              onChange={onChangeUpdateCategory}
+            />
+          </div>
+        </StyledDiv>
+        <Container>
+          <StyledInput
             type="text"
-            placeholder="Enter here!"
-            value={updateCategory}
-            onChange={onChangeUpdateCategory}
+            placeholder="Please enter your title"
+            value={updateTitle}
+            onChange={onChangeUpdateTitle}
           />
-        </div>
-      </StyledDiv>
-      <Container>
-        <StyledInput
-          type="text"
-          placeholder="Please enter your title"
-          value={updateTitle}
-          onChange={onChangeUpdateTitle}
-        />
-        <StyledInput2
-          type="text"
-          placeholder="Write your tips contents"
-          value={updateContext}
-          onChange={onChangeUpdateContext}
-        />
-        <StyledInput
-          type="text"
-          placeholder="Input youtube link here!"
-          value={updateVideo}
-          onChange={onChangeUpdateVideo}
-        />
-        <StyledInput
-          type="text"
-          placeholder="Input image here!"
-          value={updateImage}
-          onChange={onChangeUpdateImage}
-        />
-        <BtnContainer>
-          <Submit type="submit">registration</Submit>
-        </BtnContainer>
-      </Container>
-    </form>
+          <StyledInput2
+            type="text"
+            placeholder="Write your tips contents"
+            value={updateContext}
+            onChange={onChangeUpdateContext}
+          />
+          <StyledInput
+            type="text"
+            placeholder="Input youtube link here!"
+            value={updateVideo}
+            onChange={onChangeUpdateVideo}
+          />
+          <input
+            id="input-file"
+            accept="image/*"
+            type="file"
+            placeholder="Input file here!"
+            onChange={onChangeUpdateImg}
+            multiple
+            // onChange={handleChangeFile}
+          />
+          <BtnContainer>
+            <Submit type="submit">registration</Submit>
+          </BtnContainer>
+        </Container>
+      </form>
+    </>
   );
 };
 

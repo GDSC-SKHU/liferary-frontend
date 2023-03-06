@@ -1,8 +1,8 @@
-import useUser from '@/hooks/useUser';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import useUser from "@/hooks/useUser";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 interface IView {
   id: string;
@@ -48,14 +48,18 @@ const ShareForm = () => {
       .catch((e) => console.log(e));
   };
 
-  const onClickUpdateRouter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    router.push(`/api/main/${id}`);
+  const onClickUpdateRouter = () => {
+    router.push({
+      pathname: "/s_edit",
+      query: {
+        id: router.query.id,
+      },
+    });
   };
 
   useEffect(() => {
     console.log(ready);
     const getView = () => {
-
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
@@ -69,6 +73,12 @@ const ShareForm = () => {
           console.log(TOKEN);
           console.log(data.data);
           console.log(data.data.nickname);
+
+          // router.push({
+          //   query: {
+          //     id: data.data.id,
+          //   },
+          // });
 
           setView(data.data);
         })
