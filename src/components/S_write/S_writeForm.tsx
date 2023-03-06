@@ -35,9 +35,9 @@ const S_write = () => {
     setVideo(e.target.value);
   };
 
-  const onChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const file = event.target.files;
+  const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files;
       setImgFile(file);
     }
   };
