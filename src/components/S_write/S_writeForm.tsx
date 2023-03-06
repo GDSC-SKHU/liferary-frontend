@@ -15,9 +15,21 @@ const S_write = () => {
 
   const [category, setCategory] = useState<string>("programming");
 
+  const [imgFile, setImgFile] = useState<FileList | null>(null);
+
   const [video, setVideo] = useState<string>("");
 
-  const [imgFile, setImgFile] = useState<FileList | null>(null);
+  const errorAlert = () => {
+    if (title.length == 0) {
+      return alert("Please enter your title.");
+    }
+    if (category.length == 0) {
+      return alert("Please enter your category.");
+    }
+    if (content.length == 0) {
+      return alert("Please enter your content.");
+    }
+  };
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -31,15 +43,15 @@ const S_write = () => {
     setCategory(e.target.value);
   };
 
-  const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
-    setVideo(e.target.value);
-  };
-
   const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files;
       setImgFile(file);
     }
+  };
+
+  const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
+    setVideo(e.target.value);
   };
 
   // useEffect(() => {
@@ -53,18 +65,6 @@ const S_write = () => {
   //     setPreview(null);
   //   }
   // }, [imgFile]);
-
-  const errorAlert = () => {
-    if (title.length == 0) {
-      return alert("Please enter your title.");
-    }
-    if (category.length == 0) {
-      return alert("Please enter your category.");
-    }
-    if (content.length == 0) {
-      return alert("Please enter your content.");
-    }
-  };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,7 +92,7 @@ const S_write = () => {
 
     axios
       .post(
-        "/api/main",
+        "/api/main/new",
         {
           title: title,
           category: category,
@@ -111,7 +111,6 @@ const S_write = () => {
         }
       )
       // post를 보냈을 때 return 값(id)을 저장할 친구를 생성하는 코드 짜자
-
       .then((res) => {
         alert("Success write!");
         router.push({
@@ -167,7 +166,6 @@ const S_write = () => {
             placeholder="Input file here!"
             onChange={onChangeImg}
             multiple
-            // onChange={handleChangeFile}
           />
           <BtnContainer>
             <Submit type="submit">registration</Submit>
