@@ -3,21 +3,10 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 
-interface IUpdate {
-  id: string;
-  title: string;
-  category: string;
-  context: string;
-  images: string[];
-  video: string;
-}
-
 const S_editForm = () => {
   const router = useRouter();
   const [id, setId] = useState(router.query.id);
   let ready = router.isReady;
-
-  const [updateData, setUpdateData] = useState<IUpdate>();
 
   const [updateTitle, setUpdateTitle] = useState<string>("");
 
@@ -46,8 +35,6 @@ const S_editForm = () => {
 
   useEffect(() => {
     if (ready) {
-      console.log(updateData?.title);
-
       const getUpdateData = () => {
         const TOKEN = localStorage.getItem("accessToken");
         axios
@@ -58,7 +45,6 @@ const S_editForm = () => {
           })
           .then((data) => {
             console.log(data.data);
-            setUpdateData(data.data);
           })
           .catch((e) => {
             alert(e);
@@ -69,26 +55,32 @@ const S_editForm = () => {
   }, []);
 
   const onChangeUpdateTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateTitle(e.currentTarget.value);
+    setUpdateTitle(e.target.value);
   };
-  const onChangeUpdateCategory = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateCategory(e.currentTarget.value);
-  };
+
   const onChangeUpdateContext = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateContext(e.currentTarget.value);
+    setUpdateContext(e.target.value);
   };
+
+  const onChangeUpdateCategory = (e: ChangeEvent<HTMLInputElement>) => {
+    setUpdateCategory(e.target.value);
+  };
+
   const onChangeUpdateImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.files) {
-      const file = e.currentTarget.files;
+    if (e.target.files) {
+      const file = e.target.files;
       setUpdateImg(file);
     }
   };
+
   const onChangeUpdateVideo = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateVideo(e.currentTarget.value);
+    setUpdateVideo(e.target.value);
   };
 
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const TOKEN = localStorage.getItem("accessToken");
 
     let dataSet = {
       title: updateTitle,
@@ -100,9 +92,8 @@ const S_editForm = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(dataSet));
 
-    const TOKEN = localStorage.getItem("accessToken");
     axios
-      .patch(
+      .post(
         `/api/main/${id}`,
         {
           title: updateTitle,
@@ -120,7 +111,7 @@ const S_editForm = () => {
         }
       )
       .then((res) => {
-        alert("Success patch!");
+        alert("Success Update!");
         router.push({
           pathname: "/share",
           query: {
@@ -174,7 +165,6 @@ const S_editForm = () => {
             placeholder="Input file here!"
             onChange={onChangeUpdateImg}
             multiple
-            // onChange={handleChangeFile}
           />
           <BtnContainer>
             <Submit type="submit">registration</Submit>
