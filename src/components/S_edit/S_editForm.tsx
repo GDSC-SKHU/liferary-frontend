@@ -2,12 +2,12 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import { UpdateProps } from "@/pages/s_edit";
 
-const S_editForm = () => {
+const S_editForm = ({ id }: UpdateProps) => {
   const router = useRouter();
-  const [id, setId] = useState(router.query.id);
   let ready = router.isReady;
-
+  console.log("s_edit", id);
   const [updateTitle, setUpdateTitle] = useState<string>("");
 
   const [updateCategory, setUpdateCategory] = useState<string>("");
@@ -33,25 +33,30 @@ const S_editForm = () => {
     }
   };
 
+  // 전에 쓴 글 get 해오기
   useEffect(() => {
-    if (ready) {
-      const getUpdateData = () => {
-        const TOKEN = localStorage.getItem("accessToken");
-        axios
-          .get(`/api/main/${id}`, {
-            headers: {
-              Authorization: `Bearer ${TOKEN}`,
-            },
-          })
-          .then((data) => {
-            console.log(data.data);
-          })
-          .catch((e) => {
-            alert(e);
-          });
-      };
-      getUpdateData;
-    }
+    const getUpdateData = () => {
+      const TOKEN = localStorage.getItem("accessToken");
+      axios
+        .get(`/api/main/${id}`, {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then((data) => {
+          console.log(data.data);
+          setUpdateTitle(data.data.title);
+          setUpdateCategory(data.data.category);
+          setUpdateContext(data.data.context);
+          setUpdateImg(data.data.images);
+          setUpdateVideo(data.data.video);
+          console.log(updateTitle, updateContext);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    };
+    getUpdateData();
   }, []);
 
   const onChangeUpdateTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +87,14 @@ const S_editForm = () => {
 
     const TOKEN = localStorage.getItem("accessToken");
 
+    console.log({
+      title: updateTitle,
+      category: updateCategory,
+      context: updateContext,
+      images: updateImg,
+      video: updateVideo,
+    });
+
     let dataSet = {
       title: updateTitle,
       category: updateCategory,
@@ -90,6 +103,7 @@ const S_editForm = () => {
     };
 
     const formData = new FormData();
+
     formData.append("data", JSON.stringify(dataSet));
 
     axios

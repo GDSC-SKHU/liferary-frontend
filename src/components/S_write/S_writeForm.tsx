@@ -3,8 +3,23 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
+import DropDown from "../Commons/DropDown";
 
 const S_write = () => {
+  const categoryList = [
+    "cooking",
+    "fitness",
+    "nonsense",
+    "relationship",
+    "programming",
+    "language",
+    "makeup",
+    "fashion",
+    "leisure",
+    "travel",
+    "etc",
+  ];
+
   const { allToken } = useToken();
 
   const router = useRouter();
@@ -13,7 +28,7 @@ const S_write = () => {
 
   const [content, setContent] = useState<string>("");
 
-  const [category, setCategory] = useState<string>("programming");
+  const [category, setCategory] = useState<string>("");
 
   const [imgFile, setImgFile] = useState<FileList | null>(null);
 
@@ -39,7 +54,7 @@ const S_write = () => {
     setContent(e.target.value);
   };
 
-  const onChangeCategory = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
 
@@ -132,12 +147,7 @@ const S_write = () => {
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <StyledInput3
-              type="text"
-              placeholder="Enter here!"
-              value={category}
-              onChange={onChangeCategory}
-            />
+            <DropDown arr={categoryList} onChange={onChangeCategory} />
           </div>
         </StyledDiv>
         <Container>

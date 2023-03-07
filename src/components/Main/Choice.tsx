@@ -3,13 +3,28 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import List from "../List";
 
+interface UserInfo {
+  email: string;
+  nickname: string;
+  firebaseAuth: boolean;
+}
+
 const Choice = () => {
-  const [isHide, setIsHide] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) setIsHide(false);
-    else setIsHide(true);
+    Object.keys(window.localStorage).includes("userInfo") &&
+      setUserInfo(
+        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
+      );
+    console.log(userInfo);
   }, []);
+  // const [isHide, setIsHide] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("accessToken")) setIsHide(false);
+  //   else setIsHide(true);
+  // }, []);
 
   // useEffect(() => {
   //   if (sessionStorage.getItem('Token')) {
@@ -56,20 +71,26 @@ const Choice = () => {
           </StyledDiv2>
         </Continer2>
       </Container>
-      <Link href="/s_write">
+      {userInfo ? (
+        <Link href="/s_write">
+          <WriteBtn>Let's go write!</WriteBtn>
+        </Link>
+      ) : null}
+      {/* <Link href="/s_write">
         <WriteBtn isHide={isHide}>Let's go write!</WriteBtn>
-      </Link>
+      </Link> */}
     </>
   );
 };
 
 export default Choice;
 
-const WriteBtn = styled.button<{ isHide: boolean }>`
+const WriteBtn = styled.button`
+  // <{ isHide: boolean }>
   float: right;
   margin-top: 4.5vh;
   margin-right: 5vw;
-  display: ${({ isHide }) => (isHide ? "none" : "block")};
+  /* display: ${({ is }) => (is ? "none" : "block")}; */
 
   background-color: var(--color-deep);
   color: white;

@@ -4,6 +4,7 @@ import { auth } from "../Login/GoogleLogin";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// 새로운 type
 interface UserInfo {
   email: string;
   nickname: string;
@@ -12,6 +13,7 @@ interface UserInfo {
 
 export default function Nav() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
   useEffect(() => {
     Object.keys(window.localStorage).includes("userInfo") &&
       setUserInfo(
@@ -19,6 +21,7 @@ export default function Nav() {
       );
     console.log(userInfo);
   }, []);
+
   const handleLogout = () => {
     console.log(localStorage.getItem("userInfo"));
     if (
@@ -58,7 +61,7 @@ export default function Nav() {
         </Link>
         <Search placeholder="Liferary" />
         <StyledSpan>
-          {userInfo && "Welcome! " + userInfo?.nickname + "님"}
+          {userInfo && "Welcome, " + userInfo?.nickname + "!"}
         </StyledSpan>
         <UserContainer>
           <Link href="/user_info">
