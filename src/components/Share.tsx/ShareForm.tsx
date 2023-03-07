@@ -39,6 +39,7 @@ const ShareForm = () => {
     axios
       .delete(`/api/main/${id}`, {
         headers: {
+          withCredentials: true,
           Authorization: `Bearer ${TOKEN}`,
         },
       })
@@ -126,6 +127,7 @@ const ShareForm = () => {
             <Container2>
               <StyledTitle>youtube link: </StyledTitle>
               <StyledSpan2>{view.video}</StyledSpan2>
+              <p>{view.images}</p>
             </Container2>
           </StyledDiv2>
           {/* {view.images} */}
