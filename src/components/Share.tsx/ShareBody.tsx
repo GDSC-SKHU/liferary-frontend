@@ -1,13 +1,14 @@
-import styled from 'styled-components';
-import Satisfy from './Satisfy';
-import ShareForm from './ShareForm';
-import Study from './Study';
-import Comment from './Comment';
+import styled from "styled-components";
+import Satisfy from "./Satisfy";
+import ShareForm from "./ShareForm";
+import Study from "./Study";
+import Comment from "./Comment";
+import { ShareProps } from "@/pages/share";
 
-export default function ShareBody() {
+export default function ShareBody({ id }: ShareProps) {
   return (
     <>
-      <ShareForm />
+      <ShareForm id={id} />
       <Satisfy />
       <Container>
         <Study />

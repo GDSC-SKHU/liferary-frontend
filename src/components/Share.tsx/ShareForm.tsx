@@ -1,6 +1,8 @@
 import useUser from "@/hooks/useUser";
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { ShareProps } from "@/pages/share";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -15,9 +17,11 @@ interface IView {
   modifiedDate: string;
 }
 
-const ShareForm = () => {
+const ShareForm = ({ id }: ShareProps) => {
+  // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
+  // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
+
   const router = useRouter();
-  const [id, setId] = useState(router.query.id);
   console.log(router.query.id);
   const { user } = useUser();
   let ready = router.isReady;
@@ -111,11 +115,11 @@ const ShareForm = () => {
         <Container>
           {user?.nickname === view.nickname ? (
             <div>
+              <button onClick={onClickUpdateRouter}>Update</button>
+              <button onClick={onClickDelete}>delete</button>
               <StyledDiv>
                 <StyledH2>{view.title}</StyledH2>
               </StyledDiv>
-              <button onClick={onClickUpdateRouter}>Update</button>
-              <button onClick={onClickDelete}>delete</button>
             </div>
           ) : (
             <StyledDiv>
