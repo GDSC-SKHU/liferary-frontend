@@ -1,16 +1,28 @@
 import { ChangeEvent } from "react";
 
 interface Category {
-  arr: string[];
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const DropDown = ({ arr, onChange }: Category) => {
+const DropDownCategory = ({ onChange }: Category) => {
+  const categoryList = [
+    "cooking",
+    "fitness",
+    "nonsense",
+    "relationship",
+    "programming",
+    "language",
+    "makeup",
+    "fashion",
+    "leisure",
+    "travel",
+    "etc",
+  ];
   return (
     <>
       <select id="category" onChange={onChange}>
         <option value="">select category</option>
-        {arr.map((el) => (
+        {categoryList.map((el) => (
           <option value={el}>{el.toUpperCase()}</option>
         ))}
       </select>
@@ -18,4 +30,4 @@ const DropDown = ({ arr, onChange }: Category) => {
   );
 };
 
-export default DropDown;
+export default DropDownCategory;

@@ -3,23 +3,9 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
-import DropDown from "../Commons/DropDown";
+import DropDownCategory from "../Commons/DropDownCategory";
 
 const S_write = () => {
-  const categoryList = [
-    "cooking",
-    "fitness",
-    "nonsense",
-    "relationship",
-    "programming",
-    "language",
-    "makeup",
-    "fashion",
-    "leisure",
-    "travel",
-    "etc",
-  ];
-
   const { allToken } = useToken();
 
   const router = useRouter();
@@ -147,7 +133,7 @@ const S_write = () => {
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <DropDown arr={categoryList} onChange={onChangeCategory} />
+            <DropDownCategory onChange={onChangeCategory} />
           </div>
         </StyledDiv>
         <Container>

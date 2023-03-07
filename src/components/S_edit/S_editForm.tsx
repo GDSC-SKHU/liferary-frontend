@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UpdateProps } from "@/pages/s_edit";
+import DropDownCategory from "../Commons/DropDownCategory";
 
 const S_editForm = ({ id }: UpdateProps) => {
   const router = useRouter();
@@ -67,7 +68,7 @@ const S_editForm = ({ id }: UpdateProps) => {
     setUpdateContext(e.target.value);
   };
 
-  const onChangeUpdateCategory = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUpdateCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setUpdateCategory(e.target.value);
   };
 
@@ -145,12 +146,7 @@ const S_editForm = ({ id }: UpdateProps) => {
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <StyledInput3
-              type="text"
-              placeholder="Enter here!"
-              value={updateCategory}
-              onChange={onChangeUpdateCategory}
-            />
+            <DropDownCategory onChange={onChangeUpdateCategory} />
           </div>
         </StyledDiv>
         <Container>
