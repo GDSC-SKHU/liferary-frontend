@@ -7,8 +7,8 @@ import DropDownCategory from "../Commons/DropDownCategory";
 
 const S_editForm = ({ id }: UpdateProps) => {
   const router = useRouter();
-  let ready = router.isReady;
   console.log("s_edit", id);
+
   const [updateTitle, setUpdateTitle] = useState<string>("");
 
   const [updateCategory, setUpdateCategory] = useState<string>("");
@@ -46,6 +46,7 @@ const S_editForm = ({ id }: UpdateProps) => {
         })
         .then((data) => {
           console.log(data.data);
+          // default 값
           setUpdateTitle(data.data.title);
           setUpdateCategory(data.data.category);
           setUpdateContext(data.data.context);
