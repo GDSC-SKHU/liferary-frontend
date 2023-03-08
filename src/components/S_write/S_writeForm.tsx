@@ -20,6 +20,8 @@ const S_write = () => {
 
   const [video, setVideo] = useState<string>("");
 
+  // const [fileImage, setFileImage] = useState("");
+
   const errorAlert = () => {
     if (title.length == 0) {
       return alert("Please enter your title.");
