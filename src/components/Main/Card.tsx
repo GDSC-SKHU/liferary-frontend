@@ -1,27 +1,97 @@
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Card() {
+// interface IView {
+//   url: string;
+// }
+
+interface IView {
+  id: string;
+  title: string;
+  nickname: string;
+  category: string;
+  context: string;
+  images: string[];
+  video: string;
+  modifiedDate: string;
+}
+
+const Card = () => {
+  const router = useRouter();
+  let ready = router.isReady;
+
+  const [page, setPage] = useState<number>(1);
+  const [view, setView] = useState<IView>();
+
+  console.log(page);
+
+  if (page < 1) {
+    setPage(1);
+  }
+
+  useEffect(() => {
+    console.log(ready);
+    const getView = () => {
+      const TOKEN = localStorage.getItem("accessToken");
+
+      axios
+        .get(`/api/main/all?page=${page}`, {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then((data) => {
+          console.log(TOKEN);
+          console.log(data.data);
+          console.log(data.data.nickname);
+
+          setView(data.data);
+        })
+        .catch((e) => {
+          alert("Failed to look up");
+          console.log(TOKEN);
+          console.log(e);
+        });
+    };
+    ready ? getView() : null;
+  }, [ready]);
+
   return (
     <Container>
-      <StyledGrid>
-        <Item />
-        <Item />
-        <Item />
-        <Title></Title> {/* 최신순으로 띄울 수 있게 */}
-        <Title>How to join GDSC</Title>
-        <Title>How to join GDSCCCCCCCCCCCCCCC</Title>
-      </StyledGrid>
-      <StyledGrid>
-        <Item />
-        <Item />
-        <Item />
-        <Title>How to join GDSC</Title>
-        <Title>How to join GDSC</Title>
-        <Title>How to join GDSC</Title>
-      </StyledGrid>
+      {view !== undefined ? (
+        <>
+          <StyledGrid>
+            <Item />
+            <Item />
+            <Item />
+            <Title>{view.title}</Title>
+            <Title>How to join GDSC</Title>
+            <Title>How to join GDSCCCCCCCCCCCCCCC</Title>
+          </StyledGrid>
+          <StyledGrid>
+            <Item />
+            <Item />
+            <Item />
+            <Title>How to join GDSC</Title>
+            <Title>How to join GDSC</Title>
+            <Title>How to join GDSC</Title>
+          </StyledGrid>
+        </>
+      ) : (
+        <p>loading</p>
+      )}
+      <div>
+        <button onClick={() => setPage((prev) => prev - 1)}>Prev</button>
+        <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
+      </div>
     </Container>
   );
-}
+};
+
+export default Card;
 
 const Container = styled.div`
   display: flex;

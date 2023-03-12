@@ -1,11 +1,12 @@
-import Card from './Card';
-import Choice from './Choice';
+import { PageProps } from "@/pages";
+import Card from "./Card";
+import Choice from "./Choice";
 
-export default function MainBody() {
+export default function MainBody({ page }: PageProps) {
   return (
     <>
       <Choice />
-      <Card />
+      <Card page={page} />
     </>
   );
 }

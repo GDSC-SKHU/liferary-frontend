@@ -120,6 +120,7 @@ const S_write = () => {
           pathname: "/share",
           query: {
             id: res.data.id,
+            page: res.data.page,
           },
         });
       })

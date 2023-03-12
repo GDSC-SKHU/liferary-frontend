@@ -39,7 +39,7 @@ const S_editForm = ({ id }: UpdateProps) => {
     const getUpdateData = () => {
       const TOKEN = localStorage.getItem("accessToken");
       axios
-        .get(`/api/main/${id}`, {
+        .get(`/api/main/post/?id=${id}`, {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
@@ -110,7 +110,7 @@ const S_editForm = ({ id }: UpdateProps) => {
 
     axios
       .post(
-        `/api/main/${id}`,
+        `/api/main/post/?id=${id}`,
         {
           title: updateTitle,
           category: updateCategory,
