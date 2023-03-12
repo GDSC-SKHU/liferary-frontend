@@ -23,7 +23,9 @@ const DropDownCategory = ({ onChange }: Category) => {
       <select id="category" onChange={onChange}>
         <option value="">select category</option>
         {categoryList.map((el) => (
-          <option value={el}>{el.toUpperCase()}</option>
+          <option value={el} key={el}>
+            {el.toUpperCase()}
+          </option>
         ))}
       </select>
     </>

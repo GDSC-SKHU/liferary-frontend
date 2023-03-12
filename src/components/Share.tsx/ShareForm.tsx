@@ -1,6 +1,5 @@
 import useUser from "@/hooks/useUser";
 import axios from "axios";
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { ShareProps } from "@/pages/share";
 import { useEffect, useState } from "react";
@@ -41,7 +40,7 @@ const ShareForm = ({ id }: ShareProps) => {
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
     axios
-      .delete(`/api/main/${id}`, {
+      .delete(`/api/main/post/?id=${id}`, {
         headers: {
           withCredentials: true,
           Authorization: `Bearer ${TOKEN}`,
@@ -68,7 +67,7 @@ const ShareForm = ({ id }: ShareProps) => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/main/${id}`, {
+        .get(`/api/main/post?id=${id}`, {
           headers: {
             withCredentials: true,
             Authorization: `Bearer ${TOKEN}`,
@@ -79,12 +78,6 @@ const ShareForm = ({ id }: ShareProps) => {
           console.log(data.data);
           console.log(data.data.nickname);
 
-          // router.push({
-          //   query: {
-          //     id: data.data.id,
-          //   },
-          // });
-
           setView(data.data);
         })
         .catch((e) => {
@@ -94,7 +87,7 @@ const ShareForm = ({ id }: ShareProps) => {
         });
     };
     ready ? getView() : null;
-  }, [id, ready]);
+  }, [ready]);
 
   return (
     <div>
