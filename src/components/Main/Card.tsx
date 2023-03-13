@@ -23,7 +23,7 @@ const Card = () => {
   let ready = router.isReady;
 
   const [page, setPage] = useState<number>(1);
-  const [view, setView] = useState<IView>();
+  const [views, setViews] = useState<IView[] | any>();
 
   console.log(page);
 
@@ -31,11 +31,22 @@ const Card = () => {
     setPage(1);
   }
 
+  const onClickAddPage = () => {
+    setPage((prev) => prev + 1);
+    return;
+  };
+
+  const onClickPrevPage = () => {
+    setPage((prev) => prev - 1);
+    return;
+  };
+
   useEffect(() => {
     console.log(ready);
-    const getView = () => {
+    const getViews = () => {
       const TOKEN = localStorage.getItem("accessToken");
 
+      // header 인스턴스 값 지정, async-await
       axios
         .get(`/api/main/all?page=${page}`, {
           headers: {
@@ -46,9 +57,8 @@ const Card = () => {
         .then((data) => {
           console.log(TOKEN);
           console.log(data.data);
-          console.log(data.data.nickname);
 
-          setView(data.data);
+          setViews(data.data.content);
         })
         .catch((e) => {
           alert("Failed to look up");
@@ -56,36 +66,49 @@ const Card = () => {
           console.log(e);
         });
     };
-    ready ? getView() : null;
-  }, [ready]);
+    ready ? getViews() : null;
+  }, [ready, page]);
+
+  // for (let i = 0; i < views?.length; i++) {
+  //   views[i];
+  // }
+
+  views?.map(function (el: IView) {
+    return el;
+  });
+
+  console.log(views);
 
   return (
     <Container>
-      {view !== undefined ? (
+      {views !== undefined ? (
         <>
           <StyledGrid>
-            <Item />
-            <Item />
-            <Item />
-            <Title>{view.title}</Title>
-            <Title>How to join GDSC</Title>
-            <Title>How to join GDSCCCCCCCCCCCCCCC</Title>
-          </StyledGrid>
-          <StyledGrid>
-            <Item />
-            <Item />
-            <Item />
-            <Title>How to join GDSC</Title>
-            <Title>How to join GDSC</Title>
-            <Title>How to join GDSC</Title>
+            {views.map((el: IView) => {
+              return (
+                <CardItem
+                  onClick={() =>
+                    router.push({
+                      pathname: "/share",
+                      query: {
+                        id: el.id,
+                      },
+                    })
+                  }
+                >
+                  <Item></Item>
+                  <Title>{el.title}</Title>
+                </CardItem>
+              );
+            })}
           </StyledGrid>
         </>
       ) : (
         <p>loading</p>
       )}
       <div>
-        <button onClick={() => setPage((prev) => prev - 1)}>Prev</button>
-        <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
+        <button onClick={onClickPrevPage}>Prev</button>
+        <button onClick={onClickAddPage}>Next</button>
       </div>
     </Container>
   );
@@ -104,14 +127,21 @@ const Container = styled.div`
 
 const StyledGrid = styled.div`
   display: grid;
+  justify-items: center;
   grid-template-columns: 25vw 25vw 25vw;
-  grid-template-rows: 15vw 60px;
 `;
 
+const CardItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 20vh;
+`;
 const Item = styled.div`
-  margin: 0 30px;
-  margin-top: 30px;
-
+  width: 100%;
+  height: 90%;
   background-color: #eeeeee;
   border-radius: 1rem;
 
@@ -125,7 +155,7 @@ const Item = styled.div`
 
 const Title = styled.button`
   margin: 10px 30px;
-
+  width: 100%;
   background-color: var(--color-normal);
   color: white;
   border: 1px solid var(--color-normal);
