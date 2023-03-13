@@ -69,10 +69,6 @@ const Card = () => {
     ready ? getViews() : null;
   }, [ready, page]);
 
-  // for (let i = 0; i < views?.length; i++) {
-  //   views[i];
-  // }
-
   views?.map(function (el: IView) {
     return el;
   });
@@ -122,13 +118,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin: 10vh 0;
+  margin-top: 15vh;
+  margin-bottom: 5vh;
 `;
 
 const StyledGrid = styled.div`
   display: grid;
   justify-items: center;
-  grid-template-columns: 25vw 25vw 25vw;
+  grid-template-columns: 23vw 23vw 23vw;
 `;
 
 const CardItem = styled.div`
@@ -137,11 +134,11 @@ const CardItem = styled.div`
   justify-content: center;
   align-items: center;
   width: 80%;
-  height: 20vh;
+  height: 30vh;
 `;
 const Item = styled.div`
   width: 100%;
-  height: 90%;
+  height: 70%;
   background-color: #eeeeee;
   border-radius: 1rem;
 
@@ -154,8 +151,10 @@ const Item = styled.div`
 `;
 
 const Title = styled.button`
-  margin: 10px 30px;
   width: 100%;
+
+  margin: 10px 30px;
+  padding: 5px;
   background-color: var(--color-normal);
   color: white;
   border: 1px solid var(--color-normal);

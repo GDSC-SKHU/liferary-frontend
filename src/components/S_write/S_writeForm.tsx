@@ -4,7 +4,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
-import YouTube from "react-youtube";
 
 const S_write = () => {
   const { allToken } = useToken();

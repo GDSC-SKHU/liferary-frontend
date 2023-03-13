@@ -57,7 +57,7 @@ export default function Nav() {
     <>
       <Container>
         <Link href={"/"}>
-          <StyledImg src="/Logo.svg" />
+          <StyledImg src="/Logo2.svg" />
         </Link>
         <Search placeholder="Liferary" />
         <StyledSpan>
