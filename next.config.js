@@ -7,6 +7,9 @@ const nextConfig = {
   api: {
     bodyParser: false,
   },
+  images: {
+    domains: ["localhost", "*", "img.youtube.com"],
+  },
   async rewrites() {
     return [
       {

@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
+import YouTube from "react-youtube";
 
 const S_write = () => {
   const { allToken } = useToken();
@@ -18,7 +19,7 @@ const S_write = () => {
 
   const [imgFile, setImgFile] = useState<FileList | null>(null);
 
-  const [video, setVideo] = useState<string>("");
+  const [video, setVideo] = useState("");
 
   // const [fileImage, setFileImage] = useState("");
 
@@ -53,21 +54,39 @@ const S_write = () => {
     }
   };
 
+  // const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setVideo(e.target.value);
+  // };
+
   const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
     setVideo(e.target.value);
+
+    if (video === "") return;
+
+    const videoIdFromURL =
+      video.split("?v=").length > 1
+        ? video.split("?v=")[1].split("&")[0]
+        : false;
+    if (videoIdFromURL) {
+      setVideo(videoIdFromURL);
+    }
   };
 
-  // useEffect(() => {
-  //   if (imgFile) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPreview(reader.result as string);
-  //     };
-  //     reader.readAsDataURL(imgFile);
-  //   } else {
-  //     setPreview(null);
-  //   }
-  // }, [imgFile]);
+  // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+  //   event.target.pauseVideo();
+  // };
+
+  // const opts: YouTubeProps["opts"] = {
+  //   height: "390",
+  //   width: "640",
+  //   playerVars: {
+  //     autoplay: 1,
+  //   },
+  // };
+
+  // return <YouTube videoId={video} opts={opts} onReady={onPlayerReady} />;
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -158,6 +177,28 @@ const S_write = () => {
             value={video}
             onChange={onChangeVideo}
           />
+          {/* <div>
+            <StyledInput
+              type="text"
+              placeholder="Input youtube link here!"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button onChange={onChangeVideo}>Search</button>
+            <ul>
+              {video.map((video) => (
+                <li key={video.id}>
+                  <img src={video.thumbnail} alt="" />
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id}`}
+                    target="_blank"
+                  >
+                    {video.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div> */}
           <input
             id="input-file"
             accept="image/*"
