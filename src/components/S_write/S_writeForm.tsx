@@ -4,6 +4,8 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
+import React from "react";
+import YouTubePlayer from "@/YoutubePlayer";
 
 const S_write = () => {
   const { allToken } = useToken();
@@ -18,7 +20,10 @@ const S_write = () => {
 
   const [imgFile, setImgFile] = useState<FileList | null>(null);
 
-  const [video, setVideo] = useState("");
+  // const [video, setVideo] = useState("");
+
+  const [url, setUrl] = React.useState("");
+  const [isValidUrl, setIsValidUrl] = React.useState(false);
 
   // const [fileImage, setFileImage] = useState("");
 
@@ -57,21 +62,25 @@ const S_write = () => {
   //   setVideo(e.target.value);
   // };
 
-  const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    setVideo(e.target.value);
-
-    if (video === "") return;
-
-    const videoIdFromURL =
-      video.split("?v=").length > 1
-        ? video.split("?v=")[1].split("&")[0]
-        : false;
-    if (videoIdFromURL) {
-      setVideo(videoIdFromURL);
-    }
+  const onChagneVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUrl(e.target.value);
   };
+
+  // const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+
+  //   setVideo(e.target.value);
+
+  //   if (video === "") return;
+
+  //   const videoIdFromURL =
+  //     video.split("?v=").length > 1
+  //       ? video.split("?v=")[1].split("&")[0]
+  //       : false;
+  //   if (videoIdFromURL) {
+  //     setVideo(videoIdFromURL);
+  //   }
+  // };
 
   // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
   //   event.target.pauseVideo();
@@ -89,6 +98,7 @@ const S_write = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsValidUrl(true);
 
     // const TOKEN = localStorage.getItem('accessToken');
     // console.log(TOKEN);
@@ -98,14 +108,14 @@ const S_write = () => {
       category: category,
       context: content,
       images: imgFile,
-      video: video,
+      video: url,
     });
 
     let dataSet = {
       title: title,
       category: category,
       context: content,
-      video: video,
+      video: url,
     };
 
     const formData = new FormData();
@@ -119,7 +129,7 @@ const S_write = () => {
           category: category,
           context: content,
           images: imgFile,
-          video: video,
+          video: url,
         },
         {
           headers: {
@@ -173,8 +183,8 @@ const S_write = () => {
           <StyledInput
             type="text"
             placeholder="Input youtube link here!"
-            value={video}
-            onChange={onChangeVideo}
+            value={url}
+            onChange={onChagneVideo}
           />
           {/* <div>
             <StyledInput
@@ -211,6 +221,7 @@ const S_write = () => {
           </BtnContainer>
         </Container>
       </form>
+      {isValidUrl && <YouTubePlayer url={url} />}
     </>
   );
 };
