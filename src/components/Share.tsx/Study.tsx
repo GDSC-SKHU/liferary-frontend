@@ -1,9 +1,22 @@
+import { ShareProps } from "@/pages/share";
+import router from "next/router";
 import styled from "styled-components";
 
-export default function Study() {
+export default function Study({ id }: ShareProps) {
+  console.log(router.query.id);
+
+  const onClickRouter = () => {
+    router.push({
+      pathname: `/st_write`,
+      query: {
+        id: router.query.id,
+      },
+    });
+  };
+
   return (
     <Container>
-      <StyledH2>Check out your study!</StyledH2>
+      <StyledH2 onClick={onClickRouter}>Check out your study!</StyledH2>
       <StyledImg src="/Symbol.svg" />
     </Container>
   );
