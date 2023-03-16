@@ -5,7 +5,7 @@ import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
 import React from "react";
-import YouTubePlayer from "@/YoutubePlayer";
+import YouTube from "react-youtube";
 
 const S_write = () => {
   const { allToken } = useToken();
@@ -23,7 +23,6 @@ const S_write = () => {
   // const [video, setVideo] = useState("");
 
   const [url, setUrl] = React.useState("");
-  const [isValidUrl, setIsValidUrl] = React.useState(false);
 
   // const [fileImage, setFileImage] = useState("");
 
@@ -98,7 +97,6 @@ const S_write = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsValidUrl(true);
 
     // const TOKEN = localStorage.getItem('accessToken');
     // console.log(TOKEN);
@@ -158,6 +156,13 @@ const S_write = () => {
       });
   };
 
+  const getIdFromUrl = (url: string) => {
+    const match = url.match(/[?&]v=([^&]*)/);
+    return match ? match[1] : null;
+  };
+
+  const videoId = getIdFromUrl(url);
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -208,8 +213,12 @@ const S_write = () => {
               ))}
             </ul>
           </div> */}
-          <input
-            id="input-file"
+          <StyledLabel className="file-label" htmlFor="chooseFile">
+            Choose your file
+          </StyledLabel>
+          <ImgInput
+            className="file"
+            id="chooseFile"
             accept="image/*"
             type="file"
             placeholder="Input file here!"
@@ -221,7 +230,9 @@ const S_write = () => {
           </BtnContainer>
         </Container>
       </form>
-      {isValidUrl && <YouTubePlayer url={url} />}
+      {videoId && (
+        <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
+      )}
     </>
   );
 };
@@ -232,24 +243,19 @@ const StyledDiv = styled.div`
   width: 50vw;
 `;
 
-const StyledInput3 = styled.input`
-  height: 5vh;
-  margin-top: 3vh;
-  padding: 0 6px;
+const StyledLabel = styled.label`
+  margin-top: 30px;
+  background-color: #5b975b;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 65%;
+  border-radius: 6px;
+  cursor: pointer;
+`;
 
-  outline: none;
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-    font-weight: 600;
-    font-size: large;
-  }
+const ImgInput = styled.input`
+  display: none;
 `;
 
 const StyledSpan = styled.span`

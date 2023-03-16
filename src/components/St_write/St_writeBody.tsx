@@ -1,9 +1,9 @@
-import StudyForm from './St_writeForm';
+import St_writeForm from "./St_writeForm";
 
 export default function St_writeBody() {
   return (
     <>
-      <StudyForm />
+      <St_writeForm />
     </>
   );
 }

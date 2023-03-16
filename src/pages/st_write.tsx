@@ -1,11 +1,11 @@
-import Nav from '@/components/Nav/Nav';
-import StudyBody from '@/components/St_write/St_writeBody';
+import Nav from "@/components/Nav/Nav";
+import St_writeBody from "@/components/St_write/St_writeBody";
 
 export default function St_write() {
   return (
     <>
       <Nav />
-      <StudyBody />
+      <St_writeBody />
     </>
   );
 }
