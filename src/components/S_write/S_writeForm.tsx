@@ -5,7 +5,7 @@ import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
 import React from "react";
-import YouTubePlayer from "@/YoutubePlayer";
+import YouTube from "react-youtube";
 
 const S_write = () => {
   const { allToken } = useToken();
@@ -20,12 +20,7 @@ const S_write = () => {
 
   const [imgFile, setImgFile] = useState<FileList | null>(null);
 
-  // const [video, setVideo] = useState("");
-
   const [url, setUrl] = React.useState("");
-  const [isValidUrl, setIsValidUrl] = React.useState(false);
-
-  // const [fileImage, setFileImage] = useState("");
 
   const errorAlert = () => {
     if (title.length == 0) {
@@ -58,47 +53,12 @@ const S_write = () => {
     }
   };
 
-  // const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setVideo(e.target.value);
-  // };
-
   const onChagneVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
   };
 
-  // const onChangeVideo = (e: ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-
-  //   setVideo(e.target.value);
-
-  //   if (video === "") return;
-
-  //   const videoIdFromURL =
-  //     video.split("?v=").length > 1
-  //       ? video.split("?v=")[1].split("&")[0]
-  //       : false;
-  //   if (videoIdFromURL) {
-  //     setVideo(videoIdFromURL);
-  //   }
-  // };
-
-  // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
-  //   event.target.pauseVideo();
-  // };
-
-  // const opts: YouTubeProps["opts"] = {
-  //   height: "390",
-  //   width: "640",
-  //   playerVars: {
-  //     autoplay: 1,
-  //   },
-  // };
-
-  // return <YouTube videoId={video} opts={opts} onReady={onPlayerReady} />;
-
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsValidUrl(true);
 
     // const TOKEN = localStorage.getItem('accessToken');
     // console.log(TOKEN);
@@ -133,8 +93,6 @@ const S_write = () => {
         },
         {
           headers: {
-            // crossDomain: true,
-            // credentials: 'include',
             "Content-Type": "multipart/form-data",
             withCredentials: true,
             Authorization: allToken,
@@ -148,7 +106,7 @@ const S_write = () => {
           pathname: "/share",
           query: {
             id: res.data.id,
-            page: res.data.page,
+            video: res.data.video,
           },
         });
       })
@@ -157,6 +115,13 @@ const S_write = () => {
         errorAlert();
       });
   };
+
+  const getIdFromUrl = (url: string) => {
+    const match = url.match(/[?&]v=([^&]*)/);
+    return match ? match[1] : null;
+  };
+
+  const videoId = getIdFromUrl(url);
 
   return (
     <>
@@ -182,6 +147,7 @@ const S_write = () => {
           />
           <StyledInput
             type="text"
+            id="youtubeUrlInput"
             placeholder="Input youtube link here!"
             value={url}
             onChange={onChagneVideo}
@@ -208,8 +174,12 @@ const S_write = () => {
               ))}
             </ul>
           </div> */}
-          <input
-            id="input-file"
+          <StyledLabel className="file-label" htmlFor="chooseFile">
+            Choose your file
+          </StyledLabel>
+          <ImgInput
+            className="file"
+            id="chooseFile"
             accept="image/*"
             type="file"
             placeholder="Input file here!"
@@ -221,7 +191,10 @@ const S_write = () => {
           </BtnContainer>
         </Container>
       </form>
-      {isValidUrl && <YouTubePlayer url={url} />}
+      {videoId && (
+        <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
+      )}
+      <a href={`/share?youtubeUrl=${encodeURIComponent(url)}`}>공유하기</a>
     </>
   );
 };
@@ -232,24 +205,19 @@ const StyledDiv = styled.div`
   width: 50vw;
 `;
 
-const StyledInput3 = styled.input`
-  height: 5vh;
-  margin-top: 3vh;
-  padding: 0 6px;
+const StyledLabel = styled.label`
+  margin-top: 30px;
+  background-color: #5b975b;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 65%;
+  border-radius: 6px;
+  cursor: pointer;
+`;
 
-  outline: none;
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-    font-weight: 600;
-    font-size: large;
-  }
+const ImgInput = styled.input`
+  display: none;
 `;
 
 const StyledSpan = styled.span`

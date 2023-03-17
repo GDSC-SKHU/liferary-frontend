@@ -1,11 +1,10 @@
 import useToken from "@/hooks/useToken";
-import { ShareProps } from "@/pages/share";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 
-const St_writeForm = ({ id }: ShareProps) => {
+const St_writeForm = () => {
   const { allToken } = useToken();
 
   const router = useRouter();

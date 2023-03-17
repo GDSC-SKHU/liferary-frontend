@@ -1,37 +1,30 @@
 import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { ShareProps } from "@/pages/share";
+import { QueryProps } from "@/types";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import YouTube from "react-youtube";
-import { validUrl } from "@/libs/utils";
 
-interface ListProps {
+interface IView {
   id: string;
   title: string;
+  author: string;
   nickname: string;
-  category: string;
   context: string;
   images: string[];
-  video: string;
   modifiedDate: string;
 }
 
-// const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
-const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
+const StudyForm = ({ id }: QueryProps) => {
   // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
   // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
-  const router = useRouter();
-  // console.log(router.query.id);
-  const { user } = useUser();
-  console.log(router.query.video);
 
+  const router = useRouter();
+  console.log(router.query.id);
+  const { user } = useUser();
   let ready = router.isReady;
 
-  const [view, setView] = useState<ListProps>();
-
-  const [videoView, setVideoView] = useState("");
+  const [view, setView] = useState<IView>();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -46,63 +39,34 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
     axios
-      .delete(`/api/main/post/?id=${id}`, {
+      .delete(`/api/study/study/?id=${id}`, {
         headers: {
           withCredentials: true,
           Authorization: `Bearer ${TOKEN}`,
         },
       })
       .then(() => {
-        router.push("/");
+        router.push("/share");
       })
       .catch((e) => console.log(e));
   };
 
   const onClickUpdateRouter = () => {
     router.push({
-      pathname: "/s_edit",
+      pathname: "/st_edit",
       query: {
         id: router.query.id,
       },
     });
   };
 
-  // const getIdFromUrl = (url: string) => {
-  //   const match = url.match(/[?&]v=([^&]*)/);
-  //   return match ? match[1] : null;
-  // };
-
-  // const videoId = getIdFromUrl(video);
-
-  // const youtubeId = video.split("v=")[1];
-
   useEffect(() => {
     console.log(ready);
-
-    // const regex =
-    //   /(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]+)/;
-    // const match = video.match(regex);
-    // const videoId = match ? match[1] : null;
-
-    // if (videoId) {
-    //   // 영상 ID로 재생 가능한 URL 생성
-    //   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-    //   // url 상태 업데이트
-    // }
-
-    if (validUrl(video)) {
-      const urlObj = new URL(video);
-      const videoId2 = urlObj.searchParams.get("v");
-      if (videoId2) {
-        setVideoView(videoView);
-      }
-    }
-
     const getView = () => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/main/post?id=${id}`, {
+        .get(`/api/study/study?id=${id}`, {
           headers: {
             withCredentials: true,
             Authorization: `Bearer ${TOKEN}`,
@@ -122,31 +86,12 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         });
     };
     ready ? getView() : null;
-  }, [ready, video]);
-
-  const opts = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      autoplay: 0,
-      controls: 1,
-      modestbranding: 1,
-      showinfo: 0,
-      rel: 0,
-      start: 0,
-      end: 0,
-    },
-    video: video,
-  };
+  }, [ready]);
 
   return (
     <div>
       <Category>
         <p>write time: {modifiedDate}</p>
-        <StyledSpan>Category: </StyledSpan>
-        <StyledBox>
-          <StyledName>{view?.category}</StyledName>
-        </StyledBox>
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>
@@ -172,35 +117,9 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
             <Container2>
-              <StyledTitle>youtube link: </StyledTitle>
-              <iframe
-                src={`https://www.youtube.com/embed/${video}`}
-                width="560"
-                height="315"
-                title="YouTube video player"
-                allowFullScreen
-              />
-              {/* <YouTube videoId={youtubeId} /> */}
-              {video && <YouTube videoId={video} />}
-              <StyledSpan2>{view.video}</StyledSpan2>
               <p>{view.images}</p>
             </Container2>
           </StyledDiv2>
-          {/* {videoId && (
-            <YouTube
-              videoId={videoId}
-              opts={{ width: "100%", height: "500px" }}
-            />
-          )} */}
-          <div>
-            {videoView ? (
-              <div>
-                <YouTube opts={opts} />
-              </div>
-            ) : (
-              <div>Invalid URL</div>
-            )}
-          </div>
         </Container>
       ) : (
         <p>Loading...</p>
@@ -209,26 +128,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   );
 };
 
-// export const getStaticProps: GetStaticProps<Props> = async ({ query }) => {
-//   const link = query.link as string;
-//   return {
-//     props: { link },
-//   };
-// };
-
-// export const getStaticProps: GetServerSideProps<Props> = async (
-//   context: GetServerSidePropsContext
-// ) => {
-//   const { query } = context;
-//   const id = query.id as string;
-//   return {
-//     props: {
-//       id,
-//     },
-//   };
-// };
-
-export default ShareForm;
+export default StudyForm;
 
 const Category = styled.div`
   margin-top: 2rem;
@@ -322,28 +222,6 @@ const StyledP = styled.p`
 
   color: #666666;
   border-bottom: 3px solid var(--color-normal);
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledSpan2 = styled.span`
-  color: #666666;
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledTitle = styled.span`
-  color: var(--color-main);
 
   font-weight: 500;
   font-size: 1.4rem;

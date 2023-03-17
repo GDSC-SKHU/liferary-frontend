@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Satisfy from "./Satisfy";
 import ShareForm from "./ShareForm";
-import Study from "./Study";
 import Comment from "./Comment";
 import { ShareProps } from "@/pages/share";
+import Recruit from "./Recruit";
 
 export default function ShareBody({ id }: ShareProps) {
   return (
@@ -11,7 +11,7 @@ export default function ShareBody({ id }: ShareProps) {
       <ShareForm id={id} />
       <Satisfy />
       <Container>
-        <Study />
+        <Recruit id={id} />
         <Comment />
       </Container>
     </>

@@ -3,10 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-// interface IView {
-//   url: string;
-// }
-
 interface IView {
   id: string;
   title: string;
@@ -104,6 +100,7 @@ const Card = () => {
       )}
       <div>
         <button onClick={onClickPrevPage}>Prev</button>
+        <span>{page}</span>
         <button onClick={onClickAddPage}>Next</button>
       </div>
     </Container>

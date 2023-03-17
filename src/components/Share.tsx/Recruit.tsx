@@ -2,8 +2,8 @@ import { ShareProps } from "@/pages/share";
 import router from "next/router";
 import styled from "styled-components";
 
-export default function Study({ id }: ShareProps) {
-  console.log(router.query.id);
+export default function Recruit({ id }: ShareProps) {
+  // console.log(router.query.id);
 
   const onClickRouter = () => {
     router.push({
@@ -14,10 +14,20 @@ export default function Study({ id }: ShareProps) {
     });
   };
 
+  const onClickReadRouter = () => {
+    router.push({
+      pathname: `/study`,
+      query: {
+        id: router.query.id,
+      },
+    });
+  };
+
   return (
     <Container>
+      {/* {view !== undefined ? () : } */}
       <StyledH2 onClick={onClickRouter}>Check out your study!</StyledH2>
-      <StyledImg src="/Symbol.svg" />
+      <StyledImg onClick={onClickReadRouter} src="/Symbol.svg" />
     </Container>
   );
 }
