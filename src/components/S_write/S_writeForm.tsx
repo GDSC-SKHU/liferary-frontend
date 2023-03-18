@@ -107,6 +107,7 @@ const S_write = () => {
           query: {
             id: res.data.id,
             video: res.data.video,
+            url: res.data.url,
           },
         });
       })
@@ -152,28 +153,6 @@ const S_write = () => {
             value={url}
             onChange={onChagneVideo}
           />
-          {/* <div>
-            <StyledInput
-              type="text"
-              placeholder="Input youtube link here!"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button onChange={onChangeVideo}>Search</button>
-            <ul>
-              {video.map((video) => (
-                <li key={video.id}>
-                  <img src={video.thumbnail} alt="" />
-                  <a
-                    href={`https://www.youtube.com/watch?v=${video.id}`}
-                    target="_blank"
-                  >
-                    {video.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div> */}
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>

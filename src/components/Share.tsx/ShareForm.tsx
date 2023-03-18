@@ -79,17 +79,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   useEffect(() => {
     console.log(ready);
 
-    // const regex =
-    //   /(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]+)/;
-    // const match = video.match(regex);
-    // const videoId = match ? match[1] : null;
-
-    // if (videoId) {
-    //   // 영상 ID로 재생 가능한 URL 생성
-    //   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-    //   // url 상태 업데이트
-    // }
-
     if (validUrl(video)) {
       const urlObj = new URL(video);
       const videoId2 = urlObj.searchParams.get("v");
@@ -97,6 +86,24 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         setVideoView(videoView);
       }
     }
+
+    // const fetchVideoUrl = async () => {
+    //   try {
+    //     const response = await fetch(`/api/main/post?id=${id}`);
+    //     const data = await response.json();
+    //     setVideoView(data.videoUrl);
+    //   } catch (error) {
+    //     console.error(error);
+    //     // 오류가 발생한 경우, 사용자에게 메시지를 표시하거나 다른 처리를 추가할 수 있습니다.
+    //   }
+    // };
+
+    // if (router.query.url) {
+    //   fetchVideoUrl();
+
+    // if (router.query.video) {
+    //   fetchVideoUrl();
+    // }
 
     const getView = () => {
       const TOKEN = localStorage.getItem("accessToken");
@@ -122,7 +129,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         });
     };
     ready ? getView() : null;
-  }, [ready, video]);
+  }, [ready, video, router.query.url, router.query.video]);
 
   const opts = {
     height: "390",
@@ -180,6 +187,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
                 title="YouTube video player"
                 allowFullScreen
               />
+              <video src="videoView" controls />
               {/* <YouTube videoId={youtubeId} /> */}
               {video && <YouTube videoId={video} />}
               <StyledSpan2>{view.video}</StyledSpan2>
@@ -208,25 +216,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
     </div>
   );
 };
-
-// export const getStaticProps: GetStaticProps<Props> = async ({ query }) => {
-//   const link = query.link as string;
-//   return {
-//     props: { link },
-//   };
-// };
-
-// export const getStaticProps: GetServerSideProps<Props> = async (
-//   context: GetServerSidePropsContext
-// ) => {
-//   const { query } = context;
-//   const id = query.id as string;
-//   return {
-//     props: {
-//       id,
-//     },
-//   };
-// };
 
 export default ShareForm;
 
@@ -270,7 +259,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: white;
+  /* color: white; */
 `;
 
 const Container2 = styled.div`
