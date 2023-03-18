@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import Satisfy from "./Satisfy";
 import ShareForm from "./ShareForm";
-import Comment from "./Comment";
+import Comment from "./Community";
 import { ShareProps } from "@/pages/share";
 import Recruit from "./Recruit";
+import Community from "./Community";
 
 export default function ShareBody({ id }: ShareProps) {
   return (
@@ -12,7 +13,7 @@ export default function ShareBody({ id }: ShareProps) {
       <Satisfy />
       <Container>
         <Recruit id={id} />
-        <Comment />
+        <Community />
       </Container>
     </>
   );

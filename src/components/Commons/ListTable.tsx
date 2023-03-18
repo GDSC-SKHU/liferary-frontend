@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Post from "../../types/postType";
 import { useRouter } from "next/router";
 import ListItem from "./ListItem";
+
 export default function ListTable({
   list,
   page,
@@ -13,6 +14,7 @@ export default function ListTable({
   const handleClickListItem = (id: string) => {
     router.push(`http://localhost:3000/share?id=${id}`);
   };
+
   return (
     <ListContainer>
       <TitleWrapper>

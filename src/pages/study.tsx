@@ -1,8 +1,12 @@
 import Nav from "@/components/Nav/Nav";
 import StudyBody from "@/components/Study/StudyBody";
-import { ShareProps } from "./share";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
-export default function Study({ id }: ShareProps) {
+export interface StudyProps {
+  id: string;
+}
+
+export default function Study({ id }: StudyProps) {
   return (
     <>
       <Nav />
@@ -10,3 +14,15 @@ export default function Study({ id }: ShareProps) {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<StudyProps> = async (
+  context: GetServerSidePropsContext
+) => {
+  const { query } = context;
+  const id = query.id as string;
+  return {
+    props: {
+      id,
+    },
+  };
+};

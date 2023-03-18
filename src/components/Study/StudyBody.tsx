@@ -1,7 +1,7 @@
-import { QueryProps } from "@/types";
+import { StudyProps } from "@/pages/study";
 import StudyForm from "./StudyForm";
 
-export default function StudyBody({ id }: QueryProps) {
+export default function StudyBody({ id }: StudyProps) {
   return (
     <>
       <StudyForm id={id} />

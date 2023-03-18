@@ -113,7 +113,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         });
     };
     ready ? getView() : null;
-  }, [ready, video, router.query.url, router.query.video]);
+  }, [ready, video]);
 
   const opts = {
     height: "390",
@@ -129,6 +129,13 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
     },
     video: video,
   };
+
+  // const getIdFromUrl = (video: string) => {
+  //   const match = video.match(/[?&]v=([^&]*)/);
+  //   return match ? match[1] : null;
+  // };
+
+  // const videoId = getIdFromUrl(video);
 
   return (
     <div>
@@ -194,6 +201,13 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               <div>Invalid URL</div>
             )}
           </div>
+
+          {/* {videoId && (
+            <YouTube
+              videoId={videoId}
+              opts={{ width: "100%", height: "500px" }}
+            />
+          )} */}
         </Container>
       ) : (
         <p>Loading...</p>

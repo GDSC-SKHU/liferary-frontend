@@ -173,7 +173,6 @@ const S_write = () => {
       {videoId && (
         <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
       )}
-      <a href={`/share?youtubeUrl=${encodeURIComponent(url)}`}>공유하기</a>
     </>
   );
 };

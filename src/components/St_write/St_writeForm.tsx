@@ -84,7 +84,7 @@ const St_writeForm = () => {
       .then((res) => {
         alert("Success write!");
         router.push({
-          pathname: "/",
+          pathname: "/study",
           query: {
             id: res.data.id,
           },
