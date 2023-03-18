@@ -1,10 +1,11 @@
-import Link from "next/link";
 import styled from "styled-components";
 import Post from "../../types/postType";
 import { formatDate } from "../../types/date";
+
 interface ListProps extends Partial<Post> {
   idx: number;
 }
+
 export default function ListItem({
   idx,
   title,

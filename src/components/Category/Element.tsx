@@ -7,6 +7,7 @@ interface ElementProps {
   isOpen: boolean;
   categories: string[];
 }
+
 export default function Element({ isOpen, categories }: ElementProps) {
   return (
     <>

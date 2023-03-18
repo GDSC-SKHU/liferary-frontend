@@ -1,30 +1,30 @@
 import useUser from "@/hooks/useUser";
+import { StudyProps } from "@/pages/study";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { QueryProps } from "@/types";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-interface IView {
+interface ViewProps {
   id: string;
   title: string;
-  author: string;
   nickname: string;
   context: string;
   images: string[];
   modifiedDate: string;
 }
 
-const StudyForm = ({ id }: QueryProps) => {
+const StudyForm = ({ id }: StudyProps) => {
   // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
   // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
 
   const router = useRouter();
-  console.log(router.query.id);
   const { user } = useUser();
+  console.log(router.query.id);
+
   let ready = router.isReady;
 
-  const [view, setView] = useState<IView>();
+  const [view, setView] = useState<ViewProps>();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -39,7 +39,7 @@ const StudyForm = ({ id }: QueryProps) => {
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
     axios
-      .delete(`/api/study/study/?id=${id}`, {
+      .delete(`/api/study?id=${id}`, {
         headers: {
           withCredentials: true,
           Authorization: `Bearer ${TOKEN}`,
@@ -62,11 +62,12 @@ const StudyForm = ({ id }: QueryProps) => {
 
   useEffect(() => {
     console.log(ready);
+
     const getView = () => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/study/study?id=${id}`, {
+        .get(`/api/study?id=${router.query.id}`, {
           headers: {
             withCredentials: true,
             Authorization: `Bearer ${TOKEN}`,
