@@ -5,14 +5,23 @@ import Pagination from "../Commons/Pagination";
 import axios from "axios";
 import { mainPostIdParams } from "@/pages/category/[...name]";
 import { categoryList } from "../../types/category";
-import Link from "next/link";
 import ListTable from "../Commons/ListTable";
+import router from "next/router";
 
 export default function C_list({ mainPostId }: mainPostIdParams) {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [list, setList] = useState();
+
+  const onClickRouter = () => {
+    router.push({
+      pathname: `/c_write`,
+      query: {
+        id: router.query.id,
+      },
+    });
+  };
 
   const handleOpenToggle = () => {
     setIsOpen((prev) => !prev);
@@ -30,6 +39,11 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
               },
             })
             .then((data) => {
+              router.push({
+                query: {
+                  id: router.query.id,
+                },
+              });
               console.log(data.data);
               setList(data.data.content);
               setTotalPage(data.data.totalPages);
@@ -69,9 +83,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
         currentPage={page}
         onPageChange={setPage}
       ></Pagination>
-      <Link href="/s_write">
-        <WriteBtn>Try write!</WriteBtn>
-      </Link>
+      <WriteBtn onClick={onClickRouter}>Try write!</WriteBtn>
     </CategoryContainer>
   );
 }
