@@ -1,5 +1,5 @@
 import Nav from "@/components/Nav/Nav";
-import ShareBody from "@/components/Share.tsx/ShareBody";
+import ShareBody from "@/components/Share/ShareBody";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 export interface ShareProps {

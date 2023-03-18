@@ -1,95 +1,56 @@
 import Link from "next/link";
 import styled from "styled-components";
-import List from "../List";
 
-export default function Element() {
+//cooking, fitness, nonsense, relationship, programming, language, makeup, fashion, leisure, travel, etc.
+
+interface ElementProps {
+  isOpen: boolean;
+  categories: string[];
+}
+export default function Element({ isOpen, categories }: ElementProps) {
   return (
     <>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <Link href="/s_write">
-          <List title="cook" />
-        </Link>
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>nonsense</StyledP2>
-        <br />
-        <List title="laugh" />
-        <List title="happy" />
-        <List title="emotions" />
-        <List title="fillings" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
-      <Container>
-        <StyledP2>food</StyledP2>
-        <br />
-        <List title="cook" />
-        <List title="baking" />
-        <List title="menu" />
-      </Container>
+      <ElementContainer className={isOpen ? "active" : "inactive"}>
+        <Container>
+          {categories.map((category) => (
+            <LinkWrapper href={`/category/${category}`} key={category}>
+              {category}
+            </LinkWrapper>
+          ))}
+        </Container>
+      </ElementContainer>
     </>
   );
 }
 
 const Container = styled.div`
-  float: left;
-  margin-right: 1rem;
-  margin-bottom: 10px;
+  display: flex;
 `;
 
-const StyledP2 = styled.span`
-  color: var(--color-main);
-  font-weight: 700;
-  font-size: small;
+const LinkWrapper = styled(Link)`
+  padding: 2px;
+  border: 1px solid var(--color-main);
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  :hover {
+    background-color: var(--color-main);
+    color: white;
+  }
+`;
+const ElementContainer = styled.div`
+  transition: all 0.5s ease-in-out;
+  &.active {
+    opacity: 1;
+    height: auto;
+    margin: 5px;
+    border: 2px solid var(--color-light);
+    padding: 30px;
+    border-radius: 10px;
+  }
+  &.inactive {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+  }
 `;

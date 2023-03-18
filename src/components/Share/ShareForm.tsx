@@ -18,12 +18,8 @@ interface ListProps {
   modifiedDate: string;
 }
 
-// const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
-  // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
-  // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
   const router = useRouter();
-  // console.log(router.query.id);
   const { user } = useUser();
   console.log(router.query.video);
 
@@ -76,19 +72,14 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
   // const youtubeId = video.split("v=")[1];
 
+  const onClickCategory = (c: string | undefined) => {
+    if (c) {
+      router.push(`/category/${c.toLowerCase()}`);
+    }
+  };
+
   useEffect(() => {
     console.log(ready);
-
-    // const regex =
-    //   /(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]+)/;
-    // const match = video.match(regex);
-    // const videoId = match ? match[1] : null;
-
-    // if (videoId) {
-    //   // 영상 ID로 재생 가능한 URL 생성
-    //   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-    //   // url 상태 업데이트
-    // }
 
     if (validUrl(video)) {
       const urlObj = new URL(video);
@@ -122,7 +113,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         });
     };
     ready ? getView() : null;
-  }, [ready, video]);
+  }, [ready, video, router.query.url, router.query.video]);
 
   const opts = {
     height: "390",
@@ -145,7 +136,9 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         <p>write time: {modifiedDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.category}</StyledName>
+          <StyledName onClick={() => onClickCategory(view?.category)}>
+            {view?.category}
+          </StyledName>
         </StyledBox>
       </Category>
       <div>
@@ -180,6 +173,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
                 title="YouTube video player"
                 allowFullScreen
               />
+              <video src="videoView" controls />
               {/* <YouTube videoId={youtubeId} /> */}
               {video && <YouTube videoId={video} />}
               <StyledSpan2>{view.video}</StyledSpan2>
@@ -208,25 +202,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
     </div>
   );
 };
-
-// export const getStaticProps: GetStaticProps<Props> = async ({ query }) => {
-//   const link = query.link as string;
-//   return {
-//     props: { link },
-//   };
-// };
-
-// export const getStaticProps: GetServerSideProps<Props> = async (
-//   context: GetServerSidePropsContext
-// ) => {
-//   const { query } = context;
-//   const id = query.id as string;
-//   return {
-//     props: {
-//       id,
-//     },
-//   };
-// };
 
 export default ShareForm;
 
@@ -270,7 +245,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: white;
+  /* color: white; */
 `;
 
 const Container2 = styled.div`
