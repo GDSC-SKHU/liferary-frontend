@@ -57,7 +57,7 @@ const ListWrapper = styled.div`
   }
 `;
 const TitleWrapper = styled(ListWrapper)`
-  background-color: var(—color-normal);
+  background-color: var(--color-normal);
   color: white;
   border-radius: 10px;
   opacity: 0.5;

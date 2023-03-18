@@ -18,12 +18,8 @@ interface ListProps {
   modifiedDate: string;
 }
 
-// const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
-  // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
-  // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
   const router = useRouter();
-  // console.log(router.query.id);
   const { user } = useUser();
   console.log(router.query.video);
 
@@ -76,6 +72,12 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
   // const youtubeId = video.split("v=")[1];
 
+  const onClickCategory = (c: string | undefined) => {
+    if (c) {
+      router.push(`/category/${c.toLowerCase()}`);
+    }
+  };
+
   useEffect(() => {
     console.log(ready);
 
@@ -86,24 +88,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         setVideoView(videoView);
       }
     }
-
-    // const fetchVideoUrl = async () => {
-    //   try {
-    //     const response = await fetch(`/api/main/post?id=${id}`);
-    //     const data = await response.json();
-    //     setVideoView(data.videoUrl);
-    //   } catch (error) {
-    //     console.error(error);
-    //     // 오류가 발생한 경우, 사용자에게 메시지를 표시하거나 다른 처리를 추가할 수 있습니다.
-    //   }
-    // };
-
-    // if (router.query.url) {
-    //   fetchVideoUrl();
-
-    // if (router.query.video) {
-    //   fetchVideoUrl();
-    // }
 
     const getView = () => {
       const TOKEN = localStorage.getItem("accessToken");
@@ -152,7 +136,9 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         <p>write time: {modifiedDate}</p>
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.category}</StyledName>
+          <StyledName onClick={() => onClickCategory(view?.category)}>
+            {view?.category}
+          </StyledName>
         </StyledBox>
       </Category>
       <div>
