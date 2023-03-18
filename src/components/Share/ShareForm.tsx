@@ -173,7 +173,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
                 title="YouTube video player"
                 allowFullScreen
               />
-              <video src="videoView" controls />
               {/* <YouTube videoId={youtubeId} /> */}
               {video && <YouTube videoId={video} />}
               <StyledSpan2>{view.video}</StyledSpan2>
@@ -245,7 +244,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* color: white; */
+  color: white;
 `;
 
 const Container2 = styled.div`

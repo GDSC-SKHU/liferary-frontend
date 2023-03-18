@@ -7,11 +7,28 @@ import { CategoryParams } from "@/pages/category/[...name]";
 import { categoryList } from "../../types/category";
 import Link from "next/link";
 import ListTable from "../Commons/ListTable";
+
+interface UserInfo {
+  email: string;
+  nickname: string;
+  firebaseAuth: boolean;
+}
+
 export default function CategoryBody({ categoryName }: CategoryParams) {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [list, setList] = useState();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    Object.keys(window.localStorage).includes("userInfo") &&
+      setUserInfo(
+        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
+      );
+    console.log(userInfo);
+  }, []);
+
   const handleOpenToggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -66,9 +83,11 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         currentPage={page}
         onPageChange={setPage}
       ></Pagination>
-      <Link href="/s_write">
-        <WriteBtn>Try write!</WriteBtn>
-      </Link>
+      {userInfo ? (
+        <Link href="/s_write">
+          <WriteBtn>Try write!</WriteBtn>
+        </Link>
+      ) : null}
     </CategoryContainer>
   );
 }
