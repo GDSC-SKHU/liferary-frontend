@@ -1,17 +1,14 @@
-import Element from "@/components/Category/Element";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Pagination from "../Commons/Pagination";
 import axios from "axios";
-import { mainPostIdParams } from "@/pages/category/[...name]";
-import { categoryList } from "../../types/category";
-import ListTable from "../Commons/ListTable";
+import { mainPostIdParams } from "@/pages/c_list/[...name]";
+import ListTable2 from "../Community/ListTable2";
 import router from "next/router";
 
 export default function C_list({ mainPostId }: mainPostIdParams) {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [list, setList] = useState();
 
   const onClickRouter = () => {
@@ -21,10 +18,6 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
         id: router.query.id,
       },
     });
-  };
-
-  const handleOpenToggle = () => {
-    setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -50,7 +43,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
             })
         : //전체 불러오기
           axios
-            .get(`/api/main/all?page=${page}`, {
+            .get(`/api/board/all?page=${page}`, {
               headers: {
                 withCredentials: true,
                 Authorization: `Bearer ${TOKEN}`,
@@ -63,17 +56,12 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
             });
     }
   }, [page, mainPostId]);
+
   return (
     <CategoryContainer>
-      <ChooseWrapper>
-        <ChooseButton onClick={handleOpenToggle}>
-          Click and Choose your category!
-        </ChooseButton>
-        <Element isOpen={isOpen} categories={categoryList} />
-      </ChooseWrapper>
       <CategoryListWrapper>
         {totalPage && list ? (
-          <ListTable list={list} page={page} />
+          <ListTable2 list={list} page={page} />
         ) : (
           <div>{mainPostId}게시글이 없습니다.</div>
         )}
@@ -97,19 +85,6 @@ const CategoryContainer = styled.div`
   align-items: center;
 `;
 
-const ChooseWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s ease-in-out;
-`;
-const ChooseButton = styled.div`
-  padding: 10px;
-  background: var(--color-main);
-  color: white;
-  border-radius: 20px;
-`;
 const CategoryListWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -117,37 +92,6 @@ const CategoryListWrapper = styled.div`
   align-items: center;
 `;
 
-const Continer2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-`;
-
-const StyledDiv = styled.div`
-  width: 25vw;
-  height: 7vh;
-
-  margin-bottom: 1rem;
-
-  background-color: var(--color-light);
-  border-radius: 10px;
-  text-align: center;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
-  }
-`;
-
-const StyledH2 = styled.h2`
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
 const WriteBtn = styled.button`
   margin-top: 4.5vh;
   margin-left: 15vw;

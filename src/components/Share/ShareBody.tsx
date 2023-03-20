@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Satisfy from "./Satisfy";
 import ShareForm from "./ShareForm";
-import Comment from "./Community";
 import { ShareProps } from "@/pages/share";
 import Recruit from "./Recruit";
 import Community from "./Community";

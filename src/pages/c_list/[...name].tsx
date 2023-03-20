@@ -1,16 +1,16 @@
 import { GetServerSidePropsContext, GetServerSideProps } from "next";
 import Nav from "@/components/Nav/Nav";
-import CategoryBody from "@/components/Category/CategoryBody";
+import C_listBody from "@/components/C_list/C_listBody";
 
-export interface CategoryParams {
-  categoryName?: string;
+export interface mainPostIdParams {
+  mainPostId?: string;
 }
 
-const Detail = ({ categoryName }: CategoryParams) => {
+const Detail = ({ mainPostId }: mainPostIdParams) => {
   return (
     <>
       <Nav />
-      <CategoryBody categoryName={categoryName} />
+      <C_listBody mainPostId={mainPostId} />
     </>
   );
 };
@@ -20,9 +20,9 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   //ctx serversidecontext제공해준다.
 
-  const categoryName = context.params!.name as unknown as CategoryParams;
+  const mainPostId = context.params!.name as unknown as mainPostIdParams;
   return {
-    props: { categoryName },
+    props: { mainPostId },
   };
 };
 

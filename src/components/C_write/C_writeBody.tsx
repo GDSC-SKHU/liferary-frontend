@@ -84,7 +84,7 @@ const C_writeBody = () => {
       .then((res) => {
         alert("Success write!");
         router.push({
-          pathname: "/community",
+          pathname: "/c_list",
           query: {
             id: res.data.id,
           },
