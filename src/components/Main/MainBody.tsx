@@ -6,7 +6,7 @@ export default function MainBody({ page }: PageProps) {
   return (
     <>
       <Choice />
-      <Card page={page} />
+      <Card />
     </>
   );
 }

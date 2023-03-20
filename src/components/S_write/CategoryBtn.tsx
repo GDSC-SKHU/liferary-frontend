@@ -17,7 +17,7 @@ export default function CategoryBtn() {
           <Modal onClickToggleModal={onClickToggleModal}>
             <ModalContainer>
               <StyledDeleteBtn>x</StyledDeleteBtn>
-              <Element />
+              <Element isOpen={false} categories={[]} />
             </ModalContainer>
           </Modal>
         )}
