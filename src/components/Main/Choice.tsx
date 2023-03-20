@@ -73,7 +73,7 @@ const Choice = () => {
       </Container>
       {userInfo ? (
         <Link href="/s_write">
-          <WriteBtn>Let's go write!</WriteBtn>
+          <WriteBtn>Let&apos;s go write!</WriteBtn>
         </Link>
       ) : null}
       {/* <Link href="/s_write">

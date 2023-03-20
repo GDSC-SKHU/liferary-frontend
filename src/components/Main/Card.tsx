@@ -79,6 +79,7 @@ const Card = () => {
             {views.map((el: IView) => {
               return (
                 <CardItem
+                  key={el.id}
                   onClick={() =>
                     router.push({
                       pathname: "/share",

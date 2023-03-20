@@ -6,7 +6,7 @@ export default function Introduce() {
     <>
       <Container>
         <h2>Hi, We are Liferary.</h2>
-        <StyledP>If you don't have an id,</StyledP>
+        <StyledP>If you don&apos;t have an id,</StyledP>
         <StyledP>please sign up first.</StyledP>
         <StyledP>Thank you.</StyledP>
         <Link href={"/signup"}>
