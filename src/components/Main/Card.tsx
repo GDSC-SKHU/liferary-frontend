@@ -1,138 +1,39 @@
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Post from "@/types/postType";
 
-interface IView {
-  id: string;
-  title: string;
-  nickname: string;
-  category: string;
-  context: string;
-  images: string[];
-  video: string;
-  modifiedDate: string;
-}
-
-const Card = () => {
+const Card = ({ data }: { data: Partial<Post> }) => {
   const router = useRouter();
-  let ready = router.isReady;
-
-  const [page, setPage] = useState<number>(1);
-  const [views, setViews] = useState<IView[] | any>();
-
-  console.log(page);
-
-  if (page < 1) {
-    setPage(1);
-  }
-
-  const onClickAddPage = () => {
-    setPage((prev) => prev + 1);
-    return;
-  };
-
-  const onClickPrevPage = () => {
-    setPage((prev) => prev - 1);
-    return;
-  };
-
-  useEffect(() => {
-    console.log(ready);
-    const getViews = () => {
-      const TOKEN = localStorage.getItem("accessToken");
-
-      // header 인스턴스 값 지정, async-await
-      axios
-        .get(`/api/main/all?page=${page}`, {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
-        .then((data) => {
-          console.log(TOKEN);
-          console.log(data.data);
-
-          setViews(data.data.content);
-        })
-        .catch((e) => {
-          alert("Failed to look up");
-          console.log(TOKEN);
-          console.log(e);
-        });
-    };
-    ready ? getViews() : null;
-  }, [ready, page]);
-
-  views?.map(function (el: IView) {
-    return el;
-  });
-
-  console.log(views);
-
   return (
-    <Container>
-      {views !== undefined ? (
-        <>
-          <StyledGrid>
-            {views.map((el: IView) => {
-              return (
-                <CardItem
-                  key={el.id}
-                  onClick={() =>
-                    router.push({
-                      pathname: "/share",
-                      query: {
-                        id: el.id,
-                      },
-                    })
-                  }
-                >
-                  <Item></Item>
-                  <Title>{el.title}</Title>
-                </CardItem>
-              );
-            })}
-          </StyledGrid>
-        </>
-      ) : (
-        <p>loading</p>
-      )}
-      <div>
-        <button onClick={onClickPrevPage}>Prev</button>
-        <span>{page}</span>
-        <button onClick={onClickAddPage}>Next</button>
-      </div>
-    </Container>
+    <>
+      <CardItem
+        key={data.id}
+        onClick={() =>
+          router.push({
+            pathname: "/share",
+            query: {
+              id: data.id,
+            },
+          })
+        }
+      >
+        <Item></Item>
+        <Title>{data.title}</Title>
+      </CardItem>
+    </>
   );
 };
 
 export default Card;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 15vh;
-  margin-bottom: 5vh;
-`;
-
-const StyledGrid = styled.div`
-  display: grid;
-  justify-items: center;
-  grid-template-columns: 23vw 23vw 23vw;
-`;
 
 const CardItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 30vh;
+  width: 20vw;
+  height: 100%;
+  margin: 10px;
 `;
 const Item = styled.div`
   width: 100%;

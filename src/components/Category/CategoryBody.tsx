@@ -1,5 +1,5 @@
 import Element from "./Element";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Pagination from "../Commons/Pagination";
 import axios from "axios";

@@ -1,10 +1,10 @@
-import Logo from '@/components/Nav/Logo';
-import User_infoBody from '@/components/User_info/User_infoBody';
+import Nav from "@/components/Nav/Nav";
+import User_infoBody from "@/components/User_info/User_infoBody";
 
 export default function User_info() {
   return (
     <>
-      <Logo />
+      <Nav />
       <User_infoBody />
     </>
   );

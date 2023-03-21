@@ -39,7 +39,7 @@ const StudyForm = ({ id }: StudyProps) => {
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
     axios
-      .delete(`/api/study?id=${id}`, {
+      .delete(`/api/study?mainPost=${id}`, {
         headers: {
           withCredentials: true,
           Authorization: `Bearer ${TOKEN}`,
@@ -67,7 +67,7 @@ const StudyForm = ({ id }: StudyProps) => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/study?id=${router.query.id}`, {
+        .get(`/api/study?mainPost${router.query.id}`, {
           headers: {
             withCredentials: true,
             Authorization: `Bearer ${TOKEN}`,

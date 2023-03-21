@@ -1,3 +1,4 @@
+import { categoryList } from "@/types/category";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -37,44 +38,29 @@ const Choice = () => {
 
   return (
     <>
-      <Container>
-        <Container3>
+      <BannerContainer>
+        <BannerWrapper>
           <h2>Hi, We are Liferary.</h2>
-          <StyledP>If you have any questions,</StyledP>
-          <StyledP>here is answer.</StyledP>
-          <StyledP>Because everything is here.</StyledP>
-        </Container3>
-        <Continer2>
-          <StyledDiv>
-            <StyledH2>Choose your category!</StyledH2>
-          </StyledDiv>
-          <StyledDiv2>
-            <StyledP2>food</StyledP2>
-            <List title="cook" />
-            <List title="baking" />
-            <List title="menu" />
-            <StyledP2>health</StyledP2>
-            <List title="exercise" />
-            <List title="hospital" />
-            <StyledP2>nonsense</StyledP2>
-            <List title="laugh" />
-            <List title="happy" />
-            <StyledBtn>click here!</StyledBtn>
-            <StyledP2>life</StyledP2>
-            <div>
-              <List title="tips" />
-              <List title="house" />
-              <Link href="/category">
-                <StyledSpan>Full View</StyledSpan>
-              </Link>
-            </div>
-          </StyledDiv2>
-        </Continer2>
-      </Container>
+          <p>If you have any questions,</p>
+          <p>here is answer.</p>
+          <p>Because everything is here.</p>
+        </BannerWrapper>
+        <BannerWrapper>
+          <h4>What kind of knowledge do you want to know?</h4>
+          <BannerCategoryWrapper>
+            {categoryList.map((el) => {
+              return <p key={el}>{el}</p>;
+            })}
+          </BannerCategoryWrapper>
+        </BannerWrapper>
+      </BannerContainer>
       {userInfo ? (
-        <Link href="/s_write">
-          <WriteBtn>Let&apos;s go write!</WriteBtn>
-        </Link>
+        <WriteWrapper>
+          <p>Please share your knowledge!</p>
+          <Link href="/s_write">
+            <WriteBtn>Share now!</WriteBtn>
+          </Link>
+        </WriteWrapper>
       ) : null}
       {/* <Link href="/s_write">
         <WriteBtn isHide={isHide}>Let's go write!</WriteBtn>
@@ -85,122 +71,67 @@ const Choice = () => {
 
 export default Choice;
 
-const WriteBtn = styled.button`
-  // <{ isHide: boolean }>
-  float: right;
-  margin-top: 4.5vh;
-  margin-right: 5vw;
-  /* display: ${({ is }) => (is ? "none" : "block")}; */
-
-  background-color: var(--color-deep);
+const BannerContainer = styled.div`
+  display: flex;
+  background: var(--color-main);
   color: white;
-  border: 1px solid var(--color-deep);
+  padding: 1.5rem;
+  justify-content: space-around;
+`;
+
+const BannerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70vh;
+  > p {
+    float: left;
+    font-weight: 700;
+  }
+`;
+
+const BannerCategoryWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 20px;
+  > p {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin: 2px;
+    border: 1px solid var(--color-light);
+    border-radius: 20px;
+
+    :hover {
+      background-color: white;
+      color: var(—color-deep);
+    }
+  }
+`;
+
+const WriteWrapper = styled.div`
+  margin: 1vw 3vw 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  > p {
+    font-size: 1.5rem;
+  }
+`;
+const WriteBtn = styled.button`
+  float: right;
+  background-color: var(—color-deep);
+  color: white;
+  border: 1px solid var(—color-deep);
   border-radius: 10px;
   font-weight: 600;
   font-size: large;
 
   &:hover {
     background-color: white;
-    color: var(--color-deep);
+    color: var(—color-deep);
   }
-`;
-
-const Container = styled.div`
-  width: 100%;
-  height: 70vh;
-  margin-top: 4vh;
-  padding-left: 14vw;
-
-  background-color: var(--color-normal);
-  color: white;
-`;
-
-const StyledBtn = styled.button`
-  float: right;
-  margin-top: 5vh;
-
-  background-color: var(--color-light);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-weight: 500;
-
-  @media (max-width: 800px) {
-    font-size: 0.7em;
-  }
-`;
-
-const StyledSpan = styled.span`
-  float: right;
-
-  color: var(--color-main);
-  border-bottom: 2px solid var(--color-main);
-  font-size: large;
-  font-weight: 700;
-
-  @media (max-width: 800px) {
-    font-size: 1em;
-  }
-`;
-
-const StyledP2 = styled.p`
-  color: var(--color-main);
-  font-weight: 700;
-  font-size: small;
-`;
-
-const Container3 = styled.div`
-  float: left;
-  margin-top: 22vh;
-`;
-
-const Continer2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  float: right;
-
-  margin-top: 8vh;
-  margin-right: 14vw;
-
-  color: white;
-`;
-
-const StyledDiv = styled.div`
-  width: 25vw;
-  height: 7vh;
-
-  margin-bottom: 1rem;
-
-  background-color: var(--color-light);
-  border-radius: 10px;
-  text-align: center;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
-  }
-`;
-
-const StyledH2 = styled.h2`
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledDiv2 = styled.div`
-  width: 30vw;
-  height: 40vh;
-  padding: 0.5rem 1rem;
-
-  background-color: white;
-  color: var(--color-normal);
-  border-radius: 5px;
-  box-shadow: 5px 5px 20px #444444;
-`;
-
-const StyledP = styled.p`
-  line-height: 200%;
 `;

@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { auth } from "../Login/GoogleLogin";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 // 새로운 type
 interface UserInfo {
@@ -14,7 +14,7 @@ interface UserInfo {
 export default function Nav() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     Object.keys(window.localStorage).includes("userInfo") &&
       setUserInfo(
         JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
@@ -59,7 +59,20 @@ export default function Nav() {
         <Link href={"/"}>
           <StyledImg src="/Logo2.svg" />
         </Link>
-        <Search placeholder="Liferary" />
+        <NavItemWrapper>
+          <Search placeholder="Liferary" />
+          <LinkContainer style={{ display: "flex" }}>
+            <LinkWrapper href="/category">
+              <p>Share Knowledge</p>
+            </LinkWrapper>
+            <LinkWrapper href="/study">
+              <p>Study</p>
+            </LinkWrapper>
+            <LinkWrapper href="/community">
+              <p>Communitiy</p>
+            </LinkWrapper>
+          </LinkContainer>
+        </NavItemWrapper>
         <StyledSpan>
           {userInfo && "Welcome, " + userInfo?.nickname + "!"}
         </StyledSpan>
@@ -84,6 +97,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 15vh;
+  position: sticky;
+  top: 0;
+  background: white;
 `;
 
 const StyledSpan = styled.span`
@@ -95,11 +112,32 @@ const StyledSpan = styled.span`
 
 const StyledImg = styled.img`
   width: 18vw;
-  height: auto;
 
   margin-top: 1vh;
   margin-left: 3vw;
   padding-top: 1rem;
+`;
+
+const NavItemWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+`;
+const LinkWrapper = styled(Link)`
+  display: inline-block;
+  margin: 0 10px;
+  margin-top: 3vh;
+  color: var(--clor-main);
+  text-decoration: none;
+  padding: 0 2rem;
+  & > p {
+    text-transform: uppercase;
+  }
 `;
 
 const Search = styled.input`
@@ -107,8 +145,7 @@ const Search = styled.input`
   background-repeat: no-repeat;
   background-position: 10px;
 
-  width: 50vw;
-  height: 7vh;
+  width: 10vw;
   margin-top: 3vh;
   padding: 5px 10px;
   padding-left: 2.5rem;
@@ -118,6 +155,19 @@ const Search = styled.input`
   border: 2px solid var(--color-normal);
   border-radius: 2rem;
   box-shadow: 2px 2px 5px;
+  transition: width 0.2s ease-in-out;
+  &:focus {
+    width: 50vw;
+    transition: width 0.2s ease-in-out;
+
+    ~ ${LinkContainer} {
+      padding: 0;
+      width: 0px;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 0.2s ease-in-out, width 0.3s ease-in-out;
+    }
+  }
 `;
 
 const StyledImg2 = styled.img`
@@ -135,13 +185,13 @@ const UserContainer = styled.div`
 const LoginBtn = styled.button`
   margin-right: 2.86vw;
 
-  background-color: var(--color-deep);
+  background-color: var(—color-deep);
   color: white;
-  border: 1px solid var(--color-deep);
+  border: 1px solid var(—color-deep);
   border-radius: 10px;
 
   &:hover {
     background-color: white;
-    color: var(--color-deep);
+    color: var(—color-deep);
   }
 `;

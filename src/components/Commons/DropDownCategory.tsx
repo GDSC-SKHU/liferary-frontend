@@ -16,6 +16,7 @@ const DropDownCategory = ({ onChange }: Category) => {
     "fashion",
     "leisure",
     "travel",
+    "music",
     "etc",
   ];
   return (
