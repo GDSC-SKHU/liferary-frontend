@@ -77,19 +77,21 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
 }
 
 const CategoryContainer = styled.div`
-  width: 100%;
-  margin-top: 4vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  margin-top: 4vh;
 `;
 
 const CategoryListWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 `;
 
 const WriteBtn = styled.button`

@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 type userItem = "Profile" | "Knowledge" | "Study" | "Community";
+
 const User_nav = ({
   currentNav,
   handleNavChange,
@@ -59,26 +60,32 @@ const UserNavContainer = styled.div`
 `;
 
 const UserNavWrapper = styled.div<{ isFocus: boolean }>`
-  margin: 20px 0;
-  width: 100%;
-  height: 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 2rem;
+  margin: 20px 0;
+
+  background: rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
   transition: scale 0.5 ease-in-out;
+
   :hover {
     background: var(--color-light);
+    color: white;
+
     cursor: pointer;
     transform: scale(1.2);
-    color: white;
     /* transition: all 0.5 ease-in-out; */
   }
+
   ${({ isFocus }) =>
     isFocus &&
     css`

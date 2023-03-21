@@ -12,12 +12,12 @@ export default function Logo() {
 }
 
 const StyledImg = styled.img`
+  display: inline-block;
+
   width: 18vw;
   height: auto;
 
   margin-top: 3.7vh;
   margin-left: 3vw;
   margin-right: 3vw;
-
-  display: inline-block;
 `;

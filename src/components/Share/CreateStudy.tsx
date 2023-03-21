@@ -19,6 +19,7 @@ const Submit = styled.button`
   color: white;
   border: 1px solid var(--color-normal);
   border-radius: 10px;
+
   font-weight: 600;
   font-size: large;
   cursor: pointer;

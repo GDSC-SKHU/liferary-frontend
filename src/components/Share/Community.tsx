@@ -36,6 +36,7 @@ const StyledH2 = styled.h2`
 
   color: var(--color-main);
   border-bottom: 1px solid var(--color-main);
+
   font-weight: 600;
 `;
 

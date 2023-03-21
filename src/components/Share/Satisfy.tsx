@@ -50,6 +50,7 @@ const StyledDiv = styled.div`
 
   background-color: var(--color-light);
   border-radius: 5px;
+
   text-align: center;
 
   @media (max-width: 800px) {
@@ -70,6 +71,7 @@ const Container2 = styled.div`
   background-color: white;
   color: var(--color-main);
   border-radius: 10px;
+
   box-shadow: 2px 2px 5px #333333;
 
   @media (max-width: 800px) {
@@ -90,6 +92,7 @@ const StyledBtn = styled.button`
 
 const StyledSpan = styled.span`
   color: var(--color-main);
+
   font-weight: 600;
   font-size: large;
   text-align: center;

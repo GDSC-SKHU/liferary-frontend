@@ -133,9 +133,10 @@ const StyledInput = styled.input`
   margin-left: 1rem;
   float: right;
 
-  outline: none;
   border: none;
   border-bottom: 1px solid var(--color-normal);
+
+  outline: none;
 
   &:focus {
     border-bottom: 2px solid var(--color-normal);
@@ -147,9 +148,10 @@ const StyledInput2 = styled.input`
   margin-left: 1rem;
   float: right;
 
-  outline: none;
   border: none;
   border-bottom: 1px solid var(--color-normal);
+
+  outline: none;
 
   &:focus {
     border-bottom: 2px solid var(--color-normal);
@@ -168,8 +170,8 @@ const Submit = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: var(--color-normal);
     background-color: white;
+    color: var(--color-normal);
   }
 `;
 

@@ -6,7 +6,9 @@ import { User_post } from "./User_post";
 
 export default function User_info() {
   type userItem = "Profile" | "Knowledge" | "Study" | "Community";
+
   const [currentNav, setCurrentNav] = useState<userItem>("Profile");
+
   const handleNavChange = (kind: userItem) => {
     setCurrentNav(kind);
   };
@@ -37,16 +39,20 @@ export default function User_info() {
 
 const UserContainer = styled.div`
   display: grid;
-  align-items: cetner;
   justify-content: center;
-  height: 80vh;
+  align-items: center;
   grid-template-columns: 15vw 65vw;
+
+  height: 80vh;
 `;
 
 const UserWrapper = styled.div`
   display: flex;
+
   margin-left: 3rem;
-  box-shadow: 2px 2px 4px 0px var(--color-light);
+
   border-radius: 20px;
+
+  box-shadow: 2px 2px 4px 0px var(--color-light);
   opacity: 0.5;
 `;

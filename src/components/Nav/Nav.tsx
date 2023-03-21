@@ -97,14 +97,18 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   height: 15vh;
+
   position: sticky;
   top: 0;
+
   background: white;
 `;
 
 const StyledSpan = styled.span`
   color: var(--color-normal);
+
   font-weight: 600;
 `;
 
@@ -124,12 +128,17 @@ const NavItemWrapper = styled.div`
 const LinkContainer = styled.div`
   display: flex;
 `;
+
 const LinkWrapper = styled(Link)`
   display: inline-block;
+
   margin: 0 10px;
-  color: var(--clor-main);
-  text-decoration: none;
   padding: 0 2rem;
+
+  color: var(--clor-main);
+
+  text-decoration: none;
+
   & > p {
     text-transform: uppercase;
   }
@@ -144,12 +153,14 @@ const Search = styled.input`
   padding: 5px 10px;
   padding-left: 2.5rem;
 
-  outline: none;
   background-color: white;
   border: 2px solid var(--color-normal);
   border-radius: 2rem;
+
+  outline: none;
   box-shadow: 2px 2px 5px;
   transition: width 0.2s ease-in-out;
+
   &:focus {
     width: 50vw;
     transition: width 0.2s ease-in-out;
@@ -157,8 +168,9 @@ const Search = styled.input`
     ~ ${LinkContainer} {
       padding: 0;
       width: 0px;
-      opacity: 0;
+
       overflow: hidden;
+      opacity: 0;
       transition: opacity 0.2s ease-in-out, width 0.3s ease-in-out;
     }
   }

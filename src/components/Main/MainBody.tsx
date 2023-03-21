@@ -1,9 +1,8 @@
-import { PageProps } from "@/pages";
-import Card from "./Card";
 import Choice from "./Choice";
 import styled from "styled-components";
 import MainSlider from "./MainSlider";
-export default function MainBody({ page }: PageProps) {
+
+export default function MainBody() {
   return (
     <>
       <Choice />
@@ -24,9 +23,11 @@ export default function MainBody({ page }: PageProps) {
 }
 
 const MainPostContainer = styled.div`
-  margin-top: 10vh;
   display: flex;
   flex-direction: column;
+
+  margin-top: 10vh;
+
   > h3 {
     margin-left: 8vw;
   }
@@ -35,5 +36,6 @@ const MainPostContainer = styled.div`
 const MainPostWrapper = styled.div`
   display: flex;
   justify-content: center;
+
   margin-bottom: 3vh;
 `;

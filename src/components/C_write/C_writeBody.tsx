@@ -137,7 +137,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* color: white; */
+  color: white;
 `;
 
 const StyledInput = styled.input`

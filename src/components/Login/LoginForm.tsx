@@ -86,12 +86,14 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
 const LoginFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -113,12 +115,12 @@ const StyledDiv = styled.div`
 
 const StyledInput = styled.input`
   width: 15vw;
-
   float: right;
   margin-left: 1rem;
 
   border: none;
   border-bottom: 1px solid var(--color-normal);
+
   outline: none;
 
   &:focus {
@@ -127,9 +129,10 @@ const StyledInput = styled.input`
 `;
 
 const Submit = styled.button`
+  width: 20vw;
   margin-top: 3rem;
   padding: 3px 7vw;
-  width: 20vw;
+
   background-color: var(--color-normal);
   color: white;
   border: 1px solid var(--color-normal);
