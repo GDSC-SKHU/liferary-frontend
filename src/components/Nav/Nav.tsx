@@ -104,8 +104,6 @@ const Container = styled.div`
 `;
 
 const StyledSpan = styled.span`
-  margin-top: 3vh;
-
   color: var(--color-normal);
   font-weight: 600;
 `;
@@ -113,9 +111,7 @@ const StyledSpan = styled.span`
 const StyledImg = styled.img`
   width: 18vw;
 
-  margin-top: 1vh;
   margin-left: 3vw;
-  padding-top: 1rem;
 `;
 
 const NavItemWrapper = styled.div`
@@ -131,7 +127,6 @@ const LinkContainer = styled.div`
 const LinkWrapper = styled(Link)`
   display: inline-block;
   margin: 0 10px;
-  margin-top: 3vh;
   color: var(--clor-main);
   text-decoration: none;
   padding: 0 2rem;
@@ -146,7 +141,6 @@ const Search = styled.input`
   background-position: 10px;
 
   width: 10vw;
-  margin-top: 3vh;
   padding: 5px 10px;
   padding-left: 2.5rem;
 
@@ -171,7 +165,6 @@ const Search = styled.input`
 `;
 
 const StyledImg2 = styled.img`
-  margin-top: 3vh;
   margin-right: 3vw;
 `;
 
@@ -185,13 +178,13 @@ const UserContainer = styled.div`
 const LoginBtn = styled.button`
   margin-right: 2.86vw;
 
-  background-color: var(—color-deep);
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid var(—color-deep);
+  border: 1px solid var(--color-deep);
   border-radius: 10px;
 
   &:hover {
     background-color: white;
-    color: var(—color-deep);
+    color: var(--color-deep);
   }
 `;

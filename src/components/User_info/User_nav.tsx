@@ -73,7 +73,7 @@ const UserNavWrapper = styled.div<{ isFocus: boolean }>`
   align-items: center;
   transition: scale 0.5 ease-in-out;
   :hover {
-    background: var(—color-light);
+    background: var(--color-light);
     cursor: pointer;
     transform: scale(1.2);
     color: white;
@@ -82,10 +82,10 @@ const UserNavWrapper = styled.div<{ isFocus: boolean }>`
   ${({ isFocus }) =>
     isFocus &&
     css`
-      color: var(—color-deep);
+      color: var(--color-deep);
       cursor: pointer;
       transform: scale(1);
-      box-shadow: 0 2px 5px var(—color-main);
+      box-shadow: 0 2px 5px var(--color-main);
       /* transition: all 0.5 ease-in-out; */
     `}
 `;
