@@ -9,6 +9,7 @@ const categoryList = [
     "fashion",
     "leisure",
     "travel",
+    "music",
     "etc",
   ];
   

@@ -1,71 +1,189 @@
+import useUser from "@/hooks/useUser";
 import styled from "styled-components";
+import { ChangeEvent, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
+interface LoginForm {
+  password: string;
+  passwordconfirm: string;
+}
 export default function User_infoForm() {
+  const router = useRouter();
+  const userInfo = useUser();
+  const nickname = userInfo.user?.nickname;
+  // console.log("userinfo", userInfo, userInfo.user?.nickname, nickname);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
+  const [isWithdraw, setIsWithdraw] = useState<boolean>(false);
+  const [form, setForm] = useState<LoginForm>({
+    password: "",
+    passwordconfirm: "",
+  });
+
+  // const [passwordMatch, setPasswordMatch] = useState<boolean>(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+    // checkPasswordMatch();
+  };
+  // const checkPasswordMatch = () => {
+
+  //   console.log(
+  //     form.password === form.passwordconfirm,
+  //     form.password,
+  //     form.passwordconfirm
+  //   );
+  // };
+
+  const handleChangePassword = async () => {
+    const TOKEN = localStorage.getItem("accessToken");
+    console.log(
+      "handlepassword",
+      nickname,
+      form.password,
+      form.passwordconfirm
+    );
+    await axios.patch(
+      `/api/member`,
+      {
+        nickname: nickname,
+        password: form.password,
+        checkedpassword: form.passwordconfirm,
+      },
+      {
+        headers: {
+          withCredentials: true,
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    );
+  };
+  const handleWithdraw = async (password: string) => {
+    //회원탈퇴
+    const TOKEN = localStorage.getItem("accessToken");
+    let isAgree = confirm("탈퇴하시겠습니까?");
+    {
+      isAgree &&
+        (await axios.delete(`/api/member/withdraw`, {
+          data: {
+            withdrawPassword: password,
+          },
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }));
+    }
+
+    router.push("/login");
+  };
   return (
-    <Container>
-      <StyledDiv>
-        <StyledP>Full name</StyledP>
-        <StyledH2>Babo Shake it</StyledH2>
-        <StyledP>Telephone</StyledP>
-        <StyledH3>1-206-123-4567</StyledH3>
-        <StyledP>E-mail</StyledP>
-        <StyledH4>babo@gmail.com</StyledH4>
-      </StyledDiv>
-      <StyledDiv2>
-        <StyledP>Full name</StyledP>
-        <StyledH2>Babo Shake it</StyledH2>
-        <StyledP>Telephone</StyledP>
-        <StyledH3>1-206-123-4567</StyledH3>
-        <StyledP>E-mail</StyledP>
-        <StyledH4>babo@gmail.com</StyledH4>
-      </StyledDiv2>
-    </Container>
+    <UserInfoContainer>
+      {!userInfo.user?.firebaseAuth && (
+        <button onClick={() => setIsEdit((prev) => !prev)}>
+          {!isEdit ? "비밀번호 변경" : "취소"}
+        </button>
+      )}
+      {isEdit ? (
+        <>
+          {!isWithdraw ? (
+            <>
+              <form onSubmit={handleChangePassword}>
+                <StyledDiv>
+                  <span>Password</span>
+                  <StyledInput
+                    type="password"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                </StyledDiv>
+                <StyledDiv>
+                  <span>confirmPassword</span>
+                  <StyledInput
+                    type="password"
+                    name="passwordconfirm"
+                    value={form.passwordconfirm}
+                    onChange={handleChange}
+                  />
+                </StyledDiv>
+                <button
+                  type="submit"
+                  disabled={form.password !== form.passwordconfirm}
+                >
+                  password change
+                </button>
+              </form>
+              <button onClick={() => setIsWithdraw((prev) => !prev)}>
+                withdraw
+              </button>
+            </>
+          ) : (
+            <>
+              <span>confirm password</span>
+              <StyledInput
+                value={password}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
+              ></StyledInput>
+              <button onClick={() => handleWithdraw(password as string)}>
+                탈퇴하기
+              </button>
+              <button onClick={() => setIsWithdraw((prev) => !prev)}>
+                탈퇴취소
+              </button>
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <UserInfoWrapper>이메일:{userInfo.user?.email}</UserInfoWrapper>
+          <UserInfoWrapper>닉네임:{userInfo.user?.nickname}</UserInfoWrapper>
+        </>
+      )}
+    </UserInfoContainer>
   );
 }
 
-const Container = styled.div`
+const UserInfoContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 0 20vw;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const UserInfoWrapper = styled.div`
+  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 2px 5px var(—color-main);
 `;
 
 const StyledDiv = styled.div`
-  width: 20vw;
-  height: 50vh;
-  margin-top: 15vh;
-  padding: 0 2vw;
-
-  border: 1px solid #bfbfbf;
-  border-radius: 10px;
-  box-shadow: 1px 1px 7px #abaaaa;
+  padding-top: 2rem;
 `;
 
-const StyledP = styled.p`
-  margin-top: 1.5rem;
+const StyledInput = styled.input`
+  width: 15vw;
 
-  color: var(--color-main);
-  opacity: 0.5;
+  float: right;
+  margin-left: 1rem;
 
-  font-weight: 600;
-`;
+  border: none;
+  border-bottom: 1px solid var(—color-normal);
+  outline: none;
 
-const StyledH2 = styled.h2`
-  color: var(--color-main);
-`;
-const StyledH3 = styled.h3`
-  color: var(--color-main);
-`;
-const StyledH4 = styled.h4`
-  color: var(--color-main);
-`;
-
-const StyledDiv2 = styled.div`
-  width: 38vw;
-  height: 50vh;
-  margin-top: 15vh;
-  padding: 0 2vw;
-
-  border: 1px solid #bfbfbf;
-  border-radius: 10px;
-  box-shadow: 1px 1px 7px #abaaaa;
+  &:focus {
+    border-bottom: 2px solid var(—color-normal);
+  }
 `;

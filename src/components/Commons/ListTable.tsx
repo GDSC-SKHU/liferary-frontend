@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Post from "../../types/postType";
 import { useRouter } from "next/router";
 import ListItem from "./ListItem";
-
 export default function ListTable({
   list,
   page,
@@ -14,7 +13,6 @@ export default function ListTable({
   const handleClickListItem = (id: string) => {
     router.push(`http://localhost:3000/share?id=${id}`);
   };
-
   return (
     <ListContainer>
       <TitleWrapper>
@@ -47,7 +45,7 @@ const ListContainer = styled.div`
 const ListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  width: 70vw;
+  width: 70%;
   height: 5vh;
   margin-top: 3vh;
   align-content: center;
@@ -59,7 +57,7 @@ const ListWrapper = styled.div`
   }
 `;
 const TitleWrapper = styled(ListWrapper)`
-  background-color: var(--color-normal);
+  background-color: var(—color-normal);
   color: white;
   border-radius: 10px;
   opacity: 0.5;
