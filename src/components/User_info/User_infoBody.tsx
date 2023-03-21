@@ -46,7 +46,7 @@ const UserContainer = styled.div`
 const UserWrapper = styled.div`
   display: flex;
   margin-left: 3rem;
-  box-shadow: 2px 2px 4px 0px var(—color-light);
+  box-shadow: 2px 2px 4px 0px var(--color-light);
   border-radius: 20px;
   opacity: 0.5;
 `;

@@ -106,7 +106,7 @@ const BannerCategoryWrapper = styled.div`
 
     :hover {
       background-color: white;
-      color: var(—color-deep);
+      color: var(--color-deep);
     }
   }
 `;
@@ -123,15 +123,15 @@ const WriteWrapper = styled.div`
 `;
 const WriteBtn = styled.button`
   float: right;
-  background-color: var(—color-deep);
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid var(—color-deep);
+  border: 1px solid var(--color-deep);
   border-radius: 10px;
   font-weight: 600;
   font-size: large;
 
   &:hover {
     background-color: white;
-    color: var(—color-deep);
+    color: var(--color-deep);
   }
 `;

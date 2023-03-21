@@ -166,7 +166,7 @@ const UserInfoWrapper = styled.div`
   margin: 5px;
   display: flex;
   justify-content: center;
-  box-shadow: 0 2px 5px var(—color-main);
+  box-shadow: 0 2px 5px var(--color-main);
 `;
 
 const StyledDiv = styled.div`
@@ -180,10 +180,10 @@ const StyledInput = styled.input`
   margin-left: 1rem;
 
   border: none;
-  border-bottom: 1px solid var(—color-normal);
+  border-bottom: 1px solid var(--color-normal);
   outline: none;
 
   &:focus {
-    border-bottom: 2px solid var(—color-normal);
+    border-bottom: 2px solid var(--color-normal);
   }
 `;
