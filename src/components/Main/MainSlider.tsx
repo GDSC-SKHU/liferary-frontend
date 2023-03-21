@@ -3,8 +3,10 @@ import styled from "styled-components";
 import axios from "axios";
 import Post from "@/types/postType";
 import Card from "./Card";
+
 const MainSlider = ({ kind }: { kind: string }) => {
   const [data, setData] = useState<Post[]>([]);
+
   useEffect(() => {
     axios.get(`/api/${kind}/all?page=1`, {}).then((data) => {
       setData([...data.data.content]);
@@ -33,9 +35,10 @@ export default MainSlider;
 
 const SlideShowContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+
   height: 30vh;
+  overflow: hidden;
 `;

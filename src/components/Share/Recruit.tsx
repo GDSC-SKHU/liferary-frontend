@@ -1,8 +1,7 @@
-import { ShareProps } from "@/pages/share";
 import router from "next/router";
 import styled from "styled-components";
 
-export default function Recruit({ id }: ShareProps) {
+export default function Recruit() {
   // console.log(router.query.id);
 
   const onClickRouter = () => {
@@ -48,6 +47,7 @@ const StyledH2 = styled.h2`
 
   color: var(--color-main);
   border-bottom: 1px solid var(--color-main);
+
   font-weight: 600;
 `;
 

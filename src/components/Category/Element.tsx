@@ -1,8 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-//cooking, fitness, nonsense, relationship, programming, language, makeup, fashion, leisure, travel, etc.
-
 interface ElementProps {
   isOpen: boolean;
   categories: string[];
@@ -30,10 +28,12 @@ const Container = styled.div`
 
 const LinkWrapper = styled(Link)`
   padding: 2px;
+
+  color: black;
   border: 1px solid var(--color-main);
   border-radius: 10px;
   text-decoration: none;
-  color: black;
+
   :hover {
     background-color: var(--color-main);
     color: white;
@@ -41,14 +41,17 @@ const LinkWrapper = styled(Link)`
 `;
 const ElementContainer = styled.div`
   transition: all 0.5s ease-in-out;
+
   &.active {
-    opacity: 1;
     height: auto;
     margin: 5px;
-    border: 2px solid var(--color-light);
     padding: 30px;
+
+    border: 2px solid var(--color-light);
     border-radius: 10px;
+    opacity: 1;
   }
+
   &.inactive {
     opacity: 0;
     height: 0;

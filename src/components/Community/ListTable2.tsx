@@ -38,31 +38,39 @@ export default function ListTable2({
 }
 
 const ListContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 `;
+
 const ListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
   width: 70vw;
   height: 5vh;
   margin-top: 3vh;
-  align-content: center;
   padding: 0 20px;
+
+  align-content: center;
   transition: all 0.5s ease-in-out;
+
   :hover {
     transform: translateY(3px);
     color: var(--color-light);
   }
 `;
+
 const TitleWrapper = styled(ListWrapper)`
+  height: 6vh;
+
   background-color: var(--color-normal);
   color: white;
   border-radius: 10px;
-  opacity: 0.5;
+
   font-size: 20px;
-  height: 6vh;
+  opacity: 0.5;
 `;

@@ -32,6 +32,7 @@ const StyledBtn = styled.button`
   color: #bebebe;
   border: 1px solid var(--color-main);
   border-radius: 5px;
+
   font-weight: 600;
   font-size: large;
   cursor: pointer;
@@ -39,14 +40,15 @@ const StyledBtn = styled.button`
 
 const ModalContainer = styled.div`
   width: 50vw;
+
   background-color: var(--color-normal);
 `;
 
 const StyledDeleteBtn = styled.button`
   float: right;
 
-  font-size: 1.5rem;
-
   background-color: white;
   border: none;
+
+  font-size: 1.5rem;
 `;

@@ -2,7 +2,6 @@ import { categoryList } from "@/types/category";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import List from "../List";
 
 interface UserInfo {
   email: string;
@@ -73,10 +72,12 @@ export default Choice;
 
 const BannerContainer = styled.div`
   display: flex;
+  justify-content: space-around;
+
+  padding: 1.5rem;
+
   background: var(--color-main);
   color: white;
-  padding: 1.5rem;
-  justify-content: space-around;
 `;
 
 const BannerWrapper = styled.div`
@@ -84,8 +85,10 @@ const BannerWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: 100%;
   height: 70vh;
+
   > p {
     float: left;
     font-weight: 700;
@@ -95,12 +98,15 @@ const BannerWrapper = styled.div`
 const BannerCategoryWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+
   margin: 20px;
+
   > p {
     display: flex;
     justify-content: center;
     padding: 5px;
     margin: 2px;
+
     border: 1px solid var(--color-light);
     border-radius: 20px;
 
@@ -112,21 +118,26 @@ const BannerCategoryWrapper = styled.div`
 `;
 
 const WriteWrapper = styled.div`
-  margin: 1vw 3vw 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin: 1vw 3vw 0 0;
   gap: 10px;
+
   > p {
     font-size: 1.5rem;
   }
 `;
+
 const WriteBtn = styled.button`
   float: right;
+
   background-color: var(--color-deep);
   color: white;
   border: 1px solid var(--color-deep);
   border-radius: 10px;
+
   font-weight: 600;
   font-size: large;
 

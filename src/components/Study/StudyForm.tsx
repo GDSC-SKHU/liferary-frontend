@@ -184,7 +184,6 @@ const Container2 = styled.div`
 const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
-
   margin-bottom: 1rem;
 
   background-color: var(--color-normal);
@@ -201,7 +200,6 @@ const StyledDiv = styled.div`
 
 const StyledDiv2 = styled.div`
   width: 40vw;
-
   margin-bottom: 1rem;
 
   background-color: white;

@@ -7,36 +7,13 @@ interface PaginationData {
   onPageChange: (page: number) => void;
 }
 
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const PaginationButton = styled.button<{ isActive?: boolean }>`
-  margin: 0 5px;
-  padding: 5px 10px;
-  border: none;
-  background-color: ${({ isActive }) =>
-    isActive ? "var(--color-deep)" : "var(--color-light)"};
-  color: ${({ isActive }) => (isActive ? "#fff" : "var(--color-main)")};
-  cursor: ${({ isActive }) => (isActive ? "default" : "pointer")};
-  &:hover {
-    background-color: ${({ isActive }) => (isActive ? "#333" : "#ddd")};
-  }
-  &:disabled {
-    color: gray;
-    background-color: white;
-  }
-`;
-
 const Pagination = ({
   totalPages,
   currentPage,
   onPageChange,
 }: PaginationData) => {
   const pageSize = 9;
+
   const [currentGroup, setCurrentGroup] = useState(1);
 
   const handlePageChange = (page: number) => {
@@ -95,3 +72,31 @@ const Pagination = ({
 };
 
 export default Pagination;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 20px;
+`;
+
+const PaginationButton = styled.button<{ isActive?: boolean }>`
+  margin: 0 5px;
+  padding: 5px 10px;
+
+  border: none;
+  background-color: ${({ isActive }) =>
+    isActive ? "var(--color-deep)" : "var(--color-light)"};
+  color: ${({ isActive }) => (isActive ? "#fff" : "var(--color-main)")};
+  cursor: ${({ isActive }) => (isActive ? "default" : "pointer")};
+
+  &:hover {
+    background-color: ${({ isActive }) => (isActive ? "#333" : "#ddd")};
+  }
+
+  &:disabled {
+    color: gray;
+    background-color: white;
+  }
+`;

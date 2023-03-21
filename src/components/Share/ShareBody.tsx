@@ -11,7 +11,7 @@ export default function ShareBody({ id }: ShareProps) {
       <ShareForm id={id} />
       <Satisfy />
       <Container>
-        <Recruit id={id} />
+        <Recruit />
         <Community />
       </Container>
     </>

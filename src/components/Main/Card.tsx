@@ -4,6 +4,7 @@ import Post from "@/types/postType";
 
 const Card = ({ data }: { data: Partial<Post> }) => {
   const router = useRouter();
+
   return (
     <>
       <CardItem
@@ -31,13 +32,16 @@ const CardItem = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: 20vw;
   height: 100%;
   margin: 10px;
 `;
+
 const Item = styled.div`
   width: 100%;
   height: 70%;
+
   background-color: #eeeeee;
   border-radius: 1rem;
 
@@ -51,9 +55,9 @@ const Item = styled.div`
 
 const Title = styled.button`
   width: 100%;
-
   margin: 10px 30px;
   padding: 5px;
+
   background-color: var(--color-normal);
   color: white;
   border: 1px solid var(--color-normal);

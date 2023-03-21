@@ -19,6 +19,7 @@ const DropDownCategory = ({ onChange }: Category) => {
     "music",
     "etc",
   ];
+
   return (
     <>
       <select id="category" onChange={onChange}>

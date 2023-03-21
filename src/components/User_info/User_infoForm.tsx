@@ -11,11 +11,15 @@ interface LoginForm {
 export default function User_infoForm() {
   const router = useRouter();
   const userInfo = useUser();
+
   const nickname = userInfo.user?.nickname;
-  // console.log("userinfo", userInfo, userInfo.user?.nickname, nickname);
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
+
   const [password, setPassword] = useState<string>("");
+
   const [isWithdraw, setIsWithdraw] = useState<boolean>(false);
+
   const [form, setForm] = useState<LoginForm>({
     password: "",
     passwordconfirm: "",
@@ -63,6 +67,7 @@ export default function User_infoForm() {
       }
     );
   };
+
   const handleWithdraw = async (password: string) => {
     //회원탈퇴
     const TOKEN = localStorage.getItem("accessToken");
@@ -82,6 +87,7 @@ export default function User_infoForm() {
 
     router.push("/login");
   };
+
   return (
     <UserInfoContainer>
       {!userInfo.user?.firebaseAuth && (
@@ -153,19 +159,24 @@ export default function User_infoForm() {
 
 const UserInfoContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
   height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
+
 const UserInfoWrapper = styled.div`
-  width: 80%;
-  padding: 20px;
-  border-radius: 10px;
-  margin: 5px;
   display: flex;
   justify-content: center;
+
+  width: 80%;
+  margin: 5px;
+  padding: 20px;
+
+  border-radius: 10px;
+
   box-shadow: 0 2px 5px var(--color-main);
 `;
 
@@ -181,6 +192,7 @@ const StyledInput = styled.input`
 
   border: none;
   border-bottom: 1px solid var(--color-normal);
+
   outline: none;
 
   &:focus {

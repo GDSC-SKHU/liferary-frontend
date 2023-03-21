@@ -8,8 +8,11 @@ type kind = "Knowledge" | "Study" | "Community";
 
 export const User_post = ({ kind }: { kind: kind }) => {
   const [list, setList] = useState();
+
   const [page, setPage] = useState<number>(1);
+
   const [totalPage, setTotalPage] = useState<number>();
+
   const [url, setUrl] = useState("");
 
   useLayoutEffect(() => {
@@ -70,5 +73,6 @@ export const User_post = ({ kind }: { kind: kind }) => {
 const UserPostContainer = styled.div`
   display: flex;
   flex-direction: column;
+
   width: 100%;
 `;

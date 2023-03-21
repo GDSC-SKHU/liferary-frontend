@@ -21,7 +21,6 @@ const Container = styled.div`
   width: 40%;
   height: 100vh;
   float: left;
-
   padding-top: 37vh;
   padding-left: 11vw;
 

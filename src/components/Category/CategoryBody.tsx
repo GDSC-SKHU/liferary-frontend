@@ -16,9 +16,13 @@ interface UserInfo {
 
 export default function CategoryBody({ categoryName }: CategoryParams) {
   const [page, setPage] = useState<number>(1);
+
   const [totalPage, setTotalPage] = useState<number>(0);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const [list, setList] = useState();
+
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
@@ -32,6 +36,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
   const handleOpenToggle = () => {
     setIsOpen((prev) => !prev);
   };
+
   useEffect(() => {
     const TOKEN = localStorage.getItem("accessToken");
     {
@@ -63,6 +68,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
             });
     }
   }, [page, categoryName]);
+
   return (
     <CategoryContainer>
       <ChooseWrapper>
@@ -93,12 +99,13 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
 }
 
 const CategoryContainer = styled.div`
-  width: 100%;
-  margin-top: 4vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  margin-top: 4vh;
 `;
 
 const ChooseWrapper = styled.div`
@@ -106,52 +113,24 @@ const ChooseWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   transition: all 0.5s ease-in-out;
 `;
 const ChooseButton = styled.div`
   padding: 10px;
+
   background: var(--color-main);
   color: white;
   border-radius: 20px;
 `;
 const CategoryListWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const Continer2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-`;
-
-const StyledDiv = styled.div`
-  width: 25vw;
-  height: 7vh;
-
-  margin-bottom: 1rem;
-
-  background-color: var(--color-light);
-  border-radius: 10px;
-  text-align: center;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
-  }
-`;
-
-const StyledH2 = styled.h2`
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
 const WriteBtn = styled.button`
   margin-top: 4.5vh;
   margin-left: 15vw;

@@ -5,6 +5,7 @@ import firebaseKey from "@/config/firebaseKey.json";
 
 firebase.initializeApp(firebaseKey); //키로 초기화
 export const auth = firebase.auth();
+
 export const googleLogin = async () => {
   // 구글로그인 함수
   const provider = new firebase.auth.GoogleAuthProvider();

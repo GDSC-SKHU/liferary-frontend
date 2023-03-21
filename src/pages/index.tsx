@@ -1,14 +1,8 @@
 import MainBody from "@/components/Main/MainBody";
 import Nav from "@/components/Nav/Nav";
 import useToken from "@/hooks/useToken";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import router from "next/router";
 
-export interface PageProps {
-  page: string;
-}
-
-const Home = ({ page }: PageProps) => {
+const Home = () => {
   const { allToken } = useToken();
 
   // console.log(token + '-Token');
@@ -17,7 +11,7 @@ const Home = ({ page }: PageProps) => {
   return (
     <>
       <Nav />
-      <MainBody page={page} />
+      <MainBody />
       {/* <p>{allToken}</p> */}
     </>
   );
