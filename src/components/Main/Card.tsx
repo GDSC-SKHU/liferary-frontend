@@ -18,7 +18,7 @@ const Card = ({ data }: { data: Partial<Post> }) => {
           })
         }
       >
-        <Item></Item>
+        <Item />
         <Title>{data.title}</Title>
       </CardItem>
     </>

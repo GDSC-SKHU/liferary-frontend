@@ -16,8 +16,7 @@ const StyledImg = styled.img`
 
   width: 18vw;
   height: auto;
-
   margin-top: 3.7vh;
-  margin-left: 3vw;
   margin-right: 3vw;
+  margin-left: 3vw;
 `;

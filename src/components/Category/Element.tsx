@@ -22,23 +22,6 @@ export default function Element({ isOpen, categories }: ElementProps) {
   );
 }
 
-const Container = styled.div`
-  display: flex;
-`;
-
-const LinkWrapper = styled(Link)`
-  padding: 2px;
-
-  color: black;
-  border: 1px solid var(--color-main);
-  border-radius: 10px;
-  text-decoration: none;
-
-  :hover {
-    background-color: var(--color-main);
-    color: white;
-  }
-`;
 const ElementContainer = styled.div`
   transition: all 0.5s ease-in-out;
 
@@ -53,8 +36,28 @@ const ElementContainer = styled.div`
   }
 
   &.inactive {
-    opacity: 0;
     height: 0;
+
+    opacity: 0;
     overflow: hidden;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+`;
+
+const LinkWrapper = styled(Link)`
+  padding: 2px;
+
+  color: black;
+  border: 1px solid var(--color-main);
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  :hover {
+    background-color: var(--color-main);
+    color: white;
   }
 `;

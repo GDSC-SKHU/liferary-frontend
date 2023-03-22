@@ -18,6 +18,7 @@ export default Category;
 
 const Container = styled.div`
   display: inline-block;
+
   margin-right: 5px;
   margin-bottom: 5px;
   margin-top: 5px;
@@ -26,6 +27,7 @@ const Container = styled.div`
   background-color: var(--color-deep);
   color: white;
   border-radius: 5px;
+
   font-weight: 600;
   font-size: large;
   text-align: center;

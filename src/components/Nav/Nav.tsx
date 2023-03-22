@@ -78,7 +78,7 @@ export default function Nav() {
         </StyledSpan>
         <UserContainer>
           <Link href="/user_info">
-            <StyledImg2 src="/Pro.svg" alt="" />
+            <img src="/Pro.svg" alt="" />
           </Link>
           <Link style={{ textDecoration: "none" }} href="/login">
             {userInfo ? (
@@ -104,12 +104,6 @@ const Container = styled.div`
   top: 0;
 
   background: white;
-`;
-
-const StyledSpan = styled.span`
-  color: var(--color-normal);
-
-  font-weight: 600;
 `;
 
 const StyledImg = styled.img`
@@ -176,8 +170,10 @@ const Search = styled.input`
   }
 `;
 
-const StyledImg2 = styled.img`
-  margin-right: 3vw;
+const StyledSpan = styled.span`
+  color: var(--color-normal);
+
+  font-weight: 600;
 `;
 
 const UserContainer = styled.div`
@@ -185,11 +181,11 @@ const UserContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-right: 1rem;
 `;
 
 const LoginBtn = styled.button`
-  margin-right: 2.86vw;
-
   background-color: var(--color-deep);
   color: white;
   border: 1px solid var(--color-deep);

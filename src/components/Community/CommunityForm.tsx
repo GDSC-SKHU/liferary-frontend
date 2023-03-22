@@ -172,13 +172,6 @@ const Container = styled.div`
   color: white;
 `;
 
-const Container2 = styled.div`
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-
-  border-bottom: 3px solid var(--color-normal);
-`;
-
 const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
@@ -221,28 +214,6 @@ const StyledP = styled.p`
 
   color: #666666;
   border-bottom: 3px solid var(--color-normal);
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledSpan2 = styled.span`
-  color: #666666;
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledTitle = styled.span`
-  color: var(--color-main);
 
   font-weight: 500;
   font-size: 1.4rem;
