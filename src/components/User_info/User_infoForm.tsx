@@ -52,20 +52,23 @@ export default function User_infoForm() {
       form.password,
       form.passwordconfirm
     );
-    await axios.patch(
-      `/api/member`,
-      {
-        nickname: nickname,
-        password: form.password,
-        checkedpassword: form.passwordconfirm,
-      },
-      {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
+    await axios
+      .patch(
+        `/api/member`,
+        {
+          nickname: nickname,
+          password: form.password,
+          checkedpassword: form.passwordconfirm,
         },
-      }
-    );
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      )
+      .then((res) => res.status === 200 && alert("password changed"))
+      .then(() => setIsEdit((prev) => !prev));
   };
 
   const handleWithdraw = async (password: string) => {
@@ -99,32 +102,32 @@ export default function User_infoForm() {
         <>
           {!isWithdraw ? (
             <>
-              <form onSubmit={handleChangePassword}>
-                <StyledDiv>
-                  <span>Password</span>
-                  <StyledInput
-                    type="password"
-                    name="password"
-                    value={form.password}
-                    onChange={handleChange}
-                  />
-                </StyledDiv>
-                <StyledDiv>
-                  <span>confirmPassword</span>
-                  <StyledInput
-                    type="password"
-                    name="passwordconfirm"
-                    value={form.passwordconfirm}
-                    onChange={handleChange}
-                  />
-                </StyledDiv>
-                <button
-                  type="submit"
-                  disabled={form.password !== form.passwordconfirm}
-                >
-                  password change
-                </button>
-              </form>
+              <StyledDiv>
+                <span>Password</span>
+                <StyledInput
+                  type="password"
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                />
+              </StyledDiv>
+              <StyledDiv>
+                <span>confirmPassword</span>
+                <StyledInput
+                  type="password"
+                  name="passwordconfirm"
+                  value={form.passwordconfirm}
+                  onChange={handleChange}
+                />
+              </StyledDiv>
+              <button
+                onClick={handleChangePassword}
+                type="submit"
+                disabled={form.password !== form.passwordconfirm}
+              >
+                password change
+              </button>
+
               <button onClick={() => setIsWithdraw((prev) => !prev)}>
                 withdraw
               </button>
@@ -167,6 +170,19 @@ const UserInfoContainer = styled.div`
   height: 100%;
 `;
 
+const UserInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+  margin: 5px;
+  padding: 20px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 2px 5px var(--color-main);
+`;
+
 const StyledDiv = styled.div`
   padding-top: 2rem;
 `;
@@ -185,17 +201,4 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 2px solid var(--color-normal);
   }
-`;
-
-const UserInfoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 80%;
-  margin: 5px;
-  padding: 20px;
-
-  border-radius: 10px;
-
-  box-shadow: 0 2px 5px var(--color-main);
 `;

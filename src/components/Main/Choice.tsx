@@ -2,6 +2,7 @@ import { categoryList } from "@/types/category";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 interface UserInfo {
   email: string;
@@ -10,6 +11,7 @@ interface UserInfo {
 }
 
 const Choice = () => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
@@ -48,7 +50,16 @@ const Choice = () => {
           <h4>What kind of knowledge do you want to know?</h4>
           <BannerCategoryWrapper>
             {categoryList.map((el) => {
-              return <p key={el}>{el}</p>;
+              return (
+                <p
+                  key={el}
+                  onClick={() => {
+                    router.push(`/category/${el}`);
+                  }}
+                >
+                  {el}
+                </p>
+              );
             })}
           </BannerCategoryWrapper>
         </BannerWrapper>

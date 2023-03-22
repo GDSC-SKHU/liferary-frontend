@@ -77,6 +77,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         </ChooseButton>
         <Element isOpen={isOpen} categories={categoryList} />
       </ChooseWrapper>
+      {categoryName && <h3>{categoryName} result</h3>}
       <CategoryListWrapper>
         {totalPage && list ? (
           <ListTable list={list} page={page} />
@@ -116,7 +117,6 @@ const ChooseWrapper = styled.div`
 
   transition: all 0.5s ease-in-out;
 `;
-
 const ChooseButton = styled.div`
   padding: 10px;
 
@@ -124,7 +124,6 @@ const ChooseButton = styled.div`
   color: white;
   border-radius: 20px;
 `;
-
 const CategoryListWrapper = styled.div`
   display: flex;
   justify-content: center;

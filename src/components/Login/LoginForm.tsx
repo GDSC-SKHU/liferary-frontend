@@ -1,12 +1,9 @@
 import axios from "axios";
-import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { googleLogin } from "./GoogleLogin";
 
 const LoginForm = () => {
-  const router = useRouter();
-
   const [emailData, setEmailData] = useState<string>("");
 
   const [pwData, setPwData] = useState<string>("");
@@ -45,7 +42,7 @@ const LoginForm = () => {
           })
           .then((res) => {
             localStorage.setItem("userInfo", JSON.stringify(res.data));
-            router.push("/");
+            location.href = "/"; //새로고침하면서 페이지 이동
           });
       })
       .catch((e) => {
@@ -56,7 +53,7 @@ const LoginForm = () => {
 
   const handleGoogleLogin = async () => {
     await googleLogin().then(() => {
-      router.push("/");
+      location.href = "/"; //새로고침하면서 페이지 이동
     });
   };
 

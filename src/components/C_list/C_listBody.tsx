@@ -2,41 +2,35 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Pagination from "../Commons/Pagination";
 import axios from "axios";
-import { mainPostIdParams } from "@/pages/c_list/[...name]";
-import ListTable2 from "../Community/ListTable2";
-import router from "next/router";
+import { mainPostIdParams } from "@/pages/c_list/[...id]";
+import CommunityListTable from "../Community/CommunityListTable";
 
 export default function C_list({ mainPostId }: mainPostIdParams) {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [list, setList] = useState();
 
-  const onClickRouter = () => {
-    router.push({
-      pathname: `/c_write`,
-      query: {
-        id: router.query.id,
-      },
-    });
-  };
+  // const onClickRouter = () => {
+  //   router.push({
+  //     pathname: `/c_write`,
+  //     query: {
+  //       id: router.query.id,
+  //     },
+  //   });
+  // };
 
   useEffect(() => {
     const TOKEN = localStorage.getItem("accessToken");
     {
       mainPostId
         ? axios
-            .get(`/api/board/${mainPostId}/post?page=${page}`, {
+            .get(`/api/board/${mainPostId}/page?page=${page}`, {
               headers: {
                 withCredentials: true,
                 Authorization: `Bearer ${TOKEN}`,
               },
             })
             .then((data) => {
-              router.push({
-                query: {
-                  id: router.query.id,
-                },
-              });
               console.log(data.data);
               setList(data.data.content);
               setTotalPage(data.data.totalPages);
@@ -61,7 +55,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
     <CategoryContainer>
       <CategoryListWrapper>
         {totalPage && list ? (
-          <ListTable2 list={list} page={page} />
+          <CommunityListTable list={list} page={page} />
         ) : (
           <div>{mainPostId}게시글이 없습니다.</div>
         )}
@@ -71,7 +65,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
         currentPage={page}
         onPageChange={setPage}
       ></Pagination>
-      <WriteBtn onClick={onClickRouter}>Try write!</WriteBtn>
+      {/* <WriteBtn onClick={onClickRouter}>Try write!</WriteBtn> */}
     </CategoryContainer>
   );
 }

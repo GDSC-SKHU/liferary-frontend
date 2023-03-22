@@ -12,7 +12,7 @@ export default function ListTable({
 }) {
   const router = useRouter();
   const handleClickListItem = (id: string) => {
-    router.push(`http://localhost:3000/share?id=${id}`);
+    router.push(`/share?id=${id}`);
   };
 
   return (
@@ -23,6 +23,7 @@ export default function ListTable({
         <span>Name</span>
         <span>Date</span>
       </TitleWrapper>
+
       {list.map((el: Post, idx) => (
         <ListWrapper key={el.id} onClick={() => handleClickListItem(el.id)}>
           <ListItem
@@ -51,7 +52,7 @@ const ListWrapper = styled.div`
   grid-template-columns: repeat(4, 1fr);
 
   width: 70%;
-  height: 5vh;
+  height: 4vh;
   margin-top: 3vh;
   padding: 0 20px;
 
@@ -65,7 +66,7 @@ const ListWrapper = styled.div`
 `;
 
 const TitleWrapper = styled(ListWrapper)`
-  height: 6vh;
+  height: 5vh;
 
   background-color: var(--color-normal);
   color: white;

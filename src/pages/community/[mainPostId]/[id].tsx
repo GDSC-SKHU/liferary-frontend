@@ -1,28 +1,36 @@
-import Nav from "@/components/Nav/Nav";
-import CommunityBody from "@/components/Community/CommunityBody";
+import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import Nav from "@/components/Nav/Nav";
+import CommunityForm from "@/components/Community/CommunityForm";
 
 export interface CommunityProps {
+  mainPostId: string;
   id: string;
 }
 
-export default function Community({ id }: CommunityProps) {
+const CommunityDetail = ({ mainPostId, id }: CommunityProps) => {
   return (
     <>
       <Nav />
-      <CommunityBody />
+      <CommunityForm mainPostId={mainPostId} id={id} />
     </>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps<CommunityProps> = async (
   context: GetServerSidePropsContext
 ) => {
   const { query } = context;
+
+  const mainPostId = query.mainPostId as string;
   const id = query.id as string;
+
   return {
     props: {
+      mainPostId,
       id,
     },
   };
 };
+
+export default CommunityDetail;

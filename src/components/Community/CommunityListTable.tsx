@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import Post from "../../types/postType";
 import { useRouter } from "next/router";
 import ListItem from "../Commons/ListItem";
+import Board from "@/types/board";
 
-export default function ListTable2({
+export default function CommunityListTable({
   list,
   page,
 }: {
-  list: Post[];
+  list: Board[];
   page: number;
 }) {
   const router = useRouter();
-  const handleClickListItem = (id: string) => {
-    router.push(`http://localhost:3000/community?id=${id}`);
+  const handleClickListItem = (mainPostId: number, id: number) => {
+    router.push(`/community/${mainPostId}/${id}`);
   };
 
   return (
@@ -23,8 +23,11 @@ export default function ListTable2({
         <span>Name</span>
         <span>Date</span>
       </TitleWrapper>
-      {list.map((el: Post, idx) => (
-        <ListWrapper key={el.id} onClick={() => handleClickListItem(el.id)}>
+      {list.map((el: Board, idx) => (
+        <ListWrapper
+          key={el.id}
+          onClick={() => handleClickListItem(el.mainPostId, el.id)}
+        >
           <ListItem
             idx={(page - 1) * 9 + idx + 1}
             title={el.title}

@@ -3,29 +3,16 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { mainPostIdParams } from "@/pages/c_list/[...name]";
-import { CommunityProps } from "@/pages/community";
+import { CommunityProps } from "@/pages/community/[mainPostId]/[id]";
+import Board from "@/types/board";
 
-interface ListProps {
-  id: string;
-  title: string;
-  nickname: string;
-  context: string;
-  comments: string;
-  images: string[];
-  modifiedDate: string;
-}
-
-const CommunityForm = (
-  { mainPostId }: mainPostIdParams,
-  { id }: CommunityProps
-) => {
+const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const router = useRouter();
   const { user } = useUser();
 
   let ready = router.isReady;
 
-  const [view, setView] = useState<ListProps>();
+  const [view, setView] = useState<Board>();
 
   const now = new Date();
   const year = now.getFullYear();
@@ -47,16 +34,19 @@ const CommunityForm = (
         },
       })
       .then(() => {
-        router.push("/");
+        //새로고침하면서 불러오기
+        alert("Success Delete");
+        router.push(`/c_list/${mainPostId}`);
       })
       .catch((e) => console.log(e));
   };
 
   const onClickUpdateRouter = () => {
     router.push({
-      pathname: "/c_edit",
+      pathname: `/c_edit`,
       query: {
-        id: router.query.id,
+        mainPostId,
+        id,
       },
     });
   };
@@ -119,6 +109,18 @@ const CommunityForm = (
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
           </StyledDiv2>
+          <button
+            onClick={() =>
+              router.push({
+                pathname: "/share",
+                query: {
+                  id: view.mainPostId,
+                },
+              })
+            }
+          >
+            본문으로 가기
+          </button>
         </Container>
       ) : (
         <p>Loading...</p>
@@ -172,6 +174,13 @@ const Container = styled.div`
   color: white;
 `;
 
+const Container2 = styled.div`
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+
+  border-bottom: 3px solid var(--color-normal);
+`;
+
 const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
@@ -214,6 +223,28 @@ const StyledP = styled.p`
 
   color: #666666;
   border-bottom: 3px solid var(--color-normal);
+
+  font-weight: 500;
+  font-size: 1.4rem;
+
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
+const StyledSpan2 = styled.span`
+  color: #666666;
+
+  font-weight: 500;
+  font-size: 1.4rem;
+
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
+const StyledTitle = styled.span`
+  color: var(--color-main);
 
   font-weight: 500;
   font-size: 1.4rem;
