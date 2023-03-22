@@ -8,6 +8,7 @@ interface LoginForm {
   password: string;
   passwordconfirm: string;
 }
+
 export default function User_infoForm() {
   const router = useRouter();
   const userInfo = useUser();
@@ -74,7 +75,7 @@ export default function User_infoForm() {
   const handleWithdraw = async (password: string) => {
     //회원탈퇴
     const TOKEN = localStorage.getItem("accessToken");
-    let isAgree = confirm("탈퇴하시겠습니까?");
+    let isAgree = confirm("Would you like to leave?");
     {
       isAgree &&
         (await axios.delete(`/api/member/withdraw`, {
@@ -95,7 +96,7 @@ export default function User_infoForm() {
     <UserInfoContainer>
       {!userInfo.user?.firebaseAuth && (
         <button onClick={() => setIsEdit((prev) => !prev)}>
-          {!isEdit ? "비밀번호 변경" : "취소"}
+          {!isEdit ? "Change Password" : "Cancel"}
         </button>
       )}
       {isEdit ? (
@@ -125,11 +126,11 @@ export default function User_infoForm() {
                 type="submit"
                 disabled={form.password !== form.passwordconfirm}
               >
-                password change
+                Change Password
               </button>
 
               <button onClick={() => setIsWithdraw((prev) => !prev)}>
-                withdraw
+                Withdraw
               </button>
             </>
           ) : (
@@ -142,18 +143,18 @@ export default function User_infoForm() {
                 }
               ></StyledInput>
               <button onClick={() => handleWithdraw(password as string)}>
-                탈퇴하기
+                Withdrawal
               </button>
               <button onClick={() => setIsWithdraw((prev) => !prev)}>
-                탈퇴취소
+                Withdrawal cancel
               </button>
             </>
           )}
         </>
       ) : (
         <>
-          <UserInfoWrapper>이메일:{userInfo.user?.email}</UserInfoWrapper>
-          <UserInfoWrapper>닉네임:{userInfo.user?.nickname}</UserInfoWrapper>
+          <UserInfoWrapper>E-mail: {userInfo.user?.email}</UserInfoWrapper>
+          <UserInfoWrapper>Nickname: {userInfo.user?.nickname}</UserInfoWrapper>
         </>
       )}
     </UserInfoContainer>

@@ -48,6 +48,8 @@ const UserContainer = styled.div`
 
 const UserWrapper = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
 
   margin-left: 3rem;
 

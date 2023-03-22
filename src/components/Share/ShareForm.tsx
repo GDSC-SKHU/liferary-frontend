@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import YouTube from "react-youtube";
 import { validUrl } from "@/libs/utils";
+import { formatDate } from "@/types/date";
 
 interface ListProps {
   id: string;
@@ -28,16 +29,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   const [view, setView] = useState<ListProps>();
 
   const [videoView, setVideoView] = useState("");
-
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const date = now.getDate();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
-  const modifiedDate =
-    month + "/" + date + "/" + year + " " + hours + ":" + minutes;
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
@@ -140,7 +131,9 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   return (
     <div>
       <Category>
-        <p>write time: {modifiedDate}</p>
+        <StyledSpan>Write time: </StyledSpan>
+        <span>{formatDate(view?.modifiedDate!)}</span>
+        <br />
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
           <StyledName onClick={() => onClickCategory(view?.category)}>
@@ -192,15 +185,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               opts={{ width: "100%", height: "500px" }}
             />
           )} */}
-          <div>
-            {videoView ? (
-              <div>
-                <YouTube opts={opts} />
-              </div>
-            ) : (
-              <div>Invalid URL</div>
-            )}
-          </div>
 
           {/* {videoId && (
             <YouTube

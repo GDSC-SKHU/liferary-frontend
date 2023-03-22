@@ -23,13 +23,13 @@ export default function Comment({ id }: ShareProps) {
   }, []);
 
   return (
-    <Container>
+    <div>
       {/* {view !== undefined ? () : } */}
       <StyledH2>
         Share your feelings{" "}
-        <button onClick={() => router.push(`/c_write?id=${id}`)}>
+        <Submit onClick={() => router.push(`/c_write?id=${id}`)}>
           write your idea
-        </button>
+        </Submit>
       </StyledH2>
       {list &&
         list.slice(0, 5).map((el: Board) => (
@@ -41,17 +41,13 @@ export default function Comment({ id }: ShareProps) {
           </CommunityBoardItem>
         ))}
       <button onClick={onClickViewMoreBoard}>View More</button>
-    </Container>
+    </div>
   );
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  margin-bottom: 10vh;
+const Submit = styled.button`
+  margin: 0;
+  padding: 0;
 `;
 
 const StyledH2 = styled.h2`
