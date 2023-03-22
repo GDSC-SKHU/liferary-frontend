@@ -1,6 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+
 const Search = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState<string>();
@@ -8,11 +9,13 @@ const Search = () => {
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
+
   const handleKeyPress = (e: KeyboardEvent<HTMLElement>) => {
     e.key === "Enter" &&
       inputValue !== undefined &&
       router.push(`/search/${inputValue}`);
   };
+
   return (
     <SearchContainer
       placeholder="Liferary"

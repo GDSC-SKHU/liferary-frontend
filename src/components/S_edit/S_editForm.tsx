@@ -271,6 +271,7 @@ const Submit = styled.button`
 
   font-weight: 600;
   font-size: large;
+
   cursor: pointer;
 
   &:hover {

@@ -73,7 +73,7 @@ export default function User_infoForm() {
   };
 
   const handleWithdraw = async (password: string) => {
-    //회원탈퇴
+    // 회원탈퇴
     const TOKEN = localStorage.getItem("accessToken");
     let isAgree = confirm("Would you like to leave?");
     {

@@ -115,6 +115,7 @@ const BannerCategoryWrapper = styled.div`
   > p {
     display: flex;
     justify-content: center;
+
     padding: 5px;
     margin: 2px;
 

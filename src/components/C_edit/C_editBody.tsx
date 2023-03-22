@@ -1,5 +1,4 @@
 import React from "react";
-import { CommunityUpdateProps } from "@/pages/c_edit";
 
 import C_writeBody from "@/components/C_write/C_writeBody";
 
