@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { CommunityProps } from "@/pages/community/[mainPostId]/[id]";
 import Board from "@/types/board";
+import { formatDate } from "@/types/date";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const router = useRouter();
@@ -83,7 +84,8 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   return (
     <div>
       <Category>
-        <p>write time: {modifiedDate}</p>
+        <StyledSpan>Write time: </StyledSpan>
+        <span>{formatDate(view?.modifiedDate!)}</span>
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>

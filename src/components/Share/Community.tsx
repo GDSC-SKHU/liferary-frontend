@@ -61,10 +61,6 @@ const StyledH2 = styled.h2`
   font-weight: 600;
 `;
 
-const StyledImg = styled.img`
-  width: 20vw;
-`;
-
 const CommunityBoardItem = styled.div`
   display: flex;
   width: 90%;

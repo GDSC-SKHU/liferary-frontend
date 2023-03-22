@@ -27,7 +27,6 @@ export default function User_info() {
             case "Study":
             case "Community":
               return <User_post kind={currentNav} />;
-
             default:
               return null;
           }
@@ -50,7 +49,6 @@ const UserWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-
   margin-left: 3rem;
 
   border-radius: 20px;
