@@ -63,7 +63,7 @@ export const User_post = ({ kind }: { kind: kind }) => {
         </UserPostContainer>
       ) : (
         <UserPostContainer>
-          <>There's no comment.</>
+          <>There&apos;s no comment.</>
         </UserPostContainer>
       )}
     </>
