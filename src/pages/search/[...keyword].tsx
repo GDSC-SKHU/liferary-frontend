@@ -6,6 +6,7 @@ import Nav from "@/components/Nav/Nav";
 import ListTable from "../../components/Commons/ListTable";
 import Pagination from "@/components/Commons/Pagination";
 import styled from "styled-components";
+
 export interface SearchProps {
   keyword: string;
 }
