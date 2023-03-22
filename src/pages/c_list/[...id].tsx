@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   //ctx serversidecontext제공해준다.
 
-  const mainPostId = context.params!.name as unknown as mainPostIdParams;
+  const mainPostId = context.params!.id as unknown as mainPostIdParams;
   return {
     props: { mainPostId },
   };

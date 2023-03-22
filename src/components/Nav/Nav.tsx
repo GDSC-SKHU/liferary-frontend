@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { auth } from "../Login/GoogleLogin";
 import axios from "axios";
 import { useLayoutEffect, useState } from "react";
+import Search from "../Commons/Search";
 
 // 새로운 type
 interface UserInfo {
@@ -19,11 +20,11 @@ export default function Nav() {
       setUserInfo(
         JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
       );
-    console.log(userInfo);
+    // console.log(userInfo);
   }, []);
 
   const handleLogout = () => {
-    console.log(localStorage.getItem("userInfo"));
+    // console.log(localStorage.getItem("userInfo"));
     if (
       JSON.parse(localStorage.getItem("userInfo") || "").firebaseAuth === true
     ) {
@@ -60,7 +61,7 @@ export default function Nav() {
           <StyledImg src="/Logo2.svg" />
         </Link>
         <NavItemWrapper>
-          <Search placeholder="Liferary" />
+          <Search />
           <LinkContainer style={{ display: "flex" }}>
             <LinkWrapper href="/category">
               <p>Share Knowledge</p>
@@ -68,7 +69,7 @@ export default function Nav() {
             <LinkWrapper href="/study">
               <p>Study</p>
             </LinkWrapper>
-            <LinkWrapper href="/community">
+            <LinkWrapper href="/c_list">
               <p>Communitiy</p>
             </LinkWrapper>
           </LinkContainer>
@@ -78,7 +79,7 @@ export default function Nav() {
         </StyledSpan>
         <UserContainer>
           <Link href="/user_info">
-            <img src="/Pro.svg" alt="" />
+            <StyledImg2 src="/Pro.svg" alt="" />
           </Link>
           <Link style={{ textDecoration: "none" }} href="/login">
             {userInfo ? (
@@ -104,6 +105,12 @@ const Container = styled.div`
   top: 0;
 
   background: white;
+`;
+
+const StyledSpan = styled.span`
+  color: var(--color-normal);
+
+  font-weight: 600;
 `;
 
 const StyledImg = styled.img`
@@ -138,42 +145,8 @@ const LinkWrapper = styled(Link)`
   }
 `;
 
-const Search = styled.input`
-  background-image: url(/Mag.svg);
-  background-repeat: no-repeat;
-  background-position: 10px;
-
-  width: 10vw;
-  padding: 5px 10px;
-  padding-left: 2.5rem;
-
-  background-color: white;
-  border: 2px solid var(--color-normal);
-  border-radius: 2rem;
-
-  outline: none;
-  box-shadow: 2px 2px 5px;
-  transition: width 0.2s ease-in-out;
-
-  &:focus {
-    width: 50vw;
-    transition: width 0.2s ease-in-out;
-
-    ~ ${LinkContainer} {
-      padding: 0;
-      width: 0px;
-
-      overflow: hidden;
-      opacity: 0;
-      transition: opacity 0.2s ease-in-out, width 0.3s ease-in-out;
-    }
-  }
-`;
-
-const StyledSpan = styled.span`
-  color: var(--color-normal);
-
-  font-weight: 600;
+const StyledImg2 = styled.img`
+  margin-right: 3vw;
 `;
 
 const UserContainer = styled.div`
@@ -181,11 +154,11 @@ const UserContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  margin-right: 1rem;
 `;
 
 const LoginBtn = styled.button`
+  margin-right: 2.86vw;
+
   background-color: var(--color-deep);
   color: white;
   border: 1px solid var(--color-deep);

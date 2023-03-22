@@ -12,7 +12,7 @@ export default function ShareBody({ id }: ShareProps) {
       <Satisfy />
       <Container>
         <Recruit />
-        <Community />
+        <Community id={id} />
       </Container>
     </>
   );

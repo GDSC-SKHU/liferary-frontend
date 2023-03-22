@@ -1,14 +1,16 @@
 import useToken from "@/hooks/useToken";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import styled from "styled-components";
 
-const C_writeBody = () => {
+const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
   const { allToken } = useToken();
 
   const router = useRouter();
 
+  const { id } = router.query;
+  const { mainPostId } = router.query;
   const [title, setTitle] = useState<string>("");
 
   const [content, setContent] = useState<string>("");
@@ -41,63 +43,108 @@ const C_writeBody = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    {
+      isEdit
+        ? //수정모드
+          axios
+            .post(
+              `/api/board/${mainPostId}/post?id=${id}`,
+              {
+                title,
+                context: content,
+                images: imgFile,
+              },
+              {
+                headers: {
+                  // crossDomain: true,
+                  // credentials: 'include',
+                  "Content-Type": "multipart/form-data",
+                  withCredentials: true,
+                  Authorization: allToken,
+                },
+              }
+            )
+            .then((res) => {
+              alert("Success edit!");
+              router.push({
+                pathname: `/c_list/${mainPostId}`,
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+              errorAlert();
+            })
+        : //입력모드
+          axios
+            .post(
+              "/api/board/new",
+              {
+                mainPostId: id,
+                title: title,
+                context: content,
+                images: imgFile,
+              },
+              {
+                headers: {
+                  // crossDomain: true,
+                  // credentials: 'include',
+                  "Content-Type": "multipart/form-data",
+                  withCredentials: true,
+                  Authorization: allToken,
+                },
+              }
+            )
+            .then((res) => {
+              alert("Success write!");
+              router.push({
+                pathname: `/c_list/${id}`,
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+              errorAlert();
+            });
+    }
+    // console.log({
+    //   mainPostId: id,
+    //   title: title,
+    //   context: content,
+    //   images: imgFile,
+    // });
 
-    // const TOKEN = localStorage.getItem('accessToken');
-    // console.log(TOKEN);
+    // let dataSet = {
+    //   mainPostId: id,
+    //   title: title,
+    //   context: content,
+    //   images: imgFile,
+    // };
 
-    console.log({
-      mainPostId: router.query.id,
-      title: title,
-      context: content,
-      images: imgFile,
-    });
-
-    let dataSet = {
-      mainPostId: router.query.id,
-      title: title,
-      context: content,
-      images: imgFile,
-    };
-
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(dataSet));
-
-    axios
-      .post(
-        "/api/board/new",
-        {
-          mainPostId: router.query.id,
-          title: title,
-          context: content,
-          images: imgFile,
-        },
-        {
-          headers: {
-            // crossDomain: true,
-            // credentials: 'include',
-            "Content-Type": "multipart/form-data",
-            withCredentials: true,
-            Authorization: allToken,
-          },
-        }
-      )
-      .then((res) => {
-        alert("Success write!");
-        router.push({
-          pathname: "/c_list",
-          query: {
-            id: res.data.id,
-          },
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-        errorAlert();
-      });
+    // const formData = new FormData();
+    // formData.append("data", JSON.stringify(dataSet));
   };
 
+  useEffect(() => {
+    const TOKEN = localStorage.getItem("accessToken");
+    {
+      isEdit &&
+        axios
+          .get(`/api/board/${mainPostId}/post/?id=${id}`, {
+            headers: {
+              withCredentials: true,
+              Authorization: `Bearer ${TOKEN}`,
+            },
+          })
+          .then((data) => {
+            console.log("editData", data);
+            setTitle(data.data.title);
+            setContent(data.data.context);
+            setImgFile(data.data.images);
+          });
+    }
+  }, []);
   return (
     <>
+      {isEdit && <h3>Edit mode</h3>}
       <form onSubmit={onSubmit}>
         <Container>
           <StyledInput
@@ -121,7 +168,11 @@ const C_writeBody = () => {
             multiple
           />
           <BtnContainer>
-            <Submit type="submit">registration</Submit>
+            {!isEdit ? (
+              <Submit type="submit">registration</Submit>
+            ) : (
+              <Submit type="submit">Edit</Submit>
+            )}
           </BtnContainer>
         </Container>
       </form>
@@ -146,10 +197,9 @@ const StyledInput = styled.input`
   margin-top: 2vh;
   padding: 0 6px;
 
+  outline: none;
   border: 1px solid var(--color-main);
   border-radius: 5px;
-
-  outline: none;
 
   &:focus {
     border: 2px solid var(--color-main);
@@ -157,7 +207,6 @@ const StyledInput = styled.input`
 
   ::placeholder {
     color: #bebebe;
-
     font-weight: 600;
     font-size: large;
   }
@@ -169,10 +218,9 @@ const StyledInput2 = styled.input`
   margin-top: 3vh;
   padding: 0 6px;
 
+  outline: none;
   border: 1px solid var(--color-main);
   border-radius: 5px;
-
-  outline: none;
 
   &:focus {
     border: 2px solid var(--color-main);
@@ -180,7 +228,6 @@ const StyledInput2 = styled.input`
 
   ::placeholder {
     color: #bebebe;
-
     font-weight: 600;
     font-size: large;
   }
@@ -200,10 +247,8 @@ const Submit = styled.button`
   color: white;
   border: 1px solid var(--color-normal);
   border-radius: 10px;
-
   font-weight: 600;
   font-size: large;
-
   cursor: pointer;
 
   &:hover {
