@@ -85,10 +85,11 @@ const PaginationButton = styled.button<{ isActive?: boolean }>`
   margin: 0 5px;
   padding: 5px 10px;
 
-  border: none;
   background-color: ${({ isActive }) =>
     isActive ? "var(--color-deep)" : "var(--color-light)"};
   color: ${({ isActive }) => (isActive ? "#fff" : "var(--color-main)")};
+  border: none;
+
   cursor: ${({ isActive }) => (isActive ? "default" : "pointer")};
 
   &:hover {
@@ -96,7 +97,7 @@ const PaginationButton = styled.button<{ isActive?: boolean }>`
   }
 
   &:disabled {
-    color: gray;
     background-color: white;
+    color: gray;
   }
 `;

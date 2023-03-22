@@ -59,7 +59,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <Container2>
+      <Container>
         <StyledForm onSubmit={onSubmit}>
           <h2>SIGN UP</h2>
           <div>
@@ -80,7 +80,7 @@ const SignupForm = () => {
               <StyledInput type="password" value={pw} onChange={onChangePw} />
             </StyledDiv>
             <StyledDiv2>
-              <StyledP2>Repeat</StyledP2>
+              <StyledP>Repeat</StyledP>
               <span>Password</span>
               <StyledInput2
                 type="password"
@@ -91,14 +91,14 @@ const SignupForm = () => {
           </div>
           <Submit type="submit">Sign up</Submit>
         </StyledForm>
-      </Container2>
+      </Container>
     </>
   );
 };
 
 export default SignupForm;
 
-const Container2 = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -175,6 +175,6 @@ const Submit = styled.button`
   }
 `;
 
-const StyledP2 = styled.p`
+const StyledP = styled.p`
   font-size: x-small;
 `;

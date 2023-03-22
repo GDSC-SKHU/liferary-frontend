@@ -116,6 +116,7 @@ const ChooseWrapper = styled.div`
 
   transition: all 0.5s ease-in-out;
 `;
+
 const ChooseButton = styled.div`
   padding: 10px;
 
@@ -123,6 +124,7 @@ const ChooseButton = styled.div`
   color: white;
   border-radius: 20px;
 `;
+
 const CategoryListWrapper = styled.div`
   display: flex;
   justify-content: center;

@@ -60,6 +60,12 @@ const StyledDiv = styled.div`
   }
 `;
 
+const StyledH2 = styled.h2`
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
 const Container2 = styled.div`
   display: flex;
   justify-content: space-between;
@@ -96,10 +102,4 @@ const StyledSpan = styled.span`
   font-weight: 600;
   font-size: large;
   text-align: center;
-`;
-
-const StyledH2 = styled.h2`
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
 `;

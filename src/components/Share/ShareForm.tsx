@@ -252,22 +252,6 @@ const StyledName = styled.p`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-`;
-
-const Container2 = styled.div`
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-
-  border-bottom: 3px solid var(--color-normal);
-`;
-
 const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
@@ -301,23 +285,34 @@ const StyledDiv2 = styled.div`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+`;
+
+const Container2 = styled.div`
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+
+  border-bottom: 3px solid var(--color-normal);
+`;
+
+const StyledH2 = styled.h2`
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
 const StyledP = styled.p`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
   color: #666666;
   border-bottom: 3px solid var(--color-normal);
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledSpan2 = styled.span`
-  color: #666666;
 
   font-weight: 500;
   font-size: 1.4rem;
@@ -338,7 +333,12 @@ const StyledTitle = styled.span`
   }
 `;
 
-const StyledH2 = styled.h2`
+const StyledSpan2 = styled.span`
+  color: #666666;
+
+  font-weight: 500;
+  font-size: 1.4rem;
+
   @media (max-width: 800px) {
     font-size: medium;
   }

@@ -146,9 +146,10 @@ const StyledInput = styled.input`
   margin-top: 2vh;
   padding: 0 6px;
 
-  outline: none;
   border: 1px solid var(--color-main);
   border-radius: 5px;
+
+  outline: none;
 
   &:focus {
     border: 2px solid var(--color-main);
@@ -156,6 +157,7 @@ const StyledInput = styled.input`
 
   ::placeholder {
     color: #bebebe;
+
     font-weight: 600;
     font-size: large;
   }
@@ -167,9 +169,10 @@ const StyledInput2 = styled.input`
   margin-top: 3vh;
   padding: 0 6px;
 
-  outline: none;
   border: 1px solid var(--color-main);
   border-radius: 5px;
+
+  outline: none;
 
   &:focus {
     border: 2px solid var(--color-main);
@@ -177,6 +180,7 @@ const StyledInput2 = styled.input`
 
   ::placeholder {
     color: #bebebe;
+
     font-weight: 600;
     font-size: large;
   }
@@ -196,8 +200,10 @@ const Submit = styled.button`
   color: white;
   border: 1px solid var(--color-normal);
   border-radius: 10px;
+
   font-weight: 600;
   font-size: large;
+
   cursor: pointer;
 
   &:hover {

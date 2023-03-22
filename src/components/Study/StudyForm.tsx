@@ -215,6 +215,12 @@ const StyledDiv2 = styled.div`
   }
 `;
 
+const StyledH2 = styled.h2`
+  @media (max-width: 800px) {
+    font-size: medium;
+  }
+`;
+
 const StyledP = styled.p`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
@@ -225,12 +231,6 @@ const StyledP = styled.p`
   font-weight: 500;
   font-size: 1.4rem;
 
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledH2 = styled.h2`
   @media (max-width: 800px) {
     font-size: medium;
   }

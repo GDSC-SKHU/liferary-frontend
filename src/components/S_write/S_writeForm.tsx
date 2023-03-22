@@ -183,23 +183,6 @@ const StyledDiv = styled.div`
   width: 50vw;
 `;
 
-const StyledLabel = styled.label`
-  width: 65%;
-  margin-top: 30px;
-  padding: 10px 0;
-
-  background-color: #5b975b;
-  color: #fff;
-  border-radius: 6px;
-
-  text-align: center;
-  cursor: pointer;
-`;
-
-const ImgInput = styled.input`
-  display: none;
-`;
-
 const StyledSpan = styled.span`
   margin-left: 3vw;
 
@@ -262,6 +245,23 @@ const StyledInput2 = styled.input`
     font-weight: 600;
     font-size: large;
   }
+`;
+
+const StyledLabel = styled.label`
+  width: 65%;
+  margin-top: 30px;
+  padding: 10px 0;
+
+  background-color: #5b975b;
+  color: #fff;
+  border-radius: 6px;
+
+  text-align: center;
+  cursor: pointer;
+`;
+
+const ImgInput = styled.input`
+  display: none;
 `;
 
 const BtnContainer = styled.div`

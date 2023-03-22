@@ -167,19 +167,6 @@ const UserInfoContainer = styled.div`
   height: 100%;
 `;
 
-const UserInfoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 80%;
-  margin: 5px;
-  padding: 20px;
-
-  border-radius: 10px;
-
-  box-shadow: 0 2px 5px var(--color-main);
-`;
-
 const StyledDiv = styled.div`
   padding-top: 2rem;
 `;
@@ -198,4 +185,17 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 2px solid var(--color-normal);
   }
+`;
+
+const UserInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 80%;
+  margin: 5px;
+  padding: 20px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 2px 5px var(--color-main);
 `;
