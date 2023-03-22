@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Satisfy from "./Satisfy";
+// import Satisfy from "./Satisfy";
 import ShareForm from "./ShareForm";
 import { ShareProps } from "@/pages/share";
 import Recruit from "./Recruit";
@@ -9,7 +9,7 @@ export default function ShareBody({ id }: ShareProps) {
   return (
     <>
       <ShareForm id={id} />
-      <Satisfy />
+      {/* <Satisfy /> */}
       <Container>
         <Recruit />
         <Community id={id} />
@@ -21,7 +21,6 @@ export default function ShareBody({ id }: ShareProps) {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
-  margin: 0 25vw;
+  margin: 0 23vw;
 `;

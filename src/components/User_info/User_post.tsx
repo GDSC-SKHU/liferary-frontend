@@ -63,7 +63,7 @@ export const User_post = ({ kind }: { kind: kind }) => {
         </UserPostContainer>
       ) : (
         <UserPostContainer>
-          <>글이 없습니다.</>
+          <>There's no comment.</>
         </UserPostContainer>
       )}
     </>
