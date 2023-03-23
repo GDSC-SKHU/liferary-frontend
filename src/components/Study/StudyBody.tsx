@@ -1,10 +1,9 @@
-import { StudyProps } from "@/pages/study";
 import StudyForm from "./StudyForm";
 
-export default function StudyBody({ id }: StudyProps) {
+export default function StudyBody() {
   return (
     <>
-      <StudyForm id={id} />
+      <StudyForm />
     </>
   );
 }
