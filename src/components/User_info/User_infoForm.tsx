@@ -121,13 +121,13 @@ export default function User_infoForm() {
                   onChange={handleChange}
                 />
               </StyledDiv>
-              <button
+              <ChangeBtn
                 onClick={handleChangePassword}
                 type="submit"
                 disabled={form.password !== form.passwordconfirm}
               >
                 Change Password
-              </button>
+              </ChangeBtn>
 
               <button onClick={() => setIsWithdraw((prev) => !prev)}>
                 Withdraw
@@ -202,4 +202,9 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 2px solid var(--color-normal);
   }
+`;
+
+const ChangeBtn = styled.button`
+  background-color: var(--color-light);
+  border: 3px solid var(--color-deep);
 `;
