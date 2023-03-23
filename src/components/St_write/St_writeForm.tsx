@@ -15,7 +15,6 @@ const St_writeForm = () => {
   const [imgFile, setImgFile] = useState<FileList | null>(null);
 
   const id = router.query.id;
-  console.log(id);
 
   const errorAlert = () => {
     if (title.length == 0) {

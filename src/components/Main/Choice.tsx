@@ -112,6 +112,8 @@ const BannerCategoryWrapper = styled.div`
 
   margin: 20px;
 
+  cursor: default;
+
   > p {
     display: flex;
     justify-content: center;

@@ -42,11 +42,13 @@ const SearchContainer = styled.input`
   border-radius: 2rem;
 
   outline: none;
-  box-shadow: 2px 2px 5px;
+  box-shadow: 2px 2px 4px #555555;
   transition: width 0.2s ease-in-out;
 
   &:focus {
     width: 50vw;
+
+    border: 3px solid var(--color-normal);
 
     transition: width 0.2s ease-in-out;
     position: fixed;

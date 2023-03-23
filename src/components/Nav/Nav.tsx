@@ -4,6 +4,7 @@ import { auth } from "../Login/GoogleLogin";
 import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 import Search from "../Commons/Search";
+import Category from "@/pages/category";
 
 // 새로운 type
 interface UserInfo {
@@ -64,13 +65,13 @@ export default function Nav() {
           <Search />
           <LinkContainer style={{ display: "flex" }}>
             <LinkWrapper href="/category">
-              <p>Share Knowledge</p>
+              <List>Share Knowledge</List>
             </LinkWrapper>
             <LinkWrapper href="/study">
-              <p>Study</p>
+              <List>Study</List>
             </LinkWrapper>
             <LinkWrapper href="/c_list">
-              <p>Communitiy</p>
+              <List>Communitiy</List>
             </LinkWrapper>
           </LinkContainer>
         </NavItemWrapper>
@@ -143,6 +144,19 @@ const LinkWrapper = styled(Link)`
   & > p {
     text-transform: uppercase;
   }
+`;
+
+const List = styled.p`
+  transition: transform 0.3s;
+
+  :hover {
+    transform: translateY(-2px);
+
+    color: var(--color-deep);
+  }
+  /* @media (max-width: 800px) {
+    font-size: xx-small;
+  } */
 `;
 
 const StyledImg2 = styled.img`
