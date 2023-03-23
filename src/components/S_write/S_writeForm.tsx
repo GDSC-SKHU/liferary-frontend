@@ -252,7 +252,7 @@ const StyledLabel = styled.label`
   margin-top: 30px;
   padding: 10px 0;
 
-  background-color: #5b975b;
+  background-color: var(--color-main);
   color: #fff;
   border-radius: 6px;
 

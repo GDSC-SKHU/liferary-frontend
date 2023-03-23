@@ -83,13 +83,13 @@ const St_writeForm = () => {
           },
         }
       )
-      .then((res) => {
+      .then(() => {
         alert("Success write!");
         router.push({
           pathname: `/study`,
           // pathname: `/study?id=${id}`,
           query: {
-            id: res.data.id,
+            id: id,
           },
         });
       })
@@ -115,8 +115,12 @@ const St_writeForm = () => {
             value={content}
             onChange={onChangeContent}
           />
-          <input
-            id="input-file"
+          <StyledLabel className="file-label" htmlFor="chooseFile">
+            Choose your file
+          </StyledLabel>
+          <ImgInput
+            className="file"
+            id="chooseFile"
             accept="image/*"
             type="file"
             placeholder="Input file here!"
@@ -187,6 +191,24 @@ const StyledInput2 = styled.input`
     font-weight: 600;
     font-size: large;
   }
+`;
+
+const StyledLabel = styled.label`
+  width: 40vw;
+  margin-top: 30px;
+  padding: 10px 0;
+
+  background-color: var(--color-main);
+  color: #fff;
+  border-radius: 6px;
+
+  text-align: center;
+
+  cursor: pointer;
+`;
+
+const ImgInput = styled.input`
+  display: none;
 `;
 
 const BtnContainer = styled.div`

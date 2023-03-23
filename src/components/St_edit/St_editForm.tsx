@@ -1,45 +1,33 @@
+import { UpdateProps } from "@/pages/s_edit";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import { UpdateProps } from "@/pages/s_edit";
-import DropDownCategory from "../Commons/DropDownCategory";
 
-const S_editForm = ({ id }: UpdateProps) => {
+const St_editForm = ({ id }: UpdateProps) => {
   const router = useRouter();
-  console.log("s_edit", id);
+  console.log("st_edit", id);
 
   const [updateTitle, setUpdateTitle] = useState<string>("");
-
-  const [updateCategory, setUpdateCategory] = useState<string>("");
 
   const [updateContext, setUpdateContext] = useState<string>("");
 
   const [updateImg, setUpdateImg] = useState<FileList | null>(null);
 
-  const [updateVideo, setUpdateVideo] = useState<string>("");
-
   const errorAlert = () => {
     if (updateTitle.length == 0) {
       return alert("Please enter your title.");
     }
-    if (updateCategory.length == 0) {
-      return alert("Please enter your category.");
-    }
     if (updateContext.length == 0) {
       return alert("Please enter your content.");
     }
-    if (updateVideo.length == 0) {
-      return alert("Please enter your video link.");
-    }
   };
 
-  // 전에 쓴 글 get 해오기
   useEffect(() => {
     const getUpdateData = () => {
       const TOKEN = localStorage.getItem("accessToken");
       axios
-        .get(`/api/main/post/?id=${id}`, {
+        .get(`/api/study?mainPost=${id}`, {
           headers: {
             Authorization: `Bearer ${TOKEN}`,
           },
@@ -48,10 +36,8 @@ const S_editForm = ({ id }: UpdateProps) => {
           console.log(data.data);
           // default 값
           setUpdateTitle(data.data.title);
-          setUpdateCategory(data.data.category);
           setUpdateContext(data.data.context);
           setUpdateImg(data.data.images);
-          setUpdateVideo(data.data.video);
           console.log(updateTitle, updateContext);
         })
         .catch((e) => {
@@ -62,26 +48,18 @@ const S_editForm = ({ id }: UpdateProps) => {
   }, []);
 
   const onChangeUpdateTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateTitle(e.target.value);
+    setUpdateTitle(e.currentTarget.value);
   };
 
   const onChangeUpdateContext = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateContext(e.target.value);
-  };
-
-  const onChangeUpdateCategory = (e: ChangeEvent<HTMLSelectElement>) => {
-    setUpdateCategory(e.target.value);
+    setUpdateContext(e.currentTarget.value);
   };
 
   const onChangeUpdateImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files;
+    if (e.currentTarget.files) {
+      const file = e.currentTarget.files;
       setUpdateImg(file);
     }
-  };
-
-  const onChangeUpdateVideo = (e: ChangeEvent<HTMLInputElement>) => {
-    setUpdateVideo(e.target.value);
   };
 
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
@@ -91,17 +69,13 @@ const S_editForm = ({ id }: UpdateProps) => {
 
     console.log({
       title: updateTitle,
-      category: updateCategory,
       context: updateContext,
       images: updateImg,
-      video: updateVideo,
     });
 
     let dataSet = {
       title: updateTitle,
-      category: updateCategory,
       context: updateContext,
-      video: updateVideo,
     };
 
     const formData = new FormData();
@@ -109,14 +83,12 @@ const S_editForm = ({ id }: UpdateProps) => {
     formData.append("data", JSON.stringify(dataSet));
 
     axios
-      .post(
-        `/api/main/post?id=${id}`,
+      .patch(
+        `/api/study?mainPost=${id}`,
         {
           title: updateTitle,
-          category: updateCategory,
           context: updateContext,
           images: updateImg,
-          video: updateVideo,
         },
         {
           headers: {
@@ -129,7 +101,7 @@ const S_editForm = ({ id }: UpdateProps) => {
       .then((res) => {
         alert("Success Update!");
         router.push({
-          pathname: "/share",
+          pathname: "/study",
           query: {
             id: res.data.id,
           },
@@ -144,12 +116,6 @@ const S_editForm = ({ id }: UpdateProps) => {
   return (
     <>
       <form onSubmit={onClickUpdate}>
-        <StyledDiv>
-          <div>
-            <StyledSpan>Category: </StyledSpan>
-            <DropDownCategory onChange={onChangeUpdateCategory} />
-          </div>
-        </StyledDiv>
         <Container>
           <StyledInput
             type="text"
@@ -162,12 +128,6 @@ const S_editForm = ({ id }: UpdateProps) => {
             placeholder="Write your tips contents"
             value={updateContext}
             onChange={onChangeUpdateContext}
-          />
-          <StyledInput
-            type="text"
-            placeholder="Input youtube link here!"
-            value={updateVideo}
-            onChange={onChangeUpdateVideo}
           />
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
@@ -190,20 +150,7 @@ const S_editForm = ({ id }: UpdateProps) => {
   );
 };
 
-export default S_editForm;
-
-const StyledDiv = styled.div`
-  width: 50vw;
-`;
-
-const StyledSpan = styled.span`
-  margin-left: 3vw;
-
-  color: var(--color-main);
-
-  font-weight: 600;
-  font-size: large;
-`;
+export default St_editForm;
 
 const Container = styled.div`
   display: flex;

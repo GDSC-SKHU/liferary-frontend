@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import { ShareProps } from "@/pages/share";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import YouTube from "react-youtube";
-import { validUrl } from "@/libs/utils";
 import { formatDate } from "@/types/date";
 
 interface ListProps {
@@ -28,7 +26,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
   const [view, setView] = useState<ListProps>();
 
-  const [videoView, setVideoView] = useState("");
+  const [videoView, setVideoView] = useState<string>();
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
@@ -72,24 +70,19 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   useEffect(() => {
     console.log(ready);
 
-    if (validUrl(video)) {
-      const urlObj = new URL(video);
-      const videoId2 = urlObj.searchParams.get("v");
-      if (videoId2) {
-        setVideoView(videoView);
-      }
-    }
+    // if (validUrl(video)) {
+    //   const urlObj = new URL(video);
+    //   const videoId2 = urlObj.searchParams.get("v");
+    //   if (videoId2) {
+    //     setVideoView(videoView);
+    //   }
+    // }
 
     const getView = () => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/main/post?id=${id}`, {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
+        .get(`/api/main/post?id=${id}`)
         .then((data) => {
           console.log(TOKEN);
           console.log(data.data);
@@ -106,20 +99,9 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
     ready ? getView() : null;
   }, [ready, video]);
 
-  const opts = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      autoplay: 0,
-      controls: 1,
-      modestbranding: 1,
-      showinfo: 0,
-      rel: 0,
-      start: 0,
-      end: 0,
-    },
-    video: video,
-  };
+  useEffect(() => {
+    view && view.video && setVideoView(extractVideoID(view.video as string));
+  }, [view]);
 
   // const getIdFromUrl = (video: string) => {
   //   const match = video.match(/[?&]v=([^&]*)/);
@@ -127,6 +109,15 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   // };
 
   // const videoId = getIdFromUrl(video);
+
+  function extractVideoID(url: string) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match && match[7].length == 11) {
+      return match[7];
+    }
+  }
 
   return (
     <div>
@@ -164,20 +155,22 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
           )}
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
-            <Container2>
-              <StyledTitle>youtube link: </StyledTitle>
-              <iframe
-                src={`https://www.youtube.com/embed/${video}`}
-                width="560"
-                height="315"
-                title="YouTube video player"
-                allowFullScreen
-              />
-              {/* <YouTube videoId={youtubeId} /> */}
-              {video && <YouTube videoId={video} />}
-              <StyledSpan2>{view.video}</StyledSpan2>
-              <p>{view.images}</p>
-            </Container2>
+            {videoView && (
+              <Container2>
+                <StyledTitle>YOUTUBE</StyledTitle>
+                <Iframe
+                  src={`https://www.youtube.com/embed/${videoView}`}
+                  width="560"
+                  height="315"
+                  title="YouTube video player"
+                  allowFullScreen
+                />
+                {/* <YouTube videoId={youtubeId} /> */}
+                {/* {video && <YouTube videoId={video} />}
+             <StyledSpan2>{view.video}</StyledSpan2> */}
+              </Container2>
+            )}
+            <p>{view.images}</p>
           </StyledDiv2>
           {/* {videoId && (
             <YouTube
@@ -237,7 +230,7 @@ const StyledName = styled.p`
 `;
 
 const StyledDiv = styled.div`
-  width: 40vw;
+  width: 45vw;
   height: 7vh;
   margin-bottom: 1rem;
 
@@ -254,7 +247,11 @@ const StyledDiv = styled.div`
 `;
 
 const StyledDiv2 = styled.div`
-  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 45vw;
   margin-bottom: 1rem;
 
   background-color: white;
@@ -283,6 +280,8 @@ const Container2 = styled.div`
   padding-bottom: 1rem;
 
   border-bottom: 3px solid var(--color-normal);
+
+  text-align: center;
 `;
 
 const StyledH2 = styled.h2`
@@ -292,6 +291,7 @@ const StyledH2 = styled.h2`
 `;
 
 const StyledP = styled.p`
+  width: 100%;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
@@ -299,7 +299,7 @@ const StyledP = styled.p`
   border-bottom: 3px solid var(--color-normal);
 
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 1rem;
 
   @media (max-width: 800px) {
     font-size: medium;
@@ -307,23 +307,20 @@ const StyledP = styled.p`
 `;
 
 const StyledTitle = styled.span`
+  margin-bottom: 1rem;
+
   color: var(--color-main);
 
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.4rem;
+  text-align: center;
 
   @media (max-width: 800px) {
     font-size: medium;
   }
 `;
 
-const StyledSpan2 = styled.span`
-  color: #666666;
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
+const Iframe = styled.iframe`
+  width: 45vw;
+  margin-top: 1rem;
 `;
