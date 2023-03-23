@@ -15,16 +15,6 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
 
   const [view, setView] = useState<Board>();
 
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const date = now.getDate();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
-  const modifiedDate =
-    month + "/" + date + "/" + year + " " + hours + ":" + minutes;
-
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
     axios
@@ -86,6 +76,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
       <Category>
         <StyledSpan>Write time: </StyledSpan>
         <span>{formatDate(view?.modifiedDate!)}</span>
+        <br />
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>

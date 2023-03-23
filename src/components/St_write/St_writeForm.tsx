@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 const St_writeForm = () => {
   const { allToken } = useToken();
-
   const router = useRouter();
 
   const [title, setTitle] = useState<string>("");
@@ -14,6 +13,9 @@ const St_writeForm = () => {
   const [content, setContent] = useState<string>("");
 
   const [imgFile, setImgFile] = useState<FileList | null>(null);
+
+  const id = router.query.id;
+  console.log(id);
 
   const errorAlert = () => {
     if (title.length == 0) {
@@ -46,14 +48,14 @@ const St_writeForm = () => {
     // console.log(TOKEN);
 
     console.log({
-      mainPostId: router.query.id,
+      mainPostId: id,
       title: title,
       context: content,
       images: imgFile,
     });
 
     let dataSet = {
-      mainPostId: router.query.id,
+      mainPostId: id,
       title: title,
       context: content,
       images: imgFile,
@@ -66,7 +68,7 @@ const St_writeForm = () => {
       .post(
         "/api/study/new",
         {
-          mainPostId: router.query.id,
+          mainPostId: id,
           title: title,
           context: content,
           images: imgFile,
@@ -84,7 +86,8 @@ const St_writeForm = () => {
       .then((res) => {
         alert("Success write!");
         router.push({
-          pathname: "/study",
+          pathname: `/study`,
+          // pathname: `/study?id=${id}`,
           query: {
             id: res.data.id,
           },

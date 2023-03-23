@@ -1,5 +1,6 @@
 import useUser from "@/hooks/useUser";
 import { StudyProps } from "@/pages/study";
+import { formatDate } from "@/types/date";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -14,27 +15,18 @@ interface ViewProps {
   modifiedDate: string;
 }
 
-const StudyForm = ({ id }: StudyProps) => {
+const StudyForm = () => {
   // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
   // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
 
   const router = useRouter();
   const { user } = useUser();
-  console.log(router.query.id);
+  const id = router.query.id;
+  console.log(id);
 
   let ready = router.isReady;
 
   const [view, setView] = useState<ViewProps>();
-
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const date = now.getDate();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
-  const modifiedDate =
-    month + "/" + date + "/" + year + " " + hours + ":" + minutes;
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
@@ -46,7 +38,7 @@ const StudyForm = ({ id }: StudyProps) => {
         },
       })
       .then(() => {
-        router.push("/share");
+        router.push(`/share?id=${id}`);
       })
       .catch((e) => console.log(e));
   };
@@ -67,7 +59,7 @@ const StudyForm = ({ id }: StudyProps) => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/study?mainPost${router.query.id}`, {
+        .get(`/api/study?mainPost=${id}`, {
           headers: {
             withCredentials: true,
             Authorization: `Bearer ${TOKEN}`,
@@ -92,7 +84,9 @@ const StudyForm = ({ id }: StudyProps) => {
   return (
     <div>
       <Category>
-        <p>write time: {modifiedDate}</p>
+        <StyledSpan>Write time: </StyledSpan>
+        <span>{formatDate(view?.modifiedDate!)}</span>
+        <br />
       </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>
