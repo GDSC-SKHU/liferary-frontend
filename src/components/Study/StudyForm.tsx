@@ -58,12 +58,7 @@ const StudyForm = () => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/study?mainPost=${id}`, {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
+        .get(`/api/study?mainPost=${id}`)
         .then((data) => {
           console.log(TOKEN);
           console.log(data.data);

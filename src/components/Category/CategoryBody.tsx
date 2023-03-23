@@ -82,7 +82,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         {totalPage && list ? (
           <ListTable list={list} page={page} />
         ) : (
-          <div>{categoryName}게시글이 없습니다.</div>
+          <div>{categoryName}There are no posts.</div>
         )}
       </CategoryListWrapper>
       <Pagination

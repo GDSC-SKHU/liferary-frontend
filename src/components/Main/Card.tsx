@@ -55,16 +55,16 @@ const Item = styled.div`
 
 const Title = styled.button`
   width: 100%;
-  margin: 10px 30px;
-  padding: 5px;
+  margin: 15px 30px;
+  padding: 4px;
 
   background-color: var(--color-normal);
   color: white;
   border: 1px solid var(--color-normal);
   border-radius: 10px;
 
-  font-size: 120%;
-  box-shadow: 0 4px 4px -2px #444444;
+  font-size: 100%;
+  box-shadow: 2px 2px 4px #777777;
 
   white-space: nowrap;
   overflow: hidden;
