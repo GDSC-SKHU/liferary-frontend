@@ -1,5 +1,4 @@
 import useUser from "@/hooks/useUser";
-import { StudyProps } from "@/pages/study";
 import { formatDate } from "@/types/date";
 import axios from "axios";
 import { useRouter } from "next/router";
