@@ -1,4 +1,5 @@
 import useUser from "@/hooks/useUser";
+import { StudyProps } from "@/pages/study";
 import { formatDate } from "@/types/date";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -14,13 +15,12 @@ interface ViewProps {
   modifiedDate: string;
 }
 
-const StudyForm = () => {
+const StudyForm = ({ id }: StudyProps) => {
   // https://velog.io/@hhhminme/Next.js%EC%97%90%EC%84%9C-SSR%EB%A1%9C-url-query-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0feat.-typescript
   // https://velog.io/@wlgns2223/Next.JS-%EB%9D%BC%EC%9A%B0%ED%84%B0-%EC%BF%BC%EB%A6%AC-undefined-%EC%9D%B4%EC%8A%88
 
   const router = useRouter();
   const { user } = useUser();
-  const id = router.query.id;
   console.log(id);
 
   let ready = router.isReady;
@@ -37,7 +37,7 @@ const StudyForm = () => {
         },
       })
       .then(() => {
-        router.push(`/share?id=${id}`);
+        router.push("/share");
       })
       .catch((e) => console.log(e));
   };
@@ -67,7 +67,8 @@ const StudyForm = () => {
           setView(data.data);
         })
         .catch((e) => {
-          alert("Failed to look up");
+          alert(e);
+          // alert("Failed to look up");
           console.log(TOKEN);
           console.log(e);
         });

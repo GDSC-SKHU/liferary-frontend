@@ -3,7 +3,8 @@ import React, { useEffect, useState, useLayoutEffect } from "react";
 import ListTable from "../Commons/ListTable";
 import Pagination from "../Commons/Pagination";
 import styled from "styled-components";
-
+import StudyListTable from "../Study/StudyListTable";
+import CommunityListTable from "../Community/CommunityListTable";
 type kind = "Knowledge" | "Study" | "Community";
 
 export const User_post = ({ kind }: { kind: kind }) => {
@@ -21,10 +22,10 @@ export const User_post = ({ kind }: { kind: kind }) => {
         setUrl(`/api/main/post/member?page=`);
         break;
       case "Study":
-        setUrl(`/api/main/post/member?page=`);
+        setUrl(`/api/study/member?page=`);
         break;
       case "Community":
-        setUrl(`/api/main/post/member?page=`);
+        setUrl(`/api/board/member/page?page=`);
         break;
       default:
         setUrl("");
@@ -54,7 +55,12 @@ export const User_post = ({ kind }: { kind: kind }) => {
     <>
       {totalPage && list ? (
         <UserPostContainer>
-          <ListTable list={list} page={page} />
+          {kind === "Knowledge" && <ListTable list={list} page={page} />}
+          {kind === "Study" && <StudyListTable list={list} page={page} />}
+          {kind === "Community" && (
+            <CommunityListTable list={list} page={page} />
+          )}
+
           <Pagination
             totalPages={totalPage}
             currentPage={page}

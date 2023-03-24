@@ -1,8 +1,16 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Post from "@/types/postType";
+import Image from "next/image";
+import Study from "@/types/study";
 
-const Card = ({ data }: { data: Partial<Post> }) => {
+const Card = ({
+  data,
+  kind,
+}: {
+  data: Study | Post;
+  kind: "main" | "study";
+}) => {
   const router = useRouter();
 
   return (
@@ -11,14 +19,33 @@ const Card = ({ data }: { data: Partial<Post> }) => {
         key={data.id}
         onClick={() =>
           router.push({
-            pathname: "/share",
+            pathname: kind === "main" ? "/share" : "study",
             query: {
-              id: data.id,
+              id: "mainPostId" in data ? data.mainPostId : data.id,
             },
           })
         }
       >
-        <Item />
+        {data.images?.length ? (
+          <>
+            <CardImage
+              src={`https://picsum.photos/200/300`}
+              // src={data.images[0]}
+              width={"100"}
+              height={"70"}
+              alt=""
+            >
+              {/* {data.images[0]} */}
+            </CardImage>
+          </>
+        ) : (
+          <CardImage
+            src="/NoImage.svg"
+            width={"100"}
+            height={"70"}
+            alt="noimage"
+          ></CardImage>
+        )}
         <Title>{data.title}</Title>
       </CardItem>
     </>
@@ -55,16 +82,16 @@ const Item = styled.div`
 
 const Title = styled.button`
   width: 100%;
-  margin: 15px 30px;
-  padding: 4px;
+  margin: 10px 30px;
+  padding: 5px;
 
   background-color: var(--color-normal);
   color: white;
-  border: 1px solid var(--color-normal);
+  border: 1px solid var(—color-normal);
   border-radius: 10px;
 
-  font-size: 100%;
-  box-shadow: 2px 2px 4px #777777;
+  font-size: 120%;
+  box-shadow: 0 4px 4px -2px #444444;
 
   white-space: nowrap;
   overflow: hidden;
@@ -75,4 +102,11 @@ const Title = styled.button`
 
     font-size: x-small;
   }
+`;
+
+const CardImage = styled(Image)`
+  width: 100%;
+  height: 70%;
+  border-radius: 10px;
+  //cover
 `;

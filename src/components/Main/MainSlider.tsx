@@ -3,9 +3,10 @@ import styled from "styled-components";
 import axios from "axios";
 import Post from "@/types/postType";
 import Card from "./Card";
+import Study from "@/types/study";
 
-const MainSlider = ({ kind }: { kind: string }) => {
-  const [data, setData] = useState<Post[]>([]);
+const MainSlider = ({ kind }: { kind: "main" | "study" }) => {
+  const [data, setData] = useState<Post[] | Study[]>([]);
 
   useEffect(() => {
     axios.get(`/api/${kind}/all?page=1`, {}).then((data) => {
@@ -20,7 +21,7 @@ const MainSlider = ({ kind }: { kind: string }) => {
         <>
           <SlideShowContainer>
             {data.slice(0, 4).map((el, idx) => (
-              <Card data={el} key={idx} />
+              <Card kind={kind} data={el} key={idx} />
             ))}
           </SlideShowContainer>
         </>

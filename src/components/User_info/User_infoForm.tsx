@@ -59,7 +59,7 @@ export default function User_infoForm() {
         {
           nickname: nickname,
           password: form.password,
-          checkedpassword: form.passwordconfirm,
+          checkedPassword: form.passwordconfirm,
         },
         {
           headers: {
