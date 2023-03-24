@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Post from "@/types/postType";
 import Card from "./Card";
-import { Study } from "@/types/study";
+import Study from "@/types/study";
 
 const MainSlider = ({ kind }: { kind: "main" | "study" }) => {
   const [data, setData] = useState<Post[] | Study[]>([]);

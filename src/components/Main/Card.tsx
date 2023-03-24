@@ -8,7 +8,7 @@ const Card = ({
   data,
   kind,
 }: {
-  data: Post & Study;
+  data: Study | Post;
   kind: "main" | "study";
 }) => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const Card = ({
           router.push({
             pathname: kind === "main" ? "/share" : "study",
             query: {
-              id: kind === "main" ? data.id : data.mainPostId,
+              id: "mainPostId" in data ? data.mainPostId : data.id,
             },
           })
         }
@@ -65,18 +65,33 @@ const CardItem = styled.div`
   margin: 10px;
 `;
 
+const Item = styled.div`
+  width: 100%;
+  height: 70%;
+
+  background-color: #eeeeee;
+  border-radius: 1rem;
+
+  cursor: pointer;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+`;
+
 const Title = styled.button`
   width: 100%;
-  margin: 15px 30px;
-  padding: 4px;
+  margin: 10px 30px;
+  padding: 5px;
 
   background-color: var(--color-normal);
   color: white;
-  border: 1px solid var(--color-normal);
+  border: 1px solid var(—color-normal);
   border-radius: 10px;
 
-  font-size: 100%;
-  box-shadow: 2px 2px 4px #777777;
+  font-size: 120%;
+  box-shadow: 0 4px 4px -2px #444444;
 
   white-space: nowrap;
   overflow: hidden;
@@ -92,13 +107,6 @@ const Title = styled.button`
 const CardImage = styled(Image)`
   width: 100%;
   height: 70%;
-  border-radius: 1rem;
+  border-radius: 10px;
   //cover
-
-  cursor: pointer;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
 `;

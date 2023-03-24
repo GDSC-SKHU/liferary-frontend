@@ -1,4 +1,4 @@
-export interface Study {
+export default interface Study {
     author: string;
     context: string;
     id: number;
