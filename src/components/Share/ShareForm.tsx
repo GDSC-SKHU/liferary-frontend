@@ -5,6 +5,7 @@ import { ShareProps } from "@/pages/share";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
+import Image from "next/image";
 
 interface ListProps {
   id: string;
@@ -140,21 +141,27 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
       </div>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname ? (
+          {user?.nickname === view.nickname && (
             <div>
               <button onClick={onClickUpdateRouter}>Update</button>
               <button onClick={onClickDelete}>delete</button>
-              <StyledDiv>
-                <StyledH2>{view.title}</StyledH2>
-              </StyledDiv>
             </div>
-          ) : (
-            <StyledDiv>
-              <StyledH2>{view.title}</StyledH2>
-            </StyledDiv>
           )}
+          <StyledDiv>
+            <StyledH2>{view.title}</StyledH2>
+          </StyledDiv>
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
+            {view.images?.map((el) => (
+              <ShareImage
+                key={view.id}
+                src={`https://picsum.photos/200/300`}
+                // src={el}
+                width={100}
+                height={70}
+                alt=""
+              />
+            ))}
             {videoView && (
               <Container2>
                 <StyledTitle>YOUTUBE</StyledTitle>
@@ -323,4 +330,11 @@ const StyledTitle = styled.span`
 const Iframe = styled.iframe`
   width: 45vw;
   margin-top: 1rem;
+`;
+
+const ShareImage = styled(Image)`
+  width: 100%;
+  height: 70%;
+  border-radius: 10px;
+  //cover
 `;

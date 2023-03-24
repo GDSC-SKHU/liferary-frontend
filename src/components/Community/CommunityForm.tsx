@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { CommunityProps } from "@/pages/community/[mainPostId]/[id]";
 import Board from "@/types/board";
 import { formatDate } from "@/types/date";
+import CommunityComment from "./CommunityComment";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const router = useRouter();
@@ -73,6 +74,18 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
 
   return (
     <div>
+      <button
+        onClick={() =>
+          router.push({
+            pathname: "/share",
+            query: {
+              id: view?.mainPostId,
+            },
+          })
+        }
+      >
+        본문으로 가기
+      </button>
       <Category>
         <StyledSpan>Write time: </StyledSpan>
         <span>{formatDate(view?.modifiedDate!)}</span>
@@ -86,7 +99,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
       </div>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname ? (
+          {user?.nickname === view.nickname && (
             <div>
               <button onClick={onClickUpdateRouter}>Update</button>
               <button onClick={onClickDelete}>delete</button>
@@ -94,26 +107,14 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
                 <StyledH2>{view.title}</StyledH2>
               </StyledDiv>
             </div>
-          ) : (
-            <StyledDiv>
-              <StyledH2>{view.title}</StyledH2>
-            </StyledDiv>
           )}
+          <StyledDiv>
+            <StyledH2>{view.title}</StyledH2>
+          </StyledDiv>
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
           </StyledDiv2>
-          <button
-            onClick={() =>
-              router.push({
-                pathname: "/share",
-                query: {
-                  id: view.mainPostId,
-                },
-              })
-            }
-          >
-            본문으로 가기
-          </button>
+          <CommunityComment boardPostId={view.id} />
         </Container>
       ) : (
         <p>Loading...</p>

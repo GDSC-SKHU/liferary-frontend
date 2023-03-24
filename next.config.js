@@ -8,8 +8,17 @@ const nextConfig = {
     bodyParser: false,
   },
   images: {
-    domains: ["localhost", "*", "img.youtube.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+
+    //   domains: ["localhost", "*", "img.youtube.com", "storage.googleapis.com",
+    // ]
   },
+
   async rewrites() {
     return [
       {

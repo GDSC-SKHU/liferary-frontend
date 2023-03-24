@@ -4,21 +4,11 @@ import Pagination from "../Commons/Pagination";
 import axios from "axios";
 import { mainPostIdParams } from "@/pages/c_list/[...id]";
 import CommunityListTable from "../Community/CommunityListTable";
-import router from "next/router";
 
 export default function C_list({ mainPostId }: mainPostIdParams) {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [list, setList] = useState();
-
-  const onClickRouter = () => {
-    router.push({
-      pathname: `/c_write`,
-      query: {
-        id: router.query.id,
-      },
-    });
-  };
 
   useEffect(() => {
     const TOKEN = localStorage.getItem("accessToken");
@@ -66,7 +56,6 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
         currentPage={page}
         onPageChange={setPage}
       ></Pagination>
-      <WriteBtn onClick={onClickRouter}>Try write!</WriteBtn>
     </CategoryContainer>
   );
 }

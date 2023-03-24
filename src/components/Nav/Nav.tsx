@@ -4,7 +4,6 @@ import { auth } from "../Login/GoogleLogin";
 import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 import Search from "../Commons/Search";
-import Category from "@/pages/category";
 
 // 새로운 type
 interface UserInfo {
@@ -67,7 +66,7 @@ export default function Nav() {
             <LinkWrapper href="/category">
               <List>Share Knowledge</List>
             </LinkWrapper>
-            <LinkWrapper href="/study">
+            <LinkWrapper href="/st_list">
               <List>Study</List>
             </LinkWrapper>
             <LinkWrapper href="/c_list">

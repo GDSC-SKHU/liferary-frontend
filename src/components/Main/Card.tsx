@@ -1,8 +1,16 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Post from "@/types/postType";
+import Image from "next/image";
+import Study from "@/types/study";
 
-const Card = ({ data }: { data: Partial<Post> }) => {
+const Card = ({
+  data,
+  kind,
+}: {
+  data: Post & Study;
+  kind: "main" | "study";
+}) => {
   const router = useRouter();
 
   return (
@@ -11,14 +19,33 @@ const Card = ({ data }: { data: Partial<Post> }) => {
         key={data.id}
         onClick={() =>
           router.push({
-            pathname: "/share",
+            pathname: kind === "main" ? "/share" : "study",
             query: {
-              id: data.id,
+              id: kind === "main" ? data.id : data.mainPostId,
             },
           })
         }
       >
-        <Item />
+        {data.images?.length ? (
+          <>
+            <CardImage
+              src={`https://picsum.photos/200/300`}
+              // src={data.images[0]}
+              width={"100"}
+              height={"70"}
+              alt=""
+            >
+              {/* {data.images[0]} */}
+            </CardImage>
+          </>
+        ) : (
+          <CardImage
+            src="/NoImage.svg"
+            width={"100"}
+            height={"70"}
+            alt="noimage"
+          ></CardImage>
+        )}
         <Title>{data.title}</Title>
       </CardItem>
     </>
@@ -36,21 +63,6 @@ const CardItem = styled.div`
   width: 20vw;
   height: 100%;
   margin: 10px;
-`;
-
-const Item = styled.div`
-  width: 100%;
-  height: 70%;
-
-  background-color: #eeeeee;
-  border-radius: 1rem;
-
-  cursor: pointer;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
 `;
 
 const Title = styled.button`
@@ -74,5 +86,19 @@ const Title = styled.button`
     height: 5vh;
 
     font-size: x-small;
+  }
+`;
+
+const CardImage = styled(Image)`
+  width: 100%;
+  height: 70%;
+  border-radius: 1rem;
+  //cover
+
+  cursor: pointer;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
   }
 `;
