@@ -120,6 +120,15 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
     }
   }
 
+  const onClickRouter = () => {
+    router.push({
+      pathname: `/st_write`,
+      query: {
+        id: router.query.id,
+      },
+    });
+  };
+
   return (
     <div>
       <Category>
@@ -191,6 +200,11 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               opts={{ width: "100%", height: "500px" }}
             />
           )} */}
+          {user?.nickname === view.nickname && (
+            <div>
+              <button onClick={onClickRouter}>Write Study</button>
+            </div>
+          )}
         </Container>
       ) : (
         <p>Loading...</p>
@@ -244,7 +258,6 @@ const StyledDiv = styled.div`
   border-radius: 10px;
 
   text-align: center;
-  /* overflow: scroll; */
 
   @media (max-width: 800px) {
     width: 30vw;

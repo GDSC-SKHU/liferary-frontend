@@ -29,9 +29,6 @@ const S_editForm = ({ id }: UpdateProps) => {
     if (updateContext.length == 0) {
       return alert("Please enter your content.");
     }
-    if (updateVideo.length == 0) {
-      return alert("Please enter your video link.");
-    }
   };
 
   // 전에 쓴 글 get 해오기
@@ -65,7 +62,7 @@ const S_editForm = ({ id }: UpdateProps) => {
     setUpdateTitle(e.target.value);
   };
 
-  const onChangeUpdateContext = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUpdateContext = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUpdateContext(e.target.value);
   };
 
@@ -158,7 +155,6 @@ const S_editForm = ({ id }: UpdateProps) => {
             onChange={onChangeUpdateTitle}
           />
           <StyledInput2
-            type="text"
             placeholder="Write your tips contents"
             value={updateContext}
             onChange={onChangeUpdateContext}
@@ -214,12 +210,17 @@ const Container = styled.div`
 
 const StyledInput = styled.input`
   width: 40vw;
-  height: 6vh;
+  min-height: 6vh;
+  /* height: auto; */
   margin-top: 2vh;
   padding: 0 6px;
 
+  word-break: break-all;
+
   border: 1px solid var(--color-main);
   border-radius: 5px;
+
+  outline: none;
 
   &:focus {
     border: 2px solid var(--color-main);
@@ -233,7 +234,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledInput2 = styled.input`
+const StyledInput2 = styled.textarea`
   width: 40vw;
   height: 40vh;
   margin-top: 3vh;

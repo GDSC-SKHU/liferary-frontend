@@ -40,7 +40,7 @@ const Card = ({
           </>
         ) : (
           <CardImage
-            src="/NoImage.svg"
+            src="/Logo4.svg"
             width={"100"}
             height={"70"}
             alt="noimage"

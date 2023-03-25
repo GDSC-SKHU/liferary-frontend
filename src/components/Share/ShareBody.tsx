@@ -4,15 +4,32 @@ import ShareForm from "./ShareForm";
 import { ShareProps } from "@/pages/share";
 import Recruit from "./Recruit";
 import Community from "./Community";
+import { useEffect, useState } from "react";
 
 export default function ShareBody({ id }: ShareProps) {
+  const [study, setStudy] = useState(false);
+
+  useEffect(() => {
+    const isStudy = localStorage.getItem("study");
+    if (isStudy !== null) {
+      setStudy(isStudy === "true");
+    }
+  }, []);
+
+  const toggleStudy = () => {
+    setStudy((prevStudy) => !prevStudy);
+    localStorage.setItem("isStudy", (!study).toString());
+  };
+
   return (
     <>
       <ShareForm id={id} />
       {/* <Satisfy /> */}
       <Container>
-        <Recruit />
+        {study && <Recruit />}
+        {/* <Recruit /> */}
         <Community id={id} />
+        <button onClick={toggleStudy}>Study</button>
       </Container>
     </>
   );
