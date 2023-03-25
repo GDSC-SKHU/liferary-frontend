@@ -9,7 +9,7 @@ export interface mainPostIdParams {
 const Detail = ({ mainPostId }: mainPostIdParams) => {
   return (
     <>
-      <Nav />
+      <Nav email={""} nickname={""} firebaseAuth={false} />
       <C_listBody mainPostId={mainPostId} />
     </>
   );
