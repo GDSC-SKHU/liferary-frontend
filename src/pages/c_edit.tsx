@@ -11,7 +11,7 @@ export interface CommunityUpdateProps {
 const CommunityEdit = () => {
   return (
     <>
-      <Nav />
+      <Nav email={""} nickname={""} firebaseAuth={false} />
       <C_editBody />
     </>
   );
