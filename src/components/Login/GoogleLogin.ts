@@ -16,7 +16,6 @@ export const googleLogin = async () => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
         localStorage.setItem("accessToken", token);
-        
         await axios
           .get("/api/member/info", {
             headers: {
@@ -24,10 +23,13 @@ export const googleLogin = async () => {
             },
           })
           .then((res) => {
-            console.log(res.data);
+            console.log("googlelogin", res.data);
             if (!!token) {
               localStorage.setItem("userInfo", JSON.stringify(res.data));
             }
+          })
+          .then(() => {
+            location.href = "/";
           });
       }
     });

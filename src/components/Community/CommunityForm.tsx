@@ -27,8 +27,13 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
       })
       .then(() => {
         //새로고침하면서 불러오기
-        alert("Success Delete");
-        router.push(`/c_list/${mainPostId}`);
+        if (confirm("Are you sure you want to delete it?")) {
+          router.push(`/c_list/${mainPostId}`);
+          alert("Success Delete!");
+          // return false;
+        } else {
+          router.push(`/c_list/${mainPostId}`);
+        }
       })
       .catch((e) => console.log(e));
   };
@@ -73,7 +78,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   }, [ready]);
 
   return (
-    <div>
+    <>
       <button
         onClick={() =>
           router.push({
@@ -103,9 +108,6 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
             <div>
               <button onClick={onClickUpdateRouter}>Update</button>
               <button onClick={onClickDelete}>delete</button>
-              <StyledDiv>
-                <StyledH2>{view.title}</StyledH2>
-              </StyledDiv>
             </div>
           )}
           <StyledDiv>
@@ -119,7 +121,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 
@@ -168,13 +170,6 @@ const Container = styled.div`
   color: white;
 `;
 
-const Container2 = styled.div`
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-
-  border-bottom: 3px solid var(--color-normal);
-`;
-
 const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
@@ -195,10 +190,8 @@ const StyledDiv = styled.div`
 
 const StyledDiv2 = styled.div`
   width: 40vw;
-
   margin-bottom: 1rem;
 
-  background-color: white;
   border-radius: 10px;
 
   text-align: justify;
@@ -226,29 +219,9 @@ const StyledP = styled.p`
   }
 `;
 
-const StyledSpan2 = styled.span`
-  color: #666666;
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledTitle = styled.span`
-  color: var(--color-main);
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
 const StyledH2 = styled.h2`
+  color: white;
+
   @media (max-width: 800px) {
     font-size: medium;
   }

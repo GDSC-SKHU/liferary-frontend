@@ -1,10 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { auth } from "../Login/GoogleLogin";
-import axios from "axios";
 import { useLayoutEffect, useState } from "react";
 import Search from "../Commons/Search";
-
+import { handleLogout } from "@/utils/logout";
 // 새로운 type
 interface UserInfo {
   email: string;
@@ -23,36 +21,36 @@ export default function Nav() {
     // console.log(userInfo);
   }, []);
 
-  const handleLogout = () => {
-    // console.log(localStorage.getItem("userInfo"));
-    if (
-      JSON.parse(localStorage.getItem("userInfo") || "").firebaseAuth === true
-    ) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userInfo");
-      auth.signOut();
-    } else {
-      axios
-        .post(
-          "/api/member/logout",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              RefreshToken: localStorage.getItem("refreshToken"),
-            },
-          }
-        )
-        .then((res) => {
-          if (res.status == 200) {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            localStorage.removeItem("userInfo");
-          }
-        });
-    }
-    alert("Success Logout!");
-  };
+  // const handleLogout = () => {
+  //   // console.log(localStorage.getItem("userInfo"));
+  //   if (
+  //     JSON.parse(localStorage.getItem("userInfo") || "").firebaseAuth === true
+  //   ) {
+  //     localStorage.removeItem("accessToken");
+  //     localStorage.removeItem("userInfo");
+  //     auth.signOut();
+  //   } else {
+  //     axios
+  //       .post(
+  //         "/api/member/logout",
+  //         {},
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //             RefreshToken: localStorage.getItem("refreshToken"),
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (res.status == 200) {
+  //           localStorage.removeItem("accessToken");
+  //           localStorage.removeItem("refreshToken");
+  //           localStorage.removeItem("userInfo");
+  //         }
+  //       });
+  //   }
+  //   alert("Success Logout!");
+  // };
 
   return (
     <>
@@ -179,6 +177,6 @@ const LoginBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: var(--color-deep);
+    color: var(—color-deep);
   }
 `;

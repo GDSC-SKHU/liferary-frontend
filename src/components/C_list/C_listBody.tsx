@@ -48,7 +48,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
         {totalPage && list ? (
           <CommunityListTable list={list} page={page} />
         ) : (
-          <div>{mainPostId}There are no posts.</div>
+          <div>There are no posts.</div>
         )}
       </CategoryListWrapper>
       <Pagination
