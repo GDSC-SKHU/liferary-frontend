@@ -52,9 +52,7 @@ const LoginForm = () => {
   };
 
   const handleGoogleLogin = async () => {
-    await googleLogin().then(() => {
-      location.href = "/"; //새로고침하면서 페이지 이동
-    });
+    await googleLogin();
   };
 
   return (

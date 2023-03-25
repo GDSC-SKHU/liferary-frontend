@@ -3,7 +3,7 @@ import Nav from "@/components/Nav/Nav";
 import useToken from "@/hooks/useToken";
 
 const Home = () => {
-  const { allToken } = useToken();
+  // const { allToken } = useToken();
 
   // console.log(token + '-Token');
   // console.log(allToken + '-Token');
