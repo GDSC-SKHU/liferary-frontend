@@ -60,34 +60,18 @@ const CardItem = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 20vw;
+  width: 18vw;
   height: 100%;
   margin: 10px;
-`;
-
-const Item = styled.div`
-  width: 100%;
-  height: 70%;
-
-  background-color: #eeeeee;
-  border-radius: 1rem;
-
-  cursor: pointer;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
 `;
 
 const Title = styled.button`
   width: 100%;
   margin: 10px 30px;
-  padding: 5px;
 
   background-color: var(--color-normal);
   color: white;
-  border: 1px solid var(—color-normal);
+  border: 1px solid var(--color-normal);
   border-radius: 10px;
 
   font-size: 120%;
@@ -107,6 +91,15 @@ const Title = styled.button`
 const CardImage = styled(Image)`
   width: 100%;
   height: 70%;
+
   border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
   //cover
 `;
