@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-interface IUser {
+interface UserProps {
   email: string;
   nickname: string;
   firebaseAuth: boolean;
 }
 
 const useUser = () => {
-  const [user, setUser] = useState<IUser | undefined>();
+  const [user, setUser] = useState<UserProps | undefined>();
 
   useEffect(() => {
     axios

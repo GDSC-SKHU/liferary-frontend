@@ -105,6 +105,8 @@ const CategoryContainer = styled.div`
   justify-content: center;
   align-items: center;
 
+  cursor: default;
+
   width: 100%;
   margin-top: 4vh;
 `;

@@ -29,7 +29,7 @@ const St_writeForm = () => {
     setTitle(e.target.value);
   };
 
-  const onChangeContent = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
@@ -109,7 +109,6 @@ const St_writeForm = () => {
             onChange={onChangeTitle}
           />
           <StyledInput2
-            type="text"
             placeholder="Write your tips contents"
             value={content}
             onChange={onChangeContent}
@@ -148,9 +147,12 @@ const Container = styled.div`
 
 const StyledInput = styled.input`
   width: 40vw;
-  height: 6vh;
+  min-height: 6vh;
+  /* height: auto; */
   margin-top: 2vh;
   padding: 0 6px;
+
+  word-break: break-all;
 
   border: 1px solid var(--color-main);
   border-radius: 5px;
@@ -169,7 +171,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledInput2 = styled.input`
+const StyledInput2 = styled.textarea`
   width: 40vw;
   height: 40vh;
   margin-top: 3vh;

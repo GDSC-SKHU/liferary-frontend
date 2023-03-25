@@ -4,15 +4,6 @@ import styled from "styled-components";
 export default function Recruit() {
   // console.log(router.query.id);
 
-  const onClickRouter = () => {
-    router.push({
-      pathname: `/st_write`,
-      query: {
-        id: router.query.id,
-      },
-    });
-  };
-
   const onClickReadRouter = () => {
     router.push({
       pathname: `/study`,
@@ -23,10 +14,10 @@ export default function Recruit() {
   };
 
   return (
-    <Container>
+    <Container onClick={onClickReadRouter}>
       {/* {view !== undefined ? () : } */}
-      <StyledH2 onClick={onClickRouter}>Check out your study!</StyledH2>
-      <StyledImg onClick={onClickReadRouter} src="/Symbol.svg" />
+      <StyledH2>Check out your study!</StyledH2>
+      <StyledImg src="/Symbol.svg" />
     </Container>
   );
 }
@@ -53,4 +44,10 @@ const StyledH2 = styled.h2`
 
 const StyledImg = styled.img`
   width: 20vw;
+
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 `;
