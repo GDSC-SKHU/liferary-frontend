@@ -155,8 +155,8 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
             {view.images?.map((el) => (
               <ShareImage
                 key={view.id}
-                src={`https://picsum.photos/200/300`}
-                // src={el}
+                // src={`https://picsum.photos/200/300`}
+                src={el}
                 width={100}
                 height={70}
                 alt=""
@@ -177,7 +177,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
              <StyledSpan2>{view.video}</StyledSpan2> */}
               </Container2>
             )}
-            <p>{view.images}</p>
           </StyledDiv2>
           {/* {videoId && (
             <YouTube
