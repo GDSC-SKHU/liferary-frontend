@@ -16,6 +16,7 @@ export const googleLogin = async () => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
         localStorage.setItem("accessToken", token);
+        
         await axios
           .get("/api/member/info", {
             headers: {

@@ -12,7 +12,7 @@ interface UserInfo {
   firebaseAuth: boolean;
 }
 
-export default function Nav() {
+export default function Nav({ firebaseAuth }: UserInfo) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useLayoutEffect(() => {
@@ -82,7 +82,7 @@ export default function Nav() {
             <StyledImg2 src="/Pro.svg" alt="" />
           </Link>
           <Link style={{ textDecoration: "none" }} href="/login">
-            {userInfo ? (
+            {userInfo || firebaseAuth == true ? (
               <LoginBtn onClick={handleLogout}>Logout</LoginBtn>
             ) : (
               <LoginBtn>Login</LoginBtn>
