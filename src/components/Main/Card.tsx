@@ -29,8 +29,8 @@ const Card = ({
         {data.images?.length ? (
           <>
             <CardImage
-              src={`https://picsum.photos/200/300`}
-              // src={data.images[0]}
+              // src={`https://picsum.photos/200/300`}
+              src={data.images[0]}
               width={"100"}
               height={"70"}
               alt=""
