@@ -237,13 +237,14 @@ const StyledName = styled.p`
 
 const StyledDiv = styled.div`
   width: 45vw;
-  height: 7vh;
+  min-height: 7vh;
   margin-bottom: 1rem;
 
   background-color: var(--color-normal);
   border-radius: 10px;
 
   text-align: center;
+  /* overflow: scroll; */
 
   @media (max-width: 800px) {
     width: 30vw;
@@ -262,8 +263,6 @@ const StyledDiv2 = styled.div`
 
   background-color: white;
   border-radius: 10px;
-
-  text-align: justify;
 
   @media (max-width: 800px) {
     width: 30vw;
@@ -291,6 +290,8 @@ const Container2 = styled.div`
 `;
 
 const StyledH2 = styled.h2`
+  word-break: break-all;
+  height: fit-content;
   @media (max-width: 800px) {
     font-size: medium;
   }
@@ -298,8 +299,10 @@ const StyledH2 = styled.h2`
 
 const StyledP = styled.p`
   width: 100%;
+  word-break: break-all;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
+  height: auto;
 
   color: #666666;
   border-bottom: 3px solid var(--color-normal);
