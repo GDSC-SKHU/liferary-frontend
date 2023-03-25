@@ -7,7 +7,9 @@ import { formatDate } from "@/types/date";
 
 const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
   const { allToken } = useToken();
+
   const [newComment, setNewComment] = useState<string>("");
+
   const [list, setList] = useState<Comment[]>();
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useLayoutEffect, useState } from "react";
 import Search from "../Commons/Search";
 import { handleLogout } from "@/utils/logout";
+
 // 새로운 type
 interface UserInfo {
   email: string;
@@ -177,6 +178,6 @@ const LoginBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: var(—color-deep);
+    color: var(--color-deep);
   }
 `;
