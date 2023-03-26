@@ -168,7 +168,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           {/* c_writeBody.tsx랑 다름 */}
           {imgUrls.map((imgUrl) => {
             return (
-              <ImgContainer>
+              <ImgContainer key={imgUrl}>
                 <Image
                   key={imgUrl}
                   // src={`https://picsum.photos/200/300`}
