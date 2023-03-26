@@ -91,7 +91,9 @@ const StudyForm = () => {
   }, [ready]);
 
   useEffect(() => {
-    const formatted = view?.context.match(/(https?:\/\/[^\s]+)/g);
+    const formatted = view?.context.match(
+      /https:\/\/meet\.google\.com\/[^\s]+/g
+    );
 
     console.log("formatted", formatted);
     formatted && setGooglemeetLink(formatted[0]);

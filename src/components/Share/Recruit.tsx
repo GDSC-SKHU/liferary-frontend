@@ -1,14 +1,25 @@
+import { ShareProps } from "@/pages/share";
 import router from "next/router";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Recruit() {
+export default function Recruit({ id }: ShareProps) {
   // console.log(router.query.id);
+
+  const [isExist, setIsExist] = useState<boolean>(false);
+  useEffect(() => {
+    axios
+      .get(`/api/study?mainPost=${id}`)
+      .then((res) => res.status === 200 && setIsExist(true))
+      .catch((err) => console.log(err));
+  });
 
   const onClickReadRouter = () => {
     router.push({
       pathname: `/study`,
       query: {
-        id: router.query.id,
+        id: id,
       },
     });
   };
@@ -16,8 +27,20 @@ export default function Recruit() {
   return (
     <Container onClick={onClickReadRouter}>
       {/* {view !== undefined ? () : } */}
-      <StyledH2>Check out your study!</StyledH2>
-      <StyledImg src="/Symbol.svg" />
+      {
+        isExist ? (
+          <>
+            <StyledH2>Check out your study!</StyledH2>
+            <StyledImg src="/Symbol.svg" />
+          </>
+        ) : (
+          <>
+            <StyledH2>No Study Yet</StyledH2>
+            <>Please wait</>
+          </>
+        )
+        //  <StyledImg src="/Symbol.svg" />
+      }
     </Container>
   );
 }

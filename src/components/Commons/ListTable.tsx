@@ -47,7 +47,7 @@ const ListContainer = styled.div`
   width: 100%;
 `;
 
-const ListWrapper = styled.div`
+export const ListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
@@ -65,7 +65,7 @@ const ListWrapper = styled.div`
   }
 `;
 
-const TitleWrapper = styled(ListWrapper)`
+export const TitleWrapper = styled(ListWrapper)`
   height: 5vh;
 
   background-color: var(--color-normal);
@@ -74,4 +74,8 @@ const TitleWrapper = styled(ListWrapper)`
 
   font-size: 20px;
   opacity: 0.5;
+  :hover {
+    transform: none;
+    color: white;
+  }
 `;
