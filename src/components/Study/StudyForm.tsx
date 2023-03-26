@@ -37,7 +37,7 @@ const StudyForm = ({ id }: StudyProps) => {
         },
       })
       .then(() => {
-        router.push("/share");
+        router.push(`/share?id=${id}`);
       })
       .catch((e) => console.log(e));
   };
@@ -56,7 +56,6 @@ const StudyForm = ({ id }: StudyProps) => {
 
     const getView = () => {
       const TOKEN = localStorage.getItem("accessToken");
-
       axios
         .get(`/api/study?mainPost=${id}`)
         .then((data) => {
