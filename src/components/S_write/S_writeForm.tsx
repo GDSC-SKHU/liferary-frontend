@@ -6,7 +6,7 @@ import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
 import React from "react";
 import YouTube from "react-youtube";
-
+import Image from "next/image";
 const S_write = () => {
   const { allToken } = useToken();
 
@@ -21,6 +21,8 @@ const S_write = () => {
   const [imgFile, setImgFile] = useState<FileList | null>(null);
 
   const [url, setUrl] = React.useState("");
+
+  const [previewImgUrl, setPreviewImgUrl] = useState<string[]>([]);
 
   const errorAlert = () => {
     if (title.length == 0) {
@@ -46,10 +48,26 @@ const S_write = () => {
     setCategory(e.target.value);
   };
 
-  const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files;
-      setImgFile(file);
+  // const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     const file = e.target.files;
+  //     console.log("t", e.target.files);
+  //     setImgFile(file);
+  //   }
+  // };
+
+  const onChangeImg = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      setImgFile(files);
+      const urls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const url = URL.createObjectURL(file);
+        // urls.push(url.split("blob:")[1]);
+        urls.push(url);
+      }
+      setPreviewImgUrl((prevUrls) => [...prevUrls, ...urls]);
     }
   };
 
@@ -71,15 +89,15 @@ const S_write = () => {
       video: url,
     });
 
-    let dataSet = {
-      title: title,
-      category: category,
-      context: content,
-      video: url,
-    };
+    // let dataSet = {
+    //   title: title,
+    //   category: category,
+    //   context: content,
+    //   video: url,
+    // };
 
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(dataSet));
+    // const formData = new FormData();
+    // formData.append("data", JSON.stringify(dataSet));
 
     axios
       .post(
@@ -106,8 +124,8 @@ const S_write = () => {
           pathname: "/share",
           query: {
             id: res.data.id,
-            video: res.data.video,
-            url: res.data.url,
+            // video: res.data.video,
+            // url: res.data.url,
           },
         });
       })
@@ -169,6 +187,18 @@ const S_write = () => {
           </BtnContainer>
         </Container>
       </form>
+      {previewImgUrl.map((imgUrl) => {
+        return (
+          <Image
+            key={imgUrl}
+            // src={`https://picsum.photos/200/300`}
+            src={imgUrl}
+            width={100}
+            height={70}
+            alt=""
+          />
+        );
+      })}
       {videoId && (
         <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
       )}
@@ -288,7 +318,7 @@ const Submit = styled.button`
 
   &:hover {
     background-color: white;
-    color: var(--color-normal);
-    border: 1px solid var(--color-normal);
+    color: var(—color-normal);
+    border: 1px solid var(—color-normal);
   }
 `;

@@ -171,13 +171,13 @@ const UserContainer = styled.div`
 const LoginBtn = styled.button`
   margin-right: 2.86vw;
 
-  background-color: var(--color-deep);
+  background-color: var(—color-deep);
   color: white;
-  border: 1px solid var(--color-deep);
+  border: 1px solid var(—color-deep);
   border-radius: 10px;
 
   &:hover {
     background-color: white;
-    color: var(--color-deep);
+    color: var(—color-deep);
   }
 `;
