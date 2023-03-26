@@ -1,9 +1,9 @@
 import S_writeForm from "./S_writeForm";
-
-export default function S_writeBody() {
+import { MainCategoryProps } from "@/pages/s_write";
+export default function S_writeBody({ currentCategory }: MainCategoryProps) {
   return (
     <>
-      <S_writeForm />
+      <S_writeForm currentCategory={currentCategory} />
     </>
   );
 }

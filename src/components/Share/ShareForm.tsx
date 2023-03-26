@@ -31,24 +31,17 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
-    if (confirm("Are you sure you want to delete it?")) {
-      axios
-        .delete(`/api/main/post/?id=${id}`, {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
-        .then(() => {
-          //새로고침하면서 불러오기
-          alert("Success Delete!");
-          // return false;
-          router.push(`/`);
-        })
-        .catch((e) => console.log(e));
-    } else {
-      return;
-    }
+    axios
+      .delete(`/api/main/post/?id=${id}`, {
+        headers: {
+          withCredentials: true,
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then(() => {
+        router.push("/");
+      })
+      .catch((e) => console.log(e));
   };
 
   const onClickUpdateRouter = () => {
@@ -355,8 +348,8 @@ const Iframe = styled.iframe`
 `;
 
 const ShareImage = styled(Image)`
-  width: 100%;
-  height: 70%;
+  width: 50%;
+  height: 40%;
   border-radius: 10px;
   //cover
 `;

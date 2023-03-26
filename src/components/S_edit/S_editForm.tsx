@@ -4,10 +4,12 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UpdateProps } from "@/pages/s_edit";
 import DropDownCategory from "../Commons/DropDownCategory";
-
+import Image from "next/image";
+import useToken from "../../hooks/useToken";
+import imageUpload from "@/libs/imageUpload";
 const S_editForm = ({ id }: UpdateProps) => {
+  const { allToken } = useToken();
   const router = useRouter();
-  console.log("s_edit", id);
 
   const [updateTitle, setUpdateTitle] = useState<string>("");
 
@@ -15,7 +17,7 @@ const S_editForm = ({ id }: UpdateProps) => {
 
   const [updateContext, setUpdateContext] = useState<string>("");
 
-  const [updateImg, setUpdateImg] = useState<FileList | null>(null);
+  const [updateImgUrls, setUpdateImgUrls] = useState<string[]>([]);
 
   const [updateVideo, setUpdateVideo] = useState<string>("");
 
@@ -23,7 +25,7 @@ const S_editForm = ({ id }: UpdateProps) => {
     if (updateTitle.length == 0) {
       return alert("Please enter your title.");
     }
-    if (updateCategory.length == 0) {
+    if (updateCategory?.length == 0) {
       return alert("Please enter your category.");
     }
     if (updateContext.length == 0) {
@@ -33,29 +35,20 @@ const S_editForm = ({ id }: UpdateProps) => {
 
   // 전에 쓴 글 get 해오기
   useEffect(() => {
-    const getUpdateData = () => {
-      const TOKEN = localStorage.getItem("accessToken");
-      axios
-        .get(`/api/main/post/?id=${id}`, {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
-        .then((data) => {
-          console.log(data.data);
-          // default 값
-          setUpdateTitle(data.data.title);
-          setUpdateCategory(data.data.category);
-          setUpdateContext(data.data.context);
-          setUpdateImg(data.data.images);
-          setUpdateVideo(data.data.video);
-          console.log(updateTitle, updateContext);
-        })
-        .catch((e) => {
-          alert(e);
-        });
-    };
-    getUpdateData();
+    axios
+      .get(`/api/main/post/?id=${id}`)
+      .then((data) => {
+        console.log(data.data);
+        // default 값
+        setUpdateTitle(data.data.title);
+        setUpdateCategory(data.data.category);
+        setUpdateContext(data.data.context);
+        setUpdateImgUrls(data.data.images);
+        setUpdateVideo(data.data.video);
+      })
+      .catch((e) => {
+        alert(e);
+      });
   }, []);
 
   const onChangeUpdateTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,12 +62,30 @@ const S_editForm = ({ id }: UpdateProps) => {
   const onChangeUpdateCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setUpdateCategory(e.target.value);
   };
-
-  const onChangeUpdateImg = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUpdateImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const file = e.target.files;
-      setUpdateImg(file);
+      const files = e.target.files;
+      const data = await imageUpload(files, "main");
+      // const file = useUmage...()
+
+      setUpdateImgUrls([...updateImgUrls, ...data]);
     }
+  };
+
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=main`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = updateImgUrls.filter((el) => el !== imgUrl);
+    setUpdateImgUrls(filteredData);
   };
 
   const onChangeUpdateVideo = (e: ChangeEvent<HTMLInputElement>) => {
@@ -83,43 +94,28 @@ const S_editForm = ({ id }: UpdateProps) => {
 
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const TOKEN = localStorage.getItem("accessToken");
-
-    console.log({
-      title: updateTitle,
-      category: updateCategory,
-      context: updateContext,
-      images: updateImg,
-      video: updateVideo,
-    });
-
-    let dataSet = {
-      title: updateTitle,
-      category: updateCategory,
-      context: updateContext,
-      video: updateVideo,
-    };
-
-    const formData = new FormData();
-
-    formData.append("data", JSON.stringify(dataSet));
-
+    console.log("up", updateImgUrls);
+    console.log(
+      updateCategory,
+      updateContext,
+      updateTitle,
+      updateVideo,
+      updateImgUrls
+    );
     axios
-      .post(
+      .patch(
         `/api/main/post?id=${id}`,
         {
           title: updateTitle,
           category: updateCategory,
           context: updateContext,
-          images: updateImg,
+          images: updateImgUrls,
           video: updateVideo,
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: allToken,
           },
         }
       )
@@ -137,14 +133,18 @@ const S_editForm = ({ id }: UpdateProps) => {
         errorAlert();
       });
   };
-
   return (
     <>
       <form onSubmit={onClickUpdate}>
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <DropDownCategory onChange={onChangeUpdateCategory} />
+            {updateCategory && (
+              <DropDownCategory
+                onChange={onChangeUpdateCategory}
+                currentCategory={updateCategory}
+              />
+            )}
           </div>
         </StyledDiv>
         <Container>
@@ -177,8 +177,14 @@ const S_editForm = ({ id }: UpdateProps) => {
             onChange={onChangeUpdateImg}
             multiple
           />
+          {updateImgUrls?.map((imgUrl) => (
+            <>
+              <Image key={imgUrl} src={imgUrl} width={100} height={70} alt="" />
+              <span onClick={() => handleImageDelete(imgUrl)}>X</span>
+            </>
+          ))}
           <BtnContainer>
-            <Submit type="submit">registration</Submit>
+            <Submit type="submit">edit</Submit>
           </BtnContainer>
         </Container>
       </form>

@@ -22,37 +22,6 @@ export default function Nav() {
     // console.log(userInfo);
   }, []);
 
-  // const handleLogout = () => {
-  //   // console.log(localStorage.getItem("userInfo"));
-  //   if (
-  //     JSON.parse(localStorage.getItem("userInfo") || "").firebaseAuth === true
-  //   ) {
-  //     localStorage.removeItem("accessToken");
-  //     localStorage.removeItem("userInfo");
-  //     auth.signOut();
-  //   } else {
-  //     axios
-  //       .post(
-  //         "/api/member/logout",
-  //         {},
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //             RefreshToken: localStorage.getItem("refreshToken"),
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         if (res.status == 200) {
-  //           localStorage.removeItem("accessToken");
-  //           localStorage.removeItem("refreshToken");
-  //           localStorage.removeItem("userInfo");
-  //         }
-  //       });
-  //   }
-  //   alert("Success Logout!");
-  // };
-
   return (
     <>
       <Container>
@@ -171,13 +140,13 @@ const UserContainer = styled.div`
 const LoginBtn = styled.button`
   margin-right: 2.86vw;
 
-  background-color: var(—color-deep);
+  background-color: var(--color-deep);
   color: white;
-  border: 1px solid var(—color-deep);
+  border: 1px solid var(--color-deep);
   border-radius: 10px;
 
   &:hover {
     background-color: white;
-    color: var(—color-deep);
+    color: var(--color-deep);
   }
 `;

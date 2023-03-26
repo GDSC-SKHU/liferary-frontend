@@ -3,8 +3,12 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
+import imageUpload from "@/libs/imageUpload";
+import useToken from "@/hooks/useToken";
 
 const St_editForm = ({ id }: UpdateProps) => {
+  const { allToken } = useToken();
   const router = useRouter();
   console.log("st_edit", id);
 
@@ -12,7 +16,7 @@ const St_editForm = ({ id }: UpdateProps) => {
 
   const [updateContext, setUpdateContext] = useState<string>("");
 
-  const [updateImg, setUpdateImg] = useState<FileList | null>(null);
+  const [updateImgUrls, setUpdateImgUrls] = useState<string[]>([]);
 
   const errorAlert = () => {
     if (updateTitle.length == 0) {
@@ -27,17 +31,13 @@ const St_editForm = ({ id }: UpdateProps) => {
     const getUpdateData = () => {
       const TOKEN = localStorage.getItem("accessToken");
       axios
-        .get(`/api/study?mainPost=${id}`, {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
+        .get(`/api/study?mainPost=${id}`)
         .then((data) => {
           console.log(data.data);
           // default 값
           setUpdateTitle(data.data.title);
           setUpdateContext(data.data.context);
-          setUpdateImg(data.data.images);
+          setUpdateImgUrls(data.data.images);
           console.log(updateTitle, updateContext);
         })
         .catch((e) => {
@@ -55,11 +55,30 @@ const St_editForm = ({ id }: UpdateProps) => {
     setUpdateContext(e.currentTarget.value);
   };
 
-  const onChangeUpdateImg = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.files) {
-      const file = e.currentTarget.files;
-      setUpdateImg(file);
+  const onChangeUpdateImg = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = e.target.files;
+      const data = await imageUpload(files, "main");
+      // const file = useUmage...()
+
+      setUpdateImgUrls([...updateImgUrls, ...data]);
     }
+  };
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=study`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = updateImgUrls.filter((el) => el !== imgUrl);
+    console.log(filteredData);
+    setUpdateImgUrls(filteredData);
   };
 
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
@@ -70,7 +89,7 @@ const St_editForm = ({ id }: UpdateProps) => {
     console.log({
       title: updateTitle,
       context: updateContext,
-      images: updateImg,
+      images: updateImgUrls,
     });
 
     let dataSet = {
@@ -88,13 +107,12 @@ const St_editForm = ({ id }: UpdateProps) => {
         {
           title: updateTitle,
           context: updateContext,
-          images: updateImg,
+          images: updateImgUrls,
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: allToken,
           },
         }
       )
@@ -140,8 +158,14 @@ const St_editForm = ({ id }: UpdateProps) => {
             onChange={onChangeUpdateImg}
             multiple
           />
+          {updateImgUrls?.map((imgUrl) => (
+            <>
+              <Image key={imgUrl} src={imgUrl} width={100} height={70} alt="" />
+              <span onClick={() => handleImageDelete(imgUrl)}>X</span>
+            </>
+          ))}
           <BtnContainer>
-            <Submit type="submit">registration</Submit>
+            <Submit type="submit">edit</Submit>
           </BtnContainer>
         </Container>
       </form>

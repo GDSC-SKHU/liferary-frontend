@@ -3,7 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import styled from "styled-components";
-
+import Image from "next/image";
+import imageUpload from "@/libs/imageUpload";
 const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
   const { allToken } = useToken();
 
@@ -15,7 +16,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
 
   const [content, setContent] = useState<string>("");
 
-  const [imgFile, setImgFile] = useState<FileList | null>(null);
+  const [imgUrls, setImgUrls] = useState<string[]>([]);
 
   const errorAlert = () => {
     if (title.length == 0) {
@@ -34,11 +35,29 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
     setContent(e.target.value);
   };
 
-  const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const file = e.target.files;
-      setImgFile(file);
+      const files = e.target.files;
+      const data = await imageUpload(files, "board");
+
+      setImgUrls([...imgUrls, ...data]);
     }
+  };
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=board`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = imgUrls.filter((el) => el !== imgUrl);
+    console.log(filteredData);
+    setImgUrls(filteredData);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -47,18 +66,17 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
       isEdit
         ? //수정모드
           axios
-            .post(
+            .patch(
               `/api/board/${mainPostId}/post?id=${id}`,
               {
                 title,
                 context: content,
-                images: imgFile,
+                images: imgUrls,
               },
               {
                 headers: {
                   // crossDomain: true,
                   // credentials: 'include',
-                  "Content-Type": "multipart/form-data",
                   withCredentials: true,
                   Authorization: allToken,
                 },
@@ -82,13 +100,12 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
                 mainPostId: id,
                 title: title,
                 context: content,
-                images: imgFile,
+                images: imgUrls,
               },
               {
                 headers: {
                   // crossDomain: true,
                   // credentials: 'include',
-                  "Content-Type": "multipart/form-data",
                   withCredentials: true,
                   Authorization: allToken,
                 },
@@ -105,41 +122,17 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
               errorAlert();
             });
     }
-    // console.log({
-    //   mainPostId: id,
-    //   title: title,
-    //   context: content,
-    //   images: imgFile,
-    // });
-
-    // let dataSet = {
-    //   mainPostId: id,
-    //   title: title,
-    //   context: content,
-    //   images: imgFile,
-    // };
-
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(dataSet));
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem("accessToken");
     {
       isEdit &&
-        axios
-          .get(`/api/board/${mainPostId}/post/?id=${id}`, {
-            headers: {
-              withCredentials: true,
-              Authorization: `Bearer ${TOKEN}`,
-            },
-          })
-          .then((data) => {
-            console.log("editData", data);
-            setTitle(data.data.title);
-            setContent(data.data.context);
-            setImgFile(data.data.images);
-          });
+        axios.get(`/api/board/${mainPostId}/post/?id=${id}`).then((data) => {
+          console.log("editData", data);
+          setTitle(data.data.title);
+          setContent(data.data.context);
+          setImgUrls(data.data.images);
+        });
     }
   }, []);
   return (
@@ -158,14 +151,30 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
             value={content}
             onChange={onChangeContent}
           />
-          <input
-            id="input-file"
+          <StyledLabel className="file-label" htmlFor="chooseFile">
+            Choose your file
+          </StyledLabel>
+          <ImgInput
+            className="file"
+            id="chooseFile"
             accept="image/*"
             type="file"
             placeholder="Input file here!"
             onChange={onChangeImg}
             multiple
           />
+          {imgUrls?.map((imgUrl) => (
+            <>
+              <Image key={imgUrl} src={imgUrl} width={100} height={70} alt="" />
+              <span
+                style={{ color: "black" }}
+                onClick={() => handleImageDelete(imgUrl)}
+              >
+                X
+              </span>
+            </>
+          ))}
+
           <BtnContainer>
             {!isEdit ? (
               <Submit type="submit">registration</Submit>
@@ -264,4 +273,21 @@ const Submit = styled.button`
     color: var(--color-normal);
     border: 1px solid var(--color-normal);
   }
+`;
+const StyledLabel = styled.label`
+  width: 40vw;
+  margin-top: 30px;
+  padding: 10px 0;
+
+  background-color: var(--color-main);
+  color: #fff;
+  border-radius: 6px;
+
+  text-align: center;
+
+  cursor: pointer;
+`;
+
+const ImgInput = styled.input`
+  display: none;
 `;

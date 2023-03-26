@@ -12,18 +12,11 @@ export default function St_list() {
   useEffect(() => {
     const TOKEN = localStorage.getItem("accessToken");
 
-    axios
-      .get(`/api/study/all?page=${page}`, {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then((data) => {
-        console.log(data.data);
-        setList(data.data.content);
-        setTotalPage(data.data.totalPages);
-      });
+    axios.get(`/api/study/all?page=${page}`).then((data) => {
+      console.log(data.data);
+      setList(data.data.content);
+      setTotalPage(data.data.totalPages);
+    });
   }, [page]);
 
   return (

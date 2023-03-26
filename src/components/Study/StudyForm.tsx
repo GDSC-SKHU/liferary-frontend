@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 interface ViewProps {
   id: string;
@@ -29,24 +30,17 @@ const StudyForm = ({ id }: StudyProps) => {
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
-    if (confirm("Are you sure you want to delete it?")) {
-      axios
-        .delete(`/api/study?mainPost=${id}`, {
-          headers: {
-            withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
-        .then(() => {
-          //새로고침하면서 불러오기
-          alert("Success Delete!");
-          // return false;
-          router.push("/share");
-        })
-        .catch((e) => console.log(e));
-    } else {
-      return;
-    }
+    axios
+      .delete(`/api/study?mainPost=${id}`, {
+        headers: {
+          withCredentials: true,
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then(() => {
+        router.push("/share");
+      })
+      .catch((e) => console.log(e));
   };
 
   const onClickUpdateRouter = () => {
@@ -113,9 +107,16 @@ const StudyForm = ({ id }: StudyProps) => {
           )}
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
-            <Container2>
-              <p>{view.images}</p>
-            </Container2>
+            {view.images?.map((el) => (
+              <ShareImage
+                key={view.id}
+                // src={`https://picsum.photos/200/300`}
+                src={el}
+                width={100}
+                height={70}
+                alt=""
+              />
+            ))}
           </StyledDiv2>
         </Container>
       ) : (
@@ -230,4 +231,11 @@ const StyledP = styled.p`
   @media (max-width: 800px) {
     font-size: medium;
   }
+`;
+
+const ShareImage = styled(Image)`
+  width: 50%;
+  height: 40%;
+  border-radius: 10px;
+  //cover
 `;

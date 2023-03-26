@@ -15,30 +15,18 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
     {
       mainPostId
         ? axios
-            .get(`/api/board/${mainPostId}/page?page=${page}`, {
-              headers: {
-                withCredentials: true,
-                Authorization: `Bearer ${TOKEN}`,
-              },
-            })
+            .get(`/api/board/${mainPostId}/page?page=${page}`)
             .then((data) => {
               console.log(data.data);
               setList(data.data.content);
               setTotalPage(data.data.totalPages);
             })
         : //전체 불러오기
-          axios
-            .get(`/api/board/all?page=${page}`, {
-              headers: {
-                withCredentials: true,
-                Authorization: `Bearer ${TOKEN}`,
-              },
-            })
-            .then((data) => {
-              console.log(data.data);
-              setList(data.data.content);
-              setTotalPage(data.data.totalPages);
-            });
+          axios.get(`/api/board/all?page=${page}`).then((data) => {
+            console.log(data.data);
+            setList(data.data.content);
+            setTotalPage(data.data.totalPages);
+          });
     }
   }, [page, mainPostId]);
 
@@ -65,7 +53,6 @@ const CategoryContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 100%;
   margin-top: 4vh;
 `;
