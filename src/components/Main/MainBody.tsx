@@ -37,5 +37,5 @@ const MainPostWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-bottom: 3vh;
+  margin-bottom: 4vh;
 `;

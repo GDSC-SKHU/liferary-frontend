@@ -317,7 +317,7 @@ const Description = styled.p`
   font-size: small;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -325,9 +325,9 @@ const Container = styled.div`
 
   color: white;
 
-  ::selection {
+  /* ::selection {
     background-color: pink;
-  }
+  } */
 `;
 
 const Container2 = styled.div`
@@ -379,9 +379,11 @@ const Iframe = styled.iframe`
   margin-top: 1rem;
 `;
 
-const ShareImage = styled(Image)`
+export const ShareImage = styled(Image)`
   width: 50%;
   height: 40%;
+  margin-bottom: 1rem;
+
   border-radius: 10px;
   //cover
 `;

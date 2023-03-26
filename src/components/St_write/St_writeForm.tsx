@@ -5,6 +5,18 @@ import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import {
+  BtnContainer,
+  DeleteImg,
+  ImageContainer,
+  ImgContainer,
+  ImgInput,
+  Notion,
+  StyledInput,
+  StyledInput2,
+  StyledLabel,
+  Submit,
+} from "../S_write/S_writeForm";
 
 const St_writeForm = () => {
   const { allToken } = useToken();
@@ -104,21 +116,54 @@ const St_writeForm = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <Container>
-          <StyledInput
-            type="text"
-            placeholder="Please enter your title"
-            value={title}
-            onChange={onChangeTitle}
-          />
-          <StyledInput2
-            placeholder="Write your tips contents"
-            value={content}
-            onChange={onChangeContent}
-          />
+        <Container style={{ marginTop: "9vh" }}>
+          <div>
+            <div>
+              <Notion>Please enter your</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="title"
+              value={title}
+              onChange={onChangeTitle}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Write your</Notion>
+            </div>
+            <StyledInput2
+              placeholder="tips contents"
+              value={content}
+              onChange={onChangeContent}
+            />
+          </div>
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <ImageContainer>
+            {/* c_writeBody.tsx랑 다름 */}
+            {imgUrls.map((imgUrl) => {
+              return (
+                <ImgContainer key={imgUrl}>
+                  <Image
+                    key={imgUrl}
+                    // src={`https://picsum.photos/200/300`}
+                    src={imgUrl}
+                    width={100}
+                    height={70}
+                    alt=""
+                  />
+                  <DeleteImg
+                    style={{ color: "black" }}
+                    onClick={() => handleImageDelete(imgUrl)}
+                  >
+                    x
+                  </DeleteImg>
+                </ImgContainer>
+              );
+            })}
+          </ImageContainer>
           <ImgInput
             className="file"
             id="chooseFile"
@@ -133,21 +178,6 @@ const St_writeForm = () => {
           </BtnContainer>
         </Container>
       </form>
-      {imgUrls?.map((imgUrl) => {
-        return (
-          <>
-            <Image
-              key={imgUrl}
-              // src={`https://picsum.photos/200/300`}
-              src={imgUrl}
-              width={100}
-              height={70}
-              alt=""
-            />
-            <span onClick={() => handleImageDelete(imgUrl)}>x</span>
-          </>
-        );
-      })}
     </>
   );
 };
@@ -161,96 +191,4 @@ const Container = styled.div`
   align-items: center;
 
   color: white;
-`;
-
-const StyledInput = styled.input`
-  width: 40vw;
-  min-height: 6vh;
-  margin-top: 2vh;
-  padding: 0 6px;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-  word-break: break-all;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledInput2 = styled.textarea`
-  width: 40vw;
-  height: 40vh;
-  margin-top: 3vh;
-  padding: 0 6px;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledLabel = styled.label`
-  width: 40vw;
-  margin-top: 30px;
-  padding: 10px 0;
-
-  background-color: var(--color-main);
-  color: #fff;
-  border-radius: 6px;
-
-  text-align: center;
-
-  cursor: pointer;
-`;
-
-const ImgInput = styled.input`
-  display: none;
-`;
-
-const BtnContainer = styled.div`
-  width: 40vw;
-`;
-
-const Submit = styled.button`
-  float: right;
-  margin-top: 3vh;
-  margin-bottom: 1rem;
-  padding: 3px 10px;
-
-  background-color: var(--color-normal);
-  color: white;
-  border: 1px solid var(--color-normal);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-normal);
-    border: 1px solid var(--color-normal);
-  }
 `;

@@ -136,7 +136,7 @@ const WriteWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin: 1vw 3vw 0 0;
+  margin: 0.4vw 3vw 0 0;
   gap: 10px;
 
   > p {
