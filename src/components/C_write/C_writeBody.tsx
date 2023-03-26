@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import imageUpload from "@/libs/imageUpload";
+
 const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
   const { allToken } = useToken();
 
@@ -43,6 +44,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
       setImgUrls([...imgUrls, ...data]);
     }
   };
+
   const handleImageDelete = async (imgUrl: string) => {
     await axios
       .delete(`/api/image?path=board`, {
@@ -104,8 +106,6 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
               },
               {
                 headers: {
-                  // crossDomain: true,
-                  // credentials: 'include',
                   withCredentials: true,
                   Authorization: allToken,
                 },
@@ -135,6 +135,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
         });
     }
   }, []);
+
   return (
     <>
       {isEdit && <h3>Edit mode</h3>}

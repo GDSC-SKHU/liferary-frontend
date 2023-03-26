@@ -5,6 +5,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 export interface MainCategoryProps {
   currentCategory: string | null;
 }
+
 export default function S_write({ currentCategory }: MainCategoryProps) {
   return (
     <>

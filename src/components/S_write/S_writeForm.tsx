@@ -25,8 +25,6 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
 
   const [videoUrl, setVideoUrl] = useState<string>("");
 
-  const [previewImgUrl, setPreviewImgUrl] = useState<string[]>([]);
-
   const errorAlert = () => {
     if (title.length == 0) {
       return alert("Please enter your title.");
@@ -59,6 +57,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
       setImgUrls([...imgUrls, ...data]);
     }
   };
+
   const handleImageDelete = async (imgUrl: string) => {
     await axios
       .delete(`/api/image?path=main`, {

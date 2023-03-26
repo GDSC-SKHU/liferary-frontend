@@ -8,7 +8,9 @@ type account = string | null;
 
 const useToken = () => {
   const router = useRouter();
+
   const [approval, setApproval] = useState<approval>("Bearer");
+
   const [token, setToken] = useState<account>("");
 
   useEffect(() => {
@@ -35,8 +37,6 @@ const useToken = () => {
         }
       });
   }, []);
-
-  // console.log(token);
 
   const Tokens = [approval + " " + token];
   const allToken = Tokens.join();

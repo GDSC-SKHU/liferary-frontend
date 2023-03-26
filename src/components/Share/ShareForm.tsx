@@ -21,7 +21,6 @@ interface ListProps {
 const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   const router = useRouter();
   const { user } = useUser();
-  console.log(router.query.video);
 
   let ready = router.isReady;
 

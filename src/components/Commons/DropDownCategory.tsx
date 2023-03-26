@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { useEffect, useState } from "react";
+
 interface Category {
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   currentCategory?: string;

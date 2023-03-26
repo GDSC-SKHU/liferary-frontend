@@ -20,7 +20,6 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const [view, setView] = useState<Board>();
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const TOKEN = localStorage.getItem("accessToken");
     if (confirm("Are you sure you want to delete it?")) {
       axios
         .delete(`/api/board/${mainPostId}/post/?id=${id}`, {

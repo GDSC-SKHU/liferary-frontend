@@ -7,6 +7,7 @@ import DropDownCategory from "../Commons/DropDownCategory";
 import Image from "next/image";
 import useToken from "../../hooks/useToken";
 import imageUpload from "@/libs/imageUpload";
+
 const S_editForm = ({ id }: UpdateProps) => {
   const { allToken } = useToken();
   const router = useRouter();
@@ -62,6 +63,7 @@ const S_editForm = ({ id }: UpdateProps) => {
   const onChangeUpdateCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setUpdateCategory(e.target.value);
   };
+
   const onChangeUpdateImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = e.target.files;
@@ -133,6 +135,7 @@ const S_editForm = ({ id }: UpdateProps) => {
         errorAlert();
       });
   };
+
   return (
     <>
       <form onSubmit={onClickUpdate}>

@@ -38,23 +38,20 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem("accessToken");
-    {
-      categoryName
-        ? axios
-            .get(`/api/main/category/${categoryName}?page=${page}`)
-            .then((data) => {
-              console.log(data.data);
-              setList(data.data.content);
-              setTotalPage(data.data.totalPages);
-            })
-        : //전체 불러오기
-          axios.get(`/api/main/all?page=${page}`).then((data) => {
+    categoryName
+      ? axios
+          .get(`/api/main/category/${categoryName}?page=${page}`)
+          .then((data) => {
             console.log(data.data);
             setList(data.data.content);
             setTotalPage(data.data.totalPages);
-          });
-    }
+          })
+      : //전체 불러오기
+        axios.get(`/api/main/all?page=${page}`).then((data) => {
+          console.log(data.data);
+          setList(data.data.content);
+          setTotalPage(data.data.totalPages);
+        });
   }, [page, categoryName]);
 
   return (

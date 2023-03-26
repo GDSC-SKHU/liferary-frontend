@@ -10,7 +10,6 @@ import useToken from "@/hooks/useToken";
 const St_editForm = ({ id }: UpdateProps) => {
   const { allToken } = useToken();
   const router = useRouter();
-  console.log("st_edit", id);
 
   const [updateTitle, setUpdateTitle] = useState<string>("");
 
@@ -29,7 +28,6 @@ const St_editForm = ({ id }: UpdateProps) => {
 
   useEffect(() => {
     const getUpdateData = () => {
-      const TOKEN = localStorage.getItem("accessToken");
       axios
         .get(`/api/study?mainPost=${id}`)
         .then((data) => {
@@ -64,6 +62,7 @@ const St_editForm = ({ id }: UpdateProps) => {
       setUpdateImgUrls([...updateImgUrls, ...data]);
     }
   };
+
   const handleImageDelete = async (imgUrl: string) => {
     await axios
       .delete(`/api/image?path=study`, {
@@ -83,8 +82,6 @@ const St_editForm = ({ id }: UpdateProps) => {
 
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const TOKEN = localStorage.getItem("accessToken");
 
     console.log({
       title: updateTitle,
@@ -185,15 +182,13 @@ const Container = styled.div`
 const StyledInput = styled.input`
   width: 40vw;
   min-height: 6vh;
-  /* height: auto; */
   margin-top: 2vh;
   padding: 0 6px;
-
-  word-break: break-all;
 
   border: 1px solid var(--color-main);
   border-radius: 5px;
 
+  word-break: break-all;
   outline: none;
 
   &:focus {

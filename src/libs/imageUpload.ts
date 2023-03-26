@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const imageUpload = async (
   files: FileList,
   path: "main" | "board" | "study"
