@@ -165,6 +165,27 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          {/* c_writeBody.tsx랑 다름 */}
+          {imgUrls.map((imgUrl) => {
+            return (
+              <ImgContainer>
+                <Image
+                  key={imgUrl}
+                  // src={`https://picsum.photos/200/300`}
+                  src={imgUrl}
+                  width={100}
+                  height={70}
+                  alt=""
+                />
+                <span
+                  style={{ color: "black" }}
+                  onClick={() => handleImageDelete(imgUrl)}
+                >
+                  x
+                </span>
+              </ImgContainer>
+            );
+          })}
           <ImgInput
             className="file"
             id="chooseFile"
@@ -180,23 +201,6 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
         </Container>
       </form>
 
-      {/* c_writeBody.tsx랑 다름 */}
-      {imgUrls.map((imgUrl) => {
-        return (
-          <>
-            <Image
-              key={imgUrl}
-              // src={`https://picsum.photos/200/300`}
-              src={imgUrl}
-              width={100}
-              height={70}
-              alt=""
-            />
-            <span onClick={() => handleImageDelete(imgUrl)}>x</span>
-          </>
-        );
-      })}
-
       {videoId && (
         <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
       )}
@@ -205,6 +209,11 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
 };
 
 export default S_write;
+
+const ImgContainer = styled.div`
+  display: inline;
+  margin-top: 1rem;
+`;
 
 const StyledDiv = styled.div`
   width: 50vw;
@@ -231,14 +240,15 @@ const Container = styled.div`
 const StyledInput = styled.input`
   width: 40vw;
   min-height: 6vh;
-  /* height: auto; */
   margin-top: 2vh;
   padding: 0 6px;
 
   word-break: break-all;
 
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid var(--color-main);
+
+  font-size: large;
 
   outline: none;
 
@@ -249,7 +259,6 @@ const StyledInput = styled.input`
   ::placeholder {
     color: #bebebe;
 
-    font-weight: 600;
     font-size: large;
   }
 `;
@@ -260,7 +269,9 @@ const StyledInput2 = styled.textarea`
   margin-top: 3vh;
   padding: 0 6px;
 
-  border: 1px solid var(--color-main);
+  word-break: break-all;
+
+  border: none;
   border-radius: 5px;
 
   outline: none;
@@ -272,7 +283,6 @@ const StyledInput2 = styled.textarea`
   ::placeholder {
     color: #bebebe;
 
-    font-weight: 600;
     font-size: large;
   }
 `;
