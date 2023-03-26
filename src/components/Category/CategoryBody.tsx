@@ -1,72 +1,154 @@
 import Element from "./Element";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import Pagination from "../Commons/Pagination";
+import axios from "axios";
+import { CategoryParams } from "@/pages/category/[...name]";
+import { categoryList } from "../../types/category";
+import Link from "next/link";
+import ListTable from "../Commons/ListTable";
 
-export default function CategoryBody() {
-    return (
-        <>
-            <Container>
-                <Continer2>
-                    <StyledDiv>
-                        <StyledH2>Choose your category!</StyledH2>
-                    </StyledDiv>
-                    <StyledDiv2>
-                        <Element />
-                    </StyledDiv2>
-                </Continer2>
-            </Container>
-        </>
-    )
+interface UserInfo {
+  email: string;
+  nickname: string;
+  firebaseAuth: boolean;
 }
 
-const Container = styled.div`
-width: 100%;
-height: 70vh;
-margin-top: 4vh;
-padding-top: 4vh;
+export default function CategoryBody({ categoryName }: CategoryParams) {
+  const [page, setPage] = useState<number>(1);
 
-background-color: #72a4f7;
-color: white;
-`;
+  const [totalPage, setTotalPage] = useState<number>(0);
 
-const Continer2 = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-color: white;
-`;
+  const [list, setList] = useState();
 
-const StyledDiv = styled.div`
-width: 25vw;
-height: 7vh;
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
-margin-bottom: 1rem;
+  useEffect(() => {
+    Object.keys(window.localStorage).includes("userInfo") &&
+      setUserInfo(
+        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
+      );
+    console.log(userInfo);
+  }, []);
 
-background-color: #A0C3FD;
-border-radius: 10px;
-text-align: center;
+  const handleOpenToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
 
-@media (max-width: 800px) {
-width: 30vw;
-height: auto;
-padding: 3px;
+  useEffect(() => {
+    const TOKEN = localStorage.getItem("accessToken");
+    {
+      categoryName
+        ? axios
+            .get(`/api/main/category/${categoryName}?page=${page}`, {
+              headers: {
+                withCredentials: true,
+                Authorization: `Bearer ${TOKEN}`,
+              },
+            })
+            .then((data) => {
+              console.log(data.data);
+              setList(data.data.content);
+              setTotalPage(data.data.totalPages);
+            })
+        : //전체 불러오기
+          axios
+            .get(`/api/main/all?page=${page}`, {
+              headers: {
+                withCredentials: true,
+                Authorization: `Bearer ${TOKEN}`,
+              },
+            })
+            .then((data) => {
+              console.log(data.data);
+              setList(data.data.content);
+              setTotalPage(data.data.totalPages);
+            });
+    }
+  }, [page, categoryName]);
+
+  return (
+    <CategoryContainer>
+      <ChooseWrapper>
+        <ChooseButton onClick={handleOpenToggle}>
+          Click and Choose your category!
+        </ChooseButton>
+        <Element isOpen={isOpen} categories={categoryList} />
+      </ChooseWrapper>
+      {categoryName && <h3>{categoryName} result</h3>}
+      <CategoryListWrapper>
+        {totalPage && list ? (
+          <ListTable list={list} page={page} />
+        ) : (
+          <div>{categoryName}There are no posts.</div>
+        )}
+      </CategoryListWrapper>
+      <Pagination
+        totalPages={totalPage}
+        currentPage={page}
+        onPageChange={setPage}
+      ></Pagination>
+      {userInfo ? (
+        <Link href="/s_write">
+          <WriteBtn>Try write!</WriteBtn>
+        </Link>
+      ) : null}
+    </CategoryContainer>
+  );
 }
+
+const CategoryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  cursor: default;
+
+  width: 100%;
+  margin-top: 4vh;
 `;
 
-const StyledH2 = styled.h2`
-@media (max-width: 800px) {
-font-size: medium;
-}
+const ChooseWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.5s ease-in-out;
+`;
+const ChooseButton = styled.div`
+  padding: 10px;
+
+  background: var(--color-main);
+  color: white;
+  border-radius: 20px;
+`;
+const CategoryListWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
 `;
 
-const StyledDiv2 = styled.div`
-width: 60vw;
-height: 50vh;
-padding: 0.5rem 1rem;
+const WriteBtn = styled.button`
+  margin-top: 4.5vh;
+  margin-left: 15vw;
+  padding: 3px 10px;
 
-background-color: white;
-color: #72a4f7;
-border-radius: 5px;
-box-shadow: 5px 5px 20px #444444;
+  background-color: var(--color-deep);
+  color: white;
+  border: 1px solid var(--color-deep);
+  border-radius: 10px;
+
+  font-weight: 600;
+  font-size: large;
+
+  &:hover {
+    background-color: white;
+    color: var(--color-deep);
+  }
 `;

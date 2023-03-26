@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function Ment() {
   return (
@@ -9,7 +9,7 @@ export default function Ment() {
         <StyledP>If you have an id,</StyledP>
         <StyledP>please login.</StyledP>
         <StyledP>Thank you.</StyledP>
-        <Link href={'/login'}>
+        <Link href={"/login"}>
           <StyledBtn>Login here</StyledBtn>
         </Link>
       </Container>
@@ -21,12 +21,15 @@ const Container = styled.div`
   width: 40%;
   height: 100vh;
   float: left;
-
   padding-top: 37vh;
   padding-left: 11vw;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
+
+  @media (max-width: 800px) {
+    padding-left: 10vw;
+  }
 `;
 
 const StyledP = styled.p`
@@ -36,7 +39,7 @@ const StyledP = styled.p`
 const StyledBtn = styled.button`
   margin-left: 10vw;
 
-  background-color: #72a4f7;
+  background-color: var(--color-normal);
   color: white;
   border: 1px solid white;
   border-radius: 7px;
@@ -45,6 +48,6 @@ const StyledBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: #72a4f7;
+    color: var(--color-normal);
   }
 `;
