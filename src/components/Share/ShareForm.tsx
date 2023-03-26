@@ -142,24 +142,24 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         <br />
         <StyledSpan>Category: </StyledSpan>
         <StyledBox>
-          <StyledName onClick={() => onClickCategory(view?.category)}>
+          <p onClick={() => onClickCategory(view?.category)}>
             {view?.category}
-          </StyledName>
+          </p>
         </StyledBox>
       </div>
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.nickname}</StyledName>
+          <p>{view?.nickname}</p>
         </StyledBox>
       </div>
       {view !== undefined ? (
         <Container>
           {user?.nickname === view.nickname && (
-            <div>
-              <button onClick={onClickUpdateRouter}>Update</button>
+            <BtnContainer>
+              <Btn onClick={onClickUpdateRouter}>Update</Btn>
               <button onClick={onClickDelete}>delete</button>
-            </div>
+            </BtnContainer>
           )}
           <StyledDiv>
             <StyledH2>{view.title}</StyledH2>
@@ -192,19 +192,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               </Container2>
             )}
           </StyledDiv2>
-          {/* {videoId && (
-            <YouTube
-              videoId={videoId}
-              opts={{ width: "100%", height: "500px" }}
-            />
-          )} */}
-
-          {/* {videoId && (
-            <YouTube
-              videoId={videoId}
-              opts={{ width: "100%", height: "500px" }}
-            />
-          )} */}
           {user?.nickname === view.nickname && (
             <div>
               <button onClick={onClickRouter}>Write Study</button>
@@ -238,15 +225,28 @@ const StyledBox = styled.div`
   color: white;
   border-radius: 5px;
 
-  /* font-weight: 600; */
+  font-weight: 600;
   font-size: 1rem;
   text-align: center;
+  letter-spacing: 1px;
 `;
 
-const StyledName = styled.p`
-  @media (max-width: 800px) {
-    font-size: 0.7em;
+const BtnContainer = styled.div`
+  display: flex !important;
+  justify-content: space-between !important;
+
+  all: unset;
+
+  :not(div) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+`;
+
+const Btn = styled.button`
+  float: left;
 `;
 
 const StyledDiv = styled.div`

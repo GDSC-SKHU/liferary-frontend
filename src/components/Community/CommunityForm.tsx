@@ -91,7 +91,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
           })
         }
       >
-        본문으로 가기
+        Go to body
       </button>
       <Category>
         <StyledSpan>Write time: </StyledSpan>

@@ -53,7 +53,7 @@ const ListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
-  width: 70vw;
+  width: 70%;
   height: 5vh;
   margin-top: 3vh;
   padding: 0 20px;

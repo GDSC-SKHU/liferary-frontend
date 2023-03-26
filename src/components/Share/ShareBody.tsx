@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import Satisfy from "./Satisfy";
 import ShareForm from "./ShareForm";
 import { ShareProps } from "@/pages/share";
 import Recruit from "./Recruit";
@@ -16,20 +15,18 @@ export default function ShareBody({ id }: ShareProps) {
     }
   }, []);
 
-  const toggleStudy = () => {
-    setStudy((prevStudy) => !prevStudy);
-    localStorage.setItem("isStudy", (!study).toString());
-  };
+  // const toggleStudy = () => {
+  //   setStudy((prevStudy) => !prevStudy);
+  //   localStorage.setItem("isStudy", (!study).toString());
+  // };
 
   return (
     <>
       <ShareForm id={id} />
-      {/* <Satisfy /> */}
       <Container>
         {study && <Recruit />}
-        {/* <Recruit /> */}
+        <Recruit />
         <Community id={id} />
-        <button onClick={toggleStudy}>Study</button>
       </Container>
     </>
   );

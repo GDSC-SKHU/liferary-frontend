@@ -1,13 +1,14 @@
 import useUser from "@/hooks/useUser";
-import { StudyProps } from "@/pages/study";
 import { formatDate } from "@/types/date";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ViewProps {
+  mainPostId: string;
   id: string;
   title: string;
   nickname: string;
@@ -31,19 +32,29 @@ const StudyForm = () => {
 
   const [view, setView] = useState<ViewProps>();
 
+  const [googlemeetLink, setGooglemeetLink] = useState<string>();
+
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
-    axios
-      .delete(`/api/study?mainPost=${id}`, {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then(() => {
-        router.push(`/share?id=${id}`);
-      })
-      .catch((e) => console.log(e));
+
+    if (confirm("Are you sure you want to delete it?")) {
+      axios
+        .delete(`/api/study?mainPost=${id}`, {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then(() => {
+          //새로고침하면서 불러오기
+          alert("Success Delete!");
+          // return false;
+          router.push(`/share?id=${id}`);
+        })
+        .catch((e) => console.log(e));
+    } else {
+      return;
+    }
   };
 
   const onClickUpdateRouter = () => {
@@ -79,8 +90,29 @@ const StudyForm = () => {
     ready ? getView() : null;
   }, [ready]);
 
+  useEffect(() => {
+    const formatted = view?.context.match(/(https?:\/\/[^\s]+)/g);
+
+    console.log("formatted", formatted);
+    formatted && setGooglemeetLink(formatted[0]);
+    // setFormattedText(formatted);
+    // console.log(formattedText);
+  }, [view]);
+
   return (
-    <div>
+    <>
+      <button
+        onClick={() =>
+          router.push({
+            pathname: "/share",
+            query: {
+              id: view?.mainPostId,
+            },
+          })
+        }
+      >
+        Go to body
+      </button>
       <Category>
         <StyledSpan>Write time: </StyledSpan>
         <span>{formatDate(view?.modifiedDate!)}</span>
@@ -120,11 +152,16 @@ const StudyForm = () => {
               />
             ))}
           </StyledDiv2>
+          {googlemeetLink && (
+            <GoogleMeetLink href={googlemeetLink} target={"_blank"}>
+              Go To GOOGLE MEET and study
+            </GoogleMeetLink>
+          )}
         </Container>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 
@@ -171,13 +208,6 @@ const Container = styled.div`
   align-items: center;
 
   color: white;
-`;
-
-const Container2 = styled.div`
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-
-  border-bottom: 3px solid var(--color-normal);
 `;
 
 const StyledDiv = styled.div`
@@ -240,4 +270,8 @@ const ShareImage = styled(Image)`
   height: 40%;
   border-radius: 10px;
   //cover
+`;
+
+const GoogleMeetLink = styled(Link)`
+  color: black;
 `;
