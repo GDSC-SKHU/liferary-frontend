@@ -15,8 +15,7 @@ const nextConfig = {
       },
     ],
 
-    //   domains: ["localhost", "*", "img.youtube.com", "storage.googleapis.com",
-    // ]
+    domains: ["localhost", "*", "img.youtube.com", "storage.googleapis.com"],
   },
 
   async rewrites() {
