@@ -2,13 +2,22 @@ import useUser from "@/hooks/useUser";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { CommunityProps } from "@/pages/community/[mainPostId]/[id]";
 import Board from "@/types/board";
 import { formatDate } from "@/types/date";
 import CommunityComment from "./CommunityComment";
-import Image from "next/image";
 import useToken from "@/hooks/useToken";
+import { Container, ShareImage } from "../Share/ShareForm";
+import {
+  Category,
+  StyledBox,
+  StyledDiv,
+  StyledDiv2,
+  StyledH2,
+  StyledName,
+  StyledP,
+  StyledSpan,
+} from "../Study/StudyForm";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const { allToken } = useToken();
@@ -138,109 +147,3 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
 };
 
 export default CommunityForm;
-
-const Category = styled.div`
-  margin-top: 2rem;
-`;
-
-const StyledSpan = styled.span`
-  margin-left: 3vw;
-
-  color: var(--color-main);
-
-  font-weight: 600;
-  font-size: large;
-`;
-
-const StyledBox = styled.div`
-  display: inline-block;
-
-  margin: 5px 5px 5px 0.3vw;
-  padding: 1px 7px;
-
-  background-color: var(--color-deep);
-  color: white;
-  border-radius: 5px;
-
-  font-weight: 600;
-  font-size: large;
-  text-align: center;
-`;
-
-const StyledName = styled.p`
-  @media (max-width: 800px) {
-    font-size: 0.7em;
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-`;
-
-const StyledDiv = styled.div`
-  width: 40vw;
-  height: 7vh;
-
-  margin-bottom: 1rem;
-
-  background-color: var(--color-normal);
-  border-radius: 10px;
-
-  text-align: center;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
-  }
-`;
-
-const StyledDiv2 = styled.div`
-  width: 40vw;
-  margin-bottom: 1rem;
-
-  border-radius: 10px;
-
-  text-align: justify;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-
-    padding: 3px;
-  }
-`;
-
-const StyledP = styled.p`
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-
-  color: #666666;
-  border-bottom: 3px solid var(--color-normal);
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-const StyledH2 = styled.h2`
-  color: white;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-const ShareImage = styled(Image)`
-  width: 50%;
-  height: 40%;
-  border-radius: 10px;
-  //cover
-`;

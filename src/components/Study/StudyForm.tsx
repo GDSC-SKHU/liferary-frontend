@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { Container, ShareImage } from "../Share/ShareForm";
 
 interface ViewProps {
   mainPostId: string;
@@ -169,11 +170,11 @@ const StudyForm = () => {
 
 export default StudyForm;
 
-const Category = styled.div`
+export const Category = styled.div`
   margin-top: 2rem;
 `;
 
-const StyledSpan = styled.span`
+export const StyledSpan = styled.span`
   margin-left: 3vw;
 
   color: var(--color-main);
@@ -182,7 +183,7 @@ const StyledSpan = styled.span`
   font-size: large;
 `;
 
-const StyledBox = styled.div`
+export const StyledBox = styled.div`
   display: inline-block;
 
   margin: 5px 5px 5px 0.3vw;
@@ -197,22 +198,13 @@ const StyledBox = styled.div`
   text-align: center;
 `;
 
-const StyledName = styled.p`
+export const StyledName = styled.p`
   @media (max-width: 800px) {
     font-size: 0.7em;
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-`;
-
-const StyledDiv = styled.div`
+export const StyledDiv = styled.div`
   width: 40vw;
   height: 7vh;
   margin-bottom: 1rem;
@@ -229,7 +221,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const StyledDiv2 = styled.div`
+export const StyledDiv2 = styled.div`
   width: 40vw;
   margin-bottom: 1rem;
 
@@ -246,13 +238,15 @@ const StyledDiv2 = styled.div`
   }
 `;
 
-const StyledH2 = styled.h2`
+export const StyledH2 = styled.h2`
+  color: white;
+
   @media (max-width: 800px) {
     font-size: medium;
   }
 `;
 
-const StyledP = styled.p`
+export const StyledP = styled.p`
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 
@@ -265,13 +259,6 @@ const StyledP = styled.p`
   @media (max-width: 800px) {
     font-size: medium;
   }
-`;
-
-const ShareImage = styled(Image)`
-  width: 50%;
-  height: 40%;
-  border-radius: 10px;
-  //cover
 `;
 
 const GoogleMeetLink = styled(Link)`

@@ -7,6 +7,18 @@ import DropDownCategory from "../Commons/DropDownCategory";
 import Image from "next/image";
 import useToken from "../../hooks/useToken";
 import imageUpload from "@/libs/imageUpload";
+import {
+  BtnContainer,
+  DeleteImg,
+  ImageContainer,
+  ImgContainer,
+  ImgInput,
+  Notion,
+  StyledInput,
+  StyledInput2,
+  StyledLabel,
+  Submit,
+} from "../S_write/S_writeForm";
 
 const S_editForm = ({ id }: UpdateProps) => {
   const { allToken } = useToken();
@@ -151,26 +163,64 @@ const S_editForm = ({ id }: UpdateProps) => {
           </div>
         </StyledDiv>
         <Container>
-          <StyledInput
-            type="text"
-            placeholder="Please enter your title"
-            value={updateTitle}
-            onChange={onChangeUpdateTitle}
-          />
-          <StyledInput2
-            placeholder="Write your tips contents"
-            value={updateContext}
-            onChange={onChangeUpdateContext}
-          />
-          <StyledInput
-            type="text"
-            placeholder="Input youtube link here!"
-            value={updateVideo}
-            onChange={onChangeUpdateVideo}
-          />
+          <div>
+            <div>
+              <Notion>Please enter your</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="title"
+              value={updateTitle}
+              onChange={onChangeUpdateTitle}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Write your</Notion>
+            </div>
+            <StyledInput2
+              placeholder="tips contents"
+              value={updateContext}
+              onChange={onChangeUpdateContext}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Input youtube link</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="here!"
+              value={updateVideo}
+              onChange={onChangeUpdateVideo}
+            />
+          </div>
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <ImageContainer>
+            {/* c_writeBody.tsx랑 다름 */}
+            {updateImgUrls.map((imgUrl) => {
+              return (
+                <ImgContainer key={imgUrl}>
+                  <Image
+                    key={imgUrl}
+                    // src={`https://picsum.photos/200/300`}
+                    src={imgUrl}
+                    width={100}
+                    height={70}
+                    alt=""
+                  />
+                  <DeleteImg
+                    style={{ color: "black" }}
+                    onClick={() => handleImageDelete(imgUrl)}
+                  >
+                    x
+                  </DeleteImg>
+                </ImgContainer>
+              );
+            })}
+          </ImageContainer>
           <ImgInput
             className="file"
             id="chooseFile"
@@ -180,12 +230,6 @@ const S_editForm = ({ id }: UpdateProps) => {
             onChange={onChangeUpdateImg}
             multiple
           />
-          {updateImgUrls?.map((imgUrl) => (
-            <>
-              <Image key={imgUrl} src={imgUrl} width={100} height={70} alt="" />
-              <span onClick={() => handleImageDelete(imgUrl)}>X</span>
-            </>
-          ))}
           <BtnContainer>
             <Submit type="submit">edit</Submit>
           </BtnContainer>
@@ -215,98 +259,4 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledInput = styled.input`
-  width: 40vw;
-  min-height: 6vh;
-  /* height: auto; */
-  margin-top: 2vh;
-  padding: 0 6px;
-
-  word-break: break-all;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledInput2 = styled.textarea`
-  width: 40vw;
-  height: 40vh;
-  margin-top: 3vh;
-  padding: 0 6px;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledLabel = styled.label`
-  width: 40vw;
-  margin-top: 30px;
-  padding: 10px 0;
-
-  background-color: var(--color-main);
-  color: #fff;
-  border-radius: 6px;
-
-  text-align: center;
-
-  cursor: pointer;
-`;
-
-const ImgInput = styled.input`
-  display: none;
-`;
-
-const BtnContainer = styled.div`
-  width: 40vw;
-`;
-
-const Submit = styled.button`
-  float: right;
-  margin-top: 3vh;
-  margin-bottom: 1rem;
-  padding: 3px 10px;
-
-  background-color: var(--color-normal);
-  color: white;
-  border: 1px solid var(--color-normal);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-normal);
-    border: 1px solid var(--color-normal);
-  }
 `;

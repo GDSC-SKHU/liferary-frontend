@@ -283,7 +283,7 @@ const Container = styled.div`
   color: white;
 `;
 
-const Notion = styled.p`
+export const Notion = styled.p`
   float: left;
 
   color: var(--color-main);
@@ -291,7 +291,7 @@ const Notion = styled.p`
   font-size: small;
 `;
 
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
   width: 40vw;
   min-height: 6vh;
   margin-bottom: 0.5rem;
@@ -318,9 +318,9 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledInput2 = styled.textarea`
+export const StyledInput2 = styled.textarea`
   width: 40vw;
-  height: 31vh;
+  height: 33.8vh;
   margin-bottom: 0.5rem;
 
   word-break: break-all;
@@ -343,7 +343,7 @@ const StyledInput2 = styled.textarea`
   }
 `;
 
-const StyledLabel = styled.label`
+export const StyledLabel = styled.label`
   width: 40vw;
   margin-top: 1.5rem;
   padding: 4px 0;
@@ -363,16 +363,16 @@ const StyledLabel = styled.label`
   }
 `;
 
-const ImageContainer = styled.div`
+export const ImageContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-const ImgContainer = styled.div`
+export const ImgContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const DeleteImg = styled.span`
+export const DeleteImg = styled.span`
   margin-left: 5px;
   margin-right: 1rem;
 
@@ -384,15 +384,15 @@ const DeleteImg = styled.span`
   }
 `;
 
-const ImgInput = styled.input`
+export const ImgInput = styled.input`
   display: none;
 `;
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
   width: 40vw;
 `;
 
-const Submit = styled.button`
+export const Submit = styled.button`
   float: right;
   margin-top: 3vh;
   margin-bottom: 1rem;
