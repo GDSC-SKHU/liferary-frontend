@@ -25,22 +25,18 @@ export default function Recruit({ id }: ShareProps) {
   };
 
   return (
-    <Container onClick={onClickReadRouter}>
-      {/* {view !== undefined ? () : } */}
-      {
-        isExist ? (
-          <>
-            <StyledH2>Check out your study!</StyledH2>
-            <StyledImg src="/Symbol.svg" />
-          </>
-        ) : (
-          <>
-            <StyledH2>No Study Yet</StyledH2>
-            <>Please wait</>
-          </>
-        )
-        //  <StyledImg src="/Symbol.svg" />
-      }
+    <Container>
+      {isExist ? (
+        <div onClick={onClickReadRouter}>
+          <StyledH2>Check out your study!</StyledH2>
+          <StyledImg src="/Symbol.svg" />
+        </div>
+      ) : (
+        <>
+          <StyledH2>No Study Yet</StyledH2>
+          <>Please wait</>
+        </>
+      )}
     </Container>
   );
 }

@@ -169,33 +169,48 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           </div>
         </StyledDiv>
         <Container>
-          <StyledInput
-            type="text"
-            placeholder="Please enter your title"
-            value={title}
-            onChange={onChangeTitle}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            style={{ borderBottomWidth: isFocused ? "3px" : "1px" }}
-          />
-          <StyledInput2
-            placeholder="Write your tips contents"
-            value={content}
-            onChange={onChangeContent}
-            onFocus={handleInputFocus2}
-            onBlur={handleInputBlur2}
-            style={{ borderBottomWidth: isFocused2 ? "3px" : "1px" }}
-          />
-          <StyledInput
-            type="text"
-            id="youtubeUrlInput"
-            placeholder="Input youtube link here!"
-            value={videoUrl}
-            onChange={onChagneVideo}
-            onFocus={handleInputFocus3}
-            onBlur={handleInputBlur3}
-            style={{ borderBottomWidth: isFocused3 ? "3px" : "1px" }}
-          />
+          <div>
+            <div>
+              <Notion>Please enter your</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="title"
+              value={title}
+              onChange={onChangeTitle}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+              style={{ borderBottomWidth: isFocused ? "3px" : "1px" }}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Write your</Notion>
+            </div>
+            <StyledInput2
+              placeholder="tips contents"
+              value={content}
+              onChange={onChangeContent}
+              onFocus={handleInputFocus2}
+              onBlur={handleInputBlur2}
+              style={{ borderBottomWidth: isFocused2 ? "3px" : "1px" }}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Input youtube link</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              id="youtubeUrlInput"
+              placeholder="here!"
+              value={videoUrl}
+              onChange={onChagneVideo}
+              onFocus={handleInputFocus3}
+              onBlur={handleInputBlur3}
+              style={{ borderBottomWidth: isFocused3 ? "3px" : "1px" }}
+            />
+          </div>
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
@@ -227,12 +242,12 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             id="chooseFile"
             accept="image/*"
             type="file"
-            placeholder="Input file here!"
+            placeholder="Input file here"
             onChange={onChangeImg}
             multiple
           />
           <BtnContainer>
-            <Submit type="submit">registration</Submit>
+            <Submit type="submit">Registration</Submit>
           </BtnContainer>
         </Container>
       </form>
@@ -268,11 +283,18 @@ const Container = styled.div`
   color: white;
 `;
 
+const Notion = styled.p`
+  float: left;
+
+  color: var(--color-main);
+
+  font-size: small;
+`;
+
 const StyledInput = styled.input`
   width: 40vw;
   min-height: 6vh;
-  margin-top: 2vh;
-  padding: 0 6px;
+  margin-bottom: 0.5rem;
 
   word-break: break-all;
 
@@ -298,9 +320,8 @@ const StyledInput = styled.input`
 
 const StyledInput2 = styled.textarea`
   width: 40vw;
-  height: 37vh;
-  margin-top: 3vh;
-  padding: 0 6px;
+  height: 31vh;
+  margin-bottom: 0.5rem;
 
   word-break: break-all;
 
@@ -324,8 +345,8 @@ const StyledInput2 = styled.textarea`
 
 const StyledLabel = styled.label`
   width: 40vw;
-  margin-top: 1.8rem;
-  padding: 8px 0;
+  margin-top: 1.5rem;
+  padding: 4px 0;
 
   background-color: var(--color-main);
   color: #fff;

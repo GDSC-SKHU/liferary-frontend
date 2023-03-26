@@ -140,11 +140,11 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         <Wrapper>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <StyledBox>
+            <StyledBox2>
               <p onClick={() => onClickCategory(view?.category)}>
                 {view?.category}
               </p>
-            </StyledBox>
+            </StyledBox2>
           </div>
           <br />
           <TimeContainer>
@@ -165,10 +165,10 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
       {view !== undefined ? (
         <Container>
           {user?.nickname === view.nickname && (
-            <BtnContainer>
+            <div>
               <Btn onClick={onClickUpdateRouter}>Update</Btn>
               <Btn onClick={onClickDelete}>Delete</Btn>
-            </BtnContainer>
+            </div>
           )}
           <StyledDiv>
             <StyledH2>{view.title}</StyledH2>
@@ -239,23 +239,17 @@ const StyledBox = styled.div`
   color: white;
   border-radius: 5px;
 
-  /* font-weight: 600; */
   font-size: 1rem;
   text-align: center;
-  /* letter-spacing: 1px; */
 `;
 
-const BtnContainer = styled.div`
-  display: flex !important;
-  justify-content: space-between !important;
+const StyledBox2 = styled(StyledBox)`
+  cursor: pointer;
 
-  all: unset;
+  transition: 0.3s;
 
-  :not(div) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &:hover {
+    transform: translateY(-2px);
   }
 `;
 
@@ -277,14 +271,19 @@ const Btn = styled.button`
 `;
 
 const StyledDiv = styled.div`
-  width: 45vw;
+  width: fit-content;
+  /* 45vw */
   min-height: fit-content;
   margin-bottom: 1rem;
+  padding: 0 10px;
 
   background-color: var(--color-normal);
+  border-bottom: 1px solid var(--color-normal);
+  color: white;
   border-radius: 5px;
 
   text-align: center;
+  /* box-shadow: 0 2px 5px #777777; */
 
   @media (max-width: 800px) {
     width: 30vw;
@@ -325,6 +324,10 @@ const Container = styled.div`
   align-items: center;
 
   color: white;
+
+  ::selection {
+    background-color: pink;
+  }
 `;
 
 const Container2 = styled.div`
@@ -337,8 +340,10 @@ const Container2 = styled.div`
 `;
 
 const StyledH2 = styled.h2`
-  word-break: break-all;
   height: fit-content;
+
+  font-weight: 500;
+  word-break: break-all;
 
   @media (max-width: 800px) {
     font-size: medium;
@@ -347,16 +352,16 @@ const StyledH2 = styled.h2`
 
 const StyledP = styled.p`
   width: 100%;
-  word-break: break-all;
   margin-bottom: 1rem;
-  padding-bottom: 1rem;
+  padding: 0 10px 1rem;
   height: auto;
 
-  color: #666666;
+  color: #444444;
   border-bottom: 3px solid var(--color-normal);
 
   font-weight: 500;
   font-size: 1rem;
+  word-break: break-all;
 `;
 
 const StyledTitle = styled.span`
