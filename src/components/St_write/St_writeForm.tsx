@@ -1,8 +1,10 @@
 import useToken from "@/hooks/useToken";
+import imageUpload from "@/libs/imageUpload";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 const St_writeForm = () => {
   const { allToken } = useToken();
@@ -12,7 +14,7 @@ const St_writeForm = () => {
 
   const [content, setContent] = useState<string>("");
 
-  const [imgFile, setImgFile] = useState<FileList | null>(null);
+  const [imgUrls, setImgUrls] = useState<string[]>([]);
 
   const id = router.query.id;
 
@@ -33,11 +35,29 @@ const St_writeForm = () => {
     setContent(e.target.value);
   };
 
-  const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const file = e.target.files;
-      setImgFile(file);
+      const files = e.target.files;
+      const data = await imageUpload(files, "study");
+
+      setImgUrls([...imgUrls, ...data]);
     }
+  };
+
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=main`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = imgUrls.filter((el) => el !== imgUrl);
+    setImgUrls(filteredData);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -50,18 +70,15 @@ const St_writeForm = () => {
       mainPostId: id,
       title: title,
       context: content,
-      images: imgFile,
+      images: imgUrls,
     });
 
     let dataSet = {
       mainPostId: id,
       title: title,
       context: content,
-      images: imgFile,
+      images: imgUrls,
     };
-
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(dataSet));
 
     axios
       .post(
@@ -70,13 +87,13 @@ const St_writeForm = () => {
           mainPostId: id,
           title: title,
           context: content,
-          images: imgFile,
+          images: imgUrls,
         },
         {
           headers: {
             // crossDomain: true,
             // credentials: 'include',
-            "Content-Type": "multipart/form-data",
+
             withCredentials: true,
             Authorization: allToken,
           },
@@ -130,6 +147,21 @@ const St_writeForm = () => {
           </BtnContainer>
         </Container>
       </form>
+      {imgUrls?.map((imgUrl) => {
+        return (
+          <>
+            <Image
+              key={imgUrl}
+              // src={`https://picsum.photos/200/300`}
+              src={imgUrl}
+              width={100}
+              height={70}
+              alt=""
+            />
+            <span onClick={() => handleImageDelete(imgUrl)}>x</span>
+          </>
+        );
+      })}
     </>
   );
 };

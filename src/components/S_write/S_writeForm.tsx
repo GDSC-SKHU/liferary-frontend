@@ -7,7 +7,10 @@ import DropDownCategory from "../Commons/DropDownCategory";
 import React from "react";
 import YouTube from "react-youtube";
 import Image from "next/image";
-const S_write = () => {
+import { MainCategoryProps } from "@/pages/s_write";
+import imageUpload from "../../libs/imageUpload";
+
+const S_write = ({ currentCategory }: MainCategoryProps) => {
   const { allToken } = useToken();
 
   const router = useRouter();
@@ -16,11 +19,11 @@ const S_write = () => {
 
   const [content, setContent] = useState<string>("");
 
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<string>(currentCategory ?? "");
 
-  const [imgFile, setImgFile] = useState<FileList | null>(null);
+  const [imgUrls, setImgUrls] = useState<string[]>([]);
 
-  const [url, setUrl] = React.useState("");
+  const [videoUrl, setVideoUrl] = useState<string>("");
 
   const [previewImgUrl, setPreviewImgUrl] = useState<string[]>([]);
 
@@ -48,56 +51,44 @@ const S_write = () => {
     setCategory(e.target.value);
   };
 
-  // const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     const file = e.target.files;
-  //     console.log("t", e.target.files);
-  //     setImgFile(file);
-  //   }
-  // };
-
   const onChangeImg = async (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      setImgFile(files);
-      const urls: string[] = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const url = URL.createObjectURL(file);
-        // urls.push(url.split("blob:")[1]);
-        urls.push(url);
-      }
-      setPreviewImgUrl((prevUrls) => [...prevUrls, ...urls]);
+    if (e.target.files) {
+      const files = e.target.files;
+      const data = await imageUpload(files, "main");
+
+      setImgUrls([...imgUrls, ...data]);
     }
+  };
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=main`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = imgUrls.filter((el) => el !== imgUrl);
+    setImgUrls(filteredData);
   };
 
   const onChagneVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl(e.target.value);
+    setVideoUrl(e.target.value);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const TOKEN = localStorage.getItem('accessToken');
-    // console.log(TOKEN);
-
     console.log({
       title: title,
       category: category,
       context: content,
-      images: imgFile,
-      video: url,
+      images: imgUrls,
+      video: videoUrl,
     });
-
-    // let dataSet = {
-    //   title: title,
-    //   category: category,
-    //   context: content,
-    //   video: url,
-    // };
-
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(dataSet));
 
     axios
       .post(
@@ -106,12 +97,11 @@ const S_write = () => {
           title: title,
           category: category,
           context: content,
-          images: imgFile,
-          video: url,
+          images: imgUrls,
+          video: videoUrl,
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             withCredentials: true,
             Authorization: allToken,
           },
@@ -140,7 +130,7 @@ const S_write = () => {
     return match ? match[1] : null;
   };
 
-  const videoId = getIdFromUrl(url);
+  const videoId = getIdFromUrl(videoUrl);
 
   return (
     <>
@@ -148,7 +138,10 @@ const S_write = () => {
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <DropDownCategory onChange={onChangeCategory} />
+            <DropDownCategory
+              onChange={onChangeCategory}
+              currentCategory={category}
+            />
           </div>
         </StyledDiv>
         <Container>
@@ -167,7 +160,7 @@ const S_write = () => {
             type="text"
             id="youtubeUrlInput"
             placeholder="Input youtube link here!"
-            value={url}
+            value={videoUrl}
             onChange={onChagneVideo}
           />
           <StyledLabel className="file-label" htmlFor="chooseFile">
@@ -187,18 +180,24 @@ const S_write = () => {
           </BtnContainer>
         </Container>
       </form>
-      {previewImgUrl.map((imgUrl) => {
+
+      {/* c_writeBody.tsx랑 다름 */}
+      {imgUrls.map((imgUrl) => {
         return (
-          <Image
-            key={imgUrl}
-            // src={`https://picsum.photos/200/300`}
-            src={imgUrl}
-            width={100}
-            height={70}
-            alt=""
-          />
+          <>
+            <Image
+              key={imgUrl}
+              // src={`https://picsum.photos/200/300`}
+              src={imgUrl}
+              width={100}
+              height={70}
+              alt=""
+            />
+            <span onClick={() => handleImageDelete(imgUrl)}>x</span>
+          </>
         );
       })}
+
       {videoId && (
         <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
       )}
@@ -318,7 +317,7 @@ const Submit = styled.button`
 
   &:hover {
     background-color: white;
-    color: var(—color-normal);
-    border: 1px solid var(—color-normal);
+    color: var(--color-normal);
+    border: 1px solid var(--color-normal);
   }
 `;

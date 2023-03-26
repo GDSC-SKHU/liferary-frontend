@@ -2,6 +2,7 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { googleLogin } from "./GoogleLogin";
+import useToken from "../../hooks/useToken";
 
 const LoginForm = () => {
   const [emailData, setEmailData] = useState<string>("");
@@ -36,6 +37,7 @@ const LoginForm = () => {
         // }
         axios
           .get("/api/member/info", {
+            //이건필수
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },

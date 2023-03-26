@@ -7,8 +7,11 @@ import { CommunityProps } from "@/pages/community/[mainPostId]/[id]";
 import Board from "@/types/board";
 import { formatDate } from "@/types/date";
 import CommunityComment from "./CommunityComment";
+import Image from "next/image";
+import useToken from "@/hooks/useToken";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
+  const { allToken } = useToken();
   const router = useRouter();
   const { user } = useUser();
 
@@ -23,7 +26,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
         .delete(`/api/board/${mainPostId}/post/?id=${id}`, {
           headers: {
             withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: allToken,
           },
         })
         .then(() => {
@@ -57,8 +60,8 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
       axios
         .get(`/api/board/${mainPostId}/post/?id=${id}`, {
           headers: {
+            Authorization: allToken,
             withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
           },
         })
         .then((data) => {
@@ -116,6 +119,16 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
           </StyledDiv2>
+          {view.images?.map((el) => (
+            <ShareImage
+              key={view.id}
+              // src={`https://picsum.photos/200/300`}
+              src={el}
+              width={100}
+              height={70}
+              alt=""
+            />
+          ))}
           <CommunityComment boardPostId={view.id} />
         </Container>
       ) : (
@@ -225,4 +238,10 @@ const StyledH2 = styled.h2`
   @media (max-width: 800px) {
     font-size: medium;
   }
+`;
+const ShareImage = styled(Image)`
+  width: 50%;
+  height: 40%;
+  border-radius: 10px;
+  //cover
 `;

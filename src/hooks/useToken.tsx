@@ -29,22 +29,6 @@ const useToken = () => {
       .then((res) => console.log(res))
       .catch((res) => {
         if (res.response.status === 403) {
-          //   axios
-          //     .post(
-          //       `/api/member/reissue`,
-          //       {},
-          //       {
-          //         headers: {
-          //           RefreshToken: refreshToken,
-          //           Authorization: `Bearer ${accessToken}`,
-          //         },
-          //       }
-          //     )
-          //     .then((res) => {
-          //       localStorage.setItem("accessToken", res.data.accessToken);
-          //       localStorage.setItem("refreshToken", res.data.refreshToken);
-          //     });
-          // }
           alert("logged out");
           handleLogout();
           router.push(`/login`);

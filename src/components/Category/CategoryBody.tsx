@@ -42,30 +42,18 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
     {
       categoryName
         ? axios
-            .get(`/api/main/category/${categoryName}?page=${page}`, {
-              headers: {
-                withCredentials: true,
-                Authorization: `Bearer ${TOKEN}`,
-              },
-            })
+            .get(`/api/main/category/${categoryName}?page=${page}`)
             .then((data) => {
               console.log(data.data);
               setList(data.data.content);
               setTotalPage(data.data.totalPages);
             })
         : //전체 불러오기
-          axios
-            .get(`/api/main/all?page=${page}`, {
-              headers: {
-                withCredentials: true,
-                Authorization: `Bearer ${TOKEN}`,
-              },
-            })
-            .then((data) => {
-              console.log(data.data);
-              setList(data.data.content);
-              setTotalPage(data.data.totalPages);
-            });
+          axios.get(`/api/main/all?page=${page}`).then((data) => {
+            console.log(data.data);
+            setList(data.data.content);
+            setTotalPage(data.data.totalPages);
+          });
     }
   }, [page, categoryName]);
 
@@ -91,7 +79,13 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         onPageChange={setPage}
       ></Pagination>
       {userInfo ? (
-        <Link href="/s_write">
+        <Link
+          href={{
+            pathname: "/s_write",
+            query: { category: categoryName },
+          }}
+          as="/s_write"
+        >
           <WriteBtn>Try write!</WriteBtn>
         </Link>
       ) : null}
