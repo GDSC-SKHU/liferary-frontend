@@ -25,6 +25,31 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
 
   const [videoUrl, setVideoUrl] = useState<string>("");
 
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused2, setIsFocused2] = useState(false);
+  const [isFocused3, setIsFocused3] = useState(false);
+
+  const handleInputFocus = () => {
+    setIsFocused(true);
+  };
+  const handleInputBlur = () => {
+    setIsFocused(false);
+  };
+
+  const handleInputFocus2 = () => {
+    setIsFocused2(true);
+  };
+  const handleInputBlur2 = () => {
+    setIsFocused2(false);
+  };
+
+  const handleInputFocus3 = () => {
+    setIsFocused3(true);
+  };
+  const handleInputBlur3 = () => {
+    setIsFocused3(false);
+  };
+
   const errorAlert = () => {
     if (title.length == 0) {
       return alert("Please enter your title.");
@@ -149,11 +174,17 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             placeholder="Please enter your title"
             value={title}
             onChange={onChangeTitle}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            style={{ borderBottomWidth: isFocused ? "3px" : "1px" }}
           />
           <StyledInput2
             placeholder="Write your tips contents"
             value={content}
             onChange={onChangeContent}
+            onFocus={handleInputFocus2}
+            onBlur={handleInputBlur2}
+            style={{ borderBottomWidth: isFocused2 ? "3px" : "1px" }}
           />
           <StyledInput
             type="text"
@@ -161,6 +192,9 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             placeholder="Input youtube link here!"
             value={videoUrl}
             onChange={onChagneVideo}
+            onFocus={handleInputFocus3}
+            onBlur={handleInputBlur3}
+            style={{ borderBottomWidth: isFocused3 ? "3px" : "1px" }}
           />
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
@@ -225,7 +259,7 @@ const StyledSpan = styled.span`
   color: var(--color-main);
 
   font-weight: 600;
-  font-size: large;
+  font-size: 1rem;
 `;
 
 const Container = styled.div`
@@ -248,56 +282,67 @@ const StyledInput = styled.input`
   border: none;
   border-bottom: 1px solid var(--color-main);
 
-  font-size: large;
-
+  font-size: 1rem;
   outline: none;
 
+  transition: border-bottom-width 0.3s;
+
   &:focus {
-    border: 2px solid var(--color-main);
+    border-bottom: 3px solid var(--color-main);
+    border-bottom-width: 3px solid var(--color-main);
   }
 
   ::placeholder {
     color: #bebebe;
 
-    font-size: large;
+    font-size: 1rem;
   }
 `;
 
 const StyledInput2 = styled.textarea`
   width: 40vw;
-  height: 40vh;
+  height: 37vh;
   margin-top: 3vh;
   padding: 0 6px;
 
   word-break: break-all;
 
   border: none;
-  border-radius: 5px;
+  border-bottom: 1px solid var(--color-main);
 
+  font-size: 1rem;
   outline: none;
 
+  transition: border-bottom-width 0.3s;
+
   &:focus {
-    border: 2px solid var(--color-main);
+    border-bottom: 3px solid var(--color-main);
+    border-bottom-width: 3px solid var(--color-main);
   }
 
   ::placeholder {
     color: #bebebe;
-
-    font-size: large;
   }
 `;
 
 const StyledLabel = styled.label`
-  width: 40%;
-  margin-top: 30px;
-  padding: 10px 0;
+  width: 40vw;
+  margin-top: 1.8rem;
+  padding: 8px 0;
 
   background-color: var(--color-main);
   color: #fff;
+  border: 1px solid var(--color-main);
   border-radius: 6px;
 
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: white;
+    color: var(--color-main);
+    border: 1px solid var(--color-main);
+  }
 `;
 
 const ImgInput = styled.input`
@@ -314,19 +359,19 @@ const Submit = styled.button`
   margin-bottom: 1rem;
   padding: 3px 10px;
 
-  background-color: var(--color-normal);
-  color: white;
-  border: 1px solid var(--color-normal);
-  border-radius: 10px;
+  background-color: white;
+  color: var(--color-main);
+  border: 1px solid var(--color-main);
 
-  font-weight: 600;
-  font-size: large;
+  border-radius: 5px;
+
+  font-size: 1rem;
 
   cursor: pointer;
 
   &:hover {
-    background-color: white;
-    color: var(--color-normal);
-    border: 1px solid var(--color-normal);
+    background-color: var(--color-main);
+    color: white;
+    border: 1px solid var(--color-main);
   }
 `;
