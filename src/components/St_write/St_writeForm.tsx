@@ -63,22 +63,12 @@ const St_writeForm = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const TOKEN = localStorage.getItem('accessToken');
-    // console.log(TOKEN);
-
     console.log({
       mainPostId: id,
       title: title,
       context: content,
       images: imgUrls,
     });
-
-    let dataSet = {
-      mainPostId: id,
-      title: title,
-      context: content,
-      images: imgUrls,
-    };
 
     axios
       .post(
@@ -91,9 +81,6 @@ const St_writeForm = () => {
         },
         {
           headers: {
-            // crossDomain: true,
-            // credentials: 'include',
-
             withCredentials: true,
             Authorization: allToken,
           },
@@ -102,8 +89,7 @@ const St_writeForm = () => {
       .then(() => {
         alert("Success write!");
         router.push({
-          pathname: `/study`,
-          // pathname: `/study?id=${id}`,
+          pathname: "/study",
           query: {
             id: id,
           },
@@ -180,16 +166,14 @@ const Container = styled.div`
 const StyledInput = styled.input`
   width: 40vw;
   min-height: 6vh;
-  /* height: auto; */
   margin-top: 2vh;
   padding: 0 6px;
-
-  word-break: break-all;
 
   border: 1px solid var(--color-main);
   border-radius: 5px;
 
   outline: none;
+  word-break: break-all;
 
   &:focus {
     border: 2px solid var(--color-main);

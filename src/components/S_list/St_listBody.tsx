@@ -6,7 +6,9 @@ import StudyListTable from "../Study/StudyListTable";
 
 export default function St_list() {
   const [page, setPage] = useState<number>(1);
+
   const [totalPage, setTotalPage] = useState<number>(0);
+
   const [list, setList] = useState();
 
   useEffect(() => {
@@ -53,23 +55,4 @@ const StudyListWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-`;
-
-const WriteBtn = styled.button`
-  margin-top: 4.5vh;
-  margin-left: 15vw;
-  padding: 3px 10px;
-
-  background-color: var(--color-deep);
-  color: white;
-  border: 1px solid var(--color-deep);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-deep);
-  }
 `;

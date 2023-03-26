@@ -22,7 +22,6 @@ const StudyForm = ({ id }: StudyProps) => {
 
   const router = useRouter();
   const { user } = useUser();
-  console.log(id);
 
   let ready = router.isReady;
 
