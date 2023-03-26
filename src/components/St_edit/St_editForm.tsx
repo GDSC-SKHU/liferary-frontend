@@ -8,6 +8,8 @@ import imageUpload from "@/libs/imageUpload";
 import useToken from "@/hooks/useToken";
 
 const St_editForm = ({ id }: UpdateProps) => {
+  console.log(id);
+
   const { allToken } = useToken();
   const router = useRouter();
 
@@ -118,7 +120,7 @@ const St_editForm = ({ id }: UpdateProps) => {
         router.push({
           pathname: "/study",
           query: {
-            id: res.data.id,
+            id,
           },
         });
       })

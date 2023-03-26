@@ -38,7 +38,7 @@ export default function Nav() {
               <List>Study</List>
             </LinkWrapper>
             <LinkWrapper href="/c_list">
-              <List>Communitiy</List>
+              <List>Community</List>
             </LinkWrapper>
           </LinkContainer>
         </NavItemWrapper>

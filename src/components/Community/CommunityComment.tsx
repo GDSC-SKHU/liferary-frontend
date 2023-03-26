@@ -18,6 +18,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       // console.log(list);
     });
   }, []);
+
   const handleSubmitComment = () => {
     axios.post(
       `/api/comment/new`,
@@ -33,6 +34,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       }
     );
   };
+
   return (
     <>
       {list?.length ? (
@@ -52,6 +54,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         />
+        <button type="submit">Registration</button>
       </form>
     </>
   );
