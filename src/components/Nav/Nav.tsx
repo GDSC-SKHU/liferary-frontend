@@ -78,7 +78,7 @@ const Container = styled.div`
 const StyledSpan = styled.span`
   color: var(--color-normal);
 
-  font-weight: 600;
+  font-weight: 200;
 `;
 
 const StyledImg = styled.img`
