@@ -135,8 +135,8 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   };
 
   return (
-    <div>
-      <Category>
+    <>
+      <div>
         <StyledSpan>Write time: </StyledSpan>
         <span>{formatDate(view?.modifiedDate!)}</span>
         <br />
@@ -146,7 +146,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
             {view?.category}
           </StyledName>
         </StyledBox>
-      </Category>
+      </div>
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
@@ -214,15 +214,11 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 
 export default ShareForm;
-
-const Category = styled.div`
-  margin-top: 2rem;
-`;
 
 const StyledSpan = styled.span`
   margin-left: 3vw;
@@ -230,7 +226,6 @@ const StyledSpan = styled.span`
   color: var(--color-main);
 
   font-weight: 600;
-  font-size: large;
 `;
 
 const StyledBox = styled.div`
@@ -243,8 +238,8 @@ const StyledBox = styled.div`
   color: white;
   border-radius: 5px;
 
-  font-weight: 600;
-  font-size: large;
+  /* font-weight: 600; */
+  font-size: 1rem;
   text-align: center;
 `;
 
@@ -327,10 +322,6 @@ const StyledP = styled.p`
 
   font-weight: 500;
   font-size: 1rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
 `;
 
 const StyledTitle = styled.span`
@@ -341,10 +332,6 @@ const StyledTitle = styled.span`
   font-weight: 600;
   font-size: 1.4rem;
   text-align: center;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
 `;
 
 const Iframe = styled.iframe`

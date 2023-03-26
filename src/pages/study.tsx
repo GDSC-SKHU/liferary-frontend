@@ -6,11 +6,11 @@ export interface StudyProps {
   id: string;
 }
 
-export default function Study({ id }: StudyProps) {
+export default function Study() {
   return (
     <>
       <Nav />
-      <StudyBody id={id} />
+      <StudyBody />
     </>
   );
 }

@@ -94,7 +94,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           withCredentials: true,
         },
       })
-      .then(() => alert("success Image deleted"));
+      .then(() => alert("Success Image deleted"));
     let filteredData = imgUrls.filter((el) => el !== imgUrl);
     setImgUrls(filteredData);
   };
@@ -199,27 +199,29 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
-          {/* c_writeBody.tsx랑 다름 */}
-          {imgUrls.map((imgUrl) => {
-            return (
-              <ImgContainer key={imgUrl}>
-                <Image
-                  key={imgUrl}
-                  // src={`https://picsum.photos/200/300`}
-                  src={imgUrl}
-                  width={100}
-                  height={70}
-                  alt=""
-                />
-                <span
-                  style={{ color: "black" }}
-                  onClick={() => handleImageDelete(imgUrl)}
-                >
-                  x
-                </span>
-              </ImgContainer>
-            );
-          })}
+          <ImageContainer>
+            {/* c_writeBody.tsx랑 다름 */}
+            {imgUrls.map((imgUrl) => {
+              return (
+                <ImgContainer key={imgUrl}>
+                  <Image
+                    key={imgUrl}
+                    // src={`https://picsum.photos/200/300`}
+                    src={imgUrl}
+                    width={100}
+                    height={70}
+                    alt=""
+                  />
+                  <DeleteImg
+                    style={{ color: "black" }}
+                    onClick={() => handleImageDelete(imgUrl)}
+                  >
+                    x
+                  </DeleteImg>
+                </ImgContainer>
+              );
+            })}
+          </ImageContainer>
           <ImgInput
             className="file"
             id="chooseFile"
@@ -243,11 +245,6 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
 };
 
 export default S_write;
-
-const ImgContainer = styled.div`
-  display: inline;
-  margin-top: 1rem;
-`;
 
 const StyledDiv = styled.div`
   width: 50vw;
@@ -342,6 +339,27 @@ const StyledLabel = styled.label`
     background-color: white;
     color: var(--color-main);
     border: 1px solid var(--color-main);
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const ImgContainer = styled.div`
+  margin-top: 1rem;
+`;
+
+const DeleteImg = styled.span`
+  margin-left: 5px;
+  margin-right: 1rem;
+
+  font-size: large;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
   }
 `;
 
