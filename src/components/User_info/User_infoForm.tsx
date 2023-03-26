@@ -129,27 +129,26 @@ export default function User_infoForm() {
                 Change Password
               </ChangeBtn>
 
-              <button onClick={() => setIsWithdraw((prev) => !prev)}>
+              {/* <button onClick={() => setIsWithdraw((prev) => !prev)}>
                 Withdraw
-              </button>
+              </button> */}
             </>
-          ) : (
-            <>
-              <span>confirm password</span>
-              <StyledInput
-                value={password}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.target.value)
-                }
-              ></StyledInput>
-              <button onClick={() => handleWithdraw(password as string)}>
-                Withdrawal
-              </button>
-              <button onClick={() => setIsWithdraw((prev) => !prev)}>
-                Withdrawal cancel
-              </button>
-            </>
-          )}
+          ) : // <>
+          //   <span>Confirm password</span>
+          //   <StyledInput
+          //     value={password}
+          //     onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          //       setPassword(e.target.value)
+          //     }
+          //   ></StyledInput>
+          //   <button onClick={() => handleWithdraw(password as string)}>
+          //     Withdrawal
+          //   </button>
+          //   <button onClick={() => setIsWithdraw((prev) => !prev)}>
+          //     Withdrawal cancel
+          //   </button>
+          // </>
+          null}
         </>
       ) : (
         <>
