@@ -58,7 +58,7 @@ const St_editForm = ({ id }: UpdateProps) => {
   const onChangeUpdateImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = e.target.files;
-      const data = await imageUpload(files, "main");
+      const data = await imageUpload(files, "study");
       // const file = useUmage...()
 
       setUpdateImgUrls([...updateImgUrls, ...data]);
