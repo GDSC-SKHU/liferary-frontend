@@ -137,15 +137,24 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   return (
     <>
       <div>
-        <StyledSpan>Write time: </StyledSpan>
-        <span>{formatDate(view?.modifiedDate!)}</span>
-        <br />
-        <StyledSpan>Category: </StyledSpan>
-        <StyledBox>
-          <p onClick={() => onClickCategory(view?.category)}>
-            {view?.category}
-          </p>
-        </StyledBox>
+        <Wrapper>
+          <div>
+            <StyledSpan>Category: </StyledSpan>
+            <StyledBox>
+              <p onClick={() => onClickCategory(view?.category)}>
+                {view?.category}
+              </p>
+            </StyledBox>
+          </div>
+          <br />
+          <TimeContainer>
+            <StyledSpan>Write time: </StyledSpan>
+            <StyledBox>
+              <span>{formatDate(view?.modifiedDate!)}</span>
+            </StyledBox>
+          </TimeContainer>
+        </Wrapper>
+        <Description>*Click here to view by category! </Description>{" "}
       </div>
       <div>
         <StyledSpan>Username: </StyledSpan>
@@ -158,7 +167,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
           {user?.nickname === view.nickname && (
             <BtnContainer>
               <Btn onClick={onClickUpdateRouter}>Update</Btn>
-              <button onClick={onClickDelete}>delete</button>
+              <Btn onClick={onClickDelete}>Delete</Btn>
             </BtnContainer>
           )}
           <StyledDiv>
@@ -194,7 +203,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
           </StyledDiv2>
           {user?.nickname === view.nickname && (
             <div>
-              <button onClick={onClickRouter}>Write Study</button>
+              <Btn onClick={onClickRouter}>Write Study</Btn>
             </div>
           )}
         </Container>
@@ -207,12 +216,17 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
 export default ShareForm;
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const TimeContainer = styled.div`
+  margin-right: 3vw;
+`;
+
 const StyledSpan = styled.span`
   margin-left: 3vw;
-
-  color: var(--color-main);
-
-  font-weight: 600;
 `;
 
 const StyledBox = styled.div`
@@ -225,10 +239,10 @@ const StyledBox = styled.div`
   color: white;
   border-radius: 5px;
 
-  font-weight: 600;
+  /* font-weight: 600; */
   font-size: 1rem;
   text-align: center;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 `;
 
 const BtnContainer = styled.div`
@@ -246,16 +260,29 @@ const BtnContainer = styled.div`
 `;
 
 const Btn = styled.button`
-  float: left;
+  margin: 0 1rem;
+  margin-bottom: 1rem;
+  padding: 5px 10px;
+
+  background-color: white;
+  color: var(--color-deep);
+  border: none;
+  border: 1px solid var(--color-deep);
+
+  transition: 0.3s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 `;
 
 const StyledDiv = styled.div`
   width: 45vw;
-  min-height: 7vh;
+  min-height: fit-content;
   margin-bottom: 1rem;
 
   background-color: var(--color-normal);
-  border-radius: 10px;
+  border-radius: 5px;
 
   text-align: center;
 
@@ -284,6 +311,13 @@ const StyledDiv2 = styled.div`
   }
 `;
 
+const Description = styled.p`
+  margin-left: 3vw;
+
+  color: var(--color-normal);
+  font-size: small;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -305,6 +339,7 @@ const Container2 = styled.div`
 const StyledH2 = styled.h2`
   word-break: break-all;
   height: fit-content;
+
   @media (max-width: 800px) {
     font-size: medium;
   }
