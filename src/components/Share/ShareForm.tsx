@@ -31,17 +31,24 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
-    axios
-      .delete(`/api/main/post/?id=${id}`, {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then(() => {
-        router.push("/");
-      })
-      .catch((e) => console.log(e));
+    if (confirm("Are you sure you want to delete it?")) {
+      axios
+        .delete(`/api/main/post/?id=${id}`, {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then(() => {
+          //새로고침하면서 불러오기
+          alert("Success Delete!");
+          // return false;
+          router.push(`/`);
+        })
+        .catch((e) => console.log(e));
+    } else {
+      return;
+    }
   };
 
   const onClickUpdateRouter = () => {

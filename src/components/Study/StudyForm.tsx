@@ -29,17 +29,24 @@ const StudyForm = ({ id }: StudyProps) => {
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     const TOKEN = localStorage.getItem("accessToken");
-    axios
-      .delete(`/api/study?mainPost=${id}`, {
-        headers: {
-          withCredentials: true,
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      })
-      .then(() => {
-        router.push("/share");
-      })
-      .catch((e) => console.log(e));
+    if (confirm("Are you sure you want to delete it?")) {
+      axios
+        .delete(`/api/study?mainPost=${id}`, {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        })
+        .then(() => {
+          //새로고침하면서 불러오기
+          alert("Success Delete!");
+          // return false;
+          router.push("/share");
+        })
+        .catch((e) => console.log(e));
+    } else {
+      return;
+    }
   };
 
   const onClickUpdateRouter = () => {
