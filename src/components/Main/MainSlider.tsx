@@ -26,7 +26,7 @@ const MainSlider = ({ kind }: { kind: "main" | "study" }) => {
           </SlideShowContainer>
         </>
       ) : (
-        <SlideShowContainer>{"There are no posts yet "}</SlideShowContainer>
+        <SlideShowContainer>{"There are no posts yet"}</SlideShowContainer>
       )}
     </>
   );

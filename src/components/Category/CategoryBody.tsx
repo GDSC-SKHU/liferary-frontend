@@ -68,7 +68,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         {totalPage && list ? (
           <ListTable list={list} page={page} />
         ) : (
-          <div>{categoryName} There are no posts.</div>
+          <div>{categoryName} There are no posts</div>
         )}
       </CategoryListWrapper>
       <Pagination
@@ -132,6 +132,7 @@ const CategoryListWrapper = styled.div`
   align-items: center;
 
   width: 100%;
+  margin-top: 1rem;
 `;
 
 const BtnContainer = styled.div`
