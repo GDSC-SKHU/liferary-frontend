@@ -91,6 +91,7 @@ const CommentItem = styled.div`
 
 const Writer = styled.span`
   margin-right: 1rem;
+
   font-weight: 600;
 `;
 
