@@ -23,5 +23,7 @@ export default function ListItem({
 }
 
 const StyledSpan = styled.div`
-  border-bottom: 1px solid var(--color-main);
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid #d3d3d3;
 `;

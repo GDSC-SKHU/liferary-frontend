@@ -78,7 +78,7 @@ const PaginationContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin-top: 20px;
+  margin: 20px 0;
 `;
 
 const PaginationButton = styled.button<{ isActive?: boolean }>`

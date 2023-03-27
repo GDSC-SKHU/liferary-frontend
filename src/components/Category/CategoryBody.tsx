@@ -63,12 +63,12 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         </ChooseButton>
         <Element isOpen={isOpen} categories={categoryList} />
       </ChooseWrapper>
-      {categoryName && <h3>{categoryName} result</h3>}
+      {categoryName && <CategoryName>{categoryName} result</CategoryName>}
       <CategoryListWrapper>
         {totalPage && list ? (
           <ListTable list={list} page={page} />
         ) : (
-          <div>{categoryName}There are no posts.</div>
+          <div>{categoryName} There are no posts.</div>
         )}
       </CategoryListWrapper>
       <Pagination
@@ -120,6 +120,10 @@ const ChooseButton = styled.div`
   background: var(--color-main);
   color: white;
   border-radius: 10px;
+`;
+
+const CategoryName = styled.h3`
+  margin-top: 1rem;
 `;
 
 const CategoryListWrapper = styled.div`

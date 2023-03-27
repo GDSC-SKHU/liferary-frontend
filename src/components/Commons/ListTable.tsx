@@ -52,32 +52,35 @@ export const ListWrapper = styled.div`
 
   width: 70%;
   height: 4vh;
-  margin-top: 3vh;
-  padding: 0 10px;
+  margin-top: 2vh;
+  padding: 20px;
+
+  border: none;
 
   align-content: center;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
+  cursor: default;
+
   :hover {
-    transform: translateY(-2px);
     color: var(--color-main);
   }
 `;
 
 export const TitleWrapper = styled(ListWrapper)`
   height: 5vh;
+  padding-bottom: 1.2rem;
 
-  border: none;
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: 2px solid var(--color-main);
 
   font-size: 20px;
 
   :hover {
     transform: none;
-    color: var(--color-main);
+    color: black;
   }
 `;
