@@ -100,9 +100,12 @@ const BannerWrapper = styled.div`
   width: 100%;
   height: 70vh;
 
+  > h2 {
+    margin-bottom: 5px;
+  }
+
   > p {
-    float: left;
-    font-weight: 700;
+    padding: 3px 0;
   }
 `;
 
@@ -136,23 +139,22 @@ const WriteWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin: 0.4vw 3vw 0 0;
+  margin: 4vh 3vw 0 0;
   gap: 10px;
 
   > p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 `;
 
-const WriteBtn = styled.button`
+export const WriteBtn = styled.button`
   float: right;
 
   background-color: var(--color-deep);
   color: white;
   border: 1px solid var(--color-deep);
-  border-radius: 10px;
+  border-radius: 5px;
 
-  font-weight: 600;
   font-size: large;
 
   &:hover {

@@ -42,13 +42,15 @@ export default function Nav() {
             </LinkWrapper>
           </LinkContainer>
         </NavItemWrapper>
-        <StyledSpan>
-          {userInfo && "Welcome, " + userInfo?.nickname + "!"}
-        </StyledSpan>
+        <Link href="/user_info" style={{ textDecoration: "none" }}>
+          <StyledSpan>
+            {userInfo && "Welcome, " + userInfo?.nickname + "!"}
+          </StyledSpan>
+        </Link>
         <UserContainer>
-          <Link href="/user_info">
+          {/* <Link href="/user_info">
             <StyledImg2 src="/Pro.svg" alt="" />
-          </Link>
+          </Link> */}
           <Link style={{ textDecoration: "none" }} href="/login">
             {userInfo ? (
               <LoginBtn onClick={handleLogout}>Logout</LoginBtn>
@@ -67,7 +69,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  height: 15vh;
+  height: 10vh;
 
   position: sticky;
   top: 0;
@@ -76,13 +78,23 @@ const Container = styled.div`
 `;
 
 const StyledSpan = styled.span`
+  padding: 2px 4px;
+
   color: var(--color-normal);
+  border: 1px solid white;
 
   font-weight: 200;
+
+  :hover {
+    padding: 2px 4px;
+
+    border: 1px solid var(--color-normal);
+    border-radius: 5px;
+  }
 `;
 
 const StyledImg = styled.img`
-  width: 18vw;
+  width: 13vw;
 
   margin-left: 3vw;
 `;
@@ -114,6 +126,7 @@ const LinkWrapper = styled(Link)`
 `;
 
 const List = styled.p`
+  font-weight: 200;
   transition: transform 0.3s;
 
   :hover {
@@ -121,18 +134,10 @@ const List = styled.p`
 
     color: var(--color-deep);
   }
-  /* @media (max-width: 800px) {
-    font-size: xx-small;
-  } */
-`;
-
-const StyledImg2 = styled.img`
-  margin-right: 3vw;
 `;
 
 const UserContainer = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -143,7 +148,7 @@ const LoginBtn = styled.button`
   background-color: var(--color-deep);
   color: white;
   border: 1px solid var(--color-deep);
-  border-radius: 10px;
+  border-radius: 5px;
 
   &:hover {
     background-color: white;

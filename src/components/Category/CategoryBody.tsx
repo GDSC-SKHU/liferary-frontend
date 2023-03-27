@@ -7,6 +7,7 @@ import { CategoryParams } from "@/pages/category/[...name]";
 import { categoryList } from "../../types/category";
 import Link from "next/link";
 import ListTable from "../Commons/ListTable";
+import { WriteBtn } from "../Main/Choice";
 
 interface UserInfo {
   email: string;
@@ -76,15 +77,18 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         onPageChange={setPage}
       ></Pagination>
       {userInfo ? (
-        <Link
-          href={{
-            pathname: "/s_write",
-            query: { category: categoryName },
-          }}
-          as="/s_write"
-        >
-          <WriteBtn>Try write!</WriteBtn>
-        </Link>
+        <BtnContainer>
+          {" "}
+          <Link
+            href={{
+              pathname: "/s_write",
+              query: { category: categoryName },
+            }}
+            as="/s_write"
+          >
+            <WriteBtn>Try write!</WriteBtn>{" "}
+          </Link>
+        </BtnContainer>
       ) : null}
     </CategoryContainer>
   );
@@ -98,7 +102,6 @@ const CategoryContainer = styled.div`
 
   cursor: default;
 
-  width: 100%;
   margin-top: 4vh;
 `;
 
@@ -112,11 +115,11 @@ const ChooseWrapper = styled.div`
 `;
 
 const ChooseButton = styled.div`
-  padding: 10px;
+  padding: 5px 10px;
 
   background: var(--color-main);
   color: white;
-  border-radius: 20px;
+  border-radius: 10px;
 `;
 
 const CategoryListWrapper = styled.div`
@@ -127,21 +130,6 @@ const CategoryListWrapper = styled.div`
   width: 100%;
 `;
 
-const WriteBtn = styled.button`
-  margin-top: 4.5vh;
-  margin-left: 15vw;
-  padding: 3px 10px;
-
-  background-color: var(--color-deep);
-  color: white;
-  border: 1px solid var(--color-deep);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-deep);
-  }
+const BtnContainer = styled.div`
+  margin-left: 60vw;
 `;
