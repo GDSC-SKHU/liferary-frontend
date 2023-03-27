@@ -28,9 +28,9 @@ const ElementContainer = styled.div`
   &.active {
     height: auto;
     margin: 5px;
-    padding: 30px;
+    padding: 15px;
 
-    border: 1px solid var(--color-light);
+    /* border: 1px solid var(--color-light); */
     border-radius: 10px;
     opacity: 1;
   }
@@ -47,7 +47,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   padding: 0 1rem;
-  width: 65vw;
+  /* width: 65vw; */
 `;
 
 const LinkWrapper = styled(Link)`
