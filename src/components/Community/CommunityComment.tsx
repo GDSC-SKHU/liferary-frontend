@@ -47,17 +47,17 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       {list?.length ? (
         <>
           {list.map((el) => (
-            <div>
+            <Container style={{ marginBottom: "1rem" }}>
               <CommentItem key={el.id}>
                 <Writer>{el.writer}</Writer>
                 <Content>{el.context} </Content>
               </CommentItem>
               <TimeContainer style={{ paddingLeft: "0" }}>
-                <DateP style={{ color: "black" }}>
+                <DateP style={{ color: "#8e8e8e", marginBottom: "5px" }}>
                   {formatDate(el.modifiedDate)}
                 </DateP>
               </TimeContainer>{" "}
-            </div>
+            </Container>
           ))}
         </>
       ) : (
@@ -78,6 +78,10 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
 };
 
 export default CommunityComment;
+
+const Container = styled.div`
+  border-bottom: 1px solid #d3d3d3;
+`;
 
 const CommentItem = styled.div`
   width: 55vw;

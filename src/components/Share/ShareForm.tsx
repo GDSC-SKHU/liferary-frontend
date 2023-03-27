@@ -286,8 +286,8 @@ export const DateP = styled.p`
   float: left;
   text-align: left;
 
+  color: #f0f0f0;
   font-size: small;
-  opacity: 0.5;
 `;
 
 export const StyledDiv = styled.div`
