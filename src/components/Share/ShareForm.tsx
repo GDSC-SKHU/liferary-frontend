@@ -357,7 +357,7 @@ const StyledP = styled.p`
   height: auto;
 
   color: #444444;
-  border-bottom: 3px solid var(--color-normal);
+  border-bottom: 1px solid var(--color-normal);
 
   font-weight: 500;
   font-size: 1rem;
