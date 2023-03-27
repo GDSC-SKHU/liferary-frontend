@@ -26,6 +26,26 @@ const Card = ({
           })
         }
       >
+        {data.images?.length ? (
+          <>
+            <CardImage
+              // src={`https://picsum.photos/200/300`}
+              src={data.images[0]}
+              width={"100"}
+              height={"70"}
+              alt=""
+            >
+              {/* {data.images[0]} */}
+            </CardImage>
+          </>
+        ) : (
+          <CardImage
+            src="/Logo4.svg"
+            width={"100"}
+            height={"70"}
+            alt="noimage"
+          ></CardImage>
+        )}
         <Title>{data.title}</Title>
       </CardItem>
     </>

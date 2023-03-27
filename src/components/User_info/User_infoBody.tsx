@@ -42,17 +42,19 @@ const UserContainer = styled.div`
   align-items: center;
   grid-template-columns: 15vw 65vw;
 
-  height: 80vh;
+  height: 70vh;
+  margin-top: 3rem;
 `;
 
 const UserWrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
   height: 100%;
-  margin-left: 3rem;
 
   border-radius: 20px;
 
-  box-shadow: 2px 2px 4px 0px var(--color-light);
-  opacity: 0.5;
+  box-shadow: 1px 2px 3px #d6d6d6;
 `;

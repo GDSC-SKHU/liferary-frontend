@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { Btn } from "../Share/ShareForm";
 
 interface LoginForm {
   password: string;
@@ -95,9 +96,12 @@ export default function User_infoForm() {
   return (
     <UserInfoContainer>
       {!userInfo.user?.firebaseAuth && (
-        <button onClick={() => setIsEdit((prev) => !prev)}>
+        <Btn
+          onClick={() => setIsEdit((prev) => !prev)}
+          style={{ marginBottom: "0" }}
+        >
           {!isEdit ? "Change Password" : "Cancel"}
-        </button>
+        </Btn>
       )}
       {isEdit ? (
         <>
@@ -113,7 +117,7 @@ export default function User_infoForm() {
                 />
               </StyledDiv>
               <StyledDiv>
-                <span>confirmPassword</span>
+                <span>Repeat Password</span>
                 <StyledInput
                   type="password"
                   name="passwordconfirm"
@@ -121,14 +125,6 @@ export default function User_infoForm() {
                   onChange={handleChange}
                 />
               </StyledDiv>
-              <ChangeBtn
-                onClick={handleChangePassword}
-                type="submit"
-                disabled={form.password !== form.passwordconfirm}
-              >
-                Change Password
-              </ChangeBtn>
-
               {/* <button onClick={() => setIsWithdraw((prev) => !prev)}>
                 Withdraw
               </button> */}
@@ -149,16 +145,37 @@ export default function User_infoForm() {
           //   </button>
           // </>
           null}
+          <Btn
+            onClick={handleChangePassword}
+            type="submit"
+            disabled={form.password !== form.passwordconfirm}
+            style={{ marginTop: "2rem" }}
+          >
+            Change Password
+          </Btn>
         </>
       ) : (
-        <>
-          <UserInfoWrapper>E-mail: {userInfo.user?.email}</UserInfoWrapper>
-          <UserInfoWrapper>Nickname: {userInfo.user?.nickname}</UserInfoWrapper>
-        </>
+        <InfoContainer>
+          <div>
+            <Index>E-mail </Index>
+            <UserInfoWrapper>{userInfo.user?.email}</UserInfoWrapper>
+          </div>
+          <div>
+            <Index>Nickname </Index>
+            <UserInfoWrapper>{userInfo.user?.nickname}</UserInfoWrapper>
+          </div>
+        </InfoContainer>
       )}
     </UserInfoContainer>
   );
 }
+
+const Index = styled.span`
+  margin-right: 1rem;
+
+  font-weight: 600;
+  text-align: right;
+`;
 
 const UserInfoContainer = styled.div`
   display: flex;
@@ -171,16 +188,23 @@ const UserInfoContainer = styled.div`
 `;
 
 const UserInfoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 80%;
+  display: inline-block;
+  /* float: right; */
+  width: 20vw;
   margin: 5px;
-  padding: 20px;
+  padding: 3px 5px;
 
-  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
 
-  box-shadow: 0 2px 5px var(--color-main);
+  text-align: center;
+`;
+
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledDiv = styled.div`
@@ -201,9 +225,4 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 2px solid var(--color-normal);
   }
-`;
-
-const ChangeBtn = styled.button`
-  background-color: var(--color-light);
-  border: 3px solid var(--color-deep);
 `;
