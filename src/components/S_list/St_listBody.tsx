@@ -27,7 +27,7 @@ export default function St_list() {
         {totalPage && list ? (
           <StudyListTable list={list} page={page} />
         ) : (
-          <div>There are no posts.</div>
+          <div>There are no posts</div>
         )}
       </StudyListWrapper>
       <Pagination

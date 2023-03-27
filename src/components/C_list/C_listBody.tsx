@@ -33,7 +33,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
         {totalPage && list ? (
           <CommunityListTable list={list} page={page} />
         ) : (
-          <div>There are no posts.</div>
+          <div>There are no posts</div>
         )}
       </CategoryListWrapper>
       <Pagination
@@ -50,6 +50,7 @@ const CategoryContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: 100%;
   margin-top: 4vh;
 `;
@@ -60,4 +61,5 @@ const CategoryListWrapper = styled.div`
   align-items: center;
 
   width: 100%;
+  margin-top: 1rem;
 `;
