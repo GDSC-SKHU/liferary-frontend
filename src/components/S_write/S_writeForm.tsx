@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
@@ -66,9 +66,12 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
     setTitle(e.target.value);
   };
 
-  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
+  const onChangeContent = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    let content: string = e.currentTarget.value;
+    content = content.replaceAll("<br>", "\r\n");
+
+    setContent(content);
+  }, []);
 
   const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
@@ -114,13 +117,17 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
       video: videoUrl,
     });
 
+    const contentReplaceNewline = () => {
+      return content.replaceAll("<br>", "\r\n");
+    };
+
     axios
       .post(
         "/api/main/new",
         {
           title: title,
           category: category,
-          context: content,
+          context: contentReplaceNewline(),
           images: imgUrls,
           video: videoUrl,
         },
@@ -193,8 +200,28 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
               onChange={onChangeContent}
               onFocus={handleInputFocus2}
               onBlur={handleInputBlur2}
-              style={{ borderBottomWidth: isFocused2 ? "3px" : "1px" }}
+              style={{
+                borderBottomWidth: isFocused2 ? "3px" : "1px",
+              }}
             />
+            {content.split("\n").map((line) => {
+              return (
+                <span>
+                  {line}
+                  <br />
+                </span>
+              );
+            })}
+            {/* <StyledInput2
+              placeholder="tips contents"
+              value={content}
+              onChange={onChangeContent}
+              onFocus={handleInputFocus2}
+              onBlur={handleInputBlur2}
+              style={{
+                borderBottomWidth: isFocused2 ? "3px" : "1px",
+              }}
+            /> */}
           </div>
           <div>
             <div>
@@ -320,7 +347,7 @@ export const StyledInput = styled.input`
 
 export const StyledInput2 = styled.textarea`
   width: 40vw;
-  height: 33.8vh;
+  height: 33vh;
   margin-bottom: 0.5rem;
 
   word-break: break-all;
