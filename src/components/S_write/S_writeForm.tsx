@@ -204,14 +204,14 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
                 borderBottomWidth: isFocused2 ? "3px" : "1px",
               }}
             />
-            {content.split("\n").map((line) => {
+            {/* {content.split("\n").map((line) => {
               return (
                 <span key={line}>
                   {line}
                   <br />
                 </span>
               );
-            })}
+            })} */}
             {/* <StyledInput2
               placeholder="tips contents"
               value={content}

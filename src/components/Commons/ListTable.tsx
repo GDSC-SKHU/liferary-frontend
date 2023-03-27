@@ -23,7 +23,6 @@ export default function ListTable({
         <span>Name</span>
         <span>Date</span>
       </TitleWrapper>
-
       {list.map((el: Post, idx) => (
         <ListWrapper key={el.id} onClick={() => handleClickListItem(el.id)}>
           <ListItem
@@ -49,33 +48,36 @@ const ListContainer = styled.div`
 
 export const ListWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 0.5fr 2fr 0.8fr 0.6fr;
 
   width: 70%;
   height: 4vh;
   margin-top: 3vh;
-  padding: 0 20px;
+  padding: 0 10px;
 
   align-content: center;
   transition: all 0.5s ease-in-out;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   :hover {
-    transform: translateY(3px);
-    color: var(--color-light);
+    transform: translateY(-2px);
+    color: var(--color-main);
   }
 `;
 
 export const TitleWrapper = styled(ListWrapper)`
   height: 5vh;
 
-  background-color: var(--color-normal);
-  color: white;
-  border-radius: 10px;
+  border: none;
+  border-bottom: 1px solid var(--color-main);
 
   font-size: 20px;
-  opacity: 0.5;
+
   :hover {
     transform: none;
-    color: white;
+    color: var(--color-main);
   }
 `;

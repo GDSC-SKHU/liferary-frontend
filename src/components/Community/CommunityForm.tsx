@@ -114,7 +114,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
               <StyledH2>{view.title}</StyledH2>
             </StyledDiv>
             <TimeContainer>
-              <DateP style={{ color: "black" }}>
+              <DateP style={{ color: "#8e8e8e" }}>
                 {formatDate(view?.modifiedDate!)}
               </DateP>
             </TimeContainer>

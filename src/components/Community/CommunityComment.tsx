@@ -72,7 +72,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         />
-        <Btn type="submit" style={{ margin: "0", marginTop: "1rem" }}>
+        <Btn type="submit" style={{ margin: "0", marginTop: "10px" }}>
           Registration
         </Btn>
       </CommentForm>
@@ -106,6 +106,7 @@ const CommentForm = styled.form`
   align-items: center;
 
   width: 55vw;
+  margin-bottom: 2rem;
 `;
 
 const CommentInput = styled.textarea`
