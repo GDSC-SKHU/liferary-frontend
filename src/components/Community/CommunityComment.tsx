@@ -47,7 +47,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       {list?.length ? (
         <>
           {list.map((el) => (
-            <Container style={{ marginBottom: "1rem" }}>
+            <Container style={{ marginBottom: "1rem" }} key={el.id}>
               <CommentItem key={el.id}>
                 <Writer>{el.writer}</Writer>
                 <Content>{el.context} </Content>
