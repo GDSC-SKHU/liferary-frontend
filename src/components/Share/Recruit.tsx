@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Recruit({ id }: ShareProps) {
-  // console.log(router.query.id);
-
   const [isExist, setIsExist] = useState<boolean>(false);
+
   useEffect(() => {
     axios
       .get(`/api/study?mainPost=${id}`)
