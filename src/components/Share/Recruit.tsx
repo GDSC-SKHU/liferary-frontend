@@ -27,14 +27,14 @@ export default function Recruit({ id }: ShareProps) {
   return (
     <Container>
       {isExist ? (
-        <div onClick={onClickReadRouter}>
+        <StudyContainer onClick={onClickReadRouter}>
           <StyledH2>Check out your study!</StyledH2>
-          <StyledImg src="/Symbol.svg" />
-        </div>
+          <StyledImg src="/book.png" />
+        </StudyContainer>
       ) : (
         <>
           <StyledH2>No Study Yet</StyledH2>
-          <>Please wait</>
+          <>Please wait . . .</>
         </>
       )}
     </Container>
@@ -50,15 +50,21 @@ const Container = styled.div`
   margin-bottom: 10vh;
 `;
 
+const StudyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const StyledH2 = styled.h2`
   width: fit-content;
   margin-bottom: 1rem;
   padding: 10px;
 
-  color: var(--color-main);
   border-bottom: 1px solid var(--color-main);
 
-  font-weight: 600;
+  font-weight: normal;
 `;
 
 const StyledImg = styled.img`

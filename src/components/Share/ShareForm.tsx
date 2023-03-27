@@ -147,12 +147,12 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
             </StyledBox2>
           </div>
           <br />
-          <TimeContainer>
+          {/* <TimeContainer>
             <StyledSpan>Write time: </StyledSpan>
             <StyledBox>
               <span>{formatDate(view?.modifiedDate!)}</span>
             </StyledBox>
-          </TimeContainer>
+          </TimeContainer> */}
         </Wrapper>
         <Description>*Click here to view by category! </Description>{" "}
       </div>
@@ -170,9 +170,16 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               <Btn onClick={onClickDelete}>Delete</Btn>
             </div>
           )}
-          <StyledDiv>
-            <StyledH2>{view.title}</StyledH2>
-          </StyledDiv>
+          <div>
+            <StyledDiv>
+              <StyledH2>{view.title}</StyledH2>
+            </StyledDiv>
+            <TimeContainer>
+              <DateP style={{ color: "black" }}>
+                {formatDate(view?.modifiedDate!)}
+              </DateP>
+            </TimeContainer>
+          </div>
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
             {view.images?.map((el) => (
@@ -222,7 +229,9 @@ const Wrapper = styled.div`
 `;
 
 const TimeContainer = styled.div`
-  margin-right: 3vw;
+  float: left;
+  padding-top: 5px;
+  padding-left: 10px;
 `;
 
 const StyledSpan = styled.span`
@@ -253,43 +262,41 @@ const StyledBox2 = styled(StyledBox)`
   }
 `;
 
-const Btn = styled.button`
+export const Btn = styled.button`
   margin: 0 1rem;
   margin-bottom: 1rem;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
 
-  background-color: white;
   color: var(--color-deep);
   border: none;
-  border: 1px solid var(--color-deep);
+  border-bottom: 1px solid #f0f0f0;
 
-  transition: 0.3s;
+  cursor: pointer;
+
+  /* transition: 0.2s; */
 
   &:hover {
-    transform: translateY(-3px);
+    /* transform: translateY(-2px); */
+    border-bottom: 1px solid var(--color-deep);
   }
 `;
 
+const DateP = styled.p`
+  margin-bottom: 2rem;
+  float: left;
+  text-align: left;
+
+  font-size: small;
+  opacity: 0.5;
+`;
+
 const StyledDiv = styled.div`
-  width: fit-content;
-  /* 45vw */
+  width: 45vw;
   min-height: fit-content;
-  margin-bottom: 1rem;
   padding: 0 10px;
+  padding-top: 1rem;
 
-  background-color: var(--color-normal);
-  border-bottom: 1px solid var(--color-normal);
-  color: white;
-  border-radius: 5px;
-
-  text-align: center;
-  /* box-shadow: 0 2px 5px #777777; */
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
-  }
+  border-top: 1px solid var(--color-normal);
 `;
 
 const StyledDiv2 = styled.div`
@@ -342,7 +349,11 @@ const Container2 = styled.div`
 const StyledH2 = styled.h2`
   height: fit-content;
 
-  font-weight: 500;
+  color: black;
+  /* text-shadow: -1px 0px var(--color-normal), 0px 1px var(--color-normal),
+    1px 0px var(--color-normal), 0px -1px var(--color-normal); */
+
+  /* font-weight: normal; */
   word-break: break-all;
 
   @media (max-width: 800px) {
