@@ -79,6 +79,7 @@ export const User_post = ({ kind }: { kind: kind }) => {
 const UserPostContainer = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: center;
 
   width: 100%;
 `;
