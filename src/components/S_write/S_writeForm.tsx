@@ -206,7 +206,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             />
             {content.split("\n").map((line) => {
               return (
-                <span>
+                <span key={line}>
                   {line}
                   <br />
                 </span>
