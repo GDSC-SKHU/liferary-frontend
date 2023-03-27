@@ -4,6 +4,7 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Board from "@/types/board";
+import { Btn } from "./ShareForm";
 
 export default function Comment({ id }: ShareProps) {
   const [list, setList] = useState<Board[]>();
@@ -27,9 +28,12 @@ export default function Comment({ id }: ShareProps) {
       {/* {view !== undefined ? () : } */}
       <StyledH2>
         Share your feelings{" "}
-        <Submit onClick={() => router.push(`/c_write?id=${id}`)}>
-          write your idea
-        </Submit>
+        <Btn
+          style={{ margin: "0", padding: "2px 5px" }}
+          onClick={() => router.push(`/c_write?id=${id}`)}
+        >
+          Write your idea
+        </Btn>
       </StyledH2>
       {list &&
         list.slice(0, 5).map((el: Board) => (
@@ -40,31 +44,27 @@ export default function Comment({ id }: ShareProps) {
             {el.title}
           </CommunityBoardItem>
         ))}
-      <button onClick={onClickViewMoreBoard}>View More</button>
+      <Btn onClick={onClickViewMoreBoard}>View More</Btn>
     </div>
   );
 }
-
-const Submit = styled.button`
-  margin: 0;
-  padding: 0;
-`;
 
 const StyledH2 = styled.h2`
   width: fit-content;
   margin-bottom: 1rem;
   padding: 10px;
 
-  color: var(--color-main);
+  /* color: var(--color-main); */
   border-bottom: 1px solid var(--color-main);
 
-  font-weight: 600;
+  font-weight: normal;
 `;
 
 const CommunityBoardItem = styled.div`
   display: flex;
   width: 90%;
   border-bottom: 0.5px solid var(--color-light);
+
   :hover {
     color: var(--color-deep);
   }
