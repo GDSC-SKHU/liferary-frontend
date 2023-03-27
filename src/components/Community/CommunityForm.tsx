@@ -7,17 +7,22 @@ import Board from "@/types/board";
 import { formatDate } from "@/types/date";
 import CommunityComment from "./CommunityComment";
 import useToken from "@/hooks/useToken";
-import { Container, ShareImage } from "../Share/ShareForm";
 import {
-  Category,
+  Btn,
+  Container,
+  DateP,
+  ShareImage,
+  TimeContainer,
+} from "../Share/ShareForm";
+import { Category, StyledName } from "../Study/StudyForm";
+import {
   StyledBox,
   StyledDiv,
   StyledDiv2,
   StyledH2,
-  StyledName,
   StyledP,
   StyledSpan,
-} from "../Study/StudyForm";
+} from "../Share/ShareForm";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const { allToken } = useToken();
@@ -90,23 +95,6 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
 
   return (
     <>
-      <button
-        onClick={() =>
-          router.push({
-            pathname: "/share",
-            query: {
-              id: view?.mainPostId,
-            },
-          })
-        }
-      >
-        Go to body
-      </button>
-      <Category>
-        <StyledSpan>Write time: </StyledSpan>
-        <span>{formatDate(view?.modifiedDate!)}</span>
-        <br />
-      </Category>
       <div>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
@@ -117,13 +105,20 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
         <Container>
           {user?.nickname === view.nickname && (
             <div>
-              <button onClick={onClickUpdateRouter}>Update</button>
-              <button onClick={onClickDelete}>delete</button>
+              <Btn onClick={onClickUpdateRouter}>Update</Btn>
+              <Btn onClick={onClickDelete}>Delete</Btn>
             </div>
           )}
-          <StyledDiv>
-            <StyledH2>{view.title}</StyledH2>
-          </StyledDiv>
+          <div>
+            <StyledDiv>
+              <StyledH2>{view.title}</StyledH2>
+            </StyledDiv>
+            <TimeContainer>
+              <DateP style={{ color: "black" }}>
+                {formatDate(view?.modifiedDate!)}
+              </DateP>
+            </TimeContainer>
+          </div>
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
           </StyledDiv2>
@@ -137,6 +132,18 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
               alt=""
             />
           ))}
+          <Btn
+            onClick={() =>
+              router.push({
+                pathname: "/share",
+                query: {
+                  id: view?.mainPostId,
+                },
+              })
+            }
+          >
+            Go to body
+          </Btn>
           <CommunityComment boardPostId={view.id} />
         </Container>
       ) : (

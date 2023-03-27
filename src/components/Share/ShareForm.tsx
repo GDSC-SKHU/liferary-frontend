@@ -228,17 +228,17 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const TimeContainer = styled.div`
+export const TimeContainer = styled.div`
   float: left;
   padding-top: 5px;
   padding-left: 10px;
 `;
 
-const StyledSpan = styled.span`
+export const StyledSpan = styled.span`
   margin-left: 3vw;
 `;
 
-const StyledBox = styled.div`
+export const StyledBox = styled.div`
   display: inline-block;
 
   margin: 5px 5px 5px 0.3vw;
@@ -281,7 +281,7 @@ export const Btn = styled.button`
   }
 `;
 
-const DateP = styled.p`
+export const DateP = styled.p`
   margin-bottom: 2rem;
   float: left;
   text-align: left;
@@ -290,8 +290,8 @@ const DateP = styled.p`
   opacity: 0.5;
 `;
 
-const StyledDiv = styled.div`
-  width: 45vw;
+export const StyledDiv = styled.div`
+  width: 55vw;
   min-height: fit-content;
   padding: 0 10px;
   padding-top: 1rem;
@@ -299,12 +299,12 @@ const StyledDiv = styled.div`
   border-top: 1px solid var(--color-normal);
 `;
 
-const StyledDiv2 = styled.div`
+export const StyledDiv2 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  width: 45vw;
+  width: 55vw;
   margin-bottom: 1rem;
 
   background-color: white;
@@ -346,7 +346,7 @@ const Container2 = styled.div`
   text-align: center;
 `;
 
-const StyledH2 = styled.h2`
+export const StyledH2 = styled.h2`
   height: fit-content;
 
   color: black;
@@ -361,7 +361,7 @@ const StyledH2 = styled.h2`
   }
 `;
 
-const StyledP = styled.p`
+export const StyledP = styled.p`
   width: 100%;
   margin-bottom: 1rem;
   padding: 0 10px 1rem;
@@ -386,7 +386,8 @@ const StyledTitle = styled.span`
 `;
 
 const Iframe = styled.iframe`
-  width: 45vw;
+  width: 55vw;
+  height: 65vh;
   margin-top: 1rem;
 `;
 

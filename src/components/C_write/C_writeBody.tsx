@@ -152,7 +152,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
     <>
       {isEdit && <h3>Edit mode</h3>}
       <form onSubmit={onSubmit}>
-        <Container style={{ marginTop: "6vh" }}>
+        <Container style={{ marginTop: "10vh" }}>
           <div>
             <div>
               <Notion>Please enter your</Notion>

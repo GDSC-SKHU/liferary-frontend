@@ -4,6 +4,7 @@ import useToken from "@/hooks/useToken";
 import { Comment } from "@/types/comment";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
+import { Btn, DateP, TimeContainer } from "../Share/ShareForm";
 
 const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
   const { allToken } = useToken();
@@ -20,6 +21,12 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
   }, []);
 
   const handleSubmitComment = () => {
+    if (newComment.length === 0) {
+      alert("Please share your think!");
+
+      return;
+    }
+
     axios.post(
       `/api/comment/new`,
       {
@@ -40,22 +47,32 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       {list?.length ? (
         <>
           {list.map((el) => (
-            <CommentItem key={el.id}>
-              {el.writer}: {el.context} {formatDate(el.modifiedDate)}
-            </CommentItem>
+            <div>
+              <CommentItem key={el.id}>
+                <Writer>{el.writer}</Writer>
+                <Content>{el.context} </Content>
+              </CommentItem>
+              <TimeContainer style={{ paddingLeft: "0" }}>
+                <DateP style={{ color: "black" }}>
+                  {formatDate(el.modifiedDate)}
+                </DateP>
+              </TimeContainer>{" "}
+            </div>
           ))}
         </>
       ) : (
         <Notion>no comments</Notion>
       )}
-      <form onSubmit={handleSubmitComment}>
+      <CommentForm onSubmit={handleSubmitComment}>
         <CommentInput
-          placeholder="write comment"
+          placeholder="Write comment"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         />
-        <button type="submit">Registration</button>
-      </form>
+        <Btn type="submit" style={{ margin: "0", marginTop: "1rem" }}>
+          Registration
+        </Btn>
+      </CommentForm>
     </>
   );
 };
@@ -63,15 +80,32 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
 export default CommunityComment;
 
 const CommentItem = styled.div`
+  width: 55vw;
+
   color: black;
 `;
 
-const CommentInput = styled.textarea`
-  width: 20vw;
-  height: 10rem;
+const Writer = styled.span`
+  margin-right: 1rem;
+  font-weight: 600;
+`;
 
-  border: 1px solid black;
-  border-radius: 10px;
+const Content = styled.span``;
+
+const CommentForm = styled.form`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 55vw;
+`;
+
+const CommentInput = styled.textarea`
+  width: 50vw;
+  height: 5vh;
+
+  border: none;
+  border-bottom: 1px solid black;
 
   outline: none;
 `;
