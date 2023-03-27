@@ -75,6 +75,7 @@ const Container = styled.div`
   top: 0;
 
   background: white;
+  box-shadow: 0px 0px 1px 2px #f0f0f0;
 `;
 
 const StyledSpan = styled.span`

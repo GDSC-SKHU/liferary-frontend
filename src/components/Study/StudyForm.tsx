@@ -4,9 +4,20 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 import Link from "next/link";
-import { Container, ShareImage } from "../Share/ShareForm";
+import {
+  Btn,
+  Container,
+  DateP,
+  ShareImage,
+  StyledBox,
+  StyledDiv,
+  StyledDiv2,
+  StyledH2,
+  StyledP,
+  StyledSpan,
+  TimeContainer,
+} from "../Share/ShareForm";
 
 interface ViewProps {
   mainPostId: string;
@@ -104,44 +115,30 @@ const StudyForm = () => {
 
   return (
     <>
-      <button
-        onClick={() =>
-          router.push({
-            pathname: "/share",
-            query: {
-              id: view?.mainPostId,
-            },
-          })
-        }
-      >
-        Go to body
-      </button>
-      <Category>
-        <StyledSpan>Write time: </StyledSpan>
-        <span>{formatDate(view?.modifiedDate!)}</span>
-        <br />
-      </Category>
-      <div>
+      <div style={{ margin: "1rem 0" }}>
         <StyledSpan>Username: </StyledSpan>
         <StyledBox>
-          <StyledName>{view?.nickname}</StyledName>
+          <p>{view?.nickname}</p>
         </StyledBox>
       </div>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname ? (
+          {user?.nickname === view.nickname && (
             <div>
-              <button onClick={onClickUpdateRouter}>Update</button>
-              <button onClick={onClickDelete}>delete</button>
-              <StyledDiv>
-                <StyledH2>{view.title}</StyledH2>
-              </StyledDiv>
+              <Btn onClick={onClickUpdateRouter}>Update</Btn>
+              <Btn onClick={onClickDelete}>Delete</Btn>
             </div>
-          ) : (
+          )}
+          <div>
             <StyledDiv>
               <StyledH2>{view.title}</StyledH2>
             </StyledDiv>
-          )}
+            <TimeContainer>
+              <DateP style={{ color: "black" }}>
+                {formatDate(view?.modifiedDate!)}
+              </DateP>
+            </TimeContainer>
+          </div>
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
             {view.images?.map((el) => (
@@ -160,6 +157,18 @@ const StudyForm = () => {
               Go To GOOGLE MEET and study
             </GoogleMeetLink>
           )}
+          <Btn
+            onClick={() =>
+              router.push({
+                pathname: "/share",
+                query: {
+                  id: view?.mainPostId,
+                },
+              })
+            }
+          >
+            Go to body
+          </Btn>
         </Container>
       ) : (
         <p>Loading...</p>
@@ -174,90 +183,9 @@ export const Category = styled.div`
   margin-top: 2rem;
 `;
 
-export const StyledSpan = styled.span`
-  margin-left: 3vw;
-
-  color: var(--color-main);
-
-  font-weight: 600;
-  font-size: large;
-`;
-
-export const StyledBox = styled.div`
-  display: inline-block;
-
-  margin: 5px 5px 5px 0.3vw;
-  padding: 1px 7px;
-
-  background-color: var(--color-deep);
-  color: white;
-  border-radius: 5px;
-
-  font-weight: 600;
-  font-size: large;
-  text-align: center;
-`;
-
 export const StyledName = styled.p`
   @media (max-width: 800px) {
     font-size: 0.7em;
-  }
-`;
-
-export const StyledDiv = styled.div`
-  width: 40vw;
-  height: 7vh;
-  margin-bottom: 1rem;
-
-  background-color: var(--color-normal);
-  border-radius: 10px;
-
-  text-align: center;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
-  }
-`;
-
-export const StyledDiv2 = styled.div`
-  width: 40vw;
-  margin-bottom: 1rem;
-
-  background-color: white;
-  border-radius: 10px;
-
-  text-align: justify;
-
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-
-    padding: 3px;
-  }
-`;
-
-export const StyledH2 = styled.h2`
-  color: white;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
-`;
-
-export const StyledP = styled.p`
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-
-  color: #666666;
-  border-bottom: 3px solid var(--color-normal);
-
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
   }
 `;
 
