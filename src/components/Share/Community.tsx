@@ -4,7 +4,7 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Board from "@/types/board";
-import { Btn } from "./ShareForm";
+import { Btn, Icon } from "./ShareForm";
 
 export default function Comment({ id }: ShareProps) {
   const [list, setList] = useState<Board[]>();
@@ -27,12 +27,13 @@ export default function Comment({ id }: ShareProps) {
     <div>
       {/* {view !== undefined ? () : } */}
       <StyledH2>
-        Share your feelings{" "}
+        Share your feelings
         <Btn
           style={{ margin: "0", padding: "2px 5px" }}
           onClick={() => router.push(`/c_write?id=${id}`)}
+          title="Ask any questions"
         >
-          Write your idea
+          <Icon src="/Study.svg" />
         </Btn>
       </StyledH2>
       <Container>
@@ -46,7 +47,9 @@ export default function Comment({ id }: ShareProps) {
             </CommunityBoardItem>
           ))}
       </Container>
-      <Btn onClick={onClickViewMoreBoard}>View More</Btn>
+      <Btn onClick={onClickViewMoreBoard} title="View more">
+        <Icon src="/List.svg" />
+      </Btn>
     </div>
   );
 }

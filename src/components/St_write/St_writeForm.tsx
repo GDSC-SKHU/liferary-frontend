@@ -11,6 +11,7 @@ import {
   ImageContainer,
   ImgContainer,
   ImgInput,
+  Notice,
   Notion,
   StyledInput,
   StyledInput2,
@@ -141,6 +142,7 @@ const St_writeForm = () => {
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <Notice>Please wait for the photo preview to come up...</Notice>
           <ImageContainer>
             {/* c_writeBody.tsx랑 다름 */}
             {imgUrls.map((imgUrl) => {

@@ -64,7 +64,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
           ))}
         </>
       ) : (
-        <Notion>no comments</Notion>
+        <Notion>No comments</Notion>
       )}
       <CommentForm onSubmit={handleSubmitComment}>
         <CommentInput
