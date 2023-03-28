@@ -76,6 +76,8 @@ const Container = styled.div`
 
   background: white;
   box-shadow: 0px 0px 1px 2px #f0f0f0;
+
+  z-index: 1000;
 `;
 
 const StyledSpan = styled.span`
