@@ -11,6 +11,8 @@ import {
   Btn,
   Container,
   DateP,
+  Info,
+  Middot,
   ShareImage,
   TimeContainer,
 } from "../Share/ShareForm";
@@ -95,27 +97,19 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
 
   return (
     <>
-      <div>
-        <StyledSpan>Username: </StyledSpan>
-        <StyledBox>
-          <StyledName>{view?.nickname}</StyledName>
-        </StyledBox>
-      </div>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname && (
-            <div>
-              <Btn onClick={onClickUpdateRouter}>Update</Btn>
-              <Btn onClick={onClickDelete}>Delete</Btn>
-            </div>
-          )}
           <div>
             <StyledDiv>
               <StyledH2>{view.title}</StyledH2>
             </StyledDiv>
             <TimeContainer>
-              <DateP style={{ color: "#8e8e8e" }}>
-                {formatDate(view?.modifiedDate!)}
+              <DateP style={{ color: "black" }}>
+                <span style={{ marginRight: "1rem" }}>
+                  {formatDate(view?.modifiedDate!)}
+                </span>
+                <Middot src="/middot.svg" />
+                <Info style={{ marginRight: "1rem" }}> {view?.nickname}</Info>
               </DateP>
             </TimeContainer>
           </div>
@@ -132,6 +126,12 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
               alt=""
             />
           ))}
+          {user?.nickname === view.nickname && (
+            <div>
+              <Btn onClick={onClickUpdateRouter}>Update</Btn>
+              <Btn onClick={onClickDelete}>Delete</Btn>
+            </div>
+          )}
           <Btn
             onClick={() =>
               router.push({

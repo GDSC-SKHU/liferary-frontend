@@ -9,13 +9,13 @@ import {
   Btn,
   Container,
   DateP,
+  Info,
+  Middot,
   ShareImage,
-  StyledBox,
   StyledDiv,
   StyledDiv2,
   StyledH2,
   StyledP,
-  StyledSpan,
   TimeContainer,
 } from "../Share/ShareForm";
 
@@ -115,27 +115,19 @@ const StudyForm = () => {
 
   return (
     <>
-      <div style={{ margin: "1rem 0" }}>
-        <StyledSpan>Username: </StyledSpan>
-        <StyledBox>
-          <p>{view?.nickname}</p>
-        </StyledBox>
-      </div>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname && (
-            <div>
-              <Btn onClick={onClickUpdateRouter}>Update</Btn>
-              <Btn onClick={onClickDelete}>Delete</Btn>
-            </div>
-          )}
           <div>
             <StyledDiv>
               <StyledH2>{view.title}</StyledH2>
             </StyledDiv>
             <TimeContainer>
               <DateP style={{ color: "black" }}>
-                {formatDate(view?.modifiedDate!)}
+                <span style={{ marginRight: "1rem" }}>
+                  {formatDate(view?.modifiedDate!)}
+                </span>
+                <Middot src="/middot.svg" />
+                <Info style={{ marginRight: "1rem" }}> {view?.nickname}</Info>
               </DateP>
             </TimeContainer>
           </div>
@@ -157,6 +149,31 @@ const StudyForm = () => {
               Go To GOOGLE MEET and study
             </GoogleMeetLink>
           )}
+          {user?.nickname === view.nickname && (
+            <div>
+              <Btn onClick={onClickUpdateRouter}>
+                <img src="/Pencil.svg" />
+                <p>Update</p>
+              </Btn>
+              <Btn onClick={onClickDelete}>
+                <img src="/Delete.svg" />
+                <p>Delete</p>
+              </Btn>
+              <Btn
+                onClick={() =>
+                  router.push({
+                    pathname: "/share",
+                    query: {
+                      id: view?.mainPostId,
+                    },
+                  })
+                }
+              >
+                <img src="/Feed.svg" />
+                <p>Go to body</p>
+              </Btn>
+            </div>
+          )}
           <Btn
             onClick={() =>
               router.push({
@@ -167,7 +184,8 @@ const StudyForm = () => {
               })
             }
           >
-            Go to body
+            <img src="/Feed.svg" />
+            <p>Go to body</p>
           </Btn>
         </Container>
       ) : (
