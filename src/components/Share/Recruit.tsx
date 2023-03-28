@@ -61,7 +61,7 @@ const StyledH2 = styled.h2`
   margin-bottom: 1rem;
   padding: 10px;
 
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: 2px solid var(--color-main);
 
   font-weight: normal;
 `;

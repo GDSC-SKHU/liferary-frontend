@@ -33,7 +33,7 @@ const SearchContainer = styled.input`
   background-repeat: no-repeat;
   background-position: 10px 5px;
 
-  width: 10vw;
+  width: 15vw;
   padding: 5px 10px;
   padding-left: 2.5rem;
 

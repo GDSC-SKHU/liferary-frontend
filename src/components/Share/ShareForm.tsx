@@ -350,10 +350,7 @@ export const StyledH2 = styled.h2`
   height: fit-content;
 
   color: black;
-  /* text-shadow: -1px 0px var(--color-normal), 0px 1px var(--color-normal),
-    1px 0px var(--color-normal), 0px -1px var(--color-normal); */
 
-  /* font-weight: normal; */
   word-break: break-all;
 
   @media (max-width: 800px) {
