@@ -1,28 +1,11 @@
 import { categoryList } from "@/types/category";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { keyframes } from "styled-components";
 
-interface UserInfo {
-  email: string;
-  nickname: string;
-  firebaseAuth: boolean;
-}
-
 const Choice = () => {
   const router = useRouter();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-
-  useEffect(() => {
-    Object.keys(window.localStorage).includes("userInfo") &&
-      setUserInfo(
-        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
-      );
-    console.log(userInfo);
-  }, []);
 
   // const [isHide, setIsHide] = useState<boolean>(false);
 
@@ -51,10 +34,8 @@ const Choice = () => {
           </div>
         </BannerWrapper2>
         <BannerWrapper>
-          <h4 style={{ marginRight: "8vw" }}>
-            What kind of knowledge do you want to know?
-          </h4>
-          <BannerCategoryWrapper style={{ marginRight: "8vw" }}>
+          <h4>What kind of knowledge do you want to know?</h4>
+          <BannerCategoryWrapper>
             {categoryList.map((el) => {
               return (
                 <p
@@ -69,16 +50,6 @@ const Choice = () => {
             })}
           </BannerCategoryWrapper>
         </BannerWrapper>
-        <BtnContainer>
-          {userInfo ? (
-            <WriteWrapper>
-              <p>Please share your knowledge!</p>
-              <Link href="/s_write">
-                <WriteBtn>Share now!</WriteBtn>
-              </Link>
-            </WriteWrapper>
-          ) : null}
-        </BtnContainer>
       </BannerContainer>
       {/* <Link href="/s_write">
         <WriteBtn isHide={isHide}>Let's go write!</WriteBtn>
@@ -111,7 +82,8 @@ const BannerContainer = styled.div`
   align-items: center;
   float: right;
 
-  padding: 1.5rem;
+  padding-top: 1.5rem;
+  padding-right: 2rem;
 `;
 
 const BannerWrapper2 = styled(motion.div)`
@@ -123,7 +95,7 @@ const BannerWrapper2 = styled(motion.div)`
   width: 40%;
   height: 70vh;
   margin-top: 11vh;
-  left: 8vw;
+  left: 10vw;
 
   border-radius: 50px;
   position: absolute;
@@ -133,7 +105,7 @@ const BannerWrapper2 = styled(motion.div)`
   color: white;
 
   transition: all 0.5s ease-in-out;
-  z-index: -1;
+  z-index: 3;
 
   > h2 {
     padding: 0;
@@ -155,9 +127,18 @@ const BannerWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  height: 65vh;
-  margin-top: 2vh;
+  height: 70vh;
+  width: 55vw;
+  margin-top: 0.9vh;
+  margin-right: 8vw;
   margin-left: 55vw;
+  padding-left: 12rem;
+
+  border: 1px solid #d9d9d9;
+  border-radius: 50px;
+
+  box-shadow: 2px 2px 3px #d9d9d9;
+  /* z-index: -2; */
 
   > h2 {
     padding: 0;
@@ -171,11 +152,6 @@ const BannerWrapper = styled.div`
     padding: 3px 2px;
     margin-top: 1rem;
   }
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const BannerCategoryWrapper = styled.div`
@@ -201,25 +177,12 @@ const BannerCategoryWrapper = styled.div`
 
     box-shadow: 0px 2px 2px gray;
 
-    :hover {
+    &:hover {
       transform: translateY(-2px);
 
       background-color: white;
       color: var(--color-deep);
     }
-  }
-`;
-
-const WriteWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin: 8vh 3vw 0 0;
-  gap: 10px;
-
-  > p {
-    font-size: 1.2rem;
   }
 `;
 

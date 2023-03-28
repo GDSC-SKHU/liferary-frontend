@@ -25,7 +25,7 @@ const Container = styled.div`
   padding-top: 37vh;
   padding-left: 12vw;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
 
   @media (max-width: 800px) {
@@ -40,7 +40,7 @@ const StyledP = styled.p`
 const StyledBtn = styled.button`
   margin-left: 10vw;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
   border: 1px solid white;
   border-radius: 7px;
@@ -49,6 +49,6 @@ const StyledBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: var(--color-normal);
+    color: var(--color-main);
   }
 `;

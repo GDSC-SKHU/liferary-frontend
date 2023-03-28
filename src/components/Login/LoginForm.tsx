@@ -98,7 +98,7 @@ const StyledForm = styled.form`
 
   margin-top: 18vh;
 
-  color: var(--color-normal);
+  color: var(--color-main);
 
   @media (max-width: 800px) {
     margin-top: 23vh;
@@ -115,12 +115,12 @@ const StyledInput = styled.input`
   margin-left: 1rem;
 
   border: none;
-  border-bottom: 1px solid var(--color-normal);
+  border-bottom: 1px solid var(--color-main);
 
   outline: none;
 
   &:focus {
-    border-bottom: 2px solid var(--color-normal);
+    border-bottom: 2px solid var(--color-main);
   }
 `;
 
@@ -129,15 +129,15 @@ const Submit = styled.button`
   margin-top: 3rem;
   padding: 3px 7vw;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
-  border: 1px solid var(--color-normal);
+  border: 1px solid var(--color-main);
   border-radius: 7px;
 
   cursor: pointer;
 
   &:hover {
-    color: var(--color-normal);
+    color: var(--color-main);
     background-color: white;
   }
 `;

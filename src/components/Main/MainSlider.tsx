@@ -40,6 +40,6 @@ const SlideShowContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
 
-  height: 30vh;
+  height: 35vh;
   overflow: hidden;
 `;
