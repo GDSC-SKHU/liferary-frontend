@@ -74,9 +74,11 @@ const LoginForm = () => {
             <StyledInput type="password" value={pwData} onChange={onChangePw} />
           </StyledDiv>
         </div>
-        <Submit type="submit">Login</Submit>
+        <LoginBtn>
+          <Google src="/google.png" onClick={handleGoogleLogin} />
+          <Submit type="submit">Login</Submit>
+        </LoginBtn>
       </StyledForm>
-      <Submit onClick={handleGoogleLogin}>Google Login</Submit>
     </LoginFormWrapper>
   );
 };
@@ -124,10 +126,16 @@ const StyledInput = styled.input`
   }
 `;
 
+const LoginBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Submit = styled.button`
-  width: 20vw;
+  width: 19vw;
   margin-top: 3rem;
-  padding: 3px 7vw;
+  padding: 3px 0;
 
   background-color: var(--color-main);
   color: white;
@@ -139,5 +147,21 @@ const Submit = styled.button`
   &:hover {
     color: var(--color-main);
     background-color: white;
+  }
+`;
+
+const Google = styled.img`
+  width: 2vw;
+  margin-top: 3rem;
+  margin-right: 1rem;
+  padding: 1px;
+
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  :hover {
+    background-color: #e4e4e4;
   }
 `;

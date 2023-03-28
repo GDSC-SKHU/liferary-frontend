@@ -136,47 +136,24 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 
   return (
     <>
-      <div>
-        <Wrapper>
-          <div>
-            <StyledSpan>Category: </StyledSpan>
-            <StyledBox2>
-              <p onClick={() => onClickCategory(view?.category)}>
-                {view?.category}
-              </p>
-            </StyledBox2>
-          </div>
-          <br />
-          {/* <TimeContainer>
-            <StyledSpan>Write time: </StyledSpan>
-            <StyledBox>
-              <span>{formatDate(view?.modifiedDate!)}</span>
-            </StyledBox>
-          </TimeContainer> */}
-        </Wrapper>
-        <Description>*Click here to view by category! </Description>{" "}
-      </div>
-      <div>
-        <StyledSpan>Username: </StyledSpan>
-        <StyledBox>
-          <p>{view?.nickname}</p>
-        </StyledBox>
-      </div>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname && (
-            <div>
-              <Btn onClick={onClickUpdateRouter}>Update</Btn>
-              <Btn onClick={onClickDelete}>Delete</Btn>
-            </div>
-          )}
           <div>
             <StyledDiv>
               <StyledH2>{view.title}</StyledH2>
             </StyledDiv>
             <TimeContainer>
               <DateP style={{ color: "black" }}>
-                {formatDate(view?.modifiedDate!)}
+                <span style={{ marginRight: "1rem" }}>
+                  {formatDate(view?.modifiedDate!)}
+                </span>
+                <Middot src="/middot.svg" />
+                <Info style={{ marginRight: "1rem" }}> {view?.nickname}</Info>
+                <Middot src="/middot.svg" />
+                <Info2 onClick={() => onClickCategory(view?.category)}>
+                  {view?.category}
+                </Info2>
+                <Description>*Click here to view by category!</Description>
               </DateP>
             </TimeContainer>
           </div>
@@ -210,6 +187,8 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
           </StyledDiv2>
           {user?.nickname === view.nickname && (
             <div>
+              <Btn onClick={onClickUpdateRouter}>Update</Btn>
+              <Btn onClick={onClickDelete}>Delete</Btn>
               <Btn onClick={onClickRouter}>Write Study</Btn>
             </div>
           )}
@@ -222,11 +201,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
 };
 
 export default ShareForm;
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 
 export const TimeContainer = styled.div`
   float: left;
@@ -252,32 +226,36 @@ export const StyledBox = styled.div`
   text-align: center;
 `;
 
-const StyledBox2 = styled(StyledBox)`
-  cursor: pointer;
-
-  transition: 0.3s;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-`;
-
 export const Btn = styled.button`
   margin: 0 1rem;
   margin-bottom: 1rem;
-  /* padding: 5px 10px; */
 
   color: var(--color-deep);
   border: none;
   border-bottom: 1px solid #f0f0f0;
+  border-radius: 5px;
 
   cursor: pointer;
 
-  /* transition: 0.2s; */
-
   &:hover {
-    /* transform: translateY(-2px); */
     border-bottom: 1px solid var(--color-deep);
+  }
+`;
+
+export const Middot = styled.img`
+  width: 0.5vw;
+`;
+
+export const Info = styled.span`
+  margin-left: 1rem;
+`;
+
+export const Info2 = styled(Info)`
+  border-bottom: 1px solid black;
+  cursor: default;
+
+  :hover {
+    color: var(--color-main);
   }
 `;
 
@@ -317,8 +295,8 @@ export const StyledDiv2 = styled.div`
   }
 `;
 
-const Description = styled.p`
-  margin-left: 3vw;
+const Description = styled.span`
+  margin-left: 1vw;
 
   color: var(--color-normal);
   font-size: small;
@@ -330,11 +308,9 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: white;
+  margin-top: 2rem;
 
-  /* ::selection {
-    background-color: pink;
-  } */
+  color: white;
 `;
 
 const Container2 = styled.div`
