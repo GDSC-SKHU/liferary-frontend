@@ -6,28 +6,26 @@ import Community from "./Community";
 
 export default function ShareBody({ id }: ShareProps) {
   return (
-    <div>
+    <>
       <ShareForm id={id} />
-      <Wrapper2>
+      <Container>
         <Wrapper>
           <Recruit id={id} />
           <Community id={id} />
         </Wrapper>
-      </Wrapper2>
-    </div>
+      </Container>
+    </>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
-  width: 65vw;
-`;
-
-const Wrapper2 = styled.div`
-  display: flex;
-  justify-content: center;
-
-  margin: 0 17.5rem;
+  width: 55vw;
 `;
