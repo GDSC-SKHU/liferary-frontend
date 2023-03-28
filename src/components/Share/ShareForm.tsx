@@ -141,6 +141,19 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
           <div>
             <StyledDiv>
               <StyledH2>{view.title}</StyledH2>
+              {user?.nickname === view.nickname && (
+                <div>
+                  <Btn onClick={onClickUpdateRouter} title="Edit">
+                    <Icon src="/Edit.svg" />
+                  </Btn>
+                  <Btn onClick={onClickDelete} title="Delete">
+                    <Icon src="/Delete.svg" />
+                  </Btn>
+                  <Btn onClick={onClickRouter} title="Create study">
+                    <Icon src="/Study.svg" />
+                  </Btn>
+                </div>
+              )}
             </StyledDiv>
             <TimeContainer>
               <DateP style={{ color: "black" }}>
@@ -185,13 +198,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               </Container2>
             )}
           </StyledDiv2>
-          {user?.nickname === view.nickname && (
-            <div>
-              <Btn onClick={onClickUpdateRouter}>Update</Btn>
-              <Btn onClick={onClickDelete}>Delete</Btn>
-              <Btn onClick={onClickRouter}>Write Study</Btn>
-            </div>
-          )}
         </Container>
       ) : (
         <p>Loading...</p>
@@ -227,19 +233,22 @@ export const StyledBox = styled.div`
 `;
 
 export const Btn = styled.button`
-  margin: 0 1rem;
-  margin-bottom: 1rem;
+  margin: 0 5px;
 
   color: var(--color-deep);
   border: none;
-  border-bottom: 1px solid #f0f0f0;
-  border-radius: 5px;
+  border-radius: 1rem;
 
   cursor: pointer;
 
   &:hover {
-    border-bottom: 1px solid var(--color-deep);
+    opacity: 0.8;
   }
+`;
+
+export const Icon = styled.img`
+  width: 2vw;
+  margin: 0;
 `;
 
 export const Middot = styled.img`
@@ -269,6 +278,9 @@ export const DateP = styled.p`
 `;
 
 export const StyledDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   width: 55vw;
   min-height: fit-content;
   padding: 0 10px;

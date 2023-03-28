@@ -11,6 +11,7 @@ import {
   Btn,
   Container,
   DateP,
+  Icon,
   Info,
   Middot,
   ShareImage,
@@ -102,6 +103,43 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
           <div>
             <StyledDiv>
               <StyledH2>{view.title}</StyledH2>
+              {user?.nickname === view.nickname ? (
+                <div>
+                  <Btn onClick={onClickUpdateRouter} title="Edit">
+                    <Icon src="/Edit.svg" />
+                  </Btn>
+                  <Btn onClick={onClickDelete} title="Delete">
+                    <Icon src="/Delete.svg" />
+                  </Btn>
+                  <Btn
+                    title="Go to body"
+                    onClick={() =>
+                      router.push({
+                        pathname: "/share",
+                        query: {
+                          id: view?.mainPostId,
+                        },
+                      })
+                    }
+                  >
+                    <Icon src="/Prev.svg" />
+                  </Btn>
+                </div>
+              ) : (
+                <Btn
+                  title="Go to body"
+                  onClick={() =>
+                    router.push({
+                      pathname: "/share",
+                      query: {
+                        id: view?.mainPostId,
+                      },
+                    })
+                  }
+                >
+                  <Icon src="/Prev.svg" />
+                </Btn>
+              )}
             </StyledDiv>
             <TimeContainer>
               <DateP style={{ color: "black" }}>
@@ -126,24 +164,6 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
               alt=""
             />
           ))}
-          {user?.nickname === view.nickname && (
-            <div>
-              <Btn onClick={onClickUpdateRouter}>Update</Btn>
-              <Btn onClick={onClickDelete}>Delete</Btn>
-            </div>
-          )}
-          <Btn
-            onClick={() =>
-              router.push({
-                pathname: "/share",
-                query: {
-                  id: view?.mainPostId,
-                },
-              })
-            }
-          >
-            Go to body
-          </Btn>
           <CommunityComment boardPostId={view.id} />
         </Container>
       ) : (

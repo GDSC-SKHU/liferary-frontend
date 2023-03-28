@@ -241,6 +241,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <Notice>Please wait for the photo preview to come up...</Notice>
           <ImageContainer>
             {/* c_writeBody.tsx랑 다름 */}
             {imgUrls.map((imgUrl) => {
@@ -388,6 +389,11 @@ export const StyledLabel = styled.label`
     color: var(--color-main);
     border: 1px solid var(--color-main);
   }
+`;
+
+export const Notice = styled.p`
+  color: black;
+  font-size: small;
 `;
 
 export const ImageContainer = styled.div`

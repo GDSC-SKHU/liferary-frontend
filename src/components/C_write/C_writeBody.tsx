@@ -11,6 +11,7 @@ import {
   ImageContainer,
   ImgContainer,
   ImgInput,
+  Notice,
   Notion,
   StyledInput,
   StyledInput2,
@@ -150,7 +151,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
 
   return (
     <>
-      {isEdit && <h3>Edit mode</h3>}
+      {/* {isEdit && <h3>Edit mode</h3>} */}
       <form onSubmit={onSubmit}>
         <Container style={{ marginTop: "10vh" }}>
           <div>
@@ -177,6 +178,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <Notice>Please wait for the photo preview to come up...</Notice>
           <ImageContainer>
             {/* c_writeBody.tsx랑 다름 */}
             {imgUrls.map((imgUrl) => {
