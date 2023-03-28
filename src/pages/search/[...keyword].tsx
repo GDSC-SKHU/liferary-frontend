@@ -63,4 +63,7 @@ const SearchWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const SearchDetail = styled.div``;
+
+const SearchDetail = styled.div`
+  margin-top: 1rem;
+`;

@@ -35,15 +35,17 @@ export default function Comment({ id }: ShareProps) {
           Write your idea
         </Btn>
       </StyledH2>
-      {list &&
-        list.slice(0, 5).map((el: Board) => (
-          <CommunityBoardItem
-            onClick={() => handleClickListItem(el.id)}
-            key={el.id}
-          >
-            {el.title}
-          </CommunityBoardItem>
-        ))}
+      <Container>
+        {list &&
+          list.slice(0, 5).map((el: Board) => (
+            <CommunityBoardItem
+              onClick={() => handleClickListItem(el.id)}
+              key={el.id}
+            >
+              {el.title}
+            </CommunityBoardItem>
+          ))}
+      </Container>
       <Btn onClick={onClickViewMoreBoard}>View More</Btn>
     </div>
   );
@@ -55,15 +57,25 @@ const StyledH2 = styled.h2`
   padding: 10px;
 
   /* color: var(--color-main); */
-  border-bottom: 1px solid var(--color-main);
+  border-bottom: 2px solid var(--color-main);
 
   font-weight: normal;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CommunityBoardItem = styled.div`
   display: flex;
   width: 90%;
-  border-bottom: 0.5px solid var(--color-light);
+  margin-bottom: 1rem;
+  padding: 0 5px 1rem;
+
+  border-bottom: 1px solid black;
 
   :hover {
     color: var(--color-deep);

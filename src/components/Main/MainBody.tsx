@@ -23,8 +23,7 @@ export default function MainBody() {
 }
 
 const MainPostContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: block;
 
   margin-top: 10vh;
 
@@ -37,5 +36,5 @@ const MainPostWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-bottom: 4vh;
+  margin-bottom: 6vh;
 `;

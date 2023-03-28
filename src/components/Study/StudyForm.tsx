@@ -190,5 +190,14 @@ export const StyledName = styled.p`
 `;
 
 const GoogleMeetLink = styled(Link)`
+  margin-bottom: 1rem;
+
   color: black;
+
+  transition: 0.2s;
+
+  :hover {
+    transform: translateY(-2px);
+    color: #888888;
+  }
 `;
