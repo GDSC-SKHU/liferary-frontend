@@ -19,7 +19,7 @@ export default function Nav() {
       setUserInfo(
         JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
       );
-    // console.log(userInfo);
+    console.log(userInfo);
   }, []);
 
   return (
@@ -48,9 +48,6 @@ export default function Nav() {
           </StyledSpan>
         </Link>
         <UserContainer>
-          {/* <Link href="/user_info">
-            <StyledImg2 src="/Pro.svg" alt="" />
-          </Link> */}
           <Link style={{ textDecoration: "none" }} href="/login">
             {userInfo ? (
               <LoginBtn onClick={handleLogout}>Logout</LoginBtn>

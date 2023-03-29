@@ -1,5 +1,6 @@
 import { auth } from "@/components/Login/GoogleLogin";
 import axios from "axios";
+
 const handleLogout = () => {
   // console.log(localStorage.getItem("userInfo"));
   if (

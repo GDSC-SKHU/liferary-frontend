@@ -75,8 +75,11 @@ const LoginForm = () => {
           </StyledDiv>
         </div>
         <LoginBtn>
-          <Google src="/google.png" onClick={handleGoogleLogin} />
           <Submit type="submit">Login</Submit>
+          <GoogleLogin>
+            <Google src="/google.png" onClick={handleGoogleLogin} />
+            <span style={{ fontSize: "13px" }}>Google Login</span>
+          </GoogleLogin>
         </LoginBtn>
       </StyledForm>
     </LoginFormWrapper>
@@ -84,6 +87,26 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+const GoogleLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 19vw;
+  margin-top: 1rem;
+  padding: 3px 0;
+
+  background-color: #dbdbdb;
+  color: black;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  :hover {
+    opacity: 0.8;
+  }
+`;
 
 const LoginFormWrapper = styled.div`
   display: flex;
@@ -128,6 +151,7 @@ const StyledInput = styled.input`
 
 const LoginBtn = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -151,17 +175,9 @@ const Submit = styled.button`
 `;
 
 const Google = styled.img`
-  width: 2vw;
-  margin-top: 3rem;
-  margin-right: 1rem;
+  width: 1.5vw;
+  margin-right: 10px;
   padding: 1px;
 
-  border: 1px solid #e4e4e4;
-  border-radius: 5px;
-
   cursor: pointer;
-
-  :hover {
-    background-color: #e4e4e4;
-  }
 `;
