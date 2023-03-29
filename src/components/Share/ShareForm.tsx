@@ -357,7 +357,7 @@ export const StyledP = styled.p`
 
   font-weight: 500;
   font-size: 1rem;
-  word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 const StyledTitle = styled.span`
