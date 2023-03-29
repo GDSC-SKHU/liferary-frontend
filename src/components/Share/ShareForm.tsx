@@ -235,7 +235,6 @@ export const StyledBox = styled.div`
 export const Btn = styled.button`
   margin: 0 5px;
 
-  color: var(--color-deep);
   border: none;
   border-radius: 1rem;
 

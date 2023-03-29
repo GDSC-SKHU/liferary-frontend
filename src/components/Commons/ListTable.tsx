@@ -24,7 +24,10 @@ export default function ListTable({
         <span>Date</span>
       </TitleWrapper>
       {list.map((el: Post, idx) => (
-        <ListWrapper key={el.id} onClick={() => handleClickListItem(el.id)}>
+        <ListWrapper
+          key={(el.id, el.title, el.nickname, el.modifiedDate)}
+          onClick={() => handleClickListItem(el.id)}
+        >
           <ListItem
             idx={(page - 1) * 9 + idx + 1}
             title={el.title}

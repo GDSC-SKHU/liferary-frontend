@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import useToken from "@/hooks/useToken";
 import { Comment } from "@/types/comment";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
 import { Btn, DateP, TimeContainer } from "../Share/ShareForm";
+import { BtnContainer } from "../S_write/S_writeForm";
+
+interface UserInfo {
+  email: string;
+  nickname: string;
+  firebaseAuth: boolean;
+}
 
 const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
-  const { allToken } = useToken();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    Object.keys(window.localStorage).includes("userInfo") &&
+      setUserInfo(
+        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
+      );
+    console.log(userInfo);
+  }, []);
+
+  const TOKEN = localStorage.getItem("accessToken");
 
   const [newComment, setNewComment] = useState<string>("");
 
@@ -36,7 +52,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       {
         headers: {
           withCredentials: true,
-          Authorization: allToken,
+          Authorization: TOKEN,
         },
       }
     );
@@ -66,16 +82,18 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
       ) : (
         <Notion>No comments</Notion>
       )}
-      <CommentForm onSubmit={handleSubmitComment}>
-        <CommentInput
-          placeholder="Write comment"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-        <Btn type="submit" style={{ margin: "0", marginTop: "10px" }}>
-          Registration
-        </Btn>
-      </CommentForm>
+      {userInfo ? (
+        <CommentForm onSubmit={handleSubmitComment}>
+          <CommentInput
+            placeholder="Write comment"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <Btn type="submit" style={{ margin: "0", marginTop: "10px" }}>
+            Registration
+          </Btn>
+        </CommentForm>
+      ) : null}
     </>
   );
 };
