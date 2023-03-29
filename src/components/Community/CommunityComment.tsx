@@ -4,7 +4,6 @@ import { Comment } from "@/types/comment";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
 import { Btn, DateP, TimeContainer } from "../Share/ShareForm";
-import { BtnContainer } from "../S_write/S_writeForm";
 
 interface UserInfo {
   email: string;
@@ -30,7 +29,6 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
   useEffect(() => {
     axios.get(`/api/comment/${boardPostId}/page/1`).then((res) => {
       setList(res.data);
-      // console.log(list);
     });
   }, []);
 
@@ -69,7 +67,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
             >
               <CommentItem key={el.id}>
                 <Writer>{el.writer}</Writer>
-                <Content>{el.context} </Content>
+                <span>{el.context} </span>
               </CommentItem>
               <TimeContainer style={{ paddingLeft: "0" }}>
                 <DateP style={{ color: "#8e8e8e", marginBottom: "5px" }}>
@@ -113,8 +111,6 @@ const Writer = styled.span`
 
   font-weight: 600;
 `;
-
-const Content = styled.span``;
 
 const CommentForm = styled.form`
   display: flex;

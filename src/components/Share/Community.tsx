@@ -8,15 +8,19 @@ import { Btn, Icon } from "./ShareForm";
 
 export default function Comment({ id }: ShareProps) {
   const [list, setList] = useState<Board[]>();
+
   const onClickViewMoreBoard = () => {
     router.push({
       pathname: `/c_list/${id}`,
     });
   };
+
   const handleClickListItem = (boardId: number) => {
     router.push(`/community/${id}/${boardId}`);
   };
+
   console.log(list?.slice(0, 5));
+
   useEffect(() => {
     axios
       .get(`/api/board/${id}/page?page=1`)
@@ -25,7 +29,6 @@ export default function Comment({ id }: ShareProps) {
 
   return (
     <div>
-      {/* {view !== undefined ? () : } */}
       <StyledH2>
         Share your feelings
         <Btn
@@ -59,7 +62,6 @@ const StyledH2 = styled.h2`
   margin-bottom: 1rem;
   padding: 10px;
 
-  /* color: var(--color-main); */
   border-bottom: 2px solid var(--color-main);
 
   font-weight: normal;

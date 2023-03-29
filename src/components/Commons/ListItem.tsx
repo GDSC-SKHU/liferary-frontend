@@ -23,10 +23,11 @@ export default function ListItem({
 }
 
 const StyledSpan = styled.div`
-  padding-bottom: 10px;
+  display: block;
 
   width: 90%;
-  display: block;
+  padding-bottom: 10px;
+
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

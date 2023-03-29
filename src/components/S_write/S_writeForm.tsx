@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import useToken from "@/hooks/useToken";
 import DropDownCategory from "../Commons/DropDownCategory";
@@ -278,7 +278,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
       </form>
 
       {videoId && (
-        <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
+        <YouTube videoId={videoId} opts={{ width: "50%", height: "500px" }} />
       )}
     </>
   );
@@ -299,7 +299,7 @@ const StyledSpan = styled.span`
   font-size: 1rem;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

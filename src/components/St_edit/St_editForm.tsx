@@ -2,7 +2,6 @@ import { UpdateProps } from "@/pages/s_edit";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import styled from "styled-components";
 import Image from "next/image";
 import imageUpload from "@/libs/imageUpload";
 import useToken from "@/hooks/useToken";
@@ -18,10 +17,9 @@ import {
   StyledLabel,
   Submit,
 } from "../S_write/S_writeForm";
+import { Container } from "../S_edit/S_editForm";
 
 const St_editForm = ({ id }: UpdateProps) => {
-  console.log(id);
-
   const { allToken } = useToken();
   const router = useRouter();
 
@@ -71,7 +69,6 @@ const St_editForm = ({ id }: UpdateProps) => {
     if (e.target.files) {
       const files = e.target.files;
       const data = await imageUpload(files, "study");
-      // const file = useUmage...()
 
       setUpdateImgUrls([...updateImgUrls, ...data]);
     }
@@ -171,13 +168,11 @@ const St_editForm = ({ id }: UpdateProps) => {
             Choose your file
           </StyledLabel>
           <ImageContainer>
-            {/* c_writeBody.tsx랑 다름 */}
             {updateImgUrls.map((imgUrl) => {
               return (
                 <ImgContainer key={imgUrl}>
                   <Image
                     key={imgUrl}
-                    // src={`https://picsum.photos/200/300`}
                     src={imgUrl}
                     width={100}
                     height={70}
@@ -212,10 +207,3 @@ const St_editForm = ({ id }: UpdateProps) => {
 };
 
 export default St_editForm;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;

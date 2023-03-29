@@ -21,8 +21,6 @@ const Choice = () => {
   //   WriteBtn.style.display = 'none';
   // }, []);
 
-  // https://velog.io/@acwell94/%EC%97%90%EB%9F%AC-never%ED%83%80%EC%9E%85%EC%97%90-%EC%86%8D%EC%84%B1%EC%9D%B4-%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4
-
   return (
     <>
       <BannerContainer>
@@ -80,8 +78,8 @@ const BannerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  float: right;
 
+  float: right;
   padding-top: 1.5rem;
   padding-right: 2rem;
 
@@ -99,12 +97,11 @@ const BannerWrapper2 = styled(motion.div)`
   margin-top: 11vh;
   left: 10vw;
 
+  background-color: var(--color-main);
+  color: white;
   border-radius: 50px;
   position: absolute;
   animation: ${boxFade} 2s 1s infinite linear alternate;
-
-  background-color: var(--color-main);
-  color: white;
 
   transition: all 0.5s ease-in-out;
   z-index: 3;
@@ -140,7 +137,6 @@ const BannerWrapper = styled.div`
   border-radius: 50px;
 
   box-shadow: 2px 2px 3px #d9d9d9;
-  /* z-index: -2; */
 
   > h2 {
     padding: 0;
@@ -157,6 +153,7 @@ const BannerWrapper = styled.div`
 
   @media (max-width: 1000px) {
     padding-right: 8vw;
+
     font-size: x-small;
   }
 `;

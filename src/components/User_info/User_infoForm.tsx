@@ -1,6 +1,6 @@
 import useUser from "@/hooks/useUser";
 import styled from "styled-components";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Btn, Icon } from "../Share/ShareForm";
@@ -48,12 +48,14 @@ export default function User_infoForm() {
 
   const handleChangePassword = async () => {
     const TOKEN = localStorage.getItem("accessToken");
+
     console.log(
       "handlepassword",
       nickname,
       form.password,
       form.passwordconfirm
     );
+
     await axios
       .patch(
         `/api/member`,
@@ -188,7 +190,9 @@ export default function User_infoForm() {
 
 const IndexContainer = styled.div`
   display: inline-block;
+
   margin: 5px;
+
   text-align: right;
 `;
 
@@ -225,14 +229,9 @@ const InfoContainer = styled.div`
   padding: 5px;
 `;
 
-const StyledDiv = styled.div`
-  padding-top: 2rem;
-`;
-
 const StyledInput = styled.input`
-  width: 15vw;
-
   float: right;
+  width: 15vw;
   margin-left: 1rem;
 
   border: none;

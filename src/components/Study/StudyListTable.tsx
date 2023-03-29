@@ -1,8 +1,7 @@
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import ListItem from "../Commons/ListItem";
 import Study from "@/types/study";
-import { ListWrapper, TitleWrapper } from "../Commons/ListTable";
+import { ListContainer, ListWrapper, TitleWrapper } from "../Commons/ListTable";
 
 export default function StudyListTable({
   list,
@@ -45,12 +44,3 @@ export default function StudyListTable({
     </ListContainer>
   );
 }
-
-const ListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-`;

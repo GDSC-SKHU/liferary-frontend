@@ -4,6 +4,7 @@ import Pagination from "../Commons/Pagination";
 import axios from "axios";
 import { mainPostIdParams } from "@/pages/c_list/[...id]";
 import CommunityListTable from "../Community/CommunityListTable";
+import { StudyListWrapper } from "../S_list/St_listBody";
 
 export default function C_list({ mainPostId }: mainPostIdParams) {
   const [page, setPage] = useState<number>(1);
@@ -29,13 +30,13 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
 
   return (
     <CategoryContainer>
-      <CategoryListWrapper>
+      <StudyListWrapper style={{ marginTop: "1rem" }}>
         {totalPage && list ? (
           <CommunityListTable list={list} page={page} />
         ) : (
           <div>There are no posts</div>
         )}
-      </CategoryListWrapper>
+      </StudyListWrapper>
       <Pagination
         totalPages={totalPage}
         currentPage={page}
@@ -45,7 +46,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
   );
 }
 
-const CategoryContainer = styled.div`
+export const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,13 +54,4 @@ const CategoryContainer = styled.div`
 
   width: 100%;
   margin-top: 4vh;
-`;
-
-const CategoryListWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  margin-top: 1rem;
 `;
