@@ -62,7 +62,7 @@ const CardItem = styled.div`
 
   width: 18vw;
   height: 100%;
-  margin: 10px;
+  /* margin: 10px; */
 `;
 
 const Title = styled.button`

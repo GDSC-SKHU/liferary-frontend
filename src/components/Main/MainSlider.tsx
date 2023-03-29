@@ -36,10 +36,11 @@ export default MainSlider;
 
 const SlideShowContainer = styled.div`
   display: flex;
-  justify-content: center;
+
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-
   height: 35vh;
   overflow: hidden;
+  /* border: 0.5px solid gray; */
 `;

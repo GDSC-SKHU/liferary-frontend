@@ -63,7 +63,27 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         </ChooseButton>
         <Element isOpen={isOpen} categories={categoryList} />
       </ChooseWrapper>
-      {categoryName && <CategoryName>{categoryName} result</CategoryName>}
+      <CategoryNameWrapper>
+        {categoryName ? (
+          <CategoryName>{categoryName}</CategoryName>
+        ) : (
+          <CategoryName>ALL</CategoryName>
+        )}
+        {userInfo ? (
+          <BtnContainer>
+            <Link
+              href={{
+                pathname: "/s_write",
+                query: { category: categoryName },
+              }}
+              as="/s_write"
+            >
+              <WriteBtn>Try write!</WriteBtn>{" "}
+            </Link>
+          </BtnContainer>
+        ) : null}
+      </CategoryNameWrapper>
+
       <CategoryListWrapper>
         {totalPage && list ? (
           <ListTable list={list} page={page} />
@@ -71,25 +91,12 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
           <div>{categoryName} There are no posts</div>
         )}
       </CategoryListWrapper>
+
       <Pagination
         totalPages={totalPage}
         currentPage={page}
         onPageChange={setPage}
       ></Pagination>
-      {userInfo ? (
-        <BtnContainer>
-          {" "}
-          <Link
-            href={{
-              pathname: "/s_write",
-              query: { category: categoryName },
-            }}
-            as="/s_write"
-          >
-            <WriteBtn>Try write!</WriteBtn>{" "}
-          </Link>
-        </BtnContainer>
-      ) : null}
     </CategoryContainer>
   );
 }
@@ -122,8 +129,14 @@ const ChooseButton = styled.div`
   border-radius: 10px;
 `;
 
+const CategoryNameWrapper = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const CategoryName = styled.h3`
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 `;
 
 const CategoryListWrapper = styled.div`
@@ -136,5 +149,5 @@ const CategoryListWrapper = styled.div`
 `;
 
 const BtnContainer = styled.div`
-  margin-left: 60vw;
+  /* margin-left: 60vw; */
 `;

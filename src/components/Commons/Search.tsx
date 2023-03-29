@@ -34,6 +34,7 @@ const SearchContainer = styled.input`
   background-position: 10px 5px;
 
   width: 15vw;
+  margin: 20px;
   padding: 5px 10px;
   padding-left: 2.5rem;
 

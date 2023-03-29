@@ -4,6 +4,7 @@ import { Comment } from "@/types/comment";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
 import { Btn, DateP, TimeContainer } from "../Share/ShareForm";
+import { BtnContainer } from "../S_write/S_writeForm";
 
 interface UserInfo {
   email: string;
@@ -22,8 +23,6 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
     console.log(userInfo);
   }, []);
 
-  const TOKEN = localStorage.getItem("accessToken");
-
   const [newComment, setNewComment] = useState<string>("");
 
   const [list, setList] = useState<Comment[]>();
@@ -36,6 +35,8 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
   }, []);
 
   const handleSubmitComment = () => {
+    const TOKEN = localStorage.getItem("accessToken");
+
     if (newComment.length === 0) {
       alert("Please share your think!");
 
@@ -45,13 +46,13 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
     axios.post(
       `/api/comment/new`,
       {
-        boardPostId,
+        boardPostId: boardPostId,
         context: newComment,
       },
       {
         headers: {
           withCredentials: true,
-          Authorization: TOKEN,
+          Authorization: `Bearer ${TOKEN}`,
         },
       }
     );
@@ -88,9 +89,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <Btn type="submit" style={{ margin: "0", marginTop: "10px" }}>
-            Registration
-          </Btn>
+          <Btn style={{ margin: "0", marginTop: "10px" }}>Registration</Btn>
         </CommentForm>
       ) : null}
     </>

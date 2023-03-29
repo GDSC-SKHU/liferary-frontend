@@ -3,6 +3,7 @@ import styled from "styled-components";
 import MainSlider from "./MainSlider";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 interface UserInfo {
   email: string;
@@ -11,6 +12,7 @@ interface UserInfo {
 }
 
 export default function MainBody() {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
@@ -37,13 +39,13 @@ export default function MainBody() {
         </BtnContainer>
       </div>
       <MainPostContainer>
-        <h3>Recent Post</h3>
         <MainPostWrapper>
+          <h3 onClick={() => router.push("/category")}>Recent Post</h3>
           <MainSlider kind={"main"} />
           {/* <Card page={page} /> */}
         </MainPostWrapper>
-        <h3>Recent Study</h3>
         <MainPostWrapper>
+          <h3 onClick={() => router.push("/st_list")}>Recent Study</h3>
           {/* <Card page={page} /> */}
           <MainSlider kind={"study"} />
         </MainPostWrapper>
@@ -54,6 +56,10 @@ export default function MainBody() {
 
 const MainPostContainer = styled.div`
   margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   cursor: default;
 
@@ -65,8 +71,15 @@ const MainPostContainer = styled.div`
 const MainPostWrapper = styled.div`
   display: flex;
   justify-content: center;
-
+  flex-direction: column;
   margin-bottom: 6vh;
+  width: 80%;
+
+  > h3 {
+    :hover {
+      color: gray;
+    }
+  }
 `;
 
 const BtnContainer = styled.div`

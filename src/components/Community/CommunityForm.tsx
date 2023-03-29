@@ -19,7 +19,6 @@ import {
 import { StyledDiv, StyledDiv2, StyledH2, StyledP } from "../Share/ShareForm";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
-  const TOKEN = localStorage.getItem("accessToken");
   const router = useRouter();
   const { user } = useUser();
 
@@ -28,12 +27,13 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
   const [view, setView] = useState<Board>();
 
   const onClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const TOKEN = localStorage.getItem("accessToken");
     if (confirm("Are you sure you want to delete it?")) {
       axios
         .delete(`/api/board/${mainPostId}/post/?id=${id}`, {
           headers: {
             withCredentials: true,
-            Authorization: TOKEN,
+            Authorization: `Bearer ${TOKEN}`,
           },
         })
         .then(() => {
