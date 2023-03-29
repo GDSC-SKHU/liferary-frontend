@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useLayoutEffect, useState } from "react";
 import Search from "../Commons/Search";
 import { handleLogout } from "@/utils/logout";
+import { useRouter } from "next/router";
 
 // 새로운 type
 interface UserInfo {
@@ -12,6 +13,7 @@ interface UserInfo {
 }
 
 export default function Nav() {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useLayoutEffect(() => {
@@ -19,7 +21,7 @@ export default function Nav() {
       setUserInfo(
         JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
       );
-    console.log(userInfo);
+    // console.log(userInfo);
   }, []);
 
   return (
@@ -31,13 +33,19 @@ export default function Nav() {
         <NavItemWrapper>
           <Search />
           <LinkContainer style={{ display: "flex" }}>
-            <LinkWrapper href="/category">
+            <LinkWrapper
+              href="/category"
+              active={router.pathname === "/category"}
+            >
               <List>Share Knowledge</List>
             </LinkWrapper>
-            <LinkWrapper href="/st_list">
+            <LinkWrapper
+              href="/st_list"
+              active={router.pathname === "/st_list"}
+            >
               <List>Study</List>
             </LinkWrapper>
-            <LinkWrapper href="/c_list">
+            <LinkWrapper href="/c_list" active={router.pathname === "/c_list"}>
               <List>Community</List>
             </LinkWrapper>
           </LinkContainer>
@@ -48,6 +56,9 @@ export default function Nav() {
           </StyledSpan>
         </Link>
         <UserContainer>
+          {/* <Link href="/user_info">
+            <StyledImg2 src="/Pro.svg" alt="" />
+          </Link> */}
           <Link style={{ textDecoration: "none" }} href="/login">
             {userInfo ? (
               <LoginBtn onClick={handleLogout}>Logout</LoginBtn>
@@ -83,7 +94,7 @@ const StyledSpan = styled.span`
   color: var(--color-normal);
   border: 1px solid white;
 
-  font-weight: 200;
+  font-weight: 400;
 
   :hover {
     padding: 2px 4px;
@@ -110,31 +121,30 @@ const LinkContainer = styled.div`
   display: flex;
 `;
 
-const LinkWrapper = styled(Link)`
+const LinkWrapper = styled(Link)<{ active: boolean }>`
   display: inline-block;
 
   margin: 0 10px;
   padding: 0 2rem;
 
   color: var(--clor-main);
-
   text-decoration: none;
 
   & > p {
     text-transform: uppercase;
+    font-weight: 400;
+    transition: transform 0.3s;
+    /* color: ${({ active }) => active && `{var(--color-main)}`}; */
+    color: ${({ active }) => active && "var(--color-main)"};
+    :hover {
+      transform: translateY(-2px);
+
+      color: var(--color-deep);
+    }
   }
 `;
 
-const List = styled.p`
-  font-weight: 200;
-  transition: transform 0.3s;
-
-  :hover {
-    transform: translateY(-2px);
-
-    color: var(--color-deep);
-  }
-`;
+const List = styled.p``;
 
 const UserContainer = styled.div`
   display: flex;

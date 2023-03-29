@@ -28,6 +28,8 @@ const Container = styled.div`
   background-color: var(--color-main);
   color: white;
 
+  cursor: default;
+
   @media (max-width: 800px) {
     padding-left: 8vw;
   }
@@ -38,7 +40,8 @@ const StyledP = styled.p`
 `;
 
 const StyledBtn = styled.button`
-  margin-left: 10vw;
+  float: right;
+  margin-right: 11vw;
 
   background-color: var(--color-main);
   color: white;

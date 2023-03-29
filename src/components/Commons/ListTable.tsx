@@ -54,9 +54,9 @@ export const ListWrapper = styled.div`
   grid-template-columns: 0.5fr 2fr 0.8fr 0.6fr;
 
   width: 70%;
-  height: 4vh;
-  margin-top: 2vh;
-  padding: 20px;
+  /* height: 4vh; */
+  /* margin-top: 2vh; */
+  padding-top: 20px;
 
   border: none;
 
@@ -68,6 +68,8 @@ export const ListWrapper = styled.div`
   text-overflow: ellipsis;
 
   cursor: default;
+
+  border-bottom: 1px solid #d3d3d3;
 
   :hover {
     color: var(--color-main);

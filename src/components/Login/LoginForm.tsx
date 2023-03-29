@@ -113,6 +113,8 @@ const LoginFormWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  cursor: default;
 `;
 
 const StyledForm = styled.form`
