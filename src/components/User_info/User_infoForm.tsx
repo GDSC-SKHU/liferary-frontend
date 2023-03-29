@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { Btn } from "../Share/ShareForm";
+import { Btn, Icon } from "../Share/ShareForm";
 
 interface LoginForm {
   password: string;
@@ -69,7 +69,7 @@ export default function User_infoForm() {
           },
         }
       )
-      .then((res) => res.status === 200 && alert("password changed"))
+      .then((res) => res.status === 200 && alert("Password changed"))
       .then(() => setIsEdit((prev) => !prev));
   };
 
@@ -98,33 +98,44 @@ export default function User_infoForm() {
       {!userInfo.user?.firebaseAuth && (
         <Btn
           onClick={() => setIsEdit((prev) => !prev)}
+          title="Change Password"
           style={{ marginBottom: "0" }}
         >
-          {!isEdit ? "Change Password" : "Cancel"}
+          {!isEdit ? (
+            <Icon src="/Password.svg" />
+          ) : (
+            <Icon src="/Prev.svg" title="Back" />
+          )}
         </Btn>
       )}
       {isEdit ? (
         <>
           {!isWithdraw ? (
             <>
-              <StyledDiv>
-                <span>Password</span>
-                <StyledInput
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                />
-              </StyledDiv>
-              <StyledDiv>
-                <span>Repeat Password</span>
-                <StyledInput
-                  type="password"
-                  name="passwordconfirm"
-                  value={form.passwordconfirm}
-                  onChange={handleChange}
-                />
-              </StyledDiv>
+              <div style={{ marginTop: "1rem" }}>
+                <InfoContainer>
+                  <IndexContainer>
+                    <Index>Password </Index>
+                  </IndexContainer>
+                  <StyledInput
+                    type="password"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                </InfoContainer>
+                <InfoContainer>
+                  <IndexContainer>
+                    <Index>Repeat Password </Index>
+                  </IndexContainer>
+                  <StyledInput
+                    type="password"
+                    name="passwordconfirm"
+                    value={form.passwordconfirm}
+                    onChange={handleChange}
+                  />
+                </InfoContainer>
+              </div>
               {/* <button onClick={() => setIsWithdraw((prev) => !prev)}>
                 Withdraw
               </button> */}
@@ -147,11 +158,12 @@ export default function User_infoForm() {
           null}
           <Btn
             onClick={handleChangePassword}
+            title="Edit Password"
             type="submit"
             disabled={form.password !== form.passwordconfirm}
-            style={{ marginTop: "2rem" }}
+            style={{ marginTop: "1rem", backgroundColor: "#f0f0f0" }}
           >
-            Change Password
+            <Icon src="/Edit.svg" />
           </Btn>
         </>
       ) : (

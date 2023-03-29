@@ -6,7 +6,6 @@ import { CommunityProps } from "@/pages/community/[mainPostId]/[id]";
 import Board from "@/types/board";
 import { formatDate } from "@/types/date";
 import CommunityComment from "./CommunityComment";
-import useToken from "@/hooks/useToken";
 import {
   Btn,
   Container,
@@ -17,18 +16,10 @@ import {
   ShareImage,
   TimeContainer,
 } from "../Share/ShareForm";
-import { Category, StyledName } from "../Study/StudyForm";
-import {
-  StyledBox,
-  StyledDiv,
-  StyledDiv2,
-  StyledH2,
-  StyledP,
-  StyledSpan,
-} from "../Share/ShareForm";
+import { StyledDiv, StyledDiv2, StyledH2, StyledP } from "../Share/ShareForm";
 
 const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
-  const { allToken } = useToken();
+  const TOKEN = localStorage.getItem("accessToken");
   const router = useRouter();
   const { user } = useUser();
 
@@ -42,7 +33,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
         .delete(`/api/board/${mainPostId}/post/?id=${id}`, {
           headers: {
             withCredentials: true,
-            Authorization: allToken,
+            Authorization: TOKEN,
           },
         })
         .then(() => {
