@@ -260,6 +260,7 @@ export const Info = styled.span`
 
 export const Info2 = styled(Info)`
   border-bottom: 1px solid black;
+
   cursor: default;
 
   :hover {
@@ -268,12 +269,13 @@ export const Info2 = styled(Info)`
 `;
 
 export const DateP = styled.p`
-  margin-bottom: 2rem;
   float: left;
-  text-align: left;
+  margin-bottom: 2rem;
 
   color: #f0f0f0;
+
   font-size: small;
+  text-align: left;
 `;
 
 export const StyledDiv = styled.div`
@@ -310,6 +312,7 @@ const Description = styled.span`
   margin-left: 1vw;
 
   color: var(--color-normal);
+
   font-size: small;
 `;
 
@@ -322,6 +325,7 @@ export const Container = styled.div`
   margin-top: 2rem;
 
   color: white;
+
   cursor: default;
 `;
 
@@ -348,9 +352,9 @@ export const StyledH2 = styled.h2`
 
 export const StyledP = styled.p`
   width: 100%;
+  height: auto;
   margin-bottom: 1rem;
   padding: 0 10px 1rem;
-  height: auto;
 
   color: #444444;
   border-bottom: 1px solid var(--color-normal);
@@ -382,5 +386,4 @@ export const ShareImage = styled(Image)`
   margin-bottom: 1rem;
 
   border-radius: 10px;
-  //cover
 `;

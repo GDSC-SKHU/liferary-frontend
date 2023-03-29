@@ -1,8 +1,7 @@
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import ListItem from "../Commons/ListItem";
 import Board from "@/types/board";
-import { ListWrapper, TitleWrapper } from "../Commons/ListTable";
+import { ListContainer, ListWrapper, TitleWrapper } from "../Commons/ListTable";
 
 export default function CommunityListTable({
   list,
@@ -40,12 +39,3 @@ export default function CommunityListTable({
     </ListContainer>
   );
 }
-
-const ListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-`;

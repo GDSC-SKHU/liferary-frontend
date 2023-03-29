@@ -37,16 +37,16 @@ export default function Nav() {
               href="/category"
               active={router.pathname === "/category"}
             >
-              <List>Share Knowledge</List>
+              <p>Share Knowledge</p>
             </LinkWrapper>
             <LinkWrapper
               href="/st_list"
               active={router.pathname === "/st_list"}
             >
-              <List>Study</List>
+              <p>Study</p>
             </LinkWrapper>
             <LinkWrapper href="/c_list" active={router.pathname === "/c_list"}>
-              <List>Community</List>
+              <p>Community</p>
             </LinkWrapper>
           </LinkContainer>
         </NavItemWrapper>
@@ -78,7 +78,6 @@ const Container = styled.div`
   align-items: center;
 
   height: 10vh;
-
   position: sticky;
   top: 0;
 
@@ -106,7 +105,6 @@ const StyledSpan = styled.span`
 
 const StyledImg = styled.img`
   width: 13vw;
-
   margin-left: 3vw;
 `;
 
@@ -132,10 +130,10 @@ const LinkWrapper = styled(Link)<{ active: boolean }>`
 
   & > p {
     text-transform: uppercase;
+    color: ${({ active }) => active && "var(--color-main)"};
     font-weight: 400;
     transition: transform 0.3s;
-    /* color: ${({ active }) => active && `{var(--color-main)}`}; */
-    color: ${({ active }) => active && "var(--color-main)"};
+
     :hover {
       transform: translateY(-2px);
 
@@ -143,8 +141,6 @@ const LinkWrapper = styled(Link)<{ active: boolean }>`
     }
   }
 `;
-
-const List = styled.p``;
 
 const UserContainer = styled.div`
   display: flex;

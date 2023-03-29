@@ -40,7 +40,7 @@ export default function ListTable({
   );
 }
 
-const ListContainer = styled.div`
+export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,11 +51,12 @@ const ListContainer = styled.div`
 
 export const ListWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 2fr 0.8fr 0.6fr;
+  grid-template-columns: 0.5fr 2fr 0.8fr 0.8fr;
 
   width: 70%;
   /* height: 4vh; */
   /* margin-top: 2vh; */
+  padding-left: 10px;
   padding-top: 20px;
 
   border: none;

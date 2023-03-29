@@ -17,7 +17,7 @@ export default function Ment() {
   );
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 40%;
   height: 100vh;
   float: left;
@@ -34,11 +34,11 @@ const Container = styled.div`
   }
 `;
 
-const StyledP = styled.p`
+export const StyledP = styled.p`
   line-height: 200%;
 `;
 
-const StyledBtn = styled.button`
+export const StyledBtn = styled.button`
   float: right;
   margin-right: 12vw;
 

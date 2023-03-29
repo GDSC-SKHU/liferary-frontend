@@ -3,10 +3,10 @@ import imageUpload from "@/libs/imageUpload";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
-import styled from "styled-components";
 import Image from "next/image";
 import {
   BtnContainer,
+  Container,
   DeleteImg,
   ImageContainer,
   ImgContainer,
@@ -185,12 +185,3 @@ const St_writeForm = () => {
 };
 
 export default St_writeForm;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-`;

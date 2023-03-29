@@ -55,11 +55,12 @@ export default function MainBody() {
 }
 
 const MainPostContainer = styled.div`
-  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 10vh;
 
   cursor: default;
 
@@ -70,10 +71,11 @@ const MainPostContainer = styled.div`
 
 const MainPostWrapper = styled.div`
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  margin-bottom: 6vh;
+  justify-content: center;
+
   width: 80%;
+  margin-bottom: 6vh;
 
   > h3 {
     :hover {

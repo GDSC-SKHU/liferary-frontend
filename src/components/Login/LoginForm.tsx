@@ -1,6 +1,12 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import {
+  Container,
+  StyledDiv,
+  StyledForm,
+  StyledInput,
+} from "../Signup/SignupForm";
 import { googleLogin } from "./GoogleLogin";
 
 const LoginForm = () => {
@@ -57,7 +63,7 @@ const LoginForm = () => {
   };
 
   return (
-    <LoginFormWrapper>
+    <Container>
       <StyledForm onSubmit={onSubmit}>
         <h2>LOGIN</h2>
         <div>
@@ -82,74 +88,11 @@ const LoginForm = () => {
           </GoogleLogin>
         </LoginBtn>
       </StyledForm>
-    </LoginFormWrapper>
+    </Container>
   );
 };
 
 export default LoginForm;
-
-const GoogleLogin = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 19vw;
-  margin-top: 1rem;
-  padding: 3px 0;
-
-  background-color: #dbdbdb;
-  color: black;
-  border-radius: 5px;
-
-  cursor: pointer;
-
-  :hover {
-    opacity: 0.8;
-  }
-`;
-
-const LoginFormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  cursor: default;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 18vh;
-
-  color: var(--color-main);
-
-  @media (max-width: 800px) {
-    margin-top: 23vh;
-  }
-`;
-
-const StyledDiv = styled.div`
-  padding-top: 2rem;
-`;
-
-const StyledInput = styled.input`
-  width: 15vw;
-  float: right;
-  margin-left: 1rem;
-
-  border: none;
-  border-bottom: 1px solid var(--color-main);
-
-  outline: none;
-
-  &:focus {
-    border-bottom: 2px solid var(--color-main);
-  }
-`;
 
 const LoginBtn = styled.div`
   display: flex;
@@ -182,4 +125,24 @@ const Google = styled.img`
   padding: 1px;
 
   cursor: pointer;
+`;
+
+const GoogleLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 19vw;
+  margin-top: 1rem;
+  padding: 3px 0;
+
+  background-color: #dbdbdb;
+  color: black;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  :hover {
+    opacity: 0.8;
+  }
 `;

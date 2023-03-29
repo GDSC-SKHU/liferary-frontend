@@ -98,7 +98,7 @@ const SignupForm = () => {
 
 export default SignupForm;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -107,7 +107,7 @@ const Container = styled.div`
   cursor: default;
 `;
 
-const StyledForm = styled.form`
+export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,7 +122,7 @@ const StyledForm = styled.form`
   }
 `;
 
-const StyledDiv = styled.div`
+export const StyledDiv = styled.div`
   padding-top: 2rem;
 `;
 
@@ -130,7 +130,7 @@ const StyledDiv2 = styled.div`
   padding-top: 1.2rem;
 `;
 
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
   width: 15vw;
   margin-left: 1rem;
   float: right;

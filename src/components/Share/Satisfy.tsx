@@ -45,7 +45,6 @@ const Container = styled.div`
 const StyledDiv = styled.div`
   width: 22vw;
   height: 7vh;
-
   margin-bottom: 1rem;
 
   background-color: var(--color-light);
