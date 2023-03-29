@@ -4,7 +4,6 @@ import { Comment } from "@/types/comment";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
 import { Btn, DateP, TimeContainer } from "../Share/ShareForm";
-import { BtnContainer } from "../S_write/S_writeForm";
 
 interface UserInfo {
   email: string;
