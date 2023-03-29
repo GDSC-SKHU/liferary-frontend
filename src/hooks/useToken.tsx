@@ -31,7 +31,7 @@ const useToken = () => {
       .then((res) => console.log(res))
       .catch((res) => {
         if (res.response.status === 403) {
-          alert("logged out");
+          alert("Logged out");
           handleLogout();
           router.push(`/login`);
         }

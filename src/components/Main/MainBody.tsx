@@ -55,6 +55,8 @@ export default function MainBody() {
 const MainPostContainer = styled.div`
   margin-top: 10vh;
 
+  cursor: default;
+
   > h3 {
     margin-left: 8vw;
   }
@@ -70,6 +72,8 @@ const MainPostWrapper = styled.div`
 const BtnContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  cursor: default;
 `;
 
 const WriteWrapper = styled.div`

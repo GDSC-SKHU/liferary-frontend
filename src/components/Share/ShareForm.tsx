@@ -323,6 +323,7 @@ export const Container = styled.div`
   margin-top: 2rem;
 
   color: white;
+  cursor: default;
 `;
 
 const Container2 = styled.div`

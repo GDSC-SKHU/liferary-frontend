@@ -74,12 +74,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
       const TOKEN = localStorage.getItem("accessToken");
 
       axios
-        .get(`/api/board/${mainPostId}/post/?id=${id}`, {
-          headers: {
-            Authorization: allToken,
-            withCredentials: true,
-          },
-        })
+        .get(`/api/board/${mainPostId}/post/?id=${id}`)
         .then((data) => {
           console.log(TOKEN);
           console.log(data.data);
