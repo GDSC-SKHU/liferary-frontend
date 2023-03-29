@@ -66,12 +66,9 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
     setTitle(e.target.value);
   };
 
-  const onChangeContent = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    let content: string = e.currentTarget.value;
-    content = content.replaceAll("<br>", "\r\n");
-
-    setContent(content);
-  }, []);
+  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
 
   const onChangeCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);

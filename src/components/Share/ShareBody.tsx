@@ -28,4 +28,5 @@ const Wrapper = styled.div`
   justify-content: space-between;
 
   width: 55vw;
+  cursor: default;
 `;

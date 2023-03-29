@@ -84,6 +84,8 @@ const BannerContainer = styled.div`
 
   padding-top: 1.5rem;
   padding-right: 2rem;
+
+  cursor: default;
 `;
 
 const BannerWrapper2 = styled(motion.div)`
@@ -151,6 +153,11 @@ const BannerWrapper = styled.div`
   > div > p {
     padding: 3px 2px;
     margin-top: 1rem;
+  }
+
+  @media (max-width: 1000px) {
+    padding-right: 8vw;
+    font-size: x-small;
   }
 `;
 

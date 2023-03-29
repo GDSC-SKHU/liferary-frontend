@@ -155,24 +155,32 @@ export default function User_infoForm() {
           </Btn>
         </>
       ) : (
-        <InfoContainer>
-          <div>
-            <Index>E-mail </Index>
+        <div>
+          <InfoContainer>
+            <IndexContainer>
+              <Index>E-mail </Index>
+            </IndexContainer>
             <UserInfoWrapper>{userInfo.user?.email}</UserInfoWrapper>
-          </div>
-          <div>
-            <Index>Nickname </Index>
+          </InfoContainer>
+          <InfoContainer>
+            <IndexContainer>
+              <Index>Nickname </Index>
+            </IndexContainer>
             <UserInfoWrapper>{userInfo.user?.nickname}</UserInfoWrapper>
-          </div>
-        </InfoContainer>
+          </InfoContainer>
+        </div>
       )}
     </UserInfoContainer>
   );
 }
 
-const Index = styled.span`
-  margin-right: 1rem;
+const IndexContainer = styled.div`
+  display: inline-block;
+  margin: 5px;
+  text-align: right;
+`;
 
+const Index = styled.span`
   font-weight: 600;
   text-align: right;
 `;
@@ -185,11 +193,12 @@ const UserInfoContainer = styled.div`
 
   width: 100%;
   height: 100%;
+
+  text-align: right;
 `;
 
 const UserInfoWrapper = styled.div`
-  display: inline-block;
-  /* float: right; */
+  float: right;
   width: 20vw;
   margin: 5px;
   padding: 3px 5px;
@@ -201,10 +210,7 @@ const UserInfoWrapper = styled.div`
 `;
 
 const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 5px;
 `;
 
 const StyledDiv = styled.div`
