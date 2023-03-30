@@ -275,20 +275,20 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             <Submit type="submit">Registration</Submit>
           </BtnContainer>
         </Container>
+        {videoId && (
+          <YouTube
+            videoId={videoId}
+            opts={{
+              width: "100%",
+              height: "300px",
+              display: "flex",
+              jusifyContent: "center",
+              alignItems: "center",
+              marginBottom: "2rem",
+            }}
+          />
+        )}
       </form>
-      {videoId && (
-        <YouTube
-          videoId={videoId}
-          opts={{
-            width: "40%",
-            height: "300px",
-            display: "flex",
-            jusifyContent: "center",
-            alignItems: "center",
-            marginBottom: "2rem",
-          }}
-        />
-      )}
     </S_Container>
   );
 };
