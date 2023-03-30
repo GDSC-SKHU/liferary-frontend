@@ -109,7 +109,7 @@ const Submit = styled.button`
   background-color: var(--color-main);
   color: white;
   border: 1px solid var(--color-main);
-  border-radius: 7px;
+  border-radius: 5px;
 
   cursor: pointer;
 
@@ -136,13 +136,14 @@ const GoogleLogin = styled.div`
   margin-top: 1rem;
   padding: 3px 0;
 
-  background-color: #dbdbdb;
-  color: black;
+  background-color: white;
+  color: var(--color-main);
+  border: 1px solid var(--color-main);
   border-radius: 5px;
 
   cursor: pointer;
 
   :hover {
-    opacity: 0.8;
+    opacity: 0.7;
   }
 `;
