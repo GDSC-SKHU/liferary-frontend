@@ -62,7 +62,22 @@ const CardItem = styled.div`
 
   width: 18vw;
   height: 100%;
-  margin: 10px;
+`;
+
+const CardImage = styled(Image)`
+  width: 100%;
+  height: 70%;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+  //cover
 `;
 
 const Title = styled.button`
@@ -86,20 +101,4 @@ const Title = styled.button`
 
     font-size: x-small;
   }
-`;
-
-const CardImage = styled(Image)`
-  width: 100%;
-  height: 70%;
-
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: translateY(-4px);
-  }
-  //cover
 `;

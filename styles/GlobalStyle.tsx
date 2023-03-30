@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
 }
 
+::selection {
+    background-color: var(--color-main);
+    /* color: white; */
+  }
+
 :root {
     --color-light: #A0C3FD;
     --color-normal: #72A4F7;

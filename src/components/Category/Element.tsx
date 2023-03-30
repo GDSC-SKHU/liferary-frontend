@@ -6,14 +6,15 @@ interface ElementProps {
   categories: string[];
 }
 
-export default function Element({ isOpen, categories }: ElementProps) {
+export default function Element({ categories }: ElementProps) {
   return (
     <>
-      <ElementContainer className={isOpen ? "active" : "inactive"}>
+      <ElementContainer>
+        {/* <ElementContainer className={isOpen ? "active" : "inactive"}> */}
         <Container>
           {categories.map((category) => (
             <LinkWrapper href={`/category/${category}`} key={category}>
-              {category}
+              {category.toUpperCase()}
             </LinkWrapper>
           ))}
         </Container>
@@ -23,37 +24,42 @@ export default function Element({ isOpen, categories }: ElementProps) {
 }
 
 const ElementContainer = styled.div`
-  transition: all 0.5s ease-in-out;
+  margin: 1rem 0;
+  /* transition: all 0.1s ease-in-out; */
 
-  &.active {
+  /* &.active {
     height: auto;
     margin: 5px;
-    padding: 30px;
+    padding: 15px;
 
-    border: 2px solid var(--color-light);
     border-radius: 10px;
     opacity: 1;
-  }
+  } */
 
-  &.inactive {
+  /* &.inactive {
     height: 0;
 
     opacity: 0;
     overflow: hidden;
-  }
+  } */
 `;
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+  /* width: 65vw; */
 `;
 
 const LinkWrapper = styled(Link)`
-  padding: 2px;
+  margin: 0 3px;
+  padding: 2px 5px;
 
   color: black;
   border: 1px solid var(--color-main);
   border-radius: 10px;
 
+  font-size: 13px;
   text-decoration: none;
 
   :hover {

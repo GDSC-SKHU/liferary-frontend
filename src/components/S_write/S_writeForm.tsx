@@ -7,7 +7,10 @@ import DropDownCategory from "../Commons/DropDownCategory";
 import React from "react";
 import YouTube from "react-youtube";
 import Image from "next/image";
-const S_write = () => {
+import { MainCategoryProps } from "@/pages/s_write";
+import imageUpload from "../../libs/imageUpload";
+
+const S_write = ({ currentCategory }: MainCategoryProps) => {
   const { allToken } = useToken();
 
   const router = useRouter();
@@ -16,13 +19,36 @@ const S_write = () => {
 
   const [content, setContent] = useState<string>("");
 
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<string>(currentCategory ?? "");
 
-  const [imgFile, setImgFile] = useState<FileList | null>(null);
+  const [imgUrls, setImgUrls] = useState<string[]>([]);
 
-  const [url, setUrl] = React.useState("");
+  const [videoUrl, setVideoUrl] = useState<string>("");
 
-  const [previewImgUrl, setPreviewImgUrl] = useState<string[]>([]);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused2, setIsFocused2] = useState(false);
+  const [isFocused3, setIsFocused3] = useState(false);
+
+  const handleInputFocus = () => {
+    setIsFocused(true);
+  };
+  const handleInputBlur = () => {
+    setIsFocused(false);
+  };
+
+  const handleInputFocus2 = () => {
+    setIsFocused2(true);
+  };
+  const handleInputBlur2 = () => {
+    setIsFocused2(false);
+  };
+
+  const handleInputFocus3 = () => {
+    setIsFocused3(true);
+  };
+  const handleInputBlur3 = () => {
+    setIsFocused3(false);
+  };
 
   const errorAlert = () => {
     if (title.length == 0) {
@@ -48,56 +74,49 @@ const S_write = () => {
     setCategory(e.target.value);
   };
 
-  // const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     const file = e.target.files;
-  //     console.log("t", e.target.files);
-  //     setImgFile(file);
-  //   }
-  // };
-
   const onChangeImg = async (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files) {
-      setImgFile(files);
-      const urls: string[] = [];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const url = URL.createObjectURL(file);
-        // urls.push(url.split("blob:")[1]);
-        urls.push(url);
-      }
-      setPreviewImgUrl((prevUrls) => [...prevUrls, ...urls]);
+    if (e.target.files) {
+      const files = e.target.files;
+      const data = await imageUpload(files, "main");
+
+      setImgUrls([...imgUrls, ...data]);
     }
   };
 
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=main`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("Success Image deleted"));
+    let filteredData = imgUrls.filter((el) => el !== imgUrl);
+    setImgUrls(filteredData);
+  };
+
   const onChagneVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl(e.target.value);
+    setVideoUrl(e.target.value);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const TOKEN = localStorage.getItem('accessToken');
-    // console.log(TOKEN);
-
     console.log({
       title: title,
       category: category,
       context: content,
-      images: imgFile,
-      video: url,
+      images: imgUrls,
+      video: videoUrl,
     });
 
-    // let dataSet = {
-    //   title: title,
-    //   category: category,
-    //   context: content,
-    //   video: url,
-    // };
-
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(dataSet));
+    const contentReplaceNewline = () => {
+      return content.replaceAll("<br>", "\r\n");
+    };
 
     axios
       .post(
@@ -105,13 +124,12 @@ const S_write = () => {
         {
           title: title,
           category: category,
-          context: content,
-          images: imgFile,
-          video: url,
+          context: contentReplaceNewline(),
+          images: imgUrls,
+          video: videoUrl,
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             withCredentials: true,
             Authorization: allToken,
           },
@@ -140,7 +158,7 @@ const S_write = () => {
     return match ? match[1] : null;
   };
 
-  const videoId = getIdFromUrl(url);
+  const videoId = getIdFromUrl(videoUrl);
 
   return (
     <>
@@ -148,59 +166,119 @@ const S_write = () => {
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <DropDownCategory onChange={onChangeCategory} />
+            <DropDownCategory
+              onChange={onChangeCategory}
+              currentCategory={category}
+            />
           </div>
         </StyledDiv>
         <Container>
-          <StyledInput
-            type="text"
-            placeholder="Please enter your title"
-            value={title}
-            onChange={onChangeTitle}
-          />
-          <StyledInput2
-            placeholder="Write your tips contents"
-            value={content}
-            onChange={onChangeContent}
-          />
-          <StyledInput
-            type="text"
-            id="youtubeUrlInput"
-            placeholder="Input youtube link here!"
-            value={url}
-            onChange={onChagneVideo}
-          />
+          <div>
+            <div>
+              <Notion>Please enter your</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="title"
+              value={title}
+              onChange={onChangeTitle}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+              style={{ borderBottomWidth: isFocused ? "3px" : "1px" }}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Write your</Notion>
+            </div>
+            <StyledInput2
+              placeholder="tips contents"
+              value={content}
+              onChange={onChangeContent}
+              onFocus={handleInputFocus2}
+              onBlur={handleInputBlur2}
+              style={{
+                borderBottomWidth: isFocused2 ? "3px" : "1px",
+              }}
+            />
+            {/* {content.split("\n").map((line) => {
+              return (
+                <span key={line}>
+                  {line}
+                  <br />
+                </span>
+              );
+            })} */}
+            {/* <StyledInput2
+              placeholder="tips contents"
+              value={content}
+              onChange={onChangeContent}
+              onFocus={handleInputFocus2}
+              onBlur={handleInputBlur2}
+              style={{
+                borderBottomWidth: isFocused2 ? "3px" : "1px",
+              }}
+            /> */}
+          </div>
+          <div>
+            <div>
+              <Notion>Input youtube link</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              id="youtubeUrlInput"
+              placeholder="here!"
+              value={videoUrl}
+              onChange={onChagneVideo}
+              onFocus={handleInputFocus3}
+              onBlur={handleInputBlur3}
+              style={{ borderBottomWidth: isFocused3 ? "3px" : "1px" }}
+            />
+          </div>
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <Notice>Please wait for the photo preview to come up...</Notice>
+          <ImageContainer>
+            {/* c_writeBody.tsx랑 다름 */}
+            {imgUrls.map((imgUrl) => {
+              return (
+                <ImgContainer key={imgUrl}>
+                  <Image
+                    key={imgUrl}
+                    // src={`https://picsum.photos/200/300`}
+                    src={imgUrl}
+                    width={100}
+                    height={70}
+                    alt=""
+                  />
+                  <DeleteImg
+                    style={{ color: "black" }}
+                    onClick={() => handleImageDelete(imgUrl)}
+                  >
+                    x
+                  </DeleteImg>
+                </ImgContainer>
+              );
+            })}
+          </ImageContainer>
           <ImgInput
             className="file"
             id="chooseFile"
             accept="image/*"
             type="file"
-            placeholder="Input file here!"
+            placeholder="Input file here"
             onChange={onChangeImg}
             multiple
           />
           <BtnContainer>
-            <Submit type="submit">registration</Submit>
+            <Submit type="submit">Registration</Submit>
           </BtnContainer>
         </Container>
       </form>
-      {previewImgUrl.map((imgUrl) => {
-        return (
-          <Image
-            key={imgUrl}
-            // src={`https://picsum.photos/200/300`}
-            src={imgUrl}
-            width={100}
-            height={70}
-            alt=""
-          />
-        );
-      })}
+
       {videoId && (
-        <YouTube videoId={videoId} opts={{ width: "100%", height: "500px" }} />
+        <YouTube videoId={videoId} opts={{ width: "50%", height: "500px" }} />
       )}
     </>
   );
@@ -218,10 +296,10 @@ const StyledSpan = styled.span`
   color: var(--color-main);
 
   font-weight: 600;
-  font-size: large;
+  font-size: 1rem;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -230,95 +308,139 @@ const Container = styled.div`
   color: white;
 `;
 
-const StyledInput = styled.input`
+export const Notion = styled.p`
+  float: left;
+
+  color: var(--color-main);
+
+  font-size: small;
+`;
+
+export const StyledInput = styled.input`
   width: 40vw;
   min-height: 6vh;
-  /* height: auto; */
-  margin-top: 2vh;
-  padding: 0 6px;
+  margin-bottom: 0.5rem;
 
   word-break: break-all;
 
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid var(--color-main);
 
+  font-size: 1rem;
   outline: none;
 
+  transition: border-bottom-width 0.3s;
+
   &:focus {
-    border: 2px solid var(--color-main);
+    border-bottom: 3px solid var(--color-main);
+    border-bottom-width: 3px solid var(--color-main);
   }
 
   ::placeholder {
     color: #bebebe;
 
-    font-weight: 600;
-    font-size: large;
+    font-size: 1rem;
   }
 `;
 
-const StyledInput2 = styled.textarea`
+export const StyledInput2 = styled.textarea`
   width: 40vw;
-  height: 40vh;
-  margin-top: 3vh;
-  padding: 0 6px;
+  height: 33vh;
+  margin-bottom: 0.5rem;
 
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
+  word-break: break-all;
 
+  border: none;
+  border-bottom: 1px solid var(--color-main);
+
+  font-size: 1rem;
   outline: none;
 
+  transition: border-bottom-width 0.3s;
+
   &:focus {
-    border: 2px solid var(--color-main);
+    border-bottom: 3px solid var(--color-main);
+    border-bottom-width: 3px solid var(--color-main);
   }
 
   ::placeholder {
     color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
   }
 `;
 
-const StyledLabel = styled.label`
-  width: 40%;
-  margin-top: 30px;
-  padding: 10px 0;
+export const StyledLabel = styled.label`
+  width: 40vw;
+  margin-top: 1.5rem;
+  padding: 4px 0;
 
   background-color: var(--color-main);
   color: #fff;
+  border: 1px solid var(--color-main);
   border-radius: 6px;
 
   text-align: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: white;
+    color: var(--color-main);
+    border: 1px solid var(--color-main);
+  }
 `;
 
-const ImgInput = styled.input`
+export const Notice = styled.p`
+  color: black;
+  font-size: small;
+`;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ImgContainer = styled.div`
+  margin-top: 1rem;
+`;
+
+export const DeleteImg = styled.span`
+  margin-left: 5px;
+  margin-right: 1rem;
+
+  font-size: large;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+`;
+
+export const ImgInput = styled.input`
   display: none;
 `;
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
   width: 40vw;
 `;
 
-const Submit = styled.button`
+export const Submit = styled.button`
   float: right;
   margin-top: 3vh;
   margin-bottom: 1rem;
   padding: 3px 10px;
 
-  background-color: var(--color-normal);
-  color: white;
-  border: 1px solid var(--color-normal);
-  border-radius: 10px;
+  background-color: white;
+  color: var(--color-main);
+  border: 1px solid var(--color-main);
 
-  font-weight: 600;
-  font-size: large;
+  border-radius: 5px;
+
+  font-size: 1rem;
 
   cursor: pointer;
 
   &:hover {
-    background-color: white;
-    color: var(—color-normal);
-    border: 1px solid var(—color-normal);
+    background-color: var(--color-main);
+    color: white;
+    border: 1px solid var(--color-main);
   }
 `;

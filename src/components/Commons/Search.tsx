@@ -18,7 +18,7 @@ const Search = () => {
 
   return (
     <SearchContainer
-      placeholder="Liferary"
+      placeholder="LIFERARY"
       value={inputValue}
       onChange={handleChangeInput}
       onKeyPress={handleKeyPress}
@@ -29,20 +29,21 @@ const Search = () => {
 export default Search;
 
 const SearchContainer = styled.input`
-  background-image: url(/Mag.svg);
+  background-image: url(/Search2.svg);
   background-repeat: no-repeat;
-  background-position: 10px;
+  background-position: 10px 5px;
 
-  width: 10vw;
+  width: 15vw;
+  margin: 20px;
   padding: 5px 10px;
   padding-left: 2.5rem;
 
   background-color: white;
-  border: 2px solid var(--color-normal);
+  border: 1.5px solid var(--color-normal);
   border-radius: 2rem;
 
   outline: none;
-  box-shadow: 2px 2px 4px #555555;
+  box-shadow: 2px 2px 2px #8f8f8f;
   transition: width 0.2s ease-in-out;
 
   &:focus {
@@ -52,5 +53,9 @@ const SearchContainer = styled.input`
 
     transition: width 0.2s ease-in-out;
     position: fixed;
+  }
+
+  ::placeholder {
+    color: #8f8f8f;
   }
 `;

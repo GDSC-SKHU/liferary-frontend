@@ -98,14 +98,16 @@ const SignupForm = () => {
 
 export default SignupForm;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  cursor: default;
 `;
 
-const StyledForm = styled.form`
+export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,14 +115,14 @@ const StyledForm = styled.form`
 
   margin-top: 20vh;
 
-  color: var(--color-normal);
+  color: var(--color-main);
 
   @media (max-width: 800px) {
     margin-top: 21vh;
   }
 `;
 
-const StyledDiv = styled.div`
+export const StyledDiv = styled.div`
   padding-top: 2rem;
 `;
 
@@ -128,18 +130,18 @@ const StyledDiv2 = styled.div`
   padding-top: 1.2rem;
 `;
 
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
   width: 15vw;
   margin-left: 1rem;
   float: right;
 
   border: none;
-  border-bottom: 1px solid var(--color-normal);
+  border-bottom: 1px solid var(--color-main);
 
   outline: none;
 
   &:focus {
-    border-bottom: 2px solid var(--color-normal);
+    border-bottom: 2px solid var(--color-main);
   }
 `;
 
@@ -149,12 +151,12 @@ const StyledInput2 = styled.input`
   float: right;
 
   border: none;
-  border-bottom: 1px solid var(--color-normal);
+  border-bottom: 1px solid var(--color-main);
 
   outline: none;
 
   &:focus {
-    border-bottom: 2px solid var(--color-normal);
+    border-bottom: 2px solid var(--color-main);
   }
 `;
 
@@ -162,16 +164,16 @@ const Submit = styled.button`
   padding: 3px 7vw;
   margin-top: 3rem;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
-  border: 1px solid var(--color-normal);
+  border: 1px solid var(--color-main);
   border-radius: 7px;
 
   cursor: pointer;
 
   &:hover {
     background-color: white;
-    color: var(--color-normal);
+    color: var(--color-main);
   }
 `;
 

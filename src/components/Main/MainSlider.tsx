@@ -26,7 +26,7 @@ const MainSlider = ({ kind }: { kind: "main" | "study" }) => {
           </SlideShowContainer>
         </>
       ) : (
-        <SlideShowContainer>{"There are no posts yet "}</SlideShowContainer>
+        <SlideShowContainer>{"There are no posts yet"}</SlideShowContainer>
       )}
     </>
   );
@@ -36,10 +36,10 @@ export default MainSlider;
 
 const SlideShowContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 
-  height: 30vh;
+  height: 35vh;
   overflow: hidden;
 `;

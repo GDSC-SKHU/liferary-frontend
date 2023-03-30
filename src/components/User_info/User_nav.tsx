@@ -53,10 +53,12 @@ export default User_nav;
 const UserNavContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   width: 10vw;
   height: 100%;
-  padding: 2rem 0.5rem;
+  padding: 0.5rem;
 `;
 
 const UserNavWrapper = styled.div<{ isFocus: boolean }>`
@@ -64,35 +66,29 @@ const UserNavWrapper = styled.div<{ isFocus: boolean }>`
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: 172%;
   height: 2rem;
-  margin: 20px 0;
+  margin: 30px 0;
 
-  background: rgba(255, 255, 255, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  color: #a1a1a1;
+  border-left: 2px solid white;
 
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2px);
-  transition: scale 0.5 ease-in-out;
 
   :hover {
-    background: var(--color-light);
-    color: white;
+    border-left: 2px solid #a1a1a1;
 
     cursor: pointer;
-    transform: scale(1.2);
-    /* transition: all 0.5 ease-in-out; */
   }
 
   ${({ isFocus }) =>
     isFocus &&
     css`
-      color: var(--color-deep);
+      color: black;
+      border-left: 2px solid black;
+
+      font-weight: 600;
+
       cursor: pointer;
-      transform: scale(1);
-      box-shadow: 0 2px 5px var(--color-main);
-      /* transition: all 0.5 ease-in-out; */
     `}
 `;

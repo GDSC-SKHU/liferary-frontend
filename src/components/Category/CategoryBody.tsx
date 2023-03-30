@@ -7,6 +7,7 @@ import { CategoryParams } from "@/pages/category/[...name]";
 import { categoryList } from "../../types/category";
 import Link from "next/link";
 import ListTable from "../Commons/ListTable";
+import { WriteBtn } from "../Main/Choice";
 
 interface UserInfo {
   email: string;
@@ -38,35 +39,20 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem("accessToken");
-    {
-      categoryName
-        ? axios
-            .get(`/api/main/category/${categoryName}?page=${page}`, {
-              headers: {
-                withCredentials: true,
-                Authorization: `Bearer ${TOKEN}`,
-              },
-            })
-            .then((data) => {
-              console.log(data.data);
-              setList(data.data.content);
-              setTotalPage(data.data.totalPages);
-            })
-        : //전체 불러오기
-          axios
-            .get(`/api/main/all?page=${page}`, {
-              headers: {
-                withCredentials: true,
-                Authorization: `Bearer ${TOKEN}`,
-              },
-            })
-            .then((data) => {
-              console.log(data.data);
-              setList(data.data.content);
-              setTotalPage(data.data.totalPages);
-            });
-    }
+    categoryName
+      ? axios
+          .get(`/api/main/category/${categoryName}?page=${page}`)
+          .then((data) => {
+            console.log(data.data);
+            setList(data.data.content);
+            setTotalPage(data.data.totalPages);
+          })
+      : //전체 불러오기
+        axios.get(`/api/main/all?page=${page}`).then((data) => {
+          console.log(data.data);
+          setList(data.data.content);
+          setTotalPage(data.data.totalPages);
+        });
   }, [page, categoryName]);
 
   return (
@@ -77,24 +63,40 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
         </ChooseButton>
         <Element isOpen={isOpen} categories={categoryList} />
       </ChooseWrapper>
-      {categoryName && <h3>{categoryName} result</h3>}
+      <CategoryNameWrapper>
+        {categoryName ? (
+          <CategoryName>{categoryName}</CategoryName>
+        ) : (
+          <CategoryName>ALL</CategoryName>
+        )}
+        {userInfo ? (
+          <BtnContainer>
+            <Link
+              href={{
+                pathname: "/s_write",
+                query: { category: categoryName },
+              }}
+              as="/s_write"
+            >
+              <WriteBtn>Try write!</WriteBtn>{" "}
+            </Link>
+          </BtnContainer>
+        ) : null}
+      </CategoryNameWrapper>
+
       <CategoryListWrapper>
         {totalPage && list ? (
           <ListTable list={list} page={page} />
         ) : (
-          <div>{categoryName}There are no posts.</div>
+          <div>{categoryName} There are no posts</div>
         )}
       </CategoryListWrapper>
+
       <Pagination
         totalPages={totalPage}
         currentPage={page}
         onPageChange={setPage}
       ></Pagination>
-      {userInfo ? (
-        <Link href="/s_write">
-          <WriteBtn>Try write!</WriteBtn>
-        </Link>
-      ) : null}
     </CategoryContainer>
   );
 }
@@ -107,7 +109,6 @@ const CategoryContainer = styled.div`
 
   cursor: default;
 
-  width: 100%;
   margin-top: 4vh;
 `;
 
@@ -119,36 +120,34 @@ const ChooseWrapper = styled.div`
 
   transition: all 0.5s ease-in-out;
 `;
+
 const ChooseButton = styled.div`
-  padding: 10px;
+  padding: 5px 10px;
 
   background: var(--color-main);
   color: white;
-  border-radius: 20px;
+  border-radius: 10px;
 `;
+
+const CategoryNameWrapper = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const CategoryName = styled.h3`
+  /* margin-top: 1rem; */
+`;
+
 const CategoryListWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 
   width: 100%;
+  margin-top: 1rem;
 `;
 
-const WriteBtn = styled.button`
-  margin-top: 4.5vh;
-  margin-left: 15vw;
-  padding: 3px 10px;
-
-  background-color: var(--color-deep);
-  color: white;
-  border: 1px solid var(--color-deep);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-deep);
-  }
+const BtnContainer = styled.div`
+  /* margin-left: 60vw; */
 `;

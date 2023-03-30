@@ -21,7 +21,6 @@ interface ListProps {
 const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   const router = useRouter();
   const { user } = useUser();
-  console.log(router.query.video);
 
   let ready = router.isReady;
 
@@ -42,8 +41,7 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
         .then(() => {
           //새로고침하면서 불러오기
           alert("Success Delete!");
-          // return false;
-          router.push(`/`);
+          router.push("/");
         })
         .catch((e) => console.log(e));
     } else {
@@ -137,35 +135,41 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
   };
 
   return (
-    <div>
-      <Category>
-        <StyledSpan>Write time: </StyledSpan>
-        <span>{formatDate(view?.modifiedDate!)}</span>
-        <br />
-        <StyledSpan>Category: </StyledSpan>
-        <StyledBox>
-          <StyledName onClick={() => onClickCategory(view?.category)}>
-            {view?.category}
-          </StyledName>
-        </StyledBox>
-      </Category>
-      <div>
-        <StyledSpan>Username: </StyledSpan>
-        <StyledBox>
-          <StyledName>{view?.nickname}</StyledName>
-        </StyledBox>
-      </div>
+    <>
       {view !== undefined ? (
         <Container>
-          {user?.nickname === view.nickname && (
-            <div>
-              <button onClick={onClickUpdateRouter}>Update</button>
-              <button onClick={onClickDelete}>delete</button>
-            </div>
-          )}
-          <StyledDiv>
-            <StyledH2>{view.title}</StyledH2>
-          </StyledDiv>
+          <div>
+            <StyledDiv>
+              <StyledH2>{view.title}</StyledH2>
+              {user?.nickname === view.nickname && (
+                <div>
+                  <Btn onClick={onClickUpdateRouter} title="Edit">
+                    <Icon src="/Edit.svg" />
+                  </Btn>
+                  <Btn onClick={onClickDelete} title="Delete">
+                    <Icon src="/Delete.svg" />
+                  </Btn>
+                  <Btn onClick={onClickRouter} title="Create study">
+                    <Icon src="/Study.svg" />
+                  </Btn>
+                </div>
+              )}
+            </StyledDiv>
+            <TimeContainer>
+              <DateP style={{ color: "black" }}>
+                <span style={{ marginRight: "1rem" }}>
+                  {formatDate(view?.modifiedDate!)}
+                </span>
+                <Middot src="/middot.svg" />
+                <Info style={{ marginRight: "1rem" }}> {view?.nickname}</Info>
+                <Middot src="/middot.svg" />
+                <Info2 onClick={() => onClickCategory(view?.category)}>
+                  {view?.category}
+                </Info2>
+                <Description>*Click here to view by category!</Description>
+              </DateP>
+            </TimeContainer>
+          </div>
           <StyledDiv2>
             <StyledP>{view.context}</StyledP>
             {view.images?.map((el) => (
@@ -194,48 +198,27 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
               </Container2>
             )}
           </StyledDiv2>
-          {/* {videoId && (
-            <YouTube
-              videoId={videoId}
-              opts={{ width: "100%", height: "500px" }}
-            />
-          )} */}
-
-          {/* {videoId && (
-            <YouTube
-              videoId={videoId}
-              opts={{ width: "100%", height: "500px" }}
-            />
-          )} */}
-          {user?.nickname === view.nickname && (
-            <div>
-              <button onClick={onClickRouter}>Write Study</button>
-            </div>
-          )}
         </Container>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </>
   );
 };
 
 export default ShareForm;
 
-const Category = styled.div`
-  margin-top: 2rem;
+export const TimeContainer = styled.div`
+  float: left;
+  padding-top: 5px;
+  padding-left: 10px;
 `;
 
-const StyledSpan = styled.span`
+export const StyledSpan = styled.span`
   margin-left: 3vw;
-
-  color: var(--color-main);
-
-  font-weight: 600;
-  font-size: large;
 `;
 
-const StyledBox = styled.div`
+export const StyledBox = styled.div`
   display: inline-block;
 
   margin: 5px 5px 5px 0.3vw;
@@ -245,40 +228,74 @@ const StyledBox = styled.div`
   color: white;
   border-radius: 5px;
 
-  font-weight: 600;
-  font-size: large;
+  font-size: 1rem;
   text-align: center;
 `;
 
-const StyledName = styled.p`
-  @media (max-width: 800px) {
-    font-size: 0.7em;
+export const Btn = styled.button`
+  margin: 0 5px;
+
+  border: none;
+  border-radius: 1rem;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
 
-const StyledDiv = styled.div`
-  width: 45vw;
-  min-height: 7vh;
-  margin-bottom: 1rem;
+export const Icon = styled.img`
+  width: 2vw;
+  margin: 0;
+`;
 
-  background-color: var(--color-normal);
-  border-radius: 10px;
+export const Middot = styled.img`
+  width: 0.5vw;
+`;
 
-  text-align: center;
+export const Info = styled.span`
+  margin-left: 1rem;
+`;
 
-  @media (max-width: 800px) {
-    width: 30vw;
-    height: auto;
-    padding: 3px;
+export const Info2 = styled(Info)`
+  border-bottom: 1px solid black;
+
+  cursor: default;
+
+  :hover {
+    color: var(--color-main);
   }
 `;
 
-const StyledDiv2 = styled.div`
+export const DateP = styled.p`
+  float: left;
+  margin-bottom: 2rem;
+
+  color: #f0f0f0;
+
+  font-size: small;
+  text-align: left;
+`;
+
+export const StyledDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  width: 55vw;
+  min-height: fit-content;
+  padding: 0 10px;
+  padding-top: 1rem;
+
+  border-top: 1px solid var(--color-normal);
+`;
+
+export const StyledDiv2 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  width: 45vw;
+  width: 55vw;
   margin-bottom: 1rem;
 
   background-color: white;
@@ -291,13 +308,25 @@ const StyledDiv2 = styled.div`
   }
 `;
 
-const Container = styled.div`
+const Description = styled.span`
+  margin-left: 1vw;
+
+  color: var(--color-normal);
+
+  font-size: small;
+`;
+
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  margin-top: 2rem;
+
   color: white;
+
+  cursor: default;
 `;
 
 const Container2 = styled.div`
@@ -309,30 +338,30 @@ const Container2 = styled.div`
   text-align: center;
 `;
 
-const StyledH2 = styled.h2`
-  word-break: break-all;
+export const StyledH2 = styled.h2`
   height: fit-content;
+
+  color: black;
+
+  word-break: break-all;
+
   @media (max-width: 800px) {
     font-size: medium;
   }
 `;
 
-const StyledP = styled.p`
+export const StyledP = styled.p`
   width: 100%;
-  word-break: break-all;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
   height: auto;
+  margin-bottom: 1rem;
+  padding: 0 10px 1rem;
 
-  color: #666666;
-  border-bottom: 3px solid var(--color-normal);
+  color: #444444;
+  border-bottom: 1px solid var(--color-normal);
 
   font-weight: 500;
   font-size: 1rem;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
+  white-space: pre-wrap;
 `;
 
 const StyledTitle = styled.span`
@@ -343,20 +372,18 @@ const StyledTitle = styled.span`
   font-weight: 600;
   font-size: 1.4rem;
   text-align: center;
-
-  @media (max-width: 800px) {
-    font-size: medium;
-  }
 `;
 
 const Iframe = styled.iframe`
-  width: 45vw;
+  width: 55vw;
+  height: 65vh;
   margin-top: 1rem;
 `;
 
-const ShareImage = styled(Image)`
-  width: 100%;
-  height: 70%;
+export const ShareImage = styled(Image)`
+  width: 50%;
+  height: 40%;
+  margin-bottom: 1rem;
+
   border-radius: 10px;
-  //cover
 `;

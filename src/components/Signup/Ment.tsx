@@ -17,29 +17,32 @@ export default function Ment() {
   );
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 40%;
   height: 100vh;
   float: left;
   padding-top: 37vh;
   padding-left: 11vw;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
+
+  cursor: default;
 
   @media (max-width: 800px) {
     padding-left: 10vw;
   }
 `;
 
-const StyledP = styled.p`
+export const StyledP = styled.p`
   line-height: 200%;
 `;
 
-const StyledBtn = styled.button`
-  margin-left: 10vw;
+export const StyledBtn = styled.button`
+  float: right;
+  margin-right: 12vw;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
   border: 1px solid white;
   border-radius: 7px;
@@ -48,6 +51,6 @@ const StyledBtn = styled.button`
 
   &:hover {
     background-color: white;
-    color: var(--color-normal);
+    color: var(--color-main);
   }
 `;

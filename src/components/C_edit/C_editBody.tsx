@@ -1,5 +1,4 @@
 import React from "react";
-
 import C_writeBody from "@/components/C_write/C_writeBody";
 
 const C_editBody = () => {

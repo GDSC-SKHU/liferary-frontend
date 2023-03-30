@@ -1,6 +1,12 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
+import {
+  Container,
+  StyledDiv,
+  StyledForm,
+  StyledInput,
+} from "../Signup/SignupForm";
 import { googleLogin } from "./GoogleLogin";
 
 const LoginForm = () => {
@@ -36,6 +42,7 @@ const LoginForm = () => {
         // }
         axios
           .get("/api/member/info", {
+            //이건필수
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
@@ -56,7 +63,7 @@ const LoginForm = () => {
   };
 
   return (
-    <LoginFormWrapper>
+    <Container>
       <StyledForm onSubmit={onSubmit}>
         <h2>LOGIN</h2>
         <div>
@@ -73,70 +80,69 @@ const LoginForm = () => {
             <StyledInput type="password" value={pwData} onChange={onChangePw} />
           </StyledDiv>
         </div>
-        <Submit type="submit">Login</Submit>
+        <LoginBtn>
+          <Submit type="submit">Login</Submit>
+          <GoogleLogin>
+            <Google src="/google.png" onClick={handleGoogleLogin} />
+            <span style={{ fontSize: "13px" }}>Google Login</span>
+          </GoogleLogin>
+        </LoginBtn>
       </StyledForm>
-      <Submit onClick={handleGoogleLogin}>Google Login</Submit>
-    </LoginFormWrapper>
+    </Container>
   );
 };
 
 export default LoginForm;
 
-const LoginFormWrapper = styled.div`
+const LoginBtn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 18vh;
-
-  color: var(--color-normal);
-
-  @media (max-width: 800px) {
-    margin-top: 23vh;
-  }
-`;
-
-const StyledDiv = styled.div`
-  padding-top: 2rem;
-`;
-
-const StyledInput = styled.input`
-  width: 15vw;
-  float: right;
-  margin-left: 1rem;
-
-  border: none;
-  border-bottom: 1px solid var(--color-normal);
-
-  outline: none;
-
-  &:focus {
-    border-bottom: 2px solid var(--color-normal);
-  }
 `;
 
 const Submit = styled.button`
-  width: 20vw;
+  width: 19vw;
   margin-top: 3rem;
-  padding: 3px 7vw;
+  padding: 3px 0;
 
-  background-color: var(--color-normal);
+  background-color: var(--color-main);
   color: white;
-  border: 1px solid var(--color-normal);
+  border: 1px solid var(--color-main);
   border-radius: 7px;
 
   cursor: pointer;
 
   &:hover {
-    color: var(--color-normal);
+    color: var(--color-main);
     background-color: white;
+  }
+`;
+
+const Google = styled.img`
+  width: 1.5vw;
+  margin-right: 10px;
+  padding: 1px;
+
+  cursor: pointer;
+`;
+
+const GoogleLogin = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 19vw;
+  margin-top: 1rem;
+  padding: 3px 0;
+
+  background-color: #dbdbdb;
+  color: black;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  :hover {
+    opacity: 0.8;
   }
 `;

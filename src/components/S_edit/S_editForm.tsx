@@ -4,10 +4,25 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UpdateProps } from "@/pages/s_edit";
 import DropDownCategory from "../Commons/DropDownCategory";
+import Image from "next/image";
+import useToken from "../../hooks/useToken";
+import imageUpload from "@/libs/imageUpload";
+import {
+  BtnContainer,
+  DeleteImg,
+  ImageContainer,
+  ImgContainer,
+  ImgInput,
+  Notion,
+  StyledInput,
+  StyledInput2,
+  StyledLabel,
+  Submit,
+} from "../S_write/S_writeForm";
 
 const S_editForm = ({ id }: UpdateProps) => {
+  const { allToken } = useToken();
   const router = useRouter();
-  console.log("s_edit", id);
 
   const [updateTitle, setUpdateTitle] = useState<string>("");
 
@@ -15,7 +30,7 @@ const S_editForm = ({ id }: UpdateProps) => {
 
   const [updateContext, setUpdateContext] = useState<string>("");
 
-  const [updateImg, setUpdateImg] = useState<FileList | null>(null);
+  const [updateImgUrls, setUpdateImgUrls] = useState<string[]>([]);
 
   const [updateVideo, setUpdateVideo] = useState<string>("");
 
@@ -23,7 +38,7 @@ const S_editForm = ({ id }: UpdateProps) => {
     if (updateTitle.length == 0) {
       return alert("Please enter your title.");
     }
-    if (updateCategory.length == 0) {
+    if (updateCategory?.length == 0) {
       return alert("Please enter your category.");
     }
     if (updateContext.length == 0) {
@@ -33,29 +48,20 @@ const S_editForm = ({ id }: UpdateProps) => {
 
   // 전에 쓴 글 get 해오기
   useEffect(() => {
-    const getUpdateData = () => {
-      const TOKEN = localStorage.getItem("accessToken");
-      axios
-        .get(`/api/main/post/?id=${id}`, {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        })
-        .then((data) => {
-          console.log(data.data);
-          // default 값
-          setUpdateTitle(data.data.title);
-          setUpdateCategory(data.data.category);
-          setUpdateContext(data.data.context);
-          setUpdateImg(data.data.images);
-          setUpdateVideo(data.data.video);
-          console.log(updateTitle, updateContext);
-        })
-        .catch((e) => {
-          alert(e);
-        });
-    };
-    getUpdateData();
+    axios
+      .get(`/api/main/post/?id=${id}`)
+      .then((data) => {
+        console.log(data.data);
+        // default 값
+        setUpdateTitle(data.data.title);
+        setUpdateCategory(data.data.category);
+        setUpdateContext(data.data.context);
+        setUpdateImgUrls(data.data.images);
+        setUpdateVideo(data.data.video);
+      })
+      .catch((e) => {
+        alert(e);
+      });
   }, []);
 
   const onChangeUpdateTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,11 +76,30 @@ const S_editForm = ({ id }: UpdateProps) => {
     setUpdateCategory(e.target.value);
   };
 
-  const onChangeUpdateImg = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeUpdateImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const file = e.target.files;
-      setUpdateImg(file);
+      const files = e.target.files;
+      const data = await imageUpload(files, "main");
+      // const file = useUmage...()
+
+      setUpdateImgUrls([...updateImgUrls, ...data]);
     }
+  };
+
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=main`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = updateImgUrls.filter((el) => el !== imgUrl);
+    setUpdateImgUrls(filteredData);
   };
 
   const onChangeUpdateVideo = (e: ChangeEvent<HTMLInputElement>) => {
@@ -83,43 +108,28 @@ const S_editForm = ({ id }: UpdateProps) => {
 
   const onClickUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const TOKEN = localStorage.getItem("accessToken");
-
-    console.log({
-      title: updateTitle,
-      category: updateCategory,
-      context: updateContext,
-      images: updateImg,
-      video: updateVideo,
-    });
-
-    let dataSet = {
-      title: updateTitle,
-      category: updateCategory,
-      context: updateContext,
-      video: updateVideo,
-    };
-
-    const formData = new FormData();
-
-    formData.append("data", JSON.stringify(dataSet));
-
+    console.log("up", updateImgUrls);
+    console.log(
+      updateCategory,
+      updateContext,
+      updateTitle,
+      updateVideo,
+      updateImgUrls
+    );
     axios
-      .post(
+      .patch(
         `/api/main/post?id=${id}`,
         {
           title: updateTitle,
           category: updateCategory,
           context: updateContext,
-          images: updateImg,
+          images: updateImgUrls,
           video: updateVideo,
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             withCredentials: true,
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: allToken,
           },
         }
       )
@@ -144,30 +154,73 @@ const S_editForm = ({ id }: UpdateProps) => {
         <StyledDiv>
           <div>
             <StyledSpan>Category: </StyledSpan>
-            <DropDownCategory onChange={onChangeUpdateCategory} />
+            {updateCategory && (
+              <DropDownCategory
+                onChange={onChangeUpdateCategory}
+                currentCategory={updateCategory}
+              />
+            )}
           </div>
         </StyledDiv>
         <Container>
-          <StyledInput
-            type="text"
-            placeholder="Please enter your title"
-            value={updateTitle}
-            onChange={onChangeUpdateTitle}
-          />
-          <StyledInput2
-            placeholder="Write your tips contents"
-            value={updateContext}
-            onChange={onChangeUpdateContext}
-          />
-          <StyledInput
-            type="text"
-            placeholder="Input youtube link here!"
-            value={updateVideo}
-            onChange={onChangeUpdateVideo}
-          />
+          <div>
+            <div>
+              <Notion>Please enter your</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="title"
+              value={updateTitle}
+              onChange={onChangeUpdateTitle}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Write your</Notion>
+            </div>
+            <StyledInput2
+              placeholder="tips contents"
+              value={updateContext}
+              onChange={onChangeUpdateContext}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Input youtube link</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="here!"
+              value={updateVideo}
+              onChange={onChangeUpdateVideo}
+            />
+          </div>
           <StyledLabel className="file-label" htmlFor="chooseFile">
             Choose your file
           </StyledLabel>
+          <ImageContainer>
+            {/* c_writeBody.tsx랑 다름 */}
+            {updateImgUrls.map((imgUrl) => {
+              return (
+                <ImgContainer key={imgUrl}>
+                  <Image
+                    key={imgUrl}
+                    // src={`https://picsum.photos/200/300`}
+                    src={imgUrl}
+                    width={100}
+                    height={70}
+                    alt=""
+                  />
+                  <DeleteImg
+                    style={{ color: "black" }}
+                    onClick={() => handleImageDelete(imgUrl)}
+                  >
+                    x
+                  </DeleteImg>
+                </ImgContainer>
+              );
+            })}
+          </ImageContainer>
           <ImgInput
             className="file"
             id="chooseFile"
@@ -178,7 +231,7 @@ const S_editForm = ({ id }: UpdateProps) => {
             multiple
           />
           <BtnContainer>
-            <Submit type="submit">registration</Submit>
+            <Submit type="submit">edit</Submit>
           </BtnContainer>
         </Container>
       </form>
@@ -201,103 +254,9 @@ const StyledSpan = styled.span`
   font-size: large;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledInput = styled.input`
-  width: 40vw;
-  min-height: 6vh;
-  /* height: auto; */
-  margin-top: 2vh;
-  padding: 0 6px;
-
-  word-break: break-all;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledInput2 = styled.textarea`
-  width: 40vw;
-  height: 40vh;
-  margin-top: 3vh;
-  padding: 0 6px;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledLabel = styled.label`
-  width: 40vw;
-  margin-top: 30px;
-  padding: 10px 0;
-
-  background-color: var(--color-main);
-  color: #fff;
-  border-radius: 6px;
-
-  text-align: center;
-
-  cursor: pointer;
-`;
-
-const ImgInput = styled.input`
-  display: none;
-`;
-
-const BtnContainer = styled.div`
-  width: 40vw;
-`;
-
-const Submit = styled.button`
-  float: right;
-  margin-top: 3vh;
-  margin-bottom: 1rem;
-  padding: 3px 10px;
-
-  background-color: var(--color-normal);
-  color: white;
-  border: 1px solid var(--color-normal);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-normal);
-    border: 1px solid var(--color-normal);
-  }
 `;

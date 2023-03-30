@@ -1,8 +1,9 @@
 import useUser from "@/hooks/useUser";
 import styled from "styled-components";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { Btn, Icon } from "../Share/ShareForm";
 
 interface LoginForm {
   password: string;
@@ -47,12 +48,14 @@ export default function User_infoForm() {
 
   const handleChangePassword = async () => {
     const TOKEN = localStorage.getItem("accessToken");
+
     console.log(
       "handlepassword",
       nickname,
       form.password,
       form.passwordconfirm
     );
+
     await axios
       .patch(
         `/api/member`,
@@ -68,7 +71,7 @@ export default function User_infoForm() {
           },
         }
       )
-      .then((res) => res.status === 200 && alert("password changed"))
+      .then((res) => res.status === 200 && alert("Password changed"))
       .then(() => setIsEdit((prev) => !prev));
   };
 
@@ -95,71 +98,108 @@ export default function User_infoForm() {
   return (
     <UserInfoContainer>
       {!userInfo.user?.firebaseAuth && (
-        <button onClick={() => setIsEdit((prev) => !prev)}>
-          {!isEdit ? "Change Password" : "Cancel"}
-        </button>
+        <Btn
+          onClick={() => setIsEdit((prev) => !prev)}
+          title="Change Password"
+          style={{ marginBottom: "0" }}
+        >
+          {!isEdit ? (
+            <Icon src="/Password.svg" />
+          ) : (
+            <Icon src="/Prev.svg" title="Back" />
+          )}
+        </Btn>
       )}
       {isEdit ? (
         <>
           {!isWithdraw ? (
             <>
-              <StyledDiv>
-                <span>Password</span>
-                <StyledInput
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={handleChange}
-                />
-              </StyledDiv>
-              <StyledDiv>
-                <span>confirmPassword</span>
-                <StyledInput
-                  type="password"
-                  name="passwordconfirm"
-                  value={form.passwordconfirm}
-                  onChange={handleChange}
-                />
-              </StyledDiv>
-              <ChangeBtn
-                onClick={handleChangePassword}
-                type="submit"
-                disabled={form.password !== form.passwordconfirm}
-              >
-                Change Password
-              </ChangeBtn>
-
-              <button onClick={() => setIsWithdraw((prev) => !prev)}>
+              <div style={{ marginTop: "1rem" }}>
+                <InfoContainer>
+                  <IndexContainer>
+                    <Index>Password </Index>
+                  </IndexContainer>
+                  <StyledInput
+                    type="password"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                </InfoContainer>
+                <InfoContainer>
+                  <IndexContainer>
+                    <Index>Repeat Password </Index>
+                  </IndexContainer>
+                  <StyledInput
+                    type="password"
+                    name="passwordconfirm"
+                    value={form.passwordconfirm}
+                    onChange={handleChange}
+                  />
+                </InfoContainer>
+              </div>
+              {/* <button onClick={() => setIsWithdraw((prev) => !prev)}>
                 Withdraw
-              </button>
+              </button> */}
             </>
-          ) : (
-            <>
-              <span>confirm password</span>
-              <StyledInput
-                value={password}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.target.value)
-                }
-              ></StyledInput>
-              <button onClick={() => handleWithdraw(password as string)}>
-                Withdrawal
-              </button>
-              <button onClick={() => setIsWithdraw((prev) => !prev)}>
-                Withdrawal cancel
-              </button>
-            </>
-          )}
+          ) : // <>
+          //   <span>Confirm password</span>
+          //   <StyledInput
+          //     value={password}
+          //     onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          //       setPassword(e.target.value)
+          //     }
+          //   ></StyledInput>
+          //   <button onClick={() => handleWithdraw(password as string)}>
+          //     Withdrawal
+          //   </button>
+          //   <button onClick={() => setIsWithdraw((prev) => !prev)}>
+          //     Withdrawal cancel
+          //   </button>
+          // </>
+          null}
+          <Btn
+            onClick={handleChangePassword}
+            title="Edit Password"
+            type="submit"
+            disabled={form.password !== form.passwordconfirm}
+            style={{ marginTop: "1rem", backgroundColor: "#f0f0f0" }}
+          >
+            <Icon src="/Edit.svg" />
+          </Btn>
         </>
       ) : (
-        <>
-          <UserInfoWrapper>E-mail: {userInfo.user?.email}</UserInfoWrapper>
-          <UserInfoWrapper>Nickname: {userInfo.user?.nickname}</UserInfoWrapper>
-        </>
+        <div>
+          <InfoContainer>
+            <IndexContainer>
+              <Index>E-mail </Index>
+            </IndexContainer>
+            <UserInfoWrapper>{userInfo.user?.email}</UserInfoWrapper>
+          </InfoContainer>
+          <InfoContainer>
+            <IndexContainer>
+              <Index>Nickname </Index>
+            </IndexContainer>
+            <UserInfoWrapper>{userInfo.user?.nickname}</UserInfoWrapper>
+          </InfoContainer>
+        </div>
       )}
     </UserInfoContainer>
   );
 }
+
+const IndexContainer = styled.div`
+  display: inline-block;
+
+  margin: 5px;
+
+  text-align: right;
+`;
+
+const Index = styled.span`
+  font-weight: 600;
+  text-align: right;
+`;
 
 const UserInfoContainer = styled.div`
   display: flex;
@@ -169,29 +209,29 @@ const UserInfoContainer = styled.div`
 
   width: 100%;
   height: 100%;
+
+  text-align: right;
 `;
 
 const UserInfoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 80%;
+  float: right;
+  width: 20vw;
   margin: 5px;
-  padding: 20px;
+  padding: 3px 5px;
 
-  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
 
-  box-shadow: 0 2px 5px var(--color-main);
+  text-align: center;
 `;
 
-const StyledDiv = styled.div`
-  padding-top: 2rem;
+const InfoContainer = styled.div`
+  padding: 5px;
 `;
 
 const StyledInput = styled.input`
-  width: 15vw;
-
   float: right;
+  width: 15vw;
   margin-left: 1rem;
 
   border: none;
@@ -202,9 +242,4 @@ const StyledInput = styled.input`
   &:focus {
     border-bottom: 2px solid var(--color-normal);
   }
-`;
-
-const ChangeBtn = styled.button`
-  background-color: var(--color-light);
-  border: 3px solid var(--color-deep);
 `;

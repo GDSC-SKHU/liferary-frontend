@@ -8,7 +8,9 @@ type account = string | null;
 
 const useToken = () => {
   const router = useRouter();
+
   const [approval, setApproval] = useState<approval>("Bearer");
+
   const [token, setToken] = useState<account>("");
 
   useEffect(() => {
@@ -29,30 +31,12 @@ const useToken = () => {
       .then((res) => console.log(res))
       .catch((res) => {
         if (res.response.status === 403) {
-          //   axios
-          //     .post(
-          //       `/api/member/reissue`,
-          //       {},
-          //       {
-          //         headers: {
-          //           RefreshToken: refreshToken,
-          //           Authorization: `Bearer ${accessToken}`,
-          //         },
-          //       }
-          //     )
-          //     .then((res) => {
-          //       localStorage.setItem("accessToken", res.data.accessToken);
-          //       localStorage.setItem("refreshToken", res.data.refreshToken);
-          //     });
-          // }
-          alert("logged out");
+          alert("Logged out");
           handleLogout();
           router.push(`/login`);
         }
       });
   }, []);
-
-  // console.log(token);
 
   const Tokens = [approval + " " + token];
   const allToken = Tokens.join();

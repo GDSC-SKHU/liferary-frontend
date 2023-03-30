@@ -23,5 +23,12 @@ export default function ListItem({
 }
 
 const StyledSpan = styled.div`
-  border-bottom: 1px solid var(--color-main);
+  display: block;
+
+  width: 90%;
+  padding-bottom: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;

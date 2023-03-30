@@ -5,6 +5,7 @@ import Pagination from "../Commons/Pagination";
 import styled from "styled-components";
 import StudyListTable from "../Study/StudyListTable";
 import CommunityListTable from "../Community/CommunityListTable";
+
 type kind = "Knowledge" | "Study" | "Community";
 
 export const User_post = ({ kind }: { kind: kind }) => {
@@ -79,6 +80,7 @@ export const User_post = ({ kind }: { kind: kind }) => {
 const UserPostContainer = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: center;
 
   width: 100%;
 `;

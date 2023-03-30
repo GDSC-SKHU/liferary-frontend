@@ -3,6 +3,21 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import styled from "styled-components";
+import Image from "next/image";
+import imageUpload from "@/libs/imageUpload";
+import {
+  BtnContainer,
+  DeleteImg,
+  ImageContainer,
+  ImgContainer,
+  ImgInput,
+  Notice,
+  Notion,
+  StyledInput,
+  StyledInput2,
+  StyledLabel,
+  Submit,
+} from "../S_write/S_writeForm";
 
 const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
   const { allToken } = useToken();
@@ -15,7 +30,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
 
   const [content, setContent] = useState<string>("");
 
-  const [imgFile, setImgFile] = useState<FileList | null>(null);
+  const [imgUrls, setImgUrls] = useState<string[]>([]);
 
   const errorAlert = () => {
     if (title.length == 0) {
@@ -34,11 +49,30 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
     setContent(e.target.value);
   };
 
-  const onChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeImg = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const file = e.target.files;
-      setImgFile(file);
+      const files = e.target.files;
+      const data = await imageUpload(files, "board");
+
+      setImgUrls([...imgUrls, ...data]);
     }
+  };
+
+  const handleImageDelete = async (imgUrl: string) => {
+    await axios
+      .delete(`/api/image?path=board`, {
+        data: {
+          imagePath: imgUrl,
+        },
+        headers: {
+          Authorization: allToken,
+          withCredentials: true,
+        },
+      })
+      .then(() => alert("success Image deleted"));
+    let filteredData = imgUrls.filter((el) => el !== imgUrl);
+    console.log(filteredData);
+    setImgUrls(filteredData);
   };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -47,18 +81,17 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
       isEdit
         ? //수정모드
           axios
-            .post(
+            .patch(
               `/api/board/${mainPostId}/post?id=${id}`,
               {
                 title,
                 context: content,
-                images: imgFile,
+                images: imgUrls,
               },
               {
                 headers: {
                   // crossDomain: true,
                   // credentials: 'include',
-                  "Content-Type": "multipart/form-data",
                   withCredentials: true,
                   Authorization: allToken,
                 },
@@ -82,19 +115,16 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
                 mainPostId: id,
                 title: title,
                 context: content,
-                images: imgFile,
+                images: imgUrls,
               },
               {
                 headers: {
-                  // crossDomain: true,
-                  // credentials: 'include',
-                  "Content-Type": "multipart/form-data",
                   withCredentials: true,
                   Authorization: allToken,
                 },
               }
             )
-            .then((res) => {
+            .then(() => {
               alert("Success write!");
               router.push({
                 pathname: `/c_list/${id}`,
@@ -105,61 +135,76 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
               errorAlert();
             });
     }
-    // console.log({
-    //   mainPostId: id,
-    //   title: title,
-    //   context: content,
-    //   images: imgFile,
-    // });
-
-    // let dataSet = {
-    //   mainPostId: id,
-    //   title: title,
-    //   context: content,
-    //   images: imgFile,
-    // };
-
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(dataSet));
   };
 
   useEffect(() => {
-    const TOKEN = localStorage.getItem("accessToken");
     {
       isEdit &&
-        axios
-          .get(`/api/board/${mainPostId}/post/?id=${id}`, {
-            headers: {
-              withCredentials: true,
-              Authorization: `Bearer ${TOKEN}`,
-            },
-          })
-          .then((data) => {
-            console.log("editData", data);
-            setTitle(data.data.title);
-            setContent(data.data.context);
-            setImgFile(data.data.images);
-          });
+        axios.get(`/api/board/${mainPostId}/post/?id=${id}`).then((data) => {
+          console.log("editData", data);
+          setTitle(data.data.title);
+          setContent(data.data.context);
+          setImgUrls(data.data.images);
+        });
     }
   }, []);
+
   return (
     <>
-      {isEdit && <h3>Edit mode</h3>}
+      {/* {isEdit && <h3>Edit mode</h3>} */}
       <form onSubmit={onSubmit}>
-        <Container>
-          <StyledInput
-            type="text"
-            placeholder="Please enter your title"
-            value={title}
-            onChange={onChangeTitle}
-          />
-          <StyledInput2
-            placeholder="Write your tips contents"
-            value={content}
-            onChange={onChangeContent}
-          />
-          <input
-            id="input-file"
+        <Container style={{ marginTop: "10vh" }}>
+          <div>
+            <div>
+              <Notion>Please enter your</Notion>
+            </div>
+            <StyledInput
+              type="text"
+              placeholder="title"
+              value={title}
+              onChange={onChangeTitle}
+            />
+          </div>
+          <div>
+            <div>
+              <Notion>Write your</Notion>
+            </div>
+            <StyledInput2
+              placeholder="tips contents"
+              value={content}
+              onChange={onChangeContent}
+            />
+          </div>
+          <StyledLabel className="file-label" htmlFor="chooseFile">
+            Choose your file
+          </StyledLabel>
+          <Notice>Please wait for the photo preview to come up...</Notice>
+          <ImageContainer>
+            {/* c_writeBody.tsx랑 다름 */}
+            {imgUrls.map((imgUrl) => {
+              return (
+                <ImgContainer key={imgUrl}>
+                  <Image
+                    key={imgUrl}
+                    // src={`https://picsum.photos/200/300`}
+                    src={imgUrl}
+                    width={100}
+                    height={70}
+                    alt=""
+                  />
+                  <DeleteImg
+                    style={{ color: "black" }}
+                    onClick={() => handleImageDelete(imgUrl)}
+                  >
+                    x
+                  </DeleteImg>
+                </ImgContainer>
+              );
+            })}
+          </ImageContainer>
+          <ImgInput
+            className="file"
+            id="chooseFile"
             accept="image/*"
             type="file"
             placeholder="Input file here!"
@@ -188,80 +233,4 @@ const Container = styled.div`
   align-items: center;
 
   color: white;
-`;
-
-const StyledInput = styled.input`
-  width: 40vw;
-  min-height: 6vh;
-  /* height: auto; */
-  margin-top: 2vh;
-  padding: 0 6px;
-
-  word-break: break-all;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const StyledInput2 = styled.textarea`
-  width: 40vw;
-  height: 40vh;
-  margin-top: 3vh;
-  padding: 0 6px;
-
-  border: 1px solid var(--color-main);
-  border-radius: 5px;
-
-  outline: none;
-
-  &:focus {
-    border: 2px solid var(--color-main);
-  }
-
-  ::placeholder {
-    color: #bebebe;
-
-    font-weight: 600;
-    font-size: large;
-  }
-`;
-
-const BtnContainer = styled.div`
-  width: 40vw;
-`;
-
-const Submit = styled.button`
-  float: right;
-  margin-top: 3vh;
-  margin-bottom: 1rem;
-  padding: 3px 10px;
-
-  background-color: var(--color-normal);
-  color: white;
-  border: 1px solid var(--color-normal);
-  border-radius: 10px;
-
-  font-weight: 600;
-  font-size: large;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: white;
-    color: var(--color-normal);
-    border: 1px solid var(--color-normal);
-  }
 `;
