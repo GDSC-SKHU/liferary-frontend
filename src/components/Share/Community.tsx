@@ -4,16 +4,18 @@ import router from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Board from "@/types/board";
-import { Btn, Icon } from "./ShareForm";
 
 export default function Comment({ id }: ShareProps) {
-  const [list, setList] = useState<Board[]>();
+  const [isExist, setIsExist] = useState<boolean>(false);
 
-  const onClickViewMoreBoard = () => {
-    router.push({
-      pathname: `/c_list/${id}`,
-    });
-  };
+  useEffect(() => {
+    axios
+      .get(`/api/community?mainPost=${id}`)
+      .then((res) => res.status === 200 && setIsExist(true))
+      .catch((err) => console.log(err));
+  });
+
+  const [list, setList] = useState<Board[]>();
 
   const handleClickListItem = (boardId: number) => {
     router.push(`/community/${id}/${boardId}`);
@@ -29,30 +31,27 @@ export default function Comment({ id }: ShareProps) {
 
   return (
     <div>
-      <StyledH2>
-        Share your feelings
-        <Btn
-          style={{ margin: "0", padding: "2px 5px" }}
-          onClick={() => router.push(`/c_write?id=${id}`)}
-          title="Ask any questions"
-        >
-          <Icon src="/Study.svg" />
-        </Btn>
-      </StyledH2>
-      <Container>
-        {list &&
-          list.slice(0, 5).map((el: Board) => (
-            <CommunityBoardItem
-              onClick={() => handleClickListItem(el.id)}
-              key={el.id}
-            >
-              {el.title}
-            </CommunityBoardItem>
-          ))}
-      </Container>
-      <Btn onClick={onClickViewMoreBoard} title="View more">
-        <Icon src="/List.svg" />
-      </Btn>
+      {isExist ? (
+        <>
+          <StyledH2>Share your feelings</StyledH2>
+          <Container>
+            {list &&
+              list.slice(0, 5).map((el: Board) => (
+                <CommunityBoardItem
+                  onClick={() => handleClickListItem(el.id)}
+                  key={el.id}
+                >
+                  {el.title}
+                </CommunityBoardItem>
+              ))}
+          </Container>
+        </>
+      ) : (
+        <>
+          <StyledH2 style={{ padding: "0 3rem" }}>No Post Yet</StyledH2>
+          <>Please wait . . .</>
+        </>
+      )}
     </div>
   );
 }
