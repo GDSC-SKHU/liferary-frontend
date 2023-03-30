@@ -160,7 +160,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
             </div>
             <StyledInput
               type="text"
-              placeholder="title"
+              placeholder="Title"
               value={title}
               onChange={onChangeTitle}
             />
@@ -170,7 +170,7 @@ const C_writeBody = ({ isEdit }: { isEdit?: boolean }) => {
               <Notion>Write your</Notion>
             </div>
             <StyledInput2
-              placeholder="tips contents"
+              placeholder="Tips contents"
               value={content}
               onChange={onChangeContent}
             />
