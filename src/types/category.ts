@@ -1,16 +1,16 @@
 const categoryList = [
-    "cooking",
-    "fitness",
-    "nonsense",
-    "relationship",
-    "programming",
-    "language",
-    "makeup",
-    "fashion",
-    "leisure",
-    "travel",
-    "music",
-    "etc",
+    "Cooking",
+    "Fitness",
+    "Nonsense",
+    "Relationship",
+    "Programming",
+    "Language",
+    "Makeup",
+    "Fashion",
+    "Leisure",
+    "Travel",
+    "Music",
+    "Etc",
   ];
   
   export { categoryList };
