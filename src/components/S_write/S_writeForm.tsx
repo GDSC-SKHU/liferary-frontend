@@ -179,7 +179,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             </div>
             <StyledInput
               type="text"
-              placeholder="title"
+              placeholder="Title"
               value={title}
               onChange={onChangeTitle}
               onFocus={handleInputFocus}
@@ -192,7 +192,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
               <Notion>Write your</Notion>
             </div>
             <StyledInput2
-              placeholder="tips contents"
+              placeholder="Tips contents"
               value={content}
               onChange={onChangeContent}
               onFocus={handleInputFocus2}
@@ -227,7 +227,7 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
             <StyledInput
               type="text"
               id="youtubeUrlInput"
-              placeholder="here!"
+              placeholder="Here!"
               value={videoUrl}
               onChange={onChagneVideo}
               onFocus={handleInputFocus3}
@@ -276,9 +276,18 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           </BtnContainer>
         </Container>
       </form>
-
       {videoId && (
-        <YouTube videoId={videoId} opts={{ width: "50%", height: "500px" }} />
+        <YouTube
+          videoId={videoId}
+          opts={{
+            width: "40%",
+            height: "300px",
+            display: "flex",
+            jusifyContent: "center",
+            alignItems: "center",
+            marginBottom: "2rem",
+          }}
+        />
       )}
     </>
   );
