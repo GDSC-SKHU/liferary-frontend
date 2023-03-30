@@ -377,6 +377,7 @@ const StyledTitle = styled.span`
 const Iframe = styled.iframe`
   width: 55vw;
   height: 65vh;
+  margin: 0 auto;
   margin-top: 1rem;
 `;
 

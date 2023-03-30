@@ -124,7 +124,7 @@ const St_writeForm = () => {
             </div>
             <StyledInput
               type="text"
-              placeholder="title"
+              placeholder="Title"
               value={title}
               onChange={onChangeTitle}
             />
@@ -134,7 +134,7 @@ const St_writeForm = () => {
               <Notion>Write your</Notion>
             </div>
             <StyledInput2
-              placeholder="tips contents"
+              placeholder="Tips contents"
               value={content}
               onChange={onChangeContent}
             />
