@@ -161,11 +161,11 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
   const videoId = getIdFromUrl(videoUrl);
 
   return (
-    <>
+    <S_Container>
       <form onSubmit={onSubmit}>
         <StyledDiv>
           <div>
-            <StyledSpan>Category: </StyledSpan>
+            <Notion>Category: </Notion>
             <DropDownCategory
               onChange={onChangeCategory}
               currentCategory={category}
@@ -289,14 +289,22 @@ const S_write = ({ currentCategory }: MainCategoryProps) => {
           }}
         />
       )}
-    </>
+    </S_Container>
   );
 };
 
 export default S_write;
 
+export const S_Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StyledDiv = styled.div`
   width: 50vw;
+  margin-top: 1vh;
 `;
 
 const StyledSpan = styled.span`
@@ -326,7 +334,7 @@ export const Notion = styled.p`
 `;
 
 export const StyledInput = styled.input`
-  width: 40vw;
+  width: 50vw;
   min-height: 6vh;
   margin-bottom: 0.5rem;
 
@@ -353,7 +361,7 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledInput2 = styled.textarea`
-  width: 40vw;
+  width: 50vw;
   height: 33vh;
   margin-bottom: 0.5rem;
 
@@ -378,7 +386,7 @@ export const StyledInput2 = styled.textarea`
 `;
 
 export const StyledLabel = styled.label`
-  width: 40vw;
+  width: 50vw;
   margin-top: 1.5rem;
   padding: 4px 0;
 
@@ -428,12 +436,12 @@ export const ImgInput = styled.input`
 `;
 
 export const BtnContainer = styled.div`
-  width: 40vw;
+  width: 50vw;
 `;
 
 export const Submit = styled.button`
   float: right;
-  margin-top: 3vh;
+  margin-top: 1vh;
   margin-bottom: 1rem;
   padding: 3px 10px;
 

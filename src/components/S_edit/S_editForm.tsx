@@ -18,6 +18,7 @@ import {
   StyledInput2,
   StyledLabel,
   Submit,
+  S_Container,
 } from "../S_write/S_writeForm";
 
 const S_editForm = ({ id }: UpdateProps) => {
@@ -149,11 +150,11 @@ const S_editForm = ({ id }: UpdateProps) => {
   };
 
   return (
-    <>
+    <S_Container>
       <form onSubmit={onClickUpdate}>
         <StyledDiv>
           <div>
-            <StyledSpan>Category: </StyledSpan>
+            <Notion>Category: </Notion>
             {updateCategory && (
               <DropDownCategory
                 onChange={onChangeUpdateCategory}
@@ -235,7 +236,7 @@ const S_editForm = ({ id }: UpdateProps) => {
           </BtnContainer>
         </Container>
       </form>
-    </>
+    </S_Container>
   );
 };
 
