@@ -43,9 +43,9 @@ const DropDownCategory = ({ onChange, currentCategory }: Category) => {
 export default DropDownCategory;
 
 const StyledSelect = styled.select`
+  width: 100%;
   padding: 5px 7px;
-  margin-top: 5px;
-
+  margin: 5px 0;
   border: none;
   border-radius: 4px;
 
