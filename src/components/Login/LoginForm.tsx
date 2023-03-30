@@ -82,8 +82,8 @@ const LoginForm = () => {
         </div>
         <LoginBtn>
           <Submit type="submit">Login</Submit>
-          <GoogleLogin>
-            <Google src="/google.png" onClick={handleGoogleLogin} />
+          <GoogleLogin onClick={handleGoogleLogin}>
+            <Google src="/google.png" />
             <span style={{ fontSize: "13px" }}>Google Login</span>
           </GoogleLogin>
         </LoginBtn>
