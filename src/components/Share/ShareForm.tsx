@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
 import Image from "next/image";
+import Board from "@/types/board";
 
 interface ListProps {
   id: string;
@@ -184,7 +185,6 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
             ))}
             {videoView && (
               <Container2>
-                <StyledTitle>YOUTUBE</StyledTitle>
                 <Iframe
                   src={`https://www.youtube.com/embed/${videoView}`}
                   width="560"
@@ -296,7 +296,6 @@ export const StyledDiv2 = styled.div`
   align-items: center;
 
   width: 55vw;
-  margin-bottom: 1rem;
 
   background-color: white;
   border-radius: 10px;

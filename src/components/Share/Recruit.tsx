@@ -32,7 +32,7 @@ export default function Recruit({ id }: ShareProps) {
         </StudyContainer>
       ) : (
         <>
-          <StyledH2>No Study Yet</StyledH2>
+          <StyledH2 style={{ padding: "0 3rem" }}>No Study Yet</StyledH2>
           <>Please wait . . .</>
         </>
       )}

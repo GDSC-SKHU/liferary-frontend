@@ -1,13 +1,59 @@
 import styled from "styled-components";
-import ShareForm from "./ShareForm";
+import ShareForm, { Btn, Icon } from "./ShareForm";
 import { ShareProps } from "@/pages/share";
 import Recruit from "./Recruit";
 import Community from "./Community";
+import router from "next/router";
+import { useEffect, useState } from "react";
+
+interface UserInfo {
+  email: string;
+  nickname: string;
+  firebaseAuth: boolean;
+}
 
 export default function ShareBody({ id }: ShareProps) {
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    Object.keys(window.localStorage).includes("userInfo") &&
+      setUserInfo(
+        JSON.parse((localStorage.getItem("userInfo") as string) || "{}")
+      );
+    console.log(userInfo);
+  }, []);
+
+  const onClickViewMoreBoard = () => {
+    router.push({
+      pathname: `/c_list/${id}`,
+    });
+  };
+
   return (
     <>
       <ShareForm id={id} />
+      {userInfo ? (
+        <>
+          <Btn
+            style={{ marginLeft: "22vw" }}
+            onClick={() => router.push(`/c_write?id=${id}`)}
+            title="Ask any questions"
+          >
+            <Icon src="/Study.svg" />
+          </Btn>
+          <Btn onClick={onClickViewMoreBoard} title="View more">
+            <Icon src="/List.svg" />
+          </Btn>
+        </>
+      ) : (
+        <Btn
+          style={{ marginLeft: "22vw" }}
+          onClick={onClickViewMoreBoard}
+          title="View more"
+        >
+          <Icon src="/List.svg" />
+        </Btn>
+      )}
       <Container>
         <Wrapper>
           <Recruit id={id} />
@@ -28,6 +74,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 
   width: 55vw;
+  margin-top: 1rem;
 
   cursor: default;
 `;

@@ -53,5 +53,4 @@ export const CategoryContainer = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 4vh;
 `;
