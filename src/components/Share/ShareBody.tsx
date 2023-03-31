@@ -33,18 +33,20 @@ export default function ShareBody({ id }: ShareProps) {
     <>
       <ShareForm id={id} />
       {userInfo ? (
-        <>
+        <div style={{ display: "flex", marginLeft: "22vw" }}>
           <Btn
-            style={{ marginLeft: "22vw" }}
+            style={{ width: "fit-content" }}
             onClick={() => router.push(`/c_write?id=${id}`)}
             title="Ask any questions"
           >
             <Icon src="/Study.svg" />
+            <p>Community</p>
           </Btn>
           <Btn onClick={onClickViewMoreBoard} title="View more">
             <Icon src="/List.svg" />
+            <p>List</p>
           </Btn>
-        </>
+        </div>
       ) : (
         <Btn
           style={{ marginLeft: "22vw" }}
