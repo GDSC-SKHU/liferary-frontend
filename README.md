@@ -1,38 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Liferary Banner](https://user-images.githubusercontent.com/14046092/228737335-f016bbd6-0722-481e-a1bb-025a0af0af67.png)
+# What is Liferary?
 
-## Getting Started
+> Project name "Liferary" created by combining "Life" and "Library".  
+It means a library with knowledges for a better life.
 
-First, run the development server:
+<div align="justify">
+  <b>"Liferary"</b> is a free knowledge-sharing service that combines the concept of wikis, where users can make free contributions, with paid online education services. The platform's key feature is that "knowledge sharers" can publish their knowledge in various forms, such as text, images, and videos (via YouTube), and share them with others. Knowledge sharers can also use Google Meet, a real-time video conferencing service, to conduct study sessions. Users can learn from the shared knowledge and express their opinions through the community service. Liferary aims to enable as many people as possible to lead better lives by sharing knowledge with one another.
+</div>
+<br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Sustainable Development Goals
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Repositories
+* [Web Repository](https://github.com/GDSC-SKHU/liferary-frontend)
+* [App Repository](https://github.com/GDSC-SKHU/liferary-mobile)
+* [Server Repository](https://github.com/GDSC-SKHU/liferary-backend)
+<br/>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Technologies
+* Web
+  * Next.js
+  * styled-components
+* App
+  * Flutter
+* Server
+  * Spring Boot
+  * Spring Data JPA
+  * MySQL
+  * Docker
+  * Google Cloud Platform
+  * Firebase
+<br/>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Features
+<br/>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## How to use
+<br/>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Team Liferary
+|[Hangil Lee](https://github.com/hangillee)|[Sinyoung Park](https://github.com/ParkSY0919)|[Eunji Lee](https://github.com/Lee2Eunji)|[Jiyun Lee](https://github.com/dd-jiyun)|
+|:---:|:---:|:---:|:---:|
+|<img src="https://github.com/hangillee.png">|<img src="https://github.com/ParkSY0919.png">|<img src="https://github.com/Lee2Eunji.png">|<img src="https://github.com/dd-jiyun.png">|
+|Backend|App Frontend|Web Frontend|Backend|
