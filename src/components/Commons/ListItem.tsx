@@ -3,7 +3,7 @@ import Post from "../../types/postType";
 import { formatDate } from "../../types/date";
 
 interface ListProps extends Partial<Post> {
-  idx: number;
+  idx: string | number;
 }
 
 export default function ListItem({

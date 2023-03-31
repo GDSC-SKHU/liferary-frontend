@@ -15,6 +15,15 @@ export default function Comment({ id }: ShareProps) {
       .catch((err) => console.log(err));
   });
 
+  const onClickReadRouter = () => {
+    router.push({
+      pathname: `/community`,
+      query: {
+        id: id,
+      },
+    });
+  };
+
   const [list, setList] = useState<Board[]>();
 
   const handleClickListItem = (boardId: number) => {
@@ -30,29 +39,29 @@ export default function Comment({ id }: ShareProps) {
   }, []);
 
   return (
+    // <div onClick={onClickReadRouter}>
+    //   {isExist ? (
     <div>
-      {isExist ? (
-        <>
-          <StyledH2>Share your feelings</StyledH2>
-          <Container>
-            {list &&
-              list.slice(0, 5).map((el: Board) => (
-                <CommunityBoardItem
-                  onClick={() => handleClickListItem(el.id)}
-                  key={el.id}
-                >
-                  {el.title}
-                </CommunityBoardItem>
-              ))}
-          </Container>
-        </>
-      ) : (
-        <>
-          <StyledH2 style={{ padding: "0 3rem" }}>No Post Yet</StyledH2>
-          <>Please wait . . .</>
-        </>
-      )}
+      <StyledH2>Share your feelings</StyledH2>
+      <Container>
+        {list &&
+          list.slice(0, 5).map((el: Board) => (
+            <CommunityBoardItem
+              onClick={() => handleClickListItem(el.id)}
+              key={el.id}
+            >
+              {el.title}
+            </CommunityBoardItem>
+          ))}
+      </Container>
     </div>
+    // ) : (
+    //   <>
+    //     <StyledH2 style={{ padding: "0 3rem" }}>No Post Yet</StyledH2>
+    //     <>Please wait . . .</>
+    //   </>
+    // )}
+    // </div>
   );
 }
 
