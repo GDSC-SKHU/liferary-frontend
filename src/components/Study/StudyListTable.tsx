@@ -34,7 +34,7 @@ export default function StudyListTable({
           onClick={() => handleClickListItem(el.mainPostId)}
         >
           <ListItem
-            idx={(page - 1) * 9 + idx + 1}
+            idx={el.id}
             title={el.title}
             nickname={el.nickname}
             modifiedDate={el.modifiedDate}
