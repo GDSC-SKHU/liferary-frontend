@@ -6,9 +6,11 @@ import { ListContainer, ListWrapper, TitleWrapper } from "../Commons/ListTable";
 export default function CommunityListTable({
   list,
   page,
+  totalElements,
 }: {
   list: Board[];
   page: number;
+  totalElements: number;
 }) {
   const router = useRouter();
   const handleClickListItem = (mainPostId: number, id: number) => {
@@ -29,7 +31,7 @@ export default function CommunityListTable({
           onClick={() => handleClickListItem(el.mainPostId, el.id)}
         >
           <ListItem
-            idx={el.id}
+            idx={totalElements - ((page - 1) * 9 + idx)}
             title={el.title}
             nickname={el.nickname}
             modifiedDate={el.modifiedDate}

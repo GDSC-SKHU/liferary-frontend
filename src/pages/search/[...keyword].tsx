@@ -15,11 +15,13 @@ const Detail = ({ keyword }: SearchProps) => {
   const [list, setList] = useState<Post[]>();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [totalElements, setTotalElements] = useState<number>(0);
   console.log("list", list);
   useEffect(() => {
     axios.get(`/api/main/keyword/${keyword}?page=${page}`).then((data) => {
       setList(data.data.content);
       setTotalPages(data.data.totalPages);
+      setTotalElements(totalElements);
     });
   }, [keyword, page]);
   return (
@@ -27,7 +29,9 @@ const Detail = ({ keyword }: SearchProps) => {
       <Nav />
       <SearchWrapper>
         <SearchDetail>Search keyword: {keyword}</SearchDetail>
-        {list && <ListTable list={list} page={page} />}
+        {list && (
+          <ListTable list={list} page={page} totalElements={totalElements} />
+        )}
         {totalPages > 1 && (
           <Pagination
             totalPages={totalPages}
