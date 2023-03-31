@@ -10,6 +10,8 @@ export default function St_list() {
 
   const [totalPage, setTotalPage] = useState<number>(0);
 
+  const [totalElements, setTotalElements] = useState<number>(0);
+
   const [list, setList] = useState();
 
   useEffect(() => {
@@ -17,6 +19,7 @@ export default function St_list() {
       console.log(data.data);
       setList(data.data.content);
       setTotalPage(data.data.totalPages);
+      setTotalElements(data.data.totalElements);
     });
   }, [page]);
 
@@ -24,7 +27,11 @@ export default function St_list() {
     <CategoryContainer>
       <StudyListWrapper>
         {totalPage && list ? (
-          <StudyListTable list={list} page={page} />
+          <StudyListTable
+            list={list}
+            page={page}
+            totalElements={totalElements}
+          />
         ) : (
           <div style={{ marginTop: "4vh" }}>There are no posts</div>
         )}

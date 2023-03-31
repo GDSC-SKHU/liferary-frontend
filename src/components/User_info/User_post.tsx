@@ -15,6 +15,8 @@ export const User_post = ({ kind }: { kind: kind }) => {
 
   const [totalPage, setTotalPage] = useState<number>();
 
+  const [totalElements, setTotalElements] = useState<number>(0);
+
   const [url, setUrl] = useState("");
 
   useLayoutEffect(() => {
@@ -48,6 +50,7 @@ export const User_post = ({ kind }: { kind: kind }) => {
           .then((data) => {
             setList(data.data.content);
             setTotalPage(data.data.totalPages);
+            setTotalElements(data.data.totalElements);
           });
     }
   }, [page, url]);
@@ -56,10 +59,22 @@ export const User_post = ({ kind }: { kind: kind }) => {
     <>
       {totalPage && list ? (
         <UserPostContainer>
-          {kind === "Knowledge" && <ListTable list={list} page={page} />}
-          {kind === "Study" && <StudyListTable list={list} page={page} />}
+          {kind === "Knowledge" && (
+            <ListTable list={list} page={page} totalElements={totalElements} />
+          )}
+          {kind === "Study" && (
+            <StudyListTable
+              list={list}
+              page={page}
+              totalElements={totalElements}
+            />
+          )}
           {kind === "Community" && (
-            <CommunityListTable list={list} page={page} />
+            <CommunityListTable
+              list={list}
+              page={page}
+              totalElements={totalElements}
+            />
           )}
 
           <Pagination

@@ -11,6 +11,8 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
 
   const [totalPage, setTotalPage] = useState<number>(0);
 
+  const [totalElements, setTotalElements] = useState<number>(0);
+
   const [list, setList] = useState();
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
           console.log(data.data);
           setList(data.data.content);
           setTotalPage(data.data.totalPages);
+          setTotalElements(data.data.totalElements);
         });
   }, [page, mainPostId]);
 
@@ -32,7 +35,11 @@ export default function C_list({ mainPostId }: mainPostIdParams) {
     <CategoryContainer>
       <StudyListWrapper style={{ marginTop: "1rem" }}>
         {totalPage && list ? (
-          <CommunityListTable list={list} page={page} />
+          <CommunityListTable
+            list={list}
+            page={page}
+            totalElements={totalElements}
+          />
         ) : (
           <div>There are no posts</div>
         )}
