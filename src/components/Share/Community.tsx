@@ -15,15 +15,6 @@ export default function Comment({ id }: ShareProps) {
       .catch((err) => console.log(err));
   });
 
-  const onClickReadRouter = () => {
-    router.push({
-      pathname: `/community`,
-      query: {
-        id: id,
-      },
-    });
-  };
-
   const [list, setList] = useState<Board[]>();
 
   const handleClickListItem = (boardId: number) => {
@@ -41,7 +32,7 @@ export default function Comment({ id }: ShareProps) {
   return (
     // <div onClick={onClickReadRouter}>
     //   {isExist ? (
-    <div>
+    <Wrapper>
       <StyledH2>Share your feelings</StyledH2>
       <Container>
         {list &&
@@ -54,7 +45,7 @@ export default function Comment({ id }: ShareProps) {
             </CommunityBoardItem>
           ))}
       </Container>
-    </div>
+    </Wrapper>
     // ) : (
     //   <>
     //     <StyledH2 style={{ padding: "0 3rem" }}>No Post Yet</StyledH2>
@@ -64,15 +55,21 @@ export default function Comment({ id }: ShareProps) {
     // </div>
   );
 }
-
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 50%;
+`;
 const StyledH2 = styled.h2`
-  width: fit-content;
+  /* width: fit-content; */
   margin-bottom: 1rem;
   padding: 10px;
 
   border-bottom: 2px solid var(--color-main);
 
   font-weight: normal;
+  text-align: center;
 `;
 
 const Container = styled.div`
@@ -80,6 +77,11 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
 `;
 
 const CommunityBoardItem = styled.div`
@@ -87,6 +89,10 @@ const CommunityBoardItem = styled.div`
   width: 90%;
   margin-bottom: 1rem;
   padding: 0 5px 1rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   border-bottom: 1px solid black;
 

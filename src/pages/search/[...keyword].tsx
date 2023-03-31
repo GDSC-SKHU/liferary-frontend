@@ -16,6 +16,7 @@ const Detail = ({ keyword }: SearchProps) => {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [totalElements, setTotalElements] = useState<number>(0);
+
   console.log("list", list);
   useEffect(() => {
     axios.get(`/api/main/keyword/${keyword}?page=${page}`).then((data) => {

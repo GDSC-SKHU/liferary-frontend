@@ -146,12 +146,15 @@ const ShareForm = ({ id }: ShareProps, { video }: ListProps) => {
                 <div>
                   <Btn onClick={onClickUpdateRouter} title="Edit">
                     <Icon src="/Edit.svg" />
+                    <span>Edit</span>
                   </Btn>
                   <Btn onClick={onClickDelete} title="Delete">
                     <Icon src="/Delete.svg" />
+                    <p>Delete</p>
                   </Btn>
                   <Btn onClick={onClickRouter} title="Create study">
                     <Icon src="/Study.svg" />
+                    <p>Study</p>
                   </Btn>
                 </div>
               )}
@@ -225,7 +228,6 @@ export const StyledBox = styled.div`
   padding: 1px 7px;
 
   background-color: var(--color-deep);
-  color: white;
   border-radius: 5px;
 
   font-size: 1rem;
@@ -233,10 +235,19 @@ export const StyledBox = styled.div`
 `;
 
 export const Btn = styled.button`
-  margin: 0 5px;
+  display: flex;
+  align-items: center;
 
-  border: none;
-  border-radius: 1rem;
+  width: 5rem;
+  height: 2.3rem;
+  margin: 0 5px;
+  margin-bottom: 10px;
+
+  background-color: white;
+  border: 1px solid var(--color-main);
+  border-radius: 3rem;
+
+  text-align: center;
 
   cursor: pointer;
 
@@ -322,8 +333,6 @@ export const Container = styled.div`
   align-items: center;
 
   margin-top: 2rem;
-
-  color: white;
 
   cursor: default;
 `;

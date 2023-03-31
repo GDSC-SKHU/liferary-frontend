@@ -32,7 +32,7 @@ export default function Recruit({ id }: ShareProps) {
         </StudyContainer>
       ) : (
         <>
-          <StyledH2 style={{ padding: "0 3rem" }}>No Study Yet</StyledH2>
+          <StyledH2 style={{ padding: "10px 5rem" }}>No Study Yet</StyledH2>
           <>Please wait . . .</>
         </>
       )}
@@ -44,8 +44,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
+  flex-grow: 1;
+  width: 50%;
   margin-bottom: 10vh;
 `;
 
