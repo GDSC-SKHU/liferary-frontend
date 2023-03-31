@@ -50,23 +50,29 @@ export default function Nav() {
             </LinkWrapper>
           </LinkContainer>
         </NavItemWrapper>
-        <Link href="/user_info" style={{ textDecoration: "none" }}>
-          <StyledSpan>
-            {userInfo && "Welcome, " + userInfo?.nickname + "!"}
-          </StyledSpan>
-        </Link>
-        <UserContainer>
-          {/* <Link href="/user_info">
+        {userInfo ? (
+          <>
+            <Link href="/user_info" style={{ textDecoration: "none" }}>
+              <StyledSpan>
+                {userInfo && "Welcome, " + userInfo?.nickname + "!"}
+              </StyledSpan>
+            </Link>
+            <UserContainer>
+              {/* <Link href="/user_info">
             <StyledImg2 src="/Pro.svg" alt="" />
           </Link> */}
-          <Link style={{ textDecoration: "none" }} href="/login">
-            {userInfo ? (
-              <LoginBtn onClick={handleLogout}>Logout</LoginBtn>
-            ) : (
+              <Link style={{ textDecoration: "none" }} href="/login">
+                <LoginBtn onClick={handleLogout}>Logout</LoginBtn>
+              </Link>
+            </UserContainer>
+          </>
+        ) : (
+          <UserContainer>
+            <Link style={{ textDecoration: "none" }} href="/login">
               <LoginBtn>Login</LoginBtn>
-            )}
-          </Link>
-        </UserContainer>
+            </Link>
+          </UserContainer>
+        )}
       </Container>
     </>
   );

@@ -101,7 +101,7 @@ export default function User_infoForm() {
         <Btn
           onClick={() => setIsEdit((prev) => !prev)}
           title="Change Password"
-          style={{ marginBottom: "0" }}
+          style={{ width: "fit-content", marginBottom: "0" }}
         >
           {!isEdit ? (
             <Icon src="/Password.svg" />
@@ -114,7 +114,7 @@ export default function User_infoForm() {
         <>
           {!isWithdraw ? (
             <>
-              <div style={{ marginTop: "1rem" }}>
+              <div style={{ width: "fit-content", marginTop: "1rem" }}>
                 <InfoContainer>
                   <IndexContainer>
                     <Index>Password </Index>
@@ -163,7 +163,7 @@ export default function User_infoForm() {
             title="Edit Password"
             type="submit"
             disabled={form.password !== form.passwordconfirm}
-            style={{ marginTop: "1rem", backgroundColor: "#f0f0f0" }}
+            style={{ width: "1rem", marginTop: "1rem" }}
           >
             <Icon src="/Edit.svg" />
           </Btn>
