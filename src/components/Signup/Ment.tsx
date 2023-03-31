@@ -27,6 +27,7 @@ export const Container = styled.div`
   background-color: var(--color-main);
   color: white;
 
+  pointer-events: none;
   cursor: default;
 
   @media (max-width: 800px) {

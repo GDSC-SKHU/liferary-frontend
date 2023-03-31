@@ -130,6 +130,8 @@ const ChooseButton = styled.div`
   background: var(--color-main);
   color: white;
   border-radius: 10px;
+
+  pointer-events: none;
 `;
 
 const CategoryNameWrapper = styled.div`
