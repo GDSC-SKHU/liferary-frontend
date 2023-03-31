@@ -49,6 +49,7 @@ export const ListContainer = styled.div`
   align-items: center;
 
   width: 100%;
+  margin-top: 1rem;
 `;
 
 export const ListWrapper = styled.div`
