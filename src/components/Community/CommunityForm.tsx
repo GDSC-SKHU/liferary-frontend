@@ -93,9 +93,11 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
                 <div>
                   <Btn onClick={onClickUpdateRouter} title="Edit">
                     <Icon src="/Edit.svg" />
+                    <span>Edit</span>
                   </Btn>
                   <Btn onClick={onClickDelete} title="Delete">
                     <Icon src="/Delete.svg" />
+                    <p>Delete</p>
                   </Btn>
                   <Btn
                     title="Go to body"
@@ -109,6 +111,7 @@ const CommunityForm = ({ mainPostId, id }: CommunityProps) => {
                     }
                   >
                     <Icon src="/Prev.svg" />
+                    <p>Back</p>
                   </Btn>
                 </div>
               ) : (
