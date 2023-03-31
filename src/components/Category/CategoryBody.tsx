@@ -20,6 +20,8 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
 
   const [totalPage, setTotalPage] = useState<number>(0);
 
+  const [totalElements, setTotalElements] = useState<number>(0);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [list, setList] = useState();
@@ -52,6 +54,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
           console.log(data.data);
           setList(data.data.content);
           setTotalPage(data.data.totalPages);
+          setTotalElements(data.data.totalElements);
         });
   }, [page, categoryName]);
 
@@ -86,7 +89,7 @@ export default function CategoryBody({ categoryName }: CategoryParams) {
 
       <CategoryListWrapper>
         {totalPage && list ? (
-          <ListTable list={list} page={page} />
+          <ListTable list={list} page={page} totalElements={totalElements} />
         ) : (
           <div>{categoryName} There are no posts</div>
         )}

@@ -6,9 +6,11 @@ import ListItem from "./ListItem";
 export default function ListTable({
   list,
   page,
+  totalElements,
 }: {
   list: Post[];
   page: number;
+  totalElements: number;
 }) {
   const router = useRouter();
   const handleClickListItem = (id: string) => {
@@ -29,7 +31,7 @@ export default function ListTable({
           onClick={() => handleClickListItem(el.id)}
         >
           <ListItem
-            idx={el.id}
+            idx={totalElements - ((page - 1) * 9 + idx)}
             title={el.title}
             nickname={el.nickname}
             modifiedDate={el.modifiedDate}

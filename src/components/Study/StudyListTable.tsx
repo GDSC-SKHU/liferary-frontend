@@ -6,9 +6,11 @@ import { ListContainer, ListWrapper, TitleWrapper } from "../Commons/ListTable";
 export default function StudyListTable({
   list,
   page,
+  totalElements,
 }: {
   list: Study[];
   page: number;
+  totalElements: number;
 }) {
   const router = useRouter();
   const handleClickListItem = (mainPostId: number) => {
@@ -34,7 +36,7 @@ export default function StudyListTable({
           onClick={() => handleClickListItem(el.mainPostId)}
         >
           <ListItem
-            idx={el.id}
+            idx={totalElements - ((page - 1) * 9 + idx)}
             title={el.title}
             nickname={el.nickname}
             modifiedDate={el.modifiedDate}
