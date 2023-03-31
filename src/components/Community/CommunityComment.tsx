@@ -3,7 +3,7 @@ import axios from "axios";
 import { Comment } from "@/types/comment";
 import styled from "styled-components";
 import { formatDate } from "@/types/date";
-import { Btn, DateP, TimeContainer } from "../Share/ShareForm";
+import { DateP, TimeContainer } from "../Share/ShareForm";
 
 interface UserInfo {
   email: string;
@@ -87,7 +87,7 @@ const CommunityComment = ({ boardPostId }: { boardPostId: number }) => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <Btn style={{ margin: "0", marginTop: "10px" }}>Registration</Btn>
+          <Btn>Registration</Btn>
         </CommentForm>
       ) : null}
     </>
@@ -133,4 +133,25 @@ const CommentInput = styled.textarea`
 
 const Notion = styled.p`
   color: black;
+`;
+
+const Btn = styled.button`
+  display: flex;
+  align-items: center;
+
+  width: fit-content;
+  margin: 0 5px;
+  padding: 2px 3px;
+
+  background-color: white;
+  border: 1px solid var(--color-main);
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 `;
