@@ -12,6 +12,8 @@ const SignupForm = () => {
 
   const [pw, setPw] = useState<string>("");
 
+  const [error, setError] = useState("");
+
   // password 재입력
   const [rpw, setRpw] = useState<string>("");
 
@@ -40,6 +42,17 @@ const SignupForm = () => {
 
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const isValid = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
+      pw
+    );
+
+    if (!isValid) {
+      setError("Password is not valid");
+      alert("Special characters, numbers must be included");
+      return;
+    }
+
     axios // signup 링크
       .post("/api/member/join", {
         email: email,
@@ -79,6 +92,13 @@ const SignupForm = () => {
               <span>Password</span>
               <StyledInput type="password" value={pw} onChange={onChangePw} />
             </StyledDiv>
+            {error && (
+              <div
+                style={{ marginTop: "2px", color: "red", fontSize: "small" }}
+              >
+                {error}
+              </div>
+            )}
             <StyledDiv2>
               <StyledP>Repeat</StyledP>
               <span>Password</span>
