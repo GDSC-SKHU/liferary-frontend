@@ -62,8 +62,6 @@ const CardItem = styled.div`
 
   width: 18vw;
   height: 100%;
-
-  pointer-events: none;
 `;
 
 const CardImage = styled(Image)`
